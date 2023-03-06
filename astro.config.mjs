@@ -10,10 +10,17 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-  // Enable Preact to support Preact JSX components.
-  preact(),
-  // Enable React for the Algolia search component.
-  react(), tailwind(), mdx()],
-  site: `https://astro.build`
+    vite: {
+        server: {
+            watch: {
+                usePolling: true
+            }
+        }
+    },
+    integrations: [
+        // Enable Preact to support Preact JSX components.
+        preact(),
+        // Enable React for the Algolia search component.
+        react(), tailwind(), mdx()],
+    site: `https://astro.build`
 });
