@@ -1,4 +1,6 @@
 import { defineConfig } from 'astro/config';
+// https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import preact from '@astrojs/preact';
 import react from '@astrojs/react';
 
@@ -22,5 +24,9 @@ export default defineConfig({
         preact(),
         // Enable React for the Algolia search component.
         react(), tailwind(), mdx()],
-    site: `https://astro.build`
+    site: `https://robotics.harleylara.com`,
+    markdown: {
+        // Applied to .md and .mdx files
+        rehypePlugins: [[rehypeAutolinkHeadings, { behavior: 'append' }]]
+    },
 });

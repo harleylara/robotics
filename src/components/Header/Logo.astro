@@ -1,0 +1,26 @@
+---
+type Props = {
+	size: number;
+};
+const { size } = Astro.props;
+---
+
+<svg
+    class="logo"
+    width={size}
+    height={size}
+    viewBox="0 0 350 350"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <g clip-path="url(#clip0_5_46)">
+        <rect width="70" height="350" fill="white"/>
+        <rect x="193" y="280" width="70" height="70" fill="white"/>
+        <circle cx="227.5" cy="122.5" r="122.5" fill="white"/>
+    </g>
+    <defs>
+        <clipPath id="clip0_5_46">
+            <rect width="350" height="350" fill="white"/>
+        </clipPath>
+    </defs>
+</svg>

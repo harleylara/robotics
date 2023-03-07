@@ -1,0 +1,76 @@
+---
+title: "Test and template"
+---
+
+import Blockquote from '../../../components/HTML/Blockquote.astro';
+import A from '../../../components/HTML/A.astro';
+import Pre from '../../../components/HTML/Pre.astro';
+import CodeBlock from '../../../components/HTML/CodeBlock.astro';
+import InlineCode from '../../../components/HTML/InlineCode.astro';
+import Em from '../../../components/HTML/Em.astro';
+import H1 from '../../../components/HTML/H1.astro';
+import H2 from '../../../components/HTML/H2.astro';
+import H3 from '../../../components/HTML/H3.astro';
+import H4 from '../../../components/HTML/H4.astro';
+import H5 from '../../../components/HTML/H5.astro';
+import H6 from '../../../components/HTML/H6.astro';
+import Hr from '../../../components/HTML/Hr.astro';
+import Img from '../../../components/HTML/Img.astro';
+import Ul from '../../../components/HTML/Ul.astro'
+import Ol from '../../../components/HTML/Ol.astro'
+import Li from '../../../components/HTML/Li.astro'
+import Strong from '../../../components/HTML/Strong.astro'
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    inlineCode: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li
+}
+
+A collection of personal notes about robotics.
+
+## Sub Title level 2
+
+> This is a quote with a custom component
+
+Links looks like [this](www.google.com)
+
+## Hi there!
+
+This Markdown file creates a page at `your-domain.com/page-1/`
+
+It probably isn't styled much, but Markdown does support:
+- **bold** and _italics._
+- lists
+- [links](https://astro.build)
+- and more!
+
+Some `backticks` for inline.
+
+```js
+backtick.fences('for blocks')
+```
+
+A backslash\
+before a line break…
+
+![](/public/banner.png)
+
+This is just a list:
+1. slajsld
+2. askjlda
+3. flksljd

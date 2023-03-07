@@ -202,15 +202,6 @@ th {
 	text-align: left;
 }
 
-pre {
-	background-color: var(--theme-code-bg);
-	color: var(--theme-code-text);
-}
-
-blockquote code {
-	background-color: var(--theme-bg);
-}
-
 @media (min-width: 37.75em) {
 	pre {
 		--padding-inline: 1.25rem;
