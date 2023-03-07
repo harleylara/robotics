@@ -28,6 +28,13 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
 		<title>
 			{`${data.title} - ${SITE.title}`}
 		</title>
+
+        <!-- this is required to properly render math went using katex -->
+        <link 
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css"
+        />
+
 		<style>
 			body {
 				width: 100%;

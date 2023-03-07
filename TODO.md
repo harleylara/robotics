@@ -1,7 +1,11 @@
 # TODOs
 
-## Documentation
-- [ ]
+## Documentation components
+
+- [ ] sections enumations (consistent )
+    - formula and image reference
+- [ ] collect all the links in a page and put them in a Resources section
+- [ ] auto generate list of acronyms and abbreviations
 
 ## Docs components
 

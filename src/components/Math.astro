@@ -1,0 +1,11 @@
+---
+import katex from 'katex';
+export interface Props {
+  formula: string;
+}
+const { formula } = Astro.props;
+const html = katex.renderToString(formula);
+---
+<div set:html={html} class="border border-gray-200">
+</div>
+
