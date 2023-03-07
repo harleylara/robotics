@@ -1,6 +1,4 @@
 import { defineConfig } from 'astro/config';
-// https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import preact from '@astrojs/preact';
 import react from '@astrojs/react';
 
@@ -9,6 +7,11 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 import mdx from "@astrojs/mdx";
+
+// https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,6 +30,10 @@ export default defineConfig({
     site: `https://robotics.harleylara.com`,
     markdown: {
         // Applied to .md and .mdx files
-        rehypePlugins: [[rehypeAutolinkHeadings, { behavior: 'append' }]]
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [
+            [rehypeAutolinkHeadings, { behavior: 'append' }],
+            rehypeKatex
+        ]
     },
 });
