@@ -1,6 +1,27 @@
 ---
 title: "Test and template"
+description: Find out the tools integrated in this docs!
 ---
+
+## Background (TL;DR)
+
+For a long time I've watend to have a personal documentation website equipped with all sorts of tools to make the content more engaging and interactive, but without shooting myself in the foot with complicated markup languages and long editing time. So after years trying out different platforms, frameworks, libraries and markups I realize that I love the simplicity of `markdown`, but for those features it falls short in interactivity and modularity (and that's fine), but I would love to have the option of defining more dynamic content. At that point it comes into play [`MDX`](https://mdxjs.com/), as they say "Markdown for the component era".
+
+Ok, problem solved (really?). Clearly the decision to use MDX is just the tip of the iceberg, there are still other problems to deal with, such as file-based routing, multi-language support, integrations, bundling, asset handling, optimizations and more, I even considered at the time *"Should I write such a framework?"*, after a couple of days thinking about it I came across [`Astro`](https://astro.build/) (version 1.0 rc had just been pre-released - July 26 2022), it was love at first sight, I still remember the level of excitement that grew more and more as I read about its features, since then I have been experimenting with it and it is just perfect.
+
+**In a nutshell**, this site is powered by [Astro](https://astro.build/) and some amazing integrations.
+
+## Define Title
+
+To define a title use the `frontmatter` `title` to properly source it to the meta-data of the page:
+```
+---
+title: "Define you title like this"
+---
+```
+
+for more info check [Markdown and MDX](https://docs.astro.build/en/guides/markdown-content/)
+
 
 import Blockquote from '../../../components/HTML/Blockquote.astro';
 import A from '../../../components/HTML/A.astro';
@@ -21,6 +42,9 @@ import Ol from '../../../components/HTML/Ol.astro';
 import Li from '../../../components/HTML/Li.astro';
 import Strong from '../../../components/HTML/Strong.astro';
 import P from '../../../components/HTML/P.astro';
+
+import Math from '../../../components/Math.astro'
+import Canvas from '../../../components/Canvas.astro'
 
 export const components = {
     blockquote: Blockquote,
@@ -43,7 +67,6 @@ export const components = {
     li: Li
 }
 
-import Canvas from '../../../components/Canvas.astro'
 
 A collection of personal notes about robotics.
 
@@ -83,4 +106,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <Canvas/>
 
-$$f(x) = \sqrt[3]{2x} + \sqrt{x-2}$$
+This equation is on markdown (no component)
+$\sqrt{a^2 + b^2}$
+
+This other one is using components
+
+<Math formula="x + 5"/>
