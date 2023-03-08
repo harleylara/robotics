@@ -1,11 +1,26 @@
 ---
 import katex from 'katex';
 export interface Props {
-  formula: string;
+    formula: string,
+    description: string;
 }
-const { formula } = Astro.props;
+const { formula, description } = Astro.props;
 const html = katex.renderToString(formula);
 ---
-<div set:html={html} class="border border-gray-200">
+
+<div data-latex={formula} id="math" class="math relative flex flex-col border-[0.3px] border-dark-100 py-4">
+    <p set:html={html}></p>
+    <em class="pt-4">Figure X.X: {description}</em>
+    <button id="test-latex" class="absolute top-2 right-2">Copy LaTeX</button>
 </div>
 
+<script>
+// import katex from 'katex';
+const btn = document.querySelector("#test-latex");
+const math = document.querySelector("#math");
+
+btn.addEventListener('click', () => {
+    navigator.clipboard.writeText(math.dataset.latex);
+    console.log(math.dataset.latex);
+});
+</script>

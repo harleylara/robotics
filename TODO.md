@@ -2,8 +2,14 @@
 
 ## Documentation components
 
-- [ ] sections enumations (consistent )
-    - formula and image reference
+- Figures
+    - [ ] Description
+    - [ ] Numbering
+- Equations
+    - [x] Support to copy Latex
+    - [x] Description
+    - [ ] Numbering
+- Tables
 - [ ] collect all the links in a page and put them in a Resources section
 - [ ] auto generate list of acronyms and abbreviations
 
