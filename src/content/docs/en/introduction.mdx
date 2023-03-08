@@ -72,7 +72,7 @@ A collection of personal notes about robotics.
 
 ## Sub Title level 2
 
-> This is a quote with a custom component
+> "This is a quote with a custom component"
 
 Links looks like [this](www.google.com)
 
@@ -106,9 +106,24 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <Canvas/>
 
-This equation is on markdown (no component)
-$\sqrt{a^2 + b^2}$
+## Mathematical Equations
 
-This other one is using components
+You can define `inline` math equation by using dolar sign `$`. E.g. `$2+2$` when is render looks like this $2+2$.
 
-<Math formula="x + 5"/>
+Markdown latex is also supported (but not recommended):
+$$
+f(x) = x + a
+$$
+
+The recommended way is using the `Math` component:
+```
+<Math 
+    formula="f(x) = \sqrt{x^2 + y^2}" 
+    description="Just a description"
+/>
+```
+
+<Math 
+    formula="f(x) = \sqrt{x^2 + y^2}" 
+    description="Just a description"
+/>
