@@ -10,7 +10,7 @@ const html = katex.renderToString(formula);
 
 <div data-latex={formula} id="math" class="math relative flex flex-col border-[0.3px] border-dark-100 py-4">
     <p set:html={html}></p>
-    <em class="pt-4">Figure X.X: {description}</em>
+    <em class="pt-4">Equation X.X: {description}</em>
     <button id="test-latex" class="absolute top-2 right-2">Copy LaTeX</button>
 </div>
 

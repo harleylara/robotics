@@ -43,8 +43,9 @@ import Li from '../../../components/HTML/Li.astro';
 import Strong from '../../../components/HTML/Strong.astro';
 import P from '../../../components/HTML/P.astro';
 
-import Math from '../../../components/Math.astro'
-import Canvas from '../../../components/Canvas.astro'
+import Math from '../../../components/Math.astro';
+import Figure from '../../../components/Figure.astro';
+import Canvas from '../../../components/Canvas.astro';
 
 export const components = {
     blockquote: Blockquote,
@@ -95,7 +96,21 @@ backtick.fences('for blocks')
 A backslash\
 before a line break…
 
-![](/public/banner.png)
+![](/banner.png)
+
+Using `Figure` component:
+
+```
+<Figure
+    src="/banner.png"
+    description="Figure description here"
+/>
+```
+
+<Figure
+    src="/banner.png"
+    description="Figure description here"
+/>
 
 This is just a list:
 1. slajsld
