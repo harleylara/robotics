@@ -17,12 +17,12 @@ const lang = getLanguageFromURL(currentPage);
 
 <header>
 	<SkipToContent />
-	<nav class="flex items-center justify-between" title="Top Navigation">
+	<nav class="flex items-center justify-between mx-8" title="Top Navigation">
 		<div class="hidden menu-toggle">
 			<SidebarToggle client:idle />
 		</div>
 		<div class="logo flex">
-			<a href="/" class="flex items-center my-4 ml-4">
+			<a href="/" class="flex items-center">
 				<Logo size={40} />
 				<h2 class="text-white font-thin text-2xl pl-4">{SITE.title ?? 'Documentation'}</h1>
 			</a>
