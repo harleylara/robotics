@@ -49,3 +49,60 @@ export const SIDEBAR: Sidebar = {
         ]
 	},
 };
+
+export const NOTATION: any = {
+    "\\bm": "\\boldsymbol{#1}",
+
+    // Vectors
+    "\\vzero": "\\bm{0}",
+    "\\vone": "\\bm{1}",
+    "\\vmu": "\\bm{\\mu}",
+    "\\vtheta": "\\bm{\\theta}",
+    // general vector definition
+    "\\v": "\\bm{#1}",
+
+    // Element of a vector
+    "\\evalpha": "\\alpha",
+    "\\evbeta": "\\beta",
+    "\\evepsilon": "\\epsilon",
+    "\\evlambda": "\\lambda",
+    "\\evomega": "\\omega",
+    "\\evmu": "\\mu",
+    "\\evpsi": "\\evpi",
+    "\\evsigma": "\\sigma",
+    "\\evtheta": "\\theta",
+    "\\eva": "a",
+    "\\evb": "b",
+    "\\evc": "c",
+    "\\evd": "d",
+    "\\eve": "e",
+    "\\evf": "f",
+    "\\evg": "g",
+    "\\evh": "h",
+    "\\evi": "i",
+    "\\evj": "j",
+    "\\evk": "k",
+    "\\evl": "l",
+    "\\evm": "m",
+    "\\evn": "n",
+    "\\evo": "o",
+    "\\evp": "p",
+    "\\evq": "q",
+    "\\evr": "r",
+    "\\evs": "s",
+    "\\evt": "t",
+    "\\evu": "u",
+    "\\evv": "v",
+    "\\evw": "w",
+    "\\evx": "x",
+    "\\evy": "y",
+    "\\evz": "z",
+
+    // Matrix
+    "\\mBeta": "\\bm{\\Beta}",
+    "\\mPhi": "\\bm{\\Phi}",
+    "\\mLambda": "\\bm{\\Lambda}",
+    "\\mSigma": "\\bm{\\Sigma}",
+    // general matrix definition
+    "\\m": "\\bm{#1}"
+}
