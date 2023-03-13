@@ -158,6 +158,27 @@ Numbers and Arrays
 console.log(1)
 ```
 
+## Embedding Diagrams
+
+To create diagram I like to use [Drawio](https://www.draw.io/). The problem I have always faced is having to export the diagram after making changes and making sure to use the same name and put it in the same folder to overwrite the previus one, and I know, it sounds simple but it gets tedious, for that reason I created the `Drawio` component for embedding the diagram `file` directly into the notes (no more annoying export).
+
+When many diagrams are produced the way I always organize them in a Drawio file `.drawio` containing "pages" in it, and each page is a different diagram.
+
+IMPORTANT: All diagrams should be placed in the `resources` folder.
+
+```
 <Drawio 
     file="test.drawio"
+    page="1"
+/>
+```
+
+<Drawio 
+    file="test.drawio"
+    page="1"
+/>
+
+<Drawio 
+    file="test.drawio"
+    page="2"
 />

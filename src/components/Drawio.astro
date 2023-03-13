@@ -2,18 +2,25 @@
 import fs from 'node:fs/promises';
 import { XMLParser } from 'fast-xml-parser';
 
-const {file} = Astro.props;
+const {file,page="1"} = Astro.props;
 
 const url = new URL(`../resources/${file}`, import.meta.url);
 const xmlFile = await fs.readFile(url, 'utf-8');
 
 const parser = new XMLParser();
-const diagram = parser.parse(xmlFile).mxfile.diagram;
+// console.log(parser.parse(xmlFile));
+const diagram = parser.parse(xmlFile).mxfile.diagram[parseInt(page)-1];
+console.log(diagram);
 
 const src = `https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=test.drawio#R${encodeURIComponent(diagram)}`
-console.log("HERE:" + encodeURIComponent(diagram));
+console.log("ENCODED diagram:" + encodeURIComponent(diagram));
+console.log("FULL URL: " + src);
 
+/* 
+Just for documentation
+drawio diagram viewer: https://github.com/jgraph/drawio-tools/blob/master/tools/viewer.html
+*/
 ---
-<div>
-    <iframe frameborder="0" style="width:100%;height:200px;" src={src}></iframe>-->
+<div class="border w-full my-4">
+    <iframe style="width:100%;height:380px;" src={src}></iframe>
 </div>
