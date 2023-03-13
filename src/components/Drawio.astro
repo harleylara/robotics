@@ -2,7 +2,11 @@
 import fs from 'node:fs/promises';
 import { XMLParser } from 'fast-xml-parser';
 
-const {file,page="1"} = Astro.props;
+const {
+    file,
+    page="1",
+    description
+} = Astro.props;
 
 const url = new URL(`../resources/${file}`, import.meta.url);
 const xmlFile = await fs.readFile(url, 'utf-8');
@@ -21,6 +25,7 @@ Just for documentation
 drawio diagram viewer: https://github.com/jgraph/drawio-tools/blob/master/tools/viewer.html
 */
 ---
-<div class="border w-full my-4">
+<div class="flex flex-col items-center border-[0.3px] border-dark-100 my-4 w-full">
     <iframe style="width:100%;height:380px;" src={src}></iframe>
+    <em class="py-4">Figure X.X: {description}</em>
 </div>
