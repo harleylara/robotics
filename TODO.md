@@ -2,9 +2,17 @@
 
 ## Documentation components
 
-- Figures
-    - [ ] 3D component (threejs)
-    - [ ] Description
+- Figures 3D (threejs)
+    - [x] Description
+    - [ ] Full screen view
+    - [ ] Numbering
+- Figures 2D (drawio)
+    - [x] Description
+    - [ ] full screen view
+    - [ ] Numbering
+- Figures (raster or svg)
+    - [x] Description
+    - [ ] Full screen view
     - [ ] Numbering
 - Equations
     - [x] Support to copy Latex
@@ -12,7 +20,7 @@
     - [ ] Numbering
 - Tables
 - Reference section
-    - [ ] Notation
+    - [x] Notation
     - [ ] Examples
 - [ ] collect all the links in a page and put them in a Resources section
 - [ ] auto generate list of acronyms and abbreviations
