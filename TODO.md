@@ -4,19 +4,20 @@
 
 - Figures 3D (threejs)
     - [x] Description
-    - [ ] Full screen view
+    - [ ] Full screen view (modal)
     - [ ] Numbering
 - Figures 2D (drawio)
     - [x] Description
-    - [ ] full screen view
+    - [ ] full screen view (modal)
     - [ ] Numbering
 - Figures (raster or svg)
     - [x] Description
-    - [ ] Full screen view
+    - [ ] Full screen view (modal)
     - [ ] Numbering
 - Equations
     - [x] Support to copy Latex
     - [x] Description
+    - [ ] Full screen view (modal) ???
     - [ ] Numbering
 - Tables
 - Reference section
