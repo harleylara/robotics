@@ -1,5 +1,9 @@
-<div class="flex flex-col border-[0.3px] border-dark-100 py-4">
+---
+const {description} = Astro.props;
+---
+<div class="flex flex-col items-center border-[0.3px] border-dark-100 my-4">
     <canvas id="viewport" class="flex justify-center w-96"></canvas>
+    <em class="py-4">Figure X.X: {description}</em>
 </div>
 
 <script>
