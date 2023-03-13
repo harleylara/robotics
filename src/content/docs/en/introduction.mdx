@@ -46,6 +46,7 @@ import P from '../../../components/HTML/P.astro';
 import Math from '../../../components/Math.astro';
 import Figure from '../../../components/Figure.astro';
 import Canvas from '../../../components/Canvas.astro';
+import Drawio from '../../../components/Drawio.astro';
 
 export const components = {
     blockquote: Blockquote,
@@ -143,10 +144,20 @@ The recommended way is using the `Math` component:
     description="Just a description"
 />
 
-All the custom macros apply for inline LaTeX $\evg$.
+All the custom macros apply for inline LaTeX $\m{A}$.
+
+Numbers and Arrays
+- Scalar: $a$ (integer or real)
+- Vector: $\va$
+- Matrix: $\mA$
+- Tensor $\tA$
 
 ## Code Blocks
 
 ```js filename="index.js"
 console.log(1)
 ```
+
+<Drawio 
+    file="test.drawio"
+/>
