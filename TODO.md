@@ -3,6 +3,7 @@
 ## Documentation components
 
 - Figures
+    - [ ] 3D component (threejs)
     - [ ] Description
     - [ ] Numbering
 - Equations
@@ -10,6 +11,9 @@
     - [x] Description
     - [ ] Numbering
 - Tables
+- Reference section
+    - [ ] Notation
+    - [ ] Examples
 - [ ] collect all the links in a page and put them in a Resources section
 - [ ] auto generate list of acronyms and abbreviations
 
