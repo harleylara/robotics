@@ -1,5 +1,8 @@
 ---
-const { src, description } = Astro.props;
+const {
+    src, 
+    description="Please insert the description of this image"
+} = Astro.props;
 ---
 
 <div class="flex flex-col items-center border-[0.3px] border-dark-100 my-4">

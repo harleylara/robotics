@@ -1,5 +1,5 @@
 ---
-const {description} = Astro.props;
+const {description="Please insert the description of this figure"} = Astro.props;
 ---
 <div class="flex flex-col items-center border-[0.3px] border-dark-100 my-4">
     <canvas id="viewport" class="flex justify-center w-96"></canvas>

@@ -4,10 +4,13 @@ import {NOTATION} from '../consts';
 
 export interface Props {
     formula: string,
-    description: string;
+    description: string
 }
 
-const { formula, description } = Astro.props;
+const {
+    formula, 
+    description="Please insert the description of this equation"
+} = Astro.props;
 
 const html = katex.renderToString(formula, {
     macros: NOTATION

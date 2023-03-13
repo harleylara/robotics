@@ -5,7 +5,7 @@ import { XMLParser } from 'fast-xml-parser';
 const {
     file,
     page="1",
-    description
+    description="Please insert the description of this diagram"
 } = Astro.props;
 
 const url = new URL(`../resources/${file}`, import.meta.url);
