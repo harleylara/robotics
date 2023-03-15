@@ -15,11 +15,12 @@ const {
 const html = katex.renderToString(formula, {
     macros: NOTATION
 });
+
 ---
 
 <div data-latex={formula} id="math" class="math relative flex flex-col items-center border-[0.3px] border-dark-100 my-4">
     <p set:html={html} class="pt-4"></p>
-    <em class="py-4">Equation X.X: {description}</em>
+    <p>Equation X.X: {description}</p>
     <!-- The button is disable because most of the latex are custom commands -->
     <button id="test-latex" class="hidden absolute top-2 right-2">Copy LaTeX</button>
 </div>
