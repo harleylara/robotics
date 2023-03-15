@@ -49,6 +49,7 @@ export const SIDEBAR: Sidebar = {
             { text: 'ROS Intro', link: 'en/ros-intro'}
         ],
         'Foundamentals': [
+            { text: 'Linear Algebra', link: 'en/fnd-linear-algebra'},
             { text: 'Geometry', link: 'en/fnd-geometry'}
         ]
 	},
