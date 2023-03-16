@@ -1,37 +1,20 @@
 ---
 import katex from 'katex';
 import {NOTATION} from '../../consts';
-import {unified} from 'unified';
-import remarkParse from 'remark-parse';
-import remarkMath from 'remark-math';
-import remarkRehype from 'remark-rehype';
-import rehypeKatex from 'rehype-katex';
-import rehypeStringify from 'rehype-stringify';
+import { markToHtml, latexToHtml } from '../../tools/helper.parser.js'
 
 export interface Props {
-    formula: string,
-    description: string
+    formula: string, // EXPECT ONLY LaTeX
+    description: string // ALLOWS markdown with `inline` LaTeX
 }
 
 const {
     formula, 
-    description="Please insert the description of this equation"
+    description="This **description** support *markdown* and `inline` $LaTeX$"
 } = Astro.props;
 
-const html = katex.renderToString(formula, {
-    macros: NOTATION
-});
-
-let caption = unified()
-    .use(remarkParse)
-    .use(remarkMath)
-    .use(remarkRehype)
-    .use(rehypeKatex, {
-        macros: NOTATION
-    })
-    .use(rehypeStringify)
-    .process(description)
-
+const html = latexToHtml(formula);
+const caption = markToHtml(description);
 ---
 
 <div data-latex={formula} id="math" class="math relative flex flex-col items-center border-[0.3px] border-dark-100 my-4">
