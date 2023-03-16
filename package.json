@@ -32,6 +32,7 @@
     "rehype-katex": "^6.0.2",
     "rehype-remark": "^9.1.2",
     "rehype-slug": "^5.1.0",
+    "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
     "remark-parse": "^10.0.1",
     "remark-stringify": "^10.0.2",

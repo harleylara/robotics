@@ -12,6 +12,7 @@ import mdx from "@astrojs/mdx";
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';
 
 import {NOTATION} from './src/consts';
 
@@ -66,7 +67,10 @@ export default defineConfig({
     site: `https://robotics.harleylara.com`,
     markdown: {
         // Applied to .md and .mdx files
-        remarkPlugins: [remarkMath],
+        remarkPlugins: [
+            remarkMath,
+            remarkGfm
+        ],
         rehypePlugins: [
             [rehypeAutolinkHeadings, { 
                 behavior: 'append'
