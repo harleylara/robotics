@@ -34,6 +34,7 @@ export type Sidebar = Record<
 	(typeof KNOWN_LANGUAGE_CODES)[number],
 	Record<string, { text: string; link: string }[]>
 >;
+
 export const SIDEBAR: Sidebar = {
 	en: {
 		'Section Header': [
@@ -55,6 +56,11 @@ export const SIDEBAR: Sidebar = {
 	},
 };
 
+
+// This portion here contain global definition
+// for LaTex. provides consistent notation 
+// throughout all pages, components and libraries 
+// used in this documentation
 export const NOTATION: any = {
     "\\bm": "\\boldsymbol{#1}",
 
