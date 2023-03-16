@@ -11,3 +11,17 @@ Features:
 - Sidebar navigation
 - Automatic table of content
 - Tailwing styling
+
+## Global Available Components
+
+- `Equation`: Used to produced LaTeX based equations
+- `Drawio`: Render a Drawio diagram file.
+- `Figure`: Render a png, jpeg image.
+
+## Others (Not Global) Components
+
+This type of component needs to be imported into the file in wich you want to use it. They are intended for specific used cases.
+
+Examples of these components are:
+- `Canvas` (threejs): Example of a Threejs component for 3D rendering.
+- `JSXGraph` (JSXGraph): Example of JSXGraph, a library for interactive geometry, function plotting, charting, and data visualization.
