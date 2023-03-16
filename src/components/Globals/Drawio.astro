@@ -13,7 +13,7 @@ const {
     description="Please insert the description of this diagram"
 } = Astro.props;
 
-const url = new URL(`../resources/${file}`, import.meta.url);
+const url = new URL(`../../resources/${file}`, import.meta.url);
 const xmlFile = await fs.readFile(url, 'utf-8');
 
 const parser = new XMLParser();
