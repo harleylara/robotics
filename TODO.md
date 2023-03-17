@@ -10,6 +10,8 @@
     - [x] Description
     - [ ] full screen view (modal)
     - [ ] Numbering
+- Figures Interactive (JSXGraph)
+    - [x] Description with markdown and latex support
 - Figures (raster or svg)
     - [x] Description
     - [ ] Full screen view (modal)
@@ -19,6 +21,10 @@
     - [x] Description
     - [ ] Full screen view (modal) ???
     - [ ] Numbering
+- Code blocks
+    - [ ] highlight
+    - [ ] file name
+    - [ ] deletion and insertion line references
 - Tables
 - Reference section
     - [x] Notation
