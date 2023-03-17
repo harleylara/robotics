@@ -98,7 +98,7 @@ let text = board.create('text',
     [-4,6,
   function() { 
 
-    return `\\vv = ${a.Value().toFixed(2)} \\begin{bmatrix} ${p1.X().toFixed(2)} \\newline ${p1.Y().toFixed(2)} \\end{bmatrix} = 
+    return `\\vv = ${a.Value().toFixed(2)} \\cdot \\begin{bmatrix} ${p1.X().toFixed(2)} \\newline ${p1.Y().toFixed(2)} \\end{bmatrix} = 
     \\begin{bmatrix} ${(a.Value()*p1.X()).toFixed(2)} \\newline ${(a.Value()*p1.Y()).toFixed(2)} \\end{bmatrix}`;
   }],{
         parse: true
