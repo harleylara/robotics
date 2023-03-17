@@ -15,8 +15,12 @@ Features:
 ## Global Available Components
 
 - `Equation`: Used to produced LaTeX based equations
+    - `formula`: Only support LaTeX text (without $$)
+    - `description`: Support markdown and `inline` LaTeX.
 - `Drawio`: Render a Drawio diagram file.
-- `Figure`: Render a png, jpeg image.
+    - `description`: Support markdown and `inline` LaTeX.
+- `Image`: Render a png, jpeg image.
+    - `description`: Support markdown and `inline` LaTeX.
 
 ## Others (Not Global) Components
 

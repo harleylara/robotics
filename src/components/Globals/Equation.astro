@@ -19,7 +19,7 @@ const caption = markToHtml(description);
 
 <div data-latex={formula} id="math" class="math relative flex flex-col items-center border-[0.3px] border-dark-100 my-4">
     <p set:html={html} class="pt-4"></p>
-    <div set:html={caption} class="py-4"></div>
+    <div set:html={caption} class="py-4 px-4"></div>
     <!-- The button is disable because most of the latex are custom commands -->
     <button id="test-latex" class="hidden absolute top-2 right-2">Copy LaTeX</button>
 </div>
