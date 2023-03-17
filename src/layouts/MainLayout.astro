@@ -19,6 +19,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentPage = Astro.url.pathname;
 const currentFile = `src/content/docs${currentPage.replace(/\/$/, '')}.md`;
 const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
+
 ---
 
 <html dir={data.dir} lang={data.lang} class="initial">
@@ -39,7 +40,7 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
 	<body class="bg-primary-dark font-roboto text-base text-white leading-relaxed">
 		<Header currentPage={currentPage} />
 		<main class="flex items-start justify-between">
-			<aside class="" title="Site Navigation">
+			<aside class="p-4 w-72 bg-dark-50" title="Site Navigation">
 				<LeftSidebar currentPage={currentPage} />
 			</aside>
 			<div id="grid-main" class="w-[700px]">
@@ -47,7 +48,7 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
 					<slot />
 				</PageContent>
 			</div>
-			<aside class="" title="Table of Contents">
+			<aside class="flex flex-col sticky top-0 p-4 bg-dark-50" title="Table of Contents">
 				<RightSidebar headings={headings} githubEditUrl={githubEditUrl} />
 			</aside>
 		</main>
