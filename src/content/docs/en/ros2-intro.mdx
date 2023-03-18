@@ -1,0 +1,110 @@
+---
+title: "ROS 2"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+If you are wondering:
+
+> Do I need to learn to ROS 1 to be able to learn ROS 2 (or vice versa), the answer is NO. (what? you expected a more elaborated answer?... I'm to lazy to write it down)
+
+## Communication Paradigms
+
+- Publication/Subscription (asynchronous)
+- Services (synchronous)
+- Actions (asynchronous)
+
+## Execution Model
+
+- Iterartive execution
+- Event-oriented execution
+
+## Names in ROS 2
+
+Names can be:
+- relative path
+- absolute path (begins with `\`)
+- privately (begins with `~`)
+- namespace
+
+External resources:
+- [ROS 1 Names](http://wiki.ros.org/Names)
+- [ROS 2 Topic and Service name mapping to DDS](https://design.ros2.org/articles/topic_and_service_names.html)
+- [ROS conventions](http://wiki.ros.org/ROS/Patterns/Conventions)
+
+### The Workspace
+
+The workspace contains:
+- Packages
+    - Executables
+    - Libraries
+    - Message definitions
+- Meta-Packages: a package containing other packages
+    - [Metapackages ROS 1](http://wiki.ros.org/Metapackages)
+
+Workspace activation is accumulative.
+
+### Packages
+
+They can be installed from source or with the system instalation system.
+
+```
+ros-<distro>-<ros-2-package-name>
+```
+
+### Building a Workspace
+
+```
+colcon build --symlink-install
+```
+
+The option `--symlink-install` creates a symlink to their original locations instead of copying.
+
+This will create a three folders:
+- `build`
+- `install`
+- `log`
+
+`colcon` (collective construction)
+
+External resources:
+- [A universal build tool](https://design.ros2.org/articles/build_tool.html)
+
+## ROS 2 - CLI
+
+```
+ros2 <command> <verb> [<params>|<options>]*
+```
+
+To get a list of available packages:
+```
+ros2 pkg list
+```
+
+External resources:
+- [ROS 2 CLI cheatsheet](https://github.com/ubuntu-robotics/ros2_cheats_sheet/blob/master/cli/cli_cheats_sheet.pdf)
+
+To run a node:
+```
+ros2 run <package-name> <node-name>
+```
