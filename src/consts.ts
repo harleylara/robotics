@@ -42,17 +42,21 @@ export const SIDEBAR: Sidebar = {
 			{ text: 'Page 2', link: 'en/page-2' },
 			{ text: 'Page 3', link: 'en/page-3' },
 		],
-		'Reference': [
-            { text: 'Styling', link: 'en/ref' },
-            { text: 'Notation', link: 'en/ref-notation' }
+        'Programming': [
+            { text: 'Cpp Intro', link: 'en/cpp'}
         ],
         'ROS': [
-            { text: 'ROS Intro', link: 'en/ros-intro'}
+            { text: 'ROS Intro', link: 'en/ros-intro'},
+            { text: 'ROS 2 Intro', link: 'en/ros2-intro'}
         ],
         'Foundamentals': [
             { text: 'Linear Algebra', link: 'en/fnd-linear-algebra'},
-            { text: 'Geometry', link: 'en/fnd-geometry'}
-        ]
+            { text: 'Geometry', link: 'en/fnd-geometry'},
+        ],
+        'Reference': [
+            { text: 'Styling', link: 'en/ref' },
+            { text: 'Notation', link: 'en/ref-notation' }
+        ],
 	},
 };
 

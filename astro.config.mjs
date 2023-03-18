@@ -69,7 +69,7 @@ export default defineConfig({
         // Applied to .md and .mdx files
         remarkPlugins: [
             remarkMath,
-            remarkGfm
+            remarkGfm,
         ],
         rehypePlugins: [
             [rehypeAutolinkHeadings, { 
