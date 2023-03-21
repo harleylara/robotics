@@ -1,6 +1,9 @@
-// This file contains me global definitions
-// for customize JSXGraph
-import JXG from 'https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.mjs';
+// This file contains me global definitions for customize JSXGraph
+// import JXG from 'https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.mjs';
+
+// USING a patch version of jsxgraph to support katex macros
+import JXG from './jsxgraphcore.mjs';
+import { NOTATION } from '../consts.ts';
 
 // colors definitions
 let dark100 = "#333333";
@@ -15,6 +18,7 @@ let highlightColor = dark600;
 let baseColor = white;
 
 JXG.Options.text.useKatex = true;
+JXG.Options.text.katexMacros = NOTATION;
 
 JXG.Options.axis.strokeColor = baseColor;
 JXG.Options.axis.ticks.strokeColor = baseColor;
