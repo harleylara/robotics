@@ -102,7 +102,7 @@ let lineRef = board.create('line',
 let description = board.create('text',
     [-4,6,
     function() { 
-        return `\\begin{bmatrix} ${vectorC.X().toFixed(2)} \\newline ${vectorC.Y().toFixed(2)} \\end{bmatrix} + ` +
+        return `\\vc + \\vd = \\begin{bmatrix} ${vectorC.X().toFixed(2)} \\newline ${vectorC.Y().toFixed(2)} \\end{bmatrix} + ` +
         `\\begin{bmatrix} ${vectorD.X().toFixed(2)} \\newline ${vectorD.Y().toFixed(2)} \\end{bmatrix} = ` +
         `\\begin{bmatrix} ${resultVector.X().toFixed(2)} \\newline ${resultVector.Y().toFixed(2)} \\end{bmatrix}`;
     }]

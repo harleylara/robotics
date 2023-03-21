@@ -3,11 +3,10 @@ title: "Recap Linear Algebra"
 ---
 
 import ScalarMult from "../../../components/LinearAlgebra/ScalarMult.astro";
-import VectorMult from "../../../components/LinearAlgebra/VectorMult.astro";
+import AddVector from "../../../components/LinearAlgebra/AddVector.astro";
 import VectorLength from "../../../components/LinearAlgebra/VectorLength.astro"
 import UnitVector from "../../../components/LinearAlgebra/UnitVector.astro"
 import DotProduct from "../../../components/LinearAlgebra/DotProduct.astro"
-import CrossProduct from "../../../components/LinearAlgebra/CrossProduct.astro"
 
 export const components = {
     blockquote: Blockquote,
@@ -62,7 +61,7 @@ Operations on vectors:
     description="Addition and Subtraction of vectors."
 />
 
-<VectorMult
+<AddVector
     description="Interaction between vectors addition"
 />
 
@@ -121,4 +120,37 @@ $$
     description="where: - $\theta$ is the angle between $\va$ and $\vb$ in the plane containing them $\Vert \va \Vert$ and $\Vert \vb \Vert$ are the magnitudes of vectors $\va$ and $\vb$ and $\uvn$ is a unit vector perpendicular to the plane containing $\va$ and $\vb$, with direction such that the ordered set ($\va$, $\vb$, $\uvn$) is positively-oriented."
 />
 
-## Matrix
+## Matrices
+
+Rectangular array of numbers
+
+$$
+\mX = \begin{pmatrix}
+x_{11} && x_{12} && \cdots && x_{1m} \\
+x_{21} && x_{22} && \cdots && x_{2m} \\
+\vdots && \vdots && \ddots && \vdots \\
+x_{n1} && x_{n2} && \cdots && x_{nm} \\
+\end{pmatrix} \in \sR^{n \times m}
+$$
+
+note:
+- First index refers to row
+- Second index refers to column
+
+### Types of Matrices
+
+- Square matrix
+- Diagonal matrix
+- Identity matrix $\mI$ or $\mI_n$
+- Upper and lower triangular matrix
+- Symmetric matrix $\mX = \mX^\transpose$
+- Skew-symmetric matrix $\mX = -\mX^\transpose$
+- Positive (Semi) definite matrix $\va^\transpose \mX \va \geq 0$
+- Orthogonal matrix $\mX^\transpose = \mX^{-1}$
+
+### Operations on Matrices
+
+- Matrix-vector multiplication $\mM \vx$
+- Matrix-matrix multiplication $\mM_1 \mM_2$
+- Inverse $\mM^{-1}$
+- Transpose $\mM^\transpose$

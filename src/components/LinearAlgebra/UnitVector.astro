@@ -57,5 +57,16 @@ var unitCircle = board.create('circle',
     }
 );
 
+let equation = board.create('text',
+    [-4.5,1.5,
+    function(){
+            return `\\uvx = \\frac{\\vx}{\\Vert \\vx \\Vert_2} = ` +
+                `\\frac{ \\begin{bmatrix} ${p1.X().toFixed(2)} \\newline ${p1.Y().toFixed(2)} \\end{bmatrix}}{${l1.L().toFixed(2)}}` + 
+                `= \\begin{bmatrix} ${p2.X().toFixed(2)} \\newline ${p2.Y().toFixed(2)} \\end{bmatrix}`;
+        }
+],{
+        fontSize: 16
+});
+
 
 </script>

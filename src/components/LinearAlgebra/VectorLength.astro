@@ -52,5 +52,15 @@ function(){return p1.X();},0],p1],{straightFirst:false, straightLast:false, stro
 let y = board.create('line',[[0,
 function(){return p1.Y();}],p1],{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
 
+let equation = board.create('text',
+    [-4,6,
+    function(){
+        return `\\Vert \\vx \\Vert_2 = \\sqrt{${p1.X().toFixed(2)}^2 + ${p1.Y().toFixed(2)}^2} = ${l1.L().toFixed(2)}`
+    }],
+    {
+        fontSize: 14
+    }
+);
+
 
 </script>
