@@ -4,8 +4,6 @@ import JSXGraph from "../Figures/JSXGraph.astro";
 
 const {description="Please insert the description of this figure"} = Astro.props;
 ---
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
 
 <JSXGraph description={description}>
     <div id="box1" class="jsxbox" style="width: 100%; height: 480px;">
@@ -14,7 +12,6 @@ const {description="Please insert the description of this figure"} = Astro.props
 
 <script>
 // IMPORTANT: import JSXGraph
-import { NOTATION } from '../../consts.js';
 import JXG from '../../tools/jsxgraph.init.js'
 // import katex from 'katex';
 // import { NOTATION } from '../../consts.js';
@@ -61,7 +58,9 @@ let btnHide = board.create('button', [-4, -3, 'Hide vector', function() {
     }
 	btnHide.rendNodeButton.
         innerHTML = txt;
- }]);
+ }], {
+        useKatex: false
+    });
 
 
 let p1 = board.create('point',
@@ -100,9 +99,7 @@ let text = board.create('text',
 
     return `\\vv = ${a.Value().toFixed(2)} \\cdot \\begin{bmatrix} ${p1.X().toFixed(2)} \\newline ${p1.Y().toFixed(2)} \\end{bmatrix} = 
     \\begin{bmatrix} ${(a.Value()*p1.X()).toFixed(2)} \\newline ${(a.Value()*p1.Y()).toFixed(2)} \\end{bmatrix}`;
-  }],{
-        parse: true
-    }
+  }]
 );
 
 let segmentX = board.create(
