@@ -66,7 +66,12 @@ export const SIDEBAR: Sidebar = {
 // throughout all pages, components and libraries 
 // used in this documentation
 export const NOTATION: any = {
+
+    // general definition for boldsymbol
     "\\bm": "\\boldsymbol{#1}",
+
+    // Transpose
+    "\\transpose": "\\mathsf{T}",
 
     // Vectors
     "\\vzero": "\\bm{0}",
