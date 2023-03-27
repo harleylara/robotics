@@ -1,21 +1,21 @@
 export const SITE = {
-	title: 'Robotics Notes',
-	description: 'A collection of my personal notes.',
-	defaultLanguage: 'en-us',
+    title: 'Robotics Notes',
+    description: 'A collection of my personal notes.',
+    defaultLanguage: 'en-us',
 } as const;
 
 export const OPEN_GRAPH = {
-	image: {
-		src: '../public/banner.png',
-		alt:
-			'a simple logo, the logo is composed of three figures,' +
+    image: {
+        src: '../public/banner.png',
+        alt:
+            'a simple logo, the logo is composed of three figures,' +
             ' on the left a vertical rectangle, in the center a circle and a square below it.'
-	},
-	twitter: 'harleylara_',
+    },
+    twitter: 'harleylara_',
 };
 
 export const KNOWN_LANGUAGES = {
-	English: 'en',
+    English: 'en',
 } as const;
 export const KNOWN_LANGUAGE_CODES = Object.values(KNOWN_LANGUAGES);
 
@@ -25,39 +25,42 @@ export const COMMUNITY_INVITE_URL = `https://harleylara.com`;
 
 // See "Algolia" section of the README for more information.
 export const ALGOLIA = {
-	indexName: 'XXXXXXXXXX',
-	appId: 'XXXXXXXXXX',
-	apiKey: 'XXXXXXXXXX',
+    indexName: 'XXXXXXXXXX',
+    appId: 'XXXXXXXXXX',
+    apiKey: 'XXXXXXXXXX',
 };
 
 export type Sidebar = Record<
-	(typeof KNOWN_LANGUAGE_CODES)[number],
-	Record<string, { text: string; link: string }[]>
+    (typeof KNOWN_LANGUAGE_CODES)[number],
+    Record<string, { text: string; link: string }[]>
 >;
 
 export const SIDEBAR: Sidebar = {
-	en: {
-		'Section Header': [
-			{ text: 'Introduction', link: 'en/introduction' },
-			{ text: 'Page 2', link: 'en/page-2' },
-			{ text: 'Page 3', link: 'en/page-3' },
-		],
+    en: {
+        'Section Header': [
+            { text: 'Introduction', link: 'en/introduction' },
+            { text: 'Page 2', link: 'en/page-2' },
+            { text: 'Page 3', link: 'en/page-3' },
+        ],
         'Programming': [
-            { text: 'Cpp Intro', link: 'en/cpp'}
+            { text: 'Cpp Intro', link: 'en/cpp' }
         ],
         'ROS': [
-            { text: 'ROS Intro', link: 'en/ros-intro'},
-            { text: 'ROS 2 Intro', link: 'en/ros2-intro'}
+            { text: 'ROS Intro', link: 'en/ros-intro' },
+            { text: 'ROS 2 Intro', link: 'en/ros2-intro' }
         ],
         'Foundamentals': [
-            { text: 'Linear Algebra', link: 'en/fnd-linear-algebra'},
-            { text: 'Geometry', link: 'en/fnd-geometry'},
+            { text: 'Linear Algebra', link: 'en/fnd-linear-algebra' },
+            { text: 'Geometry', link: 'en/fnd-geometry' },
+        ],
+        'Autonomous Mobile Robots': [
+            { text: 'Introduction', link: 'en/auto-mobile' },
         ],
         'Reference': [
             { text: 'Styling', link: 'en/ref' },
             { text: 'Notation', link: 'en/ref-notation' }
         ],
-	},
+    },
 };
 
 
@@ -264,4 +267,152 @@ export const NOTATION: any = {
     "\\sX": "\\mathbb{X}",
     "\\sY": "\\mathbb{Y}",
     "\\sZ": "\\mathbb{Z}",
+    
+    // Points
+    // general definition of a point
+    "\\p": "\\bm{#1}",
+    "\\pA": "\\p{A}",
+    "\\pB": "\\p{B}",
+    "\\pC": "\\p{C}",
+    "\\pD": "\\p{D}",
+    "\\pE": "\\p{E}",
+    "\\pF": "\\p{F}",
+    "\\pG": "\\p{G}",
+    "\\pH": "\\p{H}",
+    "\\pI": "\\p{I}",
+    "\\pJ": "\\p{J}",
+    "\\pK": "\\p{K}",
+    "\\pL": "\\p{L}",
+    "\\pM": "\\p{M}",
+    "\\pN": "\\p{N}",
+    "\\pO": "\\p{O}",
+    "\\pP": "\\p{P}",
+    "\\pQ": "\\p{Q}",
+    "\\pR": "\\p{R}",
+    "\\pS": "\\p{S}",
+    "\\pT": "\\p{T}",
+    "\\pU": "\\p{U}",
+    "\\pV": "\\p{V}",
+    "\\pW": "\\p{W}",
+    "\\pX": "\\p{X}",
+    "\\pY": "\\p{Y}",
+    "\\pZ": "\\p{Z}",
+
+    // augmented vector
+    // general definition augmented vector
+    "\\av": "\\bar{\\v{#1}}",
+    "\\ava": "\\av{a}",
+    "\\avb": "\\av{b}",
+    "\\avc": "\\av{c}",
+    "\\avd": "\\av{d}",
+    "\\ave": "\\av{e}",
+    "\\avf": "\\av{f}",
+    "\\avg": "\\av{g}",
+    "\\avh": "\\av{h}",
+    "\\avi": "\\av{i}",
+    "\\avj": "\\av{j}",
+    "\\avk": "\\av{k}",
+    "\\avl": "\\av{l}",
+    "\\avm": "\\av{m}",
+    "\\avn": "\\av{n}",
+    "\\avo": "\\av{o}",
+    "\\avp": "\\av{p}",
+    "\\avq": "\\av{q}",
+    "\\avr": "\\av{r}",
+    "\\avs": "\\av{s}",
+    "\\avt": "\\av{t}",
+    "\\avu": "\\av{u}",
+    "\\avv": "\\av{v}",
+    "\\avw": "\\av{w}",
+    "\\avx": "\\av{x}",
+    "\\avy": "\\av{y}",
+    "\\avz": "\\av{z}",
+
+    // Homogeneus vector
+    // general definition
+    "\\hv": "\\tilde{\\v{#1}}",
+    "\\hva": "\\hv{a}",
+    "\\hvb": "\\hv{b}",
+    "\\hvc": "\\hv{c}",
+    "\\hvd": "\\hv{d}",
+    "\\hve": "\\hv{e}",
+    "\\hvf": "\\hv{f}",
+    "\\hvg": "\\hv{g}",
+    "\\hvh": "\\hv{h}",
+    "\\hvi": "\\hv{i}",
+    "\\hvj": "\\hv{j}",
+    "\\hvk": "\\hv{k}",
+    "\\hvl": "\\hv{l}",
+    "\\hvm": "\\hv{m}",
+    "\\hvn": "\\hv{n}",
+    "\\hvo": "\\hv{o}",
+    "\\hvp": "\\hv{p}",
+    "\\hvq": "\\hv{q}",
+    "\\hvr": "\\hv{r}",
+    "\\hvs": "\\hv{s}",
+    "\\hvt": "\\hv{t}",
+    "\\hvu": "\\hv{u}",
+    "\\hvv": "\\hv{v}",
+    "\\hvw": "\\hv{w}",
+    "\\hvx": "\\hv{x}",
+    "\\hvy": "\\hv{y}",
+    "\\hvz": "\\hv{z}",
+
+    // Homogeneus coordinate
+    "\\hc": "\\tilde{#1}",
+    "\\hca": "\\hc{a}",
+    "\\hcb": "\\hc{b}",
+    "\\hcc": "\\hc{c}",
+    "\\hcd": "\\hc{d}",
+    "\\hce": "\\hc{e}",
+    "\\hcf": "\\hc{f}",
+    "\\hcg": "\\hc{g}",
+    "\\hch": "\\hc{h}",
+    "\\hci": "\\hc{i}",
+    "\\hcj": "\\hc{j}",
+    "\\hck": "\\hc{k}",
+    "\\hcl": "\\hc{l}",
+    "\\hcm": "\\hc{m}",
+    "\\hcn": "\\hc{n}",
+    "\\hco": "\\hc{o}",
+    "\\hcp": "\\hc{p}",
+    "\\hcq": "\\hc{q}",
+    "\\hcr": "\\hc{r}",
+    "\\hcs": "\\hc{s}",
+    "\\hct": "\\hc{t}",
+    "\\hcu": "\\hc{u}",
+    "\\hcv": "\\hc{v}",
+    "\\hcw": "\\hc{w}",
+    "\\hcx": "\\hc{x}",
+    "\\hcy": "\\hc{y}",
+    "\\hcz": "\\hc{z}",
+
+
+    // templating
+    "\\replacea": "command",
+    "\\replaceb": "command",
+    "\\replacec": "command",
+    "\\replaced": "command",
+    "\\replacee": "command",
+    "\\replacef": "command",
+    "\\replaceg": "command",
+    "\\replaceh": "command",
+    "\\replacei": "command",
+    "\\replacej": "command",
+    "\\replacek": "command",
+    "\\replacel": "command",
+    "\\replacem": "command",
+    "\\replacen": "command",
+    "\\replaceo": "command",
+    "\\replacep": "command",
+    "\\replaceq": "command",
+    "\\replacer": "command",
+    "\\replaces": "command",
+    "\\replacet": "command",
+    "\\replaceu": "command",
+    "\\replacev": "command",
+    "\\replacew": "command",
+    "\\replacex": "command",
+    "\\replacey": "command",
+    "\\replacez": "command",
 }
