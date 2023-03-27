@@ -1,0 +1,8 @@
+---
+const {definition, source, link} = Astro.props;
+---
+
+<div class="p-4">
+    <p><em>"{definition}"</em></p>
+    <a href={link} class="ml-4 border-b hover:border-b-2">{source}</a>
+</div>
