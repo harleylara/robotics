@@ -73,7 +73,8 @@ let text = board.create('text',
     [-4,3,
     function() {
         return `cos(${JXG.Math.Geometry.trueAngle(vectorY, [0,0], vectorX).toFixed(2)}) = ` +
-            `\\frac{\\vx \\cdot \\vy}{\\Vert \\vx \\Vert \\Vert\\vy\\Vert}`
+            `\\frac{\\vx \\cdot \\vy}{\\Vert \\vx \\Vert \\Vert\\vy\\Vert} = ` +
+            `${Math.cos(JXG.Math.Geometry.trueAngle(vectorY, [0,0], vectorX) * (Math.PI/180)).toFixed(4)}`
     }]
 );
 

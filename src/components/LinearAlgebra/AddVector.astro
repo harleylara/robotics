@@ -70,8 +70,6 @@ let lineD = board.create('line',
 
 let txtD = board.create('text',[0, 0.5, '\\vd'], {anchor: lineD});
 
-
-
 let resultVector = board.create('point',
     [
         function(){return vectorC.X() + vectorD.X()},
@@ -99,6 +97,17 @@ let lineRef = board.create('line',
         visible: false
     });
 
+// reference of the second vector
+let lineRef2 = board.create('line',
+    [vectorD,resultVector], {
+        straightFirst:false,
+        straightLast:false,
+        dash:2,
+        fixed: true,
+        strokeColor: "gray",
+        visible: false
+});
+
 let description = board.create('text',
     [-4,6,
     function() { 
@@ -114,9 +123,11 @@ let btnHide = board.create('button', [-4, -3, 'Show reference vector', function(
     if (btnHide.value) {
   	    txt = 'Hide reference vector';
         lineRef.setAttribute({visible:true});
+        lineRef2.setAttribute({visible:true});
     } else {
   	    txt = 'Show reference vector';
         lineRef.setAttribute({visible:false});
+        lineRef2.setAttribute({visible:false});
     }
 	btnHide.rendNodeButton.
         innerHTML = txt;
