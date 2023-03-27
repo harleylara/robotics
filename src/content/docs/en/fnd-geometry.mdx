@@ -2,9 +2,66 @@
 title: "Foundamental of geometry"
 ---
 
-import Axes from '../../../components/Figures/Axes.astro';
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
 
+## 2D Point
 
-## Ready ??
+<Equation
+    formula="\pA = \begin{pmatrix} x \\ y \end{pmatrix} \in \sR^2"
+    description="2D Point representation"
+/>
 
-<Axes />
+## Augmented Vector
+
+<Equation
+    formula="\ava = \begin{pmatrix} x \\ y \\ 1 \end{pmatrix} \in \sR^3"
+    description="Augmented vector representation"
+/>
+
+## Homogeneous/Projective Coordinates
+
+<Equation
+    formula="\hvx = \begin{pmatrix} \hcx \\ \hcy \\ \hcw \end{pmatrix} \in \sP^2"
+    description="Homogeneous coordinates representation"
+/>
+
+### Homogeneous Vector
+
+Convert back to in homogeneous coordinates by dividing through last element
+$$
+\tilde{\vx} = \begin{pmatrix}
+\tilde{x} \\
+\tilde{y} \\
+\tilde{w}
+\end{pmatrix} = \tilde{w} \begin{pmatrix}
+\tilde{x} / \tilde{w} \\
+\tilde{y} / \tilde{w} \\
+1
+\end{pmatrix} = \tilde{w} \begin{pmatrix}
+x \\
+y \\
+1
+\end{pmatrix} = \tilde{w}\bar{\vx}
+$$
+
+points with $\tilde{w} = 0$ are called points at infinity or ideal points
