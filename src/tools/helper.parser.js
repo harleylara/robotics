@@ -14,6 +14,7 @@ export const markToHtml = function(text) {
         .use(remarkMath)
         .use(remarkRehype)
         .use(rehypeKatex, {
+            throwOnError: false,
             macros: NOTATION
         })
         .use(rehypeStringify)
@@ -23,7 +24,9 @@ export const markToHtml = function(text) {
 }
 
 export const latexToHtml = function(latex) {
-    return katex.renderToString(latex, {macros:NOTATION});
-
+    return katex.renderToString(latex, {
+        throwOnError: false,
+        macros:NOTATION
+    });
 }
 
