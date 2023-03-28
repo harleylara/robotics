@@ -15,7 +15,7 @@ const { currentPage } = Astro.props;
 const lang = getLanguageFromURL(currentPage);
 ---
 
-<header>
+<header class="py-4 border-b border-dark-100">
 	<SkipToContent />
 	<nav class="flex items-center justify-between mx-8" title="Top Navigation">
 		<div class="hidden menu-toggle">
@@ -29,8 +29,5 @@ const lang = getLanguageFromURL(currentPage);
 		</div>
 		<div style="flex-grow: 1;"></div>
 		{KNOWN_LANGUAGE_CODES.length > 1 && <LanguageSelect lang={lang} client:idle />}
-		<div class="search-item">
-			<Search client:idle />
-		</div>
 	</nav>
 </header>
