@@ -6,5 +6,6 @@ const {description="Description"} = Astro.props;
 
 <div id="figure" class="flex flex-col items-center border-[0.3px] border-dark-100 w-full h-96">
     <slot/>
-    <p set:html={markToHtml(description)} class="py-4"></p>
+    <div set:html={markToHtml(description)} class="p-4">
+    </div>
 </div>
