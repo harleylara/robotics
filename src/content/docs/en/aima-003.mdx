@@ -26,18 +26,22 @@ export const components = {
 
 Exogenous: event that happens.
 
+## Search Problem
+
 Problems types:
 - Deterministic, fully observable -> classical search problems
 - Non-observable -> the agent may have not idea where it is
 - Non-deterministic and/or partial observable
 
 A search problem can be defined formally as follows:
-- A set of possible states that the environment can be in. This is called state space.
-- The initial state
-- A set of one or more goals
-- The actions available, given a state “s” ACTIONS(s) return a finite set of actions that can be executed for the current state “s”.
-- A transition model describes what each action does. RESULT(s, a) returns the state that results from doing action “a” in state “s”
-- An action cost function, which for a given function ACTION-COST(s, a, s’) returns a numeric cost of performing action “a” in state “s” to reach state “s’ ”. It needs to reflect its own performance measure.
+- A set of possible **states** that the environment can be in. This is called **state space**.
+- The **initial state**.
+- A set of **one** or **more goals**.
+- The actions available, given a state “s” `ACTIONS(s)` return a finite set of actions that can be executed for the current state “s”.
+- A transition model describes what each action does. `RESULT(s, a)` returns the state that results from doing action “a” in state “s”
+- An action cost function, which for a given function `ACTION-COST(s, a, s’)` returns a numeric cost of performing action “a” in state “s” to reach state “s’ ”. It needs to reflect its own performance measure.
+
+## Tree Search
 
 Tree search algorithms: Basic idea, offline, simulated exploration of state space.
 
@@ -59,6 +63,8 @@ State vs. Node
 - **Node**, is a data structure that contains state, parent, children, if its expanded it also includes depth and cost
 - **Node expansion**: based on the transition model RESULT(s, a) generated the states of the children.
 
+## Search Strategies
+
 Search strategies:
 - Its defined by picking the order of node EXPANSION
 
@@ -68,6 +74,7 @@ Ways to evaluate a search strategy:
 - **time complexity**: number of nodes generated/expanded
 - **space complexity**: MAXIMUM  number of nodes in memory
 
+## State Space
 
 State spaces:
 - Finite state space
@@ -75,9 +82,23 @@ State spaces:
 - Acyclic state space
 - Cyclic state space
 
+<Drawio 
+    file="aima-03.drawio"
+    page="1"
+    description="Acyclic and Cyclic graphs."
+/>
+
+<Drawio 
+    file="aima-03.drawio"
+    page="2"
+    description="Finite and Infinite graphs"
+/>
+
+## Uninformed Search
 
 What is uninformed search? An uninformed search algorithm is given no clue about how close a state is to the goal(s). Uninformed strategies use only the information available in the problem definition.
 
+[Solving problems by searching interactive diagrams](https://aimacode.github.io/aima-javascript/3-Solving-Problems-By-Searching/)
 
 Uninformed search strategies:
 - Breadth-first search: Expand shallowest unexpanded node, using a FIFO queue.
@@ -86,3 +107,24 @@ Uninformed search strategies:
 - Depth-limited search: 
 - Iterative deepening search
 
+### Breadth-first Search (BFS)
+
+The root node is expanded first, then all the successors of the root node are expanded next, then their successors, and so on. This is a systematic search strategy that is therefore **complete** even on **infinite state spaces**.
+
+## Informed (Heuristic) Search
+
+Informed search: One that uses *domain-specific hints* about the location of goals and can find solutions more efficiently than an uninformed strategy.
+
+<Equation
+    formula="h(n)"
+    description="**Heuristic function**: estimated cost of the cheapest path from the state at node `n` to a goal state."
+/>
+
+Informed search strategies:
+- Greedy search
+- A*
+- Interactive-deepeaning A* (IDA*)
+- Recursive best-first search (RBFS)
+- Bidirectional search
+- Beam search
+- Weighted A∗
