@@ -18,7 +18,17 @@ const url = new URL(`../../resources/${file}`, import.meta.url);
 const xmlFile = await fs.readFile(url, 'utf-8');
 
 const parser = new XMLParser();
-const diagram = parser.parse(xmlFile).mxfile.diagram[parseInt(page)-1];
+const project = parser.parse(xmlFile);
+
+let diagram = ""
+
+// dummy way to check
+if (project.mxfile.diagram.length == 1){
+    diagram = project.mxfile.diagram
+} else {
+    diagram = project.mxfile.diagram[parseInt(page) - 1]
+}
+
 const src = `https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=test.drawio#R${encodeURIComponent(diagram)}`
 
 ---
