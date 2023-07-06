@@ -53,8 +53,21 @@ export const SIDEBAR: Sidebar = {
             { text: 'Linear Algebra', link: 'en/fnd-linear-algebra' },
             { text: 'Geometry', link: 'en/fnd-geometry' },
         ],
+        'Algorithms': [
+            { text: 'Intro to Algorithms', link: 'en/alg-intro'},
+        ],
         'Autonomous Mobile Robots': [
             { text: 'Introduction', link: 'en/auto-mobile' },
+            { text: 'Perception', link: 'en/auto-mobile-percep'},
+        ],
+        'Mathematics for Robotics': [
+            { text: 'Lecture 1', link: 'en/mrc-01' },
+            { text: 'Lecture 2', link: 'en/mrc-02' },
+        ],
+        'Artificial Intelligence': [
+            { text: 'Introduction', link: 'en/aima-001'},
+            { text: 'Intelligent agent', link: 'en/aima-002'},
+            { text: 'Solving problems by search', link: 'en/aima-003'},
         ],
         'Reference': [
             { text: 'Styling', link: 'en/ref' },
@@ -387,6 +400,34 @@ export const NOTATION: any = {
     "\\hcy": "\\hc{y}",
     "\\hcz": "\\hc{z}",
 
+    // Reference frames
+    "\\frame": "\\{#1\\}",
+    "\\fA": "\\frame{A}",
+    "\\fB": "\\frame{B}",
+    "\\fC": "\\frame{C}",
+    "\\fD": "\\frame{D}",
+    "\\fE": "\\frame{E}",
+    "\\fF": "\\frame{F}",
+    "\\fG": "\\frame{G}",
+    "\\fH": "\\frame{H}",
+    "\\fI": "\\frame{I}",
+    "\\fJ": "\\frame{J}",
+    "\\fK": "\\frame{K}",
+    "\\fL": "\\frame{L}",
+    "\\fM": "\\frame{M}",
+    "\\fN": "\\frame{N}",
+    "\\fO": "\\frame{O}",
+    "\\fP": "\\frame{P}",
+    "\\fQ": "\\frame{Q}",
+    "\\fR": "\\frame{R}",
+    "\\fS": "\\frame{S}",
+    "\\fT": "\\frame{T}",
+    "\\fU": "\\frame{U}",
+    "\\fV": "\\frame{V}",
+    "\\fW": "\\frame{W}",
+    "\\fX": "\\frame{X}",
+    "\\fY": "\\frame{Y}",
+    "\\fZ": "\\frame{Z}",
 
     // templating
     "\\replacea": "command",

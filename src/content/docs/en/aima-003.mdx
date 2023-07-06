@@ -1,0 +1,88 @@
+---
+title: "Solving problems by search"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+Exogenous: event that happens.
+
+Problems types:
+- Deterministic, fully observable -> classical search problems
+- Non-observable -> the agent may have not idea where it is
+- Non-deterministic and/or partial observable
+
+A search problem can be defined formally as follows:
+- A set of possible states that the environment can be in. This is called state space.
+- The initial state
+- A set of one or more goals
+- The actions available, given a state “s” ACTIONS(s) return a finite set of actions that can be executed for the current state “s”.
+- A transition model describes what each action does. RESULT(s, a) returns the state that results from doing action “a” in state “s”
+- An action cost function, which for a given function ACTION-COST(s, a, s’) returns a numeric cost of performing action “a” in state “s” to reach state “s’ ”. It needs to reflect its own performance measure.
+
+Tree search algorithms: Basic idea, offline, simulated exploration of state space.
+
+Tree-search(problem, strategy) return a solution or a failure
+	Init the search tree with the initial state of “problem”
+
+	Loop do:
+		If there are no candidates for expansion then, return failure
+		
+		Chose a leaf node for expansion based on “strategy”
+
+		If the node contains a goal state, return solution
+		Else expand the current node and add the resulting nodes to the search tree
+End
+
+
+State vs. Node
+- **State*8 is a representation of the environment configuration
+- **Node**, is a data structure that contains state, parent, children, if its expanded it also includes depth and cost
+- **Node expansion**: based on the transition model RESULT(s, a) generated the states of the children.
+
+Search strategies:
+- Its defined by picking the order of node EXPANSION
+
+Ways to evaluate a search strategy:
+- **completeness**: does it ALWAYS find a solution, if there is any
+- **optimality**: does it always find a least-cost solution
+- **time complexity**: number of nodes generated/expanded
+- **space complexity**: MAXIMUM  number of nodes in memory
+
+
+State spaces:
+- Finite state space
+- Infinite state space
+- Acyclic state space
+- Cyclic state space
+
+
+What is uninformed search? An uninformed search algorithm is given no clue about how close a state is to the goal(s). Uninformed strategies use only the information available in the problem definition.
+
+
+Uninformed search strategies:
+- Breadth-first search: Expand shallowest unexpanded node, using a FIFO queue.
+- Dijkstra’s algorithm or uniform-cost search
+- Depth-first search: always expands the deepest node in the frontier first., using LIFO queue.
+- Depth-limited search: 
+- Iterative deepening search
+
