@@ -61,6 +61,7 @@ export default defineConfig({
                 './src/components/Globals/Image.astro',
                 './src/components/Globals/Drawio.astro',
                 './src/components/Globals/Definition.astro',
+                './src/components/Globals/Important.astro',
             ]
         }),
         mdx()
