@@ -42,6 +42,10 @@ export const SIDEBAR: Sidebar = {
             { text: 'Page 2', link: 'en/page-2' },
             { text: 'Page 3', link: 'en/page-3' },
         ],
+        'Linear Algebra': [
+            { text: "The Geometry of Linear Equations", link: 'en/linear-algebra-001'},
+            { text: "Elimination with Matrices", link: 'en/linear-algebra-002'},
+        ],
         'Programming': [
             { text: 'Cpp Intro', link: 'en/cpp' }
         ],

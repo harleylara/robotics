@@ -1,0 +1,88 @@
+---
+title: "The geometry of linear equations"
+---
+
+import LinearSystem from "../../../components/LinearAlgebra/LinearSystem.astro";
+import LinearCombination from "../../../components/LinearAlgebra/LinearCombination.astro";
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+Nice case: `n` linear equations, `n` unknowns
+
+- Row picture
+- Column picture
+- Matrix form
+
+Example of a system of linear equations:
+
+<Equation
+    formula="\begin{cases}2x - y = 0 \newline -x + 2y = 3\end{cases}"
+    description="System of two linear equations with two unknowns."
+/>
+
+## Row Picture
+
+This can be represented as a matrix operation:
+
+<Equation
+    formula="
+    \begin{bmatrix}
+    2 & -1 \\ 
+    -1 & 2
+    \end{bmatrix}
+    \begin{bmatrix}
+    x \\
+    y
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+    0 \\
+    3
+    \end{bmatrix}"
+    description="Matrix form of the previous system of linear equations."
+/>
+
+In a simplified form:
+
+<Equation
+    formula="\mA \vx = \vb"
+    description="System of linear equations."
+/>
+
+To solve this system of linear equation we need to find a value for $x$ and $y$ that satisfies the right hand side (rhs) in every equation.
+
+<LinearSystem/>
+
+## Column Picture
+
+<Equation
+    formula="x\begin{bmatrix}2 \\ -1\end{bmatrix} + y\begin{bmatrix}-1 \\ 2\end{bmatrix} = \begin{bmatrix}0 \\ 3\end{bmatrix}"
+    description="Linear combination of system of linear equations."
+/>
+
+This is called `Linear combination` and is amazing!.
+
+<LinearCombination
+    description="Linear combination."
+/>
+
