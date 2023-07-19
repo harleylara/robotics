@@ -22,8 +22,12 @@ const project = parser.parse(xmlFile);
 
 let diagram = ""
 
-// dummy way to check
-if (project.mxfile.diagram.length == 1){
+// when there is ONLY one page in the drawio file
+// the property diagram is just and string
+// BUT if there are more became a object of type array 
+// in wich each entry of the array represent
+// the page of the file in order.
+if (typeof(project.mxfile.diagram) === "string"){
     diagram = project.mxfile.diagram
 } else {
     diagram = project.mxfile.diagram[parseInt(page) - 1]
