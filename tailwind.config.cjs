@@ -9,7 +9,8 @@ module.exports = {
             colors: {
                 'primary-dark': '#101010',
                 'dark-50': '#181818',
-                'dark-100': '#333333'
+                'dark-100': '#333333',
+                'dark-200': '#494949'
             }
         },
     },
