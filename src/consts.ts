@@ -45,6 +45,11 @@ export const SIDEBAR: Sidebar = {
         'Linear Algebra': [
             { text: "The Geometry of Linear Equations", link: 'en/linear-algebra-001'},
             { text: "Elimination with Matrices", link: 'en/linear-algebra-002'},
+            { text: "Multiplication and Inverse Matrices", link: 'en/linear-algebra-003'},
+            { text: "Factorization into A = LU", link: 'en/linear-algebra-004'},
+        ],
+        'Photogrammetry': [
+            { text: "Introduction to Photogrammetry", link: "en/photogrammetry-001"}
         ],
         'Programming': [
             { text: 'Cpp Intro', link: 'en/cpp' }

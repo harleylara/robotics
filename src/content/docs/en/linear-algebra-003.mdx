@@ -1,0 +1,292 @@
+---
+title: "Multiplication and Inverse Matrices"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## Matrix Operations
+
+Section 2.4 Introduction to linear algebra G. Strang.
+
+### Matrices Sum
+
+Matrices can be added **IF** their shapes are the same:
+
+<Equation
+    formula="\begin{bmatrix}
+    1 & 2 \\
+    3 & 4 \\
+    0 & 0
+    \end{bmatrix} + 
+    \begin{bmatrix}
+    2 & 2 \\
+    4 & 4 \\
+    9 & 9
+    \end{bmatrix} = 
+    \begin{bmatrix}
+    3 & 4 \\
+    7 & 8 \\
+    9 & 9
+    \end{bmatrix}"
+    description="Matrices sum example."
+/>
+
+### Matrix-scalar Multiplication
+
+A matrix can be multiply by any scalar $c$:
+
+<Equation
+    formula="2 \begin{bmatrix}
+    1 & 2 \\
+    3 & 4 \\
+    0 & 0
+    \end{bmatrix} =
+    \begin{bmatrix}
+    2 & 4 \\
+    6 & 8 \\
+    0 & 0
+    \end{bmatrix}"
+    description="Matrix-scalar multiplication example."
+/>
+
+### Way 1 Matrix Multiplication: Dot product
+
+<Equation
+formula="(\mA \mB)\mC = \mA (\mB \mC)"
+description="Fundamental Law of Matrix Multiplication"
+/>
+
+1. Matrices $\mA$ with $n$ **columns** multiply matrices $\mB$ with $n$ **rows**
+
+<Equation
+formula="\mA_{m \times n} \mB_{n \times p} = \mC_{m \times p}"
+/>
+<Important
+    note="To multiply $\mA \mB$: if $\mA$ has $n$ **columns**, $\mB$ MUST have $n$ **rows**"
+/>
+
+<Drawio 
+    file="linear-algebra-003.drawio"
+    page="1"
+    description="Matrix multiplication as a set of dot product operations."
+/>
+
+From [wikipedia](https://en.wikipedia.org/wiki/Dot_product): In mathematics, the dot product or scalar product is an algebraic operation that takes two equal-length sequences of numbers (usually coordinate vectors), and returns a single number.
+
+- If $\mA$ and $\mB$ are $n$ by $n$, this operation involve $n^2$ dot products.
+- Each dot product needs $n$ **multiplications**, So the multiplication of $\mA \mB$ uses $n^2 n = n^3$ multiplications!
+- Each dot product needs $n-1$ **additions**, So in total $n^2(n-1) = n^3 - n^2$ are required.
+
+**Hint**: In matrix multiplication every column of $\mB$ is multiplied by $\mA$.
+
+2. Each entry in $\mA \mB  = \mC$ is a **dot product**: $\mC_{ij}=(\textrm{row} i \textrm{of} \mA) \dot (\textrm{column} j \textrm{of} \mB)$
+
+<Equation
+    formula="\begin{bmatrix}
+    0 \\
+    1 \\
+    2
+    \end{bmatrix}
+    \begin{bmatrix}
+    1 & 2 & 3
+    \end{bmatrix} = 
+    \begin{bmatrix}
+    0 & 0 & 0 \\
+    1 & 2 & 3 \\
+    2 & 4 & 6
+    \end{bmatrix}"
+    description="A row times a column is an *'inner'* product-that is another name for dot product. A column times a row is an *'outer'* product."
+/>
+
+<Important
+    note="It is not usually true that $\mA \mB = \mB \mA$. In most cases $\mA$ doesn't commute with $\mB$."
+/>
+
+### Way 2 and 3 Matrix Multiplication: Rows and Columns
+
+2. Matrix $\mA$ times ever column of $\mB$
+
+<Equation
+    formula="\mA [\vb_1 \cdots \vb_p] = [\mA \vb_1 \cdots \mA \vb_p]"
+    description="where $\vb_i$ is a column vector."
+/>
+
+3. Every row of $\mA$ times matrix $\mB$
+
+<Equation
+    formula="[\textrm{row } i \textrm{ of } \mA] \mB = [\textrm{row } i \textrm{ of } \mA \mB]"
+    description=""
+/>
+
+### Way 4 Matrix Multiplication: Columns Multiply Rows
+
+4. Multiply columns 1 ton of A times rows 1 ton of B. Add those matrices.
+
+<Equation
+    formula="\mA \mB = \begin{bmatrix}
+    a & b \\
+    c & d
+    \end{bmatrix}
+    \begin{bmatrix}
+    E & F \\
+    G & H
+    \end{bmatrix}"
+    description=""
+/>
+
+This can be re-written as follow:
+
+<Equation
+    formula="\mA \mB = \begin{bmatrix}
+    a \\
+    c
+    \end{bmatrix}
+    \begin{bmatrix}
+    E & F
+    \end{bmatrix} +
+    \begin{bmatrix}
+    b \\
+    d
+    \end{bmatrix}
+    \begin{bmatrix}
+    G & H
+    \end{bmatrix} = 
+    \begin{bmatrix}
+    aE + bG & aF + bH \\
+    cE + dG & cF + dH
+    \end{bmatrix}"
+    description=""
+/>
+
+## The Laws for Matrix Operations
+
+Commutative law:
+
+<Equation
+    formula="\mA + \mB = B + A"
+    description="Matrix addition is commutative."
+/>
+
+Distributive law:
+
+<Equation
+    formula="c(\mA + \mB) = c \mA + c \mB"
+    description="Distributive law."
+/>
+
+Assosiative law:
+
+<Equation
+    formula="\mA + (\mB + \mC) = (\mA + \mB) + \mC"
+    description="Assosiative law."
+/>
+
+<Equation
+    formula="\mA \mB \neq \mB \mA"
+    description="Commutative 'law' is usually broken"
+/>
+
+<Equation
+    formula="\mA (\mB + \mC) = \mA \mB + \mA \mC"
+    description="Distributive law from the left."
+/>
+
+<Equation
+    formula="(\mA + \mB)\mC = \mA \mC + \mB \mC"
+    description="Distributive law from the right."
+/>
+
+<Equation
+    formula="\mA(\mB \mC) = (\mA \mB)\mC"
+    description="Distributive law from the right."
+/>
+
+
+Some mentions:
+- [Matrix Block Multiplication](https://en.wikipedia.org/wiki/Block_matrix) $n^{2.807}$
+- [Strassen algorithm](https://en.wikipedia.org/wiki/Strassen_algorithm) $n^{2.807}$
+- [Schönhage–Strassen algorithm](https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm) $n^{2.522}$
+- [A Refined Laser Method and Faster Matrix Multiplication](https://arxiv.org/abs/2010.05846) $n^{2.3728}$
+
+## Inverse Matrices
+
+Let's take a square matrix $\mA$.
+
+1. **IF** the square matrix $\mA$ has an inverse:
+
+<Equation
+    formula="\mA^{-1} \mA = I \\ \mA \mA^{-1} = I"
+    description="associative law for $\mA \mB \mC$"
+/>
+
+These cool matrices are:
+- Invertible
+- Non-singular
+
+### Singular Case
+
+<Equation
+    formula="\mA = \begin{bmatrix}
+    1 & 3 \\
+    2 & 6
+    \end{bmatrix}"
+/>
+
+Can we find a matrix $\mD$ that when multiplied with $\mA$ will give us the identity matrix?
+
+### Inverse of a Product $\mA \mB$
+
+If $\mA$ and $\mB$ are invertible then so is $\mA \mB$. The inverse of a product $\mA \mB$ is:
+
+<Equation
+    formula="(\mA \mB)^{-1}= \mB^{-1} \mA^{-1}"
+    description="Inverse of a product"
+/>
+
+Yeap, is in reverse here is why.
+
+We assume that:
+
+<Equation
+    formula="(\mA \mB) = (\mB^{-1} \mA^{-1})"
+    description=""
+/>
+
+So if we move the inverses to the left hand side (lhs) this should be equal to the identity matrix:
+
+<Equation
+    formula="(\mA \mB) (\mB^{-1} \mA^{-1}) = \mI
+    \mA \mB \mB^{-1} \mA^{-1} = \mA \mI \mA^{-1} = \mA \mA^{-1} = \mI"
+    description=""
+/>
+
+Keep in mind:
+
+<Equation
+    formula="(\mA \mB \mC)^{-1} = \mC^{-1} \mB^{-1} \mA^{-1}"
+    description=""
+/>
+
+## Gauss-Jordan Elimination
+
+TODO

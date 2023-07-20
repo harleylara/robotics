@@ -1,0 +1,67 @@
+---
+title: "Factorization into A = LU"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+<Equation
+    formula="\mE_{2,1} \mA  = 
+    \begin{bmatrix}
+    1 & 0 \\
+    -4 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+    2 & 1 \\
+    8 & 7
+    \end{bmatrix} = 
+    \begin{bmatrix}
+    2 & 1 \\
+    0 & 3
+    \end{bmatrix} = \mU"
+    description="LU example."
+/>
+
+This is elimination without row exchanges. The upper triangular $\mU$ has the pivots on its diagonal. The lower triangular $\mL$ has all l's on its diagonal. The multipliers $l_{ij}$ are below the diagonal of $\mL$.
+
+<Equation
+    formula="\mA = \mL \mU \\
+    \begin{bmatrix}
+    2 & 1 \\
+    8 & 7
+    \end{bmatrix} =
+    \begin{bmatrix}
+    1 & 0 \\
+    4 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+    2 & 1 \\
+    0 & 3
+    \end{bmatrix}"
+    description="LU continuation."
+/>
+
+<Equation
+    formula="\mA = \mL \mU"
+    description="LU decomposition."
+/>
+
