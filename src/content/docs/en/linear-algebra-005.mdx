@@ -1,0 +1,97 @@
+---
+title: "Transposes, Permutations, Spaces R^n"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+Section 2.7 and 3.1 Introduction to Linear Algebra by Gilbert Strang.
+
+Remember:
+
+<Equation
+    formula="\begin{bmatrix}
+    \mA = \mL \mU
+    \end{bmatrix}"
+    description="LU decomposition."
+/>
+
+## Transpose
+
+<Equation
+    formula="\textrm{If} \quad \mA = \begin{bmatrix}
+    1 & 2 & 3 \\
+    0 & 0 & 4
+    \end{bmatrix} \quad \textrm{then} \quad \mA^{T} = \begin{bmatrix}
+    1 & 0 \\
+    2 & 0 \\
+    3 & 4
+    \end{bmatrix}"
+    description="Transpose"
+/>
+
+General formula:
+
+<Equation
+    formula="(\mA^T)_{ij} = \mA_{ji}"
+    description="General formula for transpose."
+/>
+
+<Equation
+    formula="\mA^T = \mA"
+    description="Symetric matrix."
+/>
+
+<Important
+    note="Transpose do not effect symetric matrices."
+/>
+
+A matrix multiplied by the transpose produce a symetric matrix.
+
+<Equation
+    formula="\mR^{T} \mR \textrm{ is always symetric}"
+/>
+
+Rule to transpose:
+
+<Equation
+    formula="(\mR^{T} \mR)^{T} = \mR^{T} \mR^{TT} = \mR^{T} \mR"
+/>
+
+## Vector Spaces
+
+space: refers to a set (space) of vectors.
+
+
+Example:
+- $\sR^{2}$: all posible 2-dim **real** column vectors. Represent a plane.
+- $\sR^{n}$: all posible n-dim **real** column vectors.
+
+<Important
+    note="DEFINITION The space $\sR^n$ consists of all column vectors $\vv$ with $n$ components."
+/>
+
+
+Subspaces of $\sR^{2}$
+- all of $\sR^{2}$
+- any line through $[0, 0]$
+- the zero vector
