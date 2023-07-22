@@ -2,6 +2,8 @@
 title: "Transposes, Permutations, Spaces R^n"
 ---
 
+import VectorSpace2D from "../../../components/LinearAlgebra/VectorSpace2D.astro"
+
 export const components = {
     blockquote: Blockquote,
     a: A,
@@ -87,11 +89,14 @@ Example:
 - $\sR^{n}$: all posible n-dim **real** column vectors.
 
 <Important
-    note="DEFINITION The space $\sR^n$ consists of all column vectors $\vv$ with $n$ components."
+    note="Definition: The space $\sR^n$ consists of all column vectors $\vv$ with $n$ components (the components are real numbers)."
 />
 
+<VectorSpace2D/>
 
 Subspaces of $\sR^{2}$
 - all of $\sR^{2}$
 - any line through $[0, 0]$
 - the zero vector
+
+

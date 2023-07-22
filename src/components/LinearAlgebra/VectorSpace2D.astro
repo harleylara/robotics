@@ -1,0 +1,55 @@
+---
+// IMPORTANT: import the JSXGraph wrapper component
+import JSXGraph from "../Figures/JSXGraph.astro";
+
+const {description="Please insert the description of this figure"} = Astro.props;
+---
+
+<JSXGraph description={description}>
+    <div id="vector-space-2d" class="jsxbox" style="width: 100%; height: 480px;">
+    </div>
+</JSXGraph>
+
+<script>
+import JXG from '../../tools/jsxgraph.init.js'
+
+let board = JXG.JSXGraph.initBoard('vector-space-2d', {
+    boundingbox:[-5,10,5,-10],
+    axis:true, 
+    showNavigation:true, 
+    showCopyright:false,
+    defaultAxes: {
+        x : {
+            name: 'X',
+            withLabel: true,
+            label: {
+                position: 'rt',
+                offset: [-10, -15]
+            }
+        },
+        y : {
+            withLabel:true,
+            name: 'Y',
+            label: {
+                position: 'rt',
+                offset: [-20, -10]
+            }
+        }
+}});
+
+const vector1 = [2,3];
+const vector2 = [-3,3];
+const vector3 = [5,-4];
+const vector4 = [-3,-3];
+
+board.create("arrow", [[0,0], vector1], {fixed:true});
+board.create("arrow", [[0,0], vector2], {fixed:true});
+board.create("arrow", [[0,0], vector3], {fixed:true});
+board.create("arrow", [[0,0], vector4], {fixed:true});
+
+board.create("regularpolygon", [[100, 100], [-100, 100], 4], {
+    color: "blue",
+    fixed: true
+});
+
+</script>
