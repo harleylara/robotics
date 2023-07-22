@@ -4,7 +4,7 @@ import { markToHtml } from "../../tools/helper.parser";
 const {description="Description"} = Astro.props;
 ---
 
-<div id="figure" class="flex flex-col items-center border-[0.3px] border-dark-100 w-full h-96">
+<div id="figure" class="flex flex-col items-center border-[0.3px] border-dark-100 w-full h-96 mt-4">
     <slot/>
     <div set:html={markToHtml(description)} class="p-4">
     </div>
