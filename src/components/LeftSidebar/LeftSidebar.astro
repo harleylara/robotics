@@ -25,7 +25,7 @@ const sidebar = SIDEBAR[langCode];
 							{children.map((child) => {
 								const url = Astro.site?.pathname + child.link;
 								return (
-									<li class="nav-link hover:bg-white hover:text-black px-4 py">
+									<li class="nav-link hover:bg-dark-100 px-4 py">
 										<a href={url} aria-current={currentPageMatch === child.link ? 'page' : false}>
 											{child.text}
 										</a>
