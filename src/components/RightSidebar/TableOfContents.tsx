@@ -78,7 +78,7 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
 						<li
 							className={`header-link depth-${heading.depth} ${
 								currentID === heading.slug ? 'current-header-link' : ''
-							} hover:bg-white hover:text-black px-4 py`.trim()}
+							} hover:bg-dark-100 px-4 py`.trim()}
 						>
 							<a href={`#${heading.slug}`} onClick={onLinkClick}>
 								{unescape(heading.text)}
