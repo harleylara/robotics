@@ -50,6 +50,9 @@ export const SIDEBAR: Sidebar = {
             { text: "Transposes, Permutations, Spaces R^n", link: 'en/linear-algebra-005'},
             { text: "Column Space and Nullspace", link: 'en/linear-algebra-006'},
         ],
+        'Mobile Sensing And Robotics 1': [
+            { text: "Probability Primer for Probabilistic Robotics", link: 'en/mobile-sensing-and-robotics-001'},
+        ],
         'Photogrammetry': [
             { text: "Introduction to Photogrammetry", link: "en/photogrammetry-001"}
         ],

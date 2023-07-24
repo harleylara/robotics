@@ -1,0 +1,113 @@
+---
+title: "Probability Primer for Probabilistic Robotics"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+Terms:
+- State estimation
+- Localization
+- Mapping
+- SLAM
+- Navigation
+- Motion Planning
+
+## State Estimation
+
+where am I? -> what does the world look like? -> where am I?
+
+Use of probability theory to represent the uncertainty.
+
+## Axios of Probability Theory
+
+$P(A)$ denotes probability that proposition $A$ is true.
+
+- $0 \leq P(A) \leq 1$
+- $P(True) = 1$
+- $P(False) = 0$
+- $P(A \wedge B) = P(A) + P(B) - P(A \vee B)$
+
+Based on the axioms, we can derive the probability of **not** $A$:
+
+<Equation
+    formula="\begin{aligned}
+    P(A \wedge \neg A) &= P(A) + P(\neg A) - P(A \vee \neg A) \\
+    P(True) &= P(A) + P(\neg A) - P(False) \\
+    1 &= P(A) + P(\neg A) - 0 \\
+    P(\neg A) &= 1 - P(A)
+    \end{aligned}"
+    description=""
+/>
+
+## Discrete Random Variables
+
+$X$ denotes a **random variable** and can take a **countable** number of values in $\{x_1, x_2, \dots, x_n\}$
+
+- $P(X = x_i) = P(x_i)$, is the probability that the random variable $X$ takes the value $x_i$.
+- $P()$ is called **probability mass function**.
+
+<Equation
+    formula="\underset{x_i}{\sum}P(x_i) = 1"
+    description="Discrete case."
+/>
+
+## Continuous Random Variables
+
+- $X$ takes on values in the continuum
+- $p(X = x) = p(x)$ is a **probability desity function**.
+
+<Equation
+    formula="\int p(x) dx = 1"
+    description="Continuous case."
+/>
+
+## Join and Conditional Probability
+
+- $P(X=x \textrm{ and } Y=y) = P(x, y)$
+- if $X$ and $Y$ are **independent** then: $P(x, y) = P(x) P(y)$
+- $P(x \| y)$ is the probability of $X$ given $Y$.
+
+$$
+P(x, y) = P(x \| y) P(y) \\
+P(x | y) = P(x, y)/P(y)
+$$
+
+- if $X$ and $Y$ are **independent** then: $P(x \| y) = P(x)$.
+
+## Law of Total Probability
+
+<Equation
+    formula="P(x) = \underset{y}{\sum}P(x, y)"
+    description="Law of total probability for discrete case."
+/>
+
+<Equation
+    formula="p(x) = \int p(x, y) dy"
+    description="Law of total probability for continuous case."
+/>
+
+## Bayes' Rule
+
+<Equation
+    formula="P(x \| y) = \frac{P(y \| x)P(x)}{P(y)}"
+/>
