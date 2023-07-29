@@ -60,8 +60,9 @@ export const SIDEBAR: Sidebar = {
             { text: 'Cpp Intro', link: 'en/cpp' }
         ],
         'ROS': [
-            { text: 'ROS Intro', link: 'en/ros-intro' },
-            { text: 'ROS 2 Intro', link: 'en/ros2-intro' }
+            { text: 'ROS context', link: 'en/ros-intro' },
+            { text: 'Introduction', link: 'en/ros2-intro' },
+            { text: 'Workspace', link: 'en/ros2-workspace' },
         ],
         'Foundamentals': [
             { text: 'Linear Algebra', link: 'en/fnd-linear-algebra' },
