@@ -1,11 +1,15 @@
 ---
 // This component just wrap your custom JSXGraph components
 import { markToHtml } from "../../tools/helper.parser";
+import BaseContainer from "../Globals/BaseContainer.astro";
+
 const {description="Description"} = Astro.props;
 ---
 
-<div id="figure" class="flex flex-col items-center border-[0.3px] border-dark-100 w-full h-96 mt-4">
-    <slot/>
-    <div set:html={markToHtml(description)} class="p-4">
+<BaseContainer>
+    <div id="figure" class="flex flex-col items-center w-full h-96">
+        <slot/>
+        <div set:html={markToHtml(description)} class="p-4">
+        </div>
     </div>
-</div>
+</BaseContainer>
