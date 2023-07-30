@@ -1,0 +1,35 @@
+---
+import { markToHtml } from '../../tools/helper.parser.js'
+
+export interface Props {
+    content: string,
+}
+
+const { content } = Astro.props;
+
+let lines = [];
+
+for (const elem of content.split("\\")) {
+    lines.push(elem.replace("\\n","").trim());
+}
+
+// const html = markToHtml(lines);
+---
+
+<div class="p-px bg-gradient-to-br from-dark-100 via-transparent to-dark-100 mt-6">
+    <div class="px-6 bg-primary-dark">
+        <div class="top py-4 flex border-dark-50 border-b">
+            <div class="h-3 w-3 bg-dark-100 rounded-full"></div>
+            <div class="ml-2 h-3 w-3 bg-dark-100 rounded-full"></div>
+            <div class="ml-2 h-3 w-3 bg-dark-100 rounded-full"></div>
+        </div>
+        <div class="py-4">
+            {lines.map((line) => (
+                <div class="flex items-center">
+                    <span class="before:content-['$'] mr-2 text-dark-100"></span>
+                    <p>{line}</p>
+                </div>
+            ))}
+        </div>
+    </div>
+</div>
