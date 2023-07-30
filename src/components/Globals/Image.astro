@@ -1,12 +1,16 @@
 ---
 import { markToHtml } from "../../tools/helper.parser";
+import BaseContainer from "./BaseContainer.astro";
+
 const {
     src, 
     description="Please **insert** the description of this image"
 } = Astro.props;
 ---
 
-<div id="figure" class="flex flex-col items-center border-[0.3px] border-dark-100 my-4">
-    <img src={src} alt={description}>
-    <em set:html={markToHtml(description)} class="py-4"></em>
-</div>
+<BaseContainer>
+    <div id="figure" class="flex flex-col items-center">
+        <img src={src} alt={description}>
+        <em set:html={markToHtml(description)} class="py-4"></em>
+    </div>
+</BaseContainer>
