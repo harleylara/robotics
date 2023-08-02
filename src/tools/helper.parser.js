@@ -6,11 +6,13 @@ import remarkMath from 'remark-math';
 import remarkRehype from 'remark-rehype';
 import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
+import remarkBreaks from 'remark-breaks';
 
 export const markToHtml = function(text) {
 
     let renderedText = unified()
         .use(remarkParse)
+        .use(remarkBreaks)
         .use(remarkMath)
         .use(remarkRehype)
         .use(rehypeKatex, {
