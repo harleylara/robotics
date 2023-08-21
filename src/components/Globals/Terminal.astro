@@ -1,11 +1,15 @@
 ---
 import BaseContainer from './BaseContainer.astro';
 
+// TODO: fix height and make it consistent with or
+// without text in the title
+
 export interface Props {
+    title: string,
     content: string,
 }
 
-const { content } = Astro.props;
+const { content, title="Terminal" } = Astro.props;
 
 let lines = [];
 
@@ -17,10 +21,15 @@ for (const elem of content.split("\\")) {
 
 <BaseContainer>
     <div class="px-6">
-        <div class="top py-4 flex border-dark-50 border-b">
-            <div class="h-3 w-3 bg-dark-100 rounded-full"></div>
-            <div class="ml-2 h-3 w-3 bg-dark-100 rounded-full"></div>
-            <div class="ml-2 h-3 w-3 bg-dark-100 rounded-full"></div>
+        <div class="top py-2 relative flex items-center justify-center border-dark-50 border-b">
+            <div class="absolute left-0">
+                <div class="flex">
+                    <div class="h-3 w-3 bg-dark-100 rounded-full"></div>
+                    <div class="ml-2 h-3 w-3 bg-dark-100 rounded-full"></div>
+                    <div class="ml-2 h-3 w-3 bg-dark-100 rounded-full"></div>
+                </div>
+            </div>
+            <p class="text-dark-200 select-none">{title}</p>
         </div>
         <div class="py-4">
             {lines.map((line) => (
