@@ -23,12 +23,12 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
 ---
 
 <html dir={data.dir} lang={data.lang} class="initial">
-	<head>
-		<HeadCommon />
-		<HeadSEO {...data} canonicalUrl={canonicalURL} />
-		<title>
-			{`${data.title} - ${SITE.title}`}
-		</title>
+    <head>
+        <HeadCommon />
+        <HeadSEO {...data} canonicalUrl={canonicalURL} />
+        <title>
+            {`${data.title} - ${SITE.title}`}
+        </title>
 
         <!-- this is required to properly render math went using katex -->
         <link 
@@ -36,23 +36,23 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
             href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css"
         />
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.js" integrity="sha384-tsPOhveNsi36uhglzMBNOAA2xd7LlEqQuQHFKi4DwP+6UKrrLGub1MD77Zx18F8e" crossorigin="anonymous"></script>
-	</head>
+    </head>
 
-	<body class="bg-primary-dark font-roboto text-base text-white leading-relaxed">
-		<Header currentPage={currentPage} />
-		<main class="flex items-start justify-between">
-			<aside class="p-4 w-72 bg-dark-50" title="Site Navigation">
-				<LeftSidebar currentPage={currentPage} />
-			</aside>
-			<div id="grid-main" class="w-[700px]">
-				<PageContent title={data.title} headings={headings} description={data.description} githubEditUrl={githubEditUrl}>
-					<slot />
-				</PageContent>
-			</div>
-			<aside class="flex flex-col sticky top-0 p-4 bg-dark-50" title="Table of Contents">
-				<RightSidebar headings={headings} githubEditUrl={githubEditUrl} />
-			</aside>
-		</main>
-		<Footer path={currentFile} />
-	</body>
+    <body class="bg-primary-dark font-roboto text-white text-lg leading-relaxed">
+        <Header currentPage={currentPage} />
+        <main class="flex items-start justify-between">
+            <aside class="p-4 w-72 bg-dark-50" title="Site Navigation">
+                <LeftSidebar currentPage={currentPage} />
+            </aside>
+            <div id="grid-main" class="w-[700px]">
+                <PageContent title={data.title} headings={headings} description={data.description} githubEditUrl={githubEditUrl}>
+                    <slot />
+                </PageContent>
+            </div>
+            <aside class="flex flex-col sticky top-0 p-4 bg-dark-50" title="Table of Contents">
+                <RightSidebar headings={headings} githubEditUrl={githubEditUrl} />
+            </aside>
+        </main>
+        <Footer path={currentFile} />
+    </body>
 </html>
