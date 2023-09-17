@@ -2,7 +2,8 @@
 // import JXG from 'https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.mjs';
 
 // USING a patch version of jsxgraph to support katex macros
-import JXG from './jsxgraphcore.mjs';
+// import JXG from './jsxgraphcore.mjs';
+import JXG from "jsxgraph"
 import { NOTATION } from '../consts.ts';
 
 // colors definitions
