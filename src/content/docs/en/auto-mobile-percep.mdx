@@ -1,0 +1,65 @@
+---
+title: "Perception - Autonomous Mobile Robots"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+import LineProblem from "../../../components/AutoMobile/LineProblem.astro"
+import LaserData from "../../../components/AutoMobile/LaserData.astro"
+import MeasurementError from "../../../components/AutoMobile/MeasurementError.astro"
+import LeastSquareError from "../../../components/AutoMobile/LeastSquareError.astro"
+
+## Feature Extraction Based on Range Data (Laser, Ultrasonic)
+
+<LineProblem
+    description="Estimating a line in the least-squares sense. The model parameters $r$ (length of the perpendicular) and $\alpha$ (its angle to the abscissa) uniquely describe a line."
+/>
+
+<LaserData/>
+
+<Equation
+    formula="x = \rho \cos(\theta) \> \textrm{and} \> y = \rho \sin(\theta)"
+    description="Laser scan data to Euclidian coordinates"
+/>
+
+<MeasurementError
+    description="Orthogonal distance $d_i$ between $(\rho_i, \theta_i)$ and the line"
+/>
+
+<LeastSquareError
+    description="Least Square Error"
+/>
+
+If we consider each measurement to be equally uncertain, we can sum the square of all errors together, for all measurement points, to quantify an overall fit between the line and all of the measurements:
+
+<Equation
+    formula="S = \underset{i}{\sum} d_i^2"
+    description="Overall error"
+/>
+
+Our goal is to minimize $S$ when selecting the line parameters $(\alpha, r)$. We can do so by solving the nonlinear equation system:
+
+<Equation
+    formula="\frac{\partial S}{\partial \alpha} = 0 \> \> \frac{\partial S}{\partial r} = 0"
+    description="Minimize error"
+/>

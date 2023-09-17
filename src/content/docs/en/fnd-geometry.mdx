@@ -24,6 +24,12 @@ export const components = {
     p: P
 }
 
+import Translation from '../../../components/Geometry/Translation.astro'
+import Rotation from '../../../components/Geometry/Rotation.astro'
+import Scale from '../../../components/Geometry/Scale.astro'
+import Affine from '../../../components/Geometry/Affine.astro'
+import Homography from '../../../components/Geometry/Homography.astro'
+
 ## 2D Point
 
 <Equation
@@ -65,3 +71,122 @@ y \\
 $$
 
 points with $\tilde{w} = 0$ are called points at infinity or ideal points
+
+## 2D Transformations
+
+### Translation
+
+$$
+\vx^\prime = \vx + \vt
+$$
+
+using augmented vector:
+
+$$
+\vx^\prime = \underbrace{
+\begin{pmatrix} 
+\mI & \vt
+\end{pmatrix}
+}_{2 \times 3} \avx
+$$
+
+in homogeneous coordinates:
+
+$$
+\hvx^\prime = \underbrace{
+\begin{pmatrix} 
+\mI & \vt \\
+0^\transpose & 1
+\end{pmatrix}
+}_{3 \times 3} \hvx
+$$
+
+where $\vt \in \sR^2$ is the translation vector, $\mI$ is the identity matrix, and $0$ is the zero vector.
+
+<Translation/>
+
+### Rotation
+
+Rigid body motion or Euclidean transformation (rotation + translation)
+
+$$
+\vx^\prime = \mR\vx + \vt
+$$
+
+in homogeneous coordinates:
+
+$$
+\hvx^\prime = 
+\begin{pmatrix} 
+\mR & \vt \\
+0^\transpose & 1
+\end{pmatrix} \hvx
+$$
+
+Where
+
+$$
+\mR = \begin{pmatrix}
+\cos{\theta} && -\sin{\theta} \\
+\sin{\theta} && \cos{\theta} \\
+\end{pmatrix}
+$$
+
+is orthogonal ($RR^\transpose = \mI$) with $det(\mR) = 1$
+
+> **Distances and angles are preserved**
+
+<Rotation/>
+
+### Scale
+
+Similarity transform
+
+$$
+\vx^\prime = s\mR\vx + \vt
+$$
+
+in homogeneous coordinates:
+
+$$
+\hvx^\prime = 
+\begin{pmatrix} 
+s\mR & \vt \\
+0^\transpose & 1
+\end{pmatrix} \hvx
+$$
+
+> **Preserves angles between lines**
+
+<Scale/>
+
+### Affine Transformation
+
+$$
+\hvx^\prime = \mA \hvx = \begin{pmatrix}
+a_{11} && a_{12} && a_{13} \\
+a_{21} && a_{22} && a_{23} \\
+0 && 0 && 1 \\
+\end{pmatrix} \hvx
+$$
+
+> **Parallel lines remain parallel**
+
+<Affine/>
+
+### Homography or projective transformation
+
+$$
+\hvx^\prime = \hat{\mH} \hvx = \begin{pmatrix}
+a_{11} && a_{12} && a_{13} \\
+a_{21} && a_{22} && a_{23} \\
+a_{31} && a_{32} && a_{33} \\
+\end{pmatrix}  \hvx
+$$
+
+<Homography/>
+
+## Coordinates Systems
+
+- $\fI$ Inertial frame
+- $\fR$ Robot frame `base_link`

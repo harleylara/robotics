@@ -1,0 +1,160 @@
+---
+title: "Workspace"
+description: "Create and manage a ROS workspace"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## Outline
+
+- Names in ROS
+- Concept of workspace in ROS
+    - underlay
+    - overlay 
+- Create a workspace
+- Building a workspace (build system)
+- Sourcing the workspace (activate it)
+    - Sourcing tips
+
+## Names in ROS 2
+
+Names can be:
+- relative path
+- absolute path (begins with `\`)
+- privately (begins with `~`)
+- namespace: namespace prefix to apply to entities associated with the node (node name, topics, etc).
+
+External resources:
+- [ROS 1 Names](http://wiki.ros.org/Names)
+- [ROS 2 Topic and Service name mapping to DDS](https://design.ros2.org/articles/topic_and_service_names.html)
+- [ROS conventions](http://wiki.ros.org/ROS/Patterns/Conventions)
+
+## The Workspace
+
+The concept of workspace is ROS VERSION independent.
+
+ROS workspace: "A workspace is a directory containing ROS packages."
+
+The workspace contains:
+- Packages
+    - Executables
+    - Libraries
+    - Message definitions
+- Meta-Packages (ROS 1): a package containing other packages
+    - [Metapackages ROS 1](http://wiki.ros.org/Metapackages)
+
+### Underlay
+
+A underlay workspace: It contains the necessary dependencies of all the packages required by the "overlay".
+
+### Overlay
+
+Overlay: Extends the underlay. (You will normally work here)
+
+<Important
+    note="Keep in mind that an underlay does not necessarily have to be the main ROS 2 installation."
+/>
+
+Workspace activation is accumulative.
+
+## Create a Workspace
+
+<Terminal
+    title="create a workspace"
+    content="mkdir -p ~/ros2_ws/src \
+    cd ~/ros2_ws"
+/>
+
+## Building a Workspace
+
+The build tool in ROS 2 is called `colcon` (collective construction). colcon is an iteration on the ROS build tools `catkin_make`, `catkin_make_isolated`, `catkin_tools` and `ament_tools`.
+
+`colcon` compile, test and install packages for you.
+
+<Terminal
+    title="build workspace"
+    content="cd ~/ros2_ws \
+    colcon build --symlink-install"
+/>
+
+The option `--symlink-install` creates a symlink to their original locations instead of copying.
+
+This will create a three folders:
+- `build`
+- `install`
+- `log`
+
+<Important
+    note="You should always run the build command from the ROOT of the workspace"
+/>
+
+External resources:
+- [A universal build tool](https://design.ros3.org/articles/build_tool.html)
+
+### Build Tools
+
+`colcon` is the tool in charge of compiling the workspace, but internally it uses other build systems depending on the type of package to compile or test.
+
+In ROS2 is usually:
+- CMake for C++
+- setuptools for python
+
+
+### Installing Dependencies
+
+Managing dependencies:
+
+<Terminal
+    title="install dependencies with rosdep"
+    content="rosdep install -i --from-path src --rosdistro humble -y"
+/>
+
+## Source a Workspace (Activate it)
+
+Don't forget to source your underlay in EVERY terminal you open.
+
+<Terminal
+    title="source underlay"
+    content="source /opt/ros/humble/setup.bash"
+/>
+
+<Terminal
+    title="source overlay"
+    content="source ~/ros2_ws/local_setup.bash"
+/>
+
+External reference on sourcing [here](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#source-the-overlay)
+
+What is the diference on `setup.bash` in the underlay an `local_setup.bash` in the overlay?
+
+- `setup.bash` in the underlay under `/opt/ros/<DISTO>/setup.bash` enables all the packages in the underlay.
+- `local_setup.bash` in the overlay under (usually) `~/<YOUR WORKSPACE>/install/local_setup.bash` enables the ONLY the current workspace.
+- `setup.bash` in the overlay under `~/<YOUR WORKSPACE>/install/setup.bash` enables the current workspace as well as the underlay it was created in.
+
+<Important
+    note="You may need to re-source the workspace after adding new packages"
+/>
+
+### Sourcing Tips
+
+- `.bashrc`

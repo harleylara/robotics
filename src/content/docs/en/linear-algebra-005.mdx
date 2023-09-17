@@ -3,6 +3,7 @@ title: "Transposes, Permutations, Spaces R^n"
 ---
 
 import VectorSpace2D from "../../../components/LinearAlgebra/VectorSpace2D.astro"
+import SubSpaceL2D from "../../../components/LinearAlgebra/SubSpaceL2D.astro"
 
 export const components = {
     blockquote: Blockquote,
@@ -83,6 +84,10 @@ Rule to transpose:
 
 space: refers to a set (space) of vectors.
 
+Vector space requirements, the sum of any vector $\vv + \vw$ and the multiplication $c\vv$ **stay in the space**.
+
+In other words: All linear combinations of $c\vv + d\vw$ are **in the space**.
+
 
 Example:
 - $\sR^{2}$: all posible 2-dim **real** column vectors. Represent a plane.
@@ -92,11 +97,15 @@ Example:
     note="Definition: The space $\sR^n$ consists of all column vectors $\vv$ with $n$ components (the components are real numbers)."
 />
 
-<VectorSpace2D/>
+<VectorSpace2D
+    description="$\sR^{2}$ vector space."
+/>
 
 Subspaces of $\sR^{2}$
 - all of $\sR^{2}$
 - any line through $[0, 0]$
 - the zero vector
 
-
+<SubSpaceL2D
+    description="any LINE through $[0,0]$ is a sub-space of the vector space $\sR^{2}$"
+/>

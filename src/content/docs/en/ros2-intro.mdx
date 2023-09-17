@@ -28,83 +28,101 @@ If you are wondering:
 
 > Do I need to learn to ROS 1 to be able to learn ROS 2 (or vice versa), the answer is NO. (what? you expected a more elaborated answer?... I'm to lazy to write it down)
 
-## Communication Paradigms
+## Prerequisites for Diving
 
-- Publication/Subscription (asynchronous)
-- Services (synchronous)
-- Actions (asynchronous)
+- Familiarity with Ubuntu's desktop environment
+- The GNU/Linux file system
+- Basics with the terminal (bash)
 
-## Execution Model
+Install ROS:
+- Check the official documentation, and follow [Ubuntu Debian packages (recommended)](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 
-- Iterartive execution
-- Event-oriented execution
+## Outline
 
-## Names in ROS 2
+- What is ROS and why use it?
+- ROS introduction
+    - Plumbing
+    - Tools
+    - Capabilities
+    - ROS Ecosystem
+- versions
+- distributions
+- resources
+- programming languages
+- Nodes
+- Messages and Topics
 
-Names can be:
-- relative path
-- absolute path (begins with `\`)
-- privately (begins with `~`)
-- namespace
+## What is ROS and Why use it?
 
-External resources:
-- [ROS 1 Names](http://wiki.ros.org/Names)
-- [ROS 2 Topic and Service name mapping to DDS](https://design.ros2.org/articles/topic_and_service_names.html)
-- [ROS conventions](http://wiki.ros.org/ROS/Patterns/Conventions)
+ROS: "The Robot Operating System (ROS) is a set of software libraries and tools that help you build robot applications" (from the official [website](https://www.ros.org/))
+- [Why ROS?](https://www.ros.org/blog/why-ros/)
 
-### The Workspace
+<Drawio
+    file="ros.drawio"
+    page="1"
+    description="A toy example"
+/>
 
-The workspace contains:
-- Packages
-    - Executables
-    - Libraries
-    - Message definitions
-- Meta-Packages: a package containing other packages
-    - [Metapackages ROS 1](http://wiki.ros.org/Metapackages)
+ROS is:
+- Plumbing
+- Tools
+- Capabilities
+- Ecosystem
 
-Workspace activation is accumulative.
+### Plumbing
 
-### Packages
+- Execution models
+    - Iterative execution
+    - Event-oriented execution
+- Communication paradigms
+    - Publication/Subscription (asynchronous)
+    - Services (synchronous)
+    - Actions (asynchronous)
+- Drivers
 
-They can be installed from source or with the system instalation system.
+### Tools
 
-```
-ros-<distro>-<ros-2-package-name>
-```
+- logging/plotting
+- (Communication) graph visualization
+- diagnostics
+- visualization
+- simulation
 
-### Building a Workspace
+### Capabilities
 
-```
-colcon build --symlink-install
-```
+- Perception
+- Navigation
+- Manipulation
+- Path planning
+- more...
 
-The option `--symlink-install` creates a symlink to their original locations instead of copying.
+### ROS Ecosystem: [map](http://metrorobots.com/rosmap.html)
 
-This will create a three folders:
-- `build`
-- `install`
-- `log`
+- Schools
+- Company
+- Research Institute
+- More
 
-`colcon` (collective construction)
+## ROS versions
 
-External resources:
-- [A universal build tool](https://design.ros2.org/articles/build_tool.html)
+- ROS 1
+- ROS 2
+- [Changes between ROS 1 and ROS 2](https://design.ros2.org/articles/changes.html)
 
-## ROS 2 - CLI
+## ROS distributions 
 
-```
-ros2 <command> <verb> [<params>|<options>]*
-```
+> "A ROS distribution is a versioned set of ROS packages"
+- [ROS 1 list of distributions](https://wiki.ros.org/Distributions)
+- [ROS 2 list of distributions](https://docs.ros.org/en/humble/Releases.html)
 
-To get a list of available packages:
-```
-ros2 pkg list
-```
+## ROS Programming Languages
 
-External resources:
-- [ROS 2 CLI cheatsheet](https://github.com/ubuntu-robotics/ros2_cheats_sheet/blob/master/cli/cli_cheats_sheet.pdf)
+ROS can intermix programming languages:
+- Official support: C, C++, Python
 
-To run a node:
-```
-ros2 run <package-name> <node-name>
-```
+## ROS resources
+
+- [ROS website](https://www.ros.org/)
+- [ROS Answers](https://answers.ros.org/) this page is no longer active, use instead [Robotics Stack Exchange](https://robotics.stackexchange.com/)
+- `<package>` wiki
+- [Official documentation](https://docs.ros.org/)

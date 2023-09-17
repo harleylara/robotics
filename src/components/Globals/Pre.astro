@@ -1,7 +1,10 @@
 ---
+import BaseContainer from "./BaseContainer.astro";
 const props = Astro.props;
 ---
 
-<pre class="bg-dark-50 p-4 border-[0.3px] border-dark-100">
-<slot/>
-</pre>
+<BaseContainer>
+    <pre class="p-4">
+        <slot/>
+    </pre>
+</BaseContainer>

@@ -62,7 +62,10 @@ export const SIDEBAR: Sidebar = {
         'ROS': [
             { text: 'ROS context', link: 'en/ros-intro' },
             { text: 'Introduction', link: 'en/ros2-intro' },
-            { text: 'Workspace', link: 'en/ros2-workspace' },
+            { text: 'Workspace', link: 'en/ros2-ws' },
+            { text: 'Packages', link: 'en/ros2-pkgs'},
+            { text: 'Nodes', link: 'en/ros2-nodes'},
+            { text: 'DDS', link: 'en/ros2-dds'},
         ],
         'Foundamentals': [
             { text: 'Linear Algebra', link: 'en/fnd-linear-algebra' },
@@ -74,6 +77,7 @@ export const SIDEBAR: Sidebar = {
         'Autonomous Mobile Robots': [
             { text: 'Introduction', link: 'en/auto-mobile' },
             { text: 'Perception', link: 'en/auto-mobile-percep'},
+            { text: 'SLAM', link: 'en/slam-review'}
         ],
         'Mathematics for Robotics': [
             { text: 'Lecture 1', link: 'en/mrc-01' },
@@ -86,7 +90,8 @@ export const SIDEBAR: Sidebar = {
         ],
         'Reference': [
             { text: 'Styling', link: 'en/ref' },
-            { text: 'Notation', link: 'en/ref-notation' }
+            { text: 'Notation', link: 'en/ref-notation' },
+            { text: 'Sources', link: 'en/sources'}
         ],
     },
 };

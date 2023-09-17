@@ -3,48 +3,49 @@ import { getLanguageFromURL } from '../../languages';
 import { SIDEBAR } from '../../consts';
 
 type Props = {
-	currentPage: string;
+    currentPage: string;
 };
 
 const { currentPage } = Astro.props;
 const currentPageMatch = currentPage.endsWith('/')
-	? currentPage.slice(1, -1)
-	: currentPage.slice(1);
+    ? currentPage.slice(1, -1)
+    : currentPage.slice(1);
 const langCode = getLanguageFromURL(currentPage);
 const sidebar = SIDEBAR[langCode];
 ---
 
 <nav aria-labelledby="grid-left">
-	<ul class="nav-groups">
-		{
-			Object.entries(sidebar).map(([header, children]) => (
-				<li>
-					<div class="nav-group mb-4">
-						<h2 class="font-bold">{header}</h2>
-						<ul>
-							{children.map((child) => {
-								const url = Astro.site?.pathname + child.link;
-								return (
-									<li class="nav-link hover:bg-dark-100 px-4 py">
-										<a href={url} aria-current={currentPageMatch === child.link ? 'page' : false}>
-											{child.text}
-										</a>
-									</li>
-								);
-							})}
-						</ul>
-					</div>
-				</li>
-			))
-		}
-	</ul>
+    <ul class="nav-groups">
+        {
+        Object.entries(sidebar).map(([header, children]) => (
+            <li>
+                <div class="nav-group mb-4">
+                    <h2 class="font-bold text-lg py-2">{header}</h2>
+                    <hr class="h-px border-0 bg-gradient-to-r from-transparent via-dark-100 to-transparent">
+                    <ul>
+                        {children.map((child) => {
+                            const url = Astro.site?.pathname + child.link;
+                            return (
+                                <li class="nav-link hover:bg-dark-100">
+                                    <a href={url} aria-current={currentPageMatch === child.link ? 'page' : false} class="block text-gray-300 pl-2 py-1 text-base">
+                                        {child.text}
+                                    </a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            </li>
+        ))
+        }
+    </ul>
 </nav>
 
 <script is:inline>
-	window.addEventListener('DOMContentLoaded', () => {
-		var target = document.querySelector('[aria-current="page"]');
-		if (target && target.offsetTop > window.innerHeight - 100) {
-			document.querySelector('.nav-groups').scrollTop = target.offsetTop;
-		}
-	});
+window.addEventListener('DOMContentLoaded', () => {
+    var target = document.querySelector('[aria-current="page"]');
+    if (target && target.offsetTop > window.innerHeight - 100) {
+        document.querySelector('.nav-groups').scrollTop = target.offsetTop;
+    }
+});
 </script>

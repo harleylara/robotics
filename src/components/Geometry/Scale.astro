@@ -1,0 +1,80 @@
+---
+// IMPORTANT: import the JSXGraph wrapper component
+import JSXGraph from "../Figures/JSXGraph.astro";
+
+const {description="Please insert the description of this figure"} = Astro.props;
+---
+
+<JSXGraph description={description}>
+    <div id="gmt-scale" class="jsxbox" style="width: 100%; height: 480px;">
+    </div>
+</JSXGraph>
+
+<script>
+// IMPORTANT: import JSXGraph
+import JXG from '../../tools/jsxgraph.init.js'
+
+let board = JXG.JSXGraph.initBoard('gmt-scale', {
+    boundingbox:[-5,6,10,-5],
+    axis:true, 
+    showNavigation:true, 
+    showCopyright:false,
+    keepaspectratio:true,
+    defaultAxes: {
+        x : {
+            name: 'X',
+            withLabel: true,
+            label: {
+                position: 'rt',
+                offset: [-10, -15]
+            }
+        },
+        y : {
+            withLabel:true,
+            name: 'Y',
+            label: {
+                position: 'rt',
+                offset: [-20, -10]
+            }
+        }
+}});
+
+let length = 2;
+    
+let a = board.create('slider',[[-4,-1],[4,-1],[-4,0,8]],{name:'x'});
+let b = board.create('slider',[[-4,-2],[4,-2],[-4,0,8]],{name:'y'});
+let theta = board.create('slider',[[-4,-3],[4,-3],[-2*Math.PI,0,2*Math.PI]],{name:'theta'});
+let scale = board.create('slider',[[-4,-4],[4,-4],[0.1,1,3]],{name:'scale'});
+
+let sq = [],
+    right = board.create('transform', [
+    function() {return length * scale.Value() ;}, 0], {type: 'translate'}),
+    up = board.create('transform', [0, 
+    function() {return length * scale.Value() ;}], {type: 'translate'}),
+    pol, rot, p0;
+
+sq[0] = board.create('point', [
+function() {return a.Value();}, 
+function() {return b.Value();}]),
+
+// Construct the other free points by transformations
+sq[1] = board.create('point', [sq[0], right], {visible: false}),
+sq[2] = board.create('point', [sq[0], [right, up]], {visible: false}),
+sq[3] = board.create('point', [sq[0], up], {visible: false}),
+
+// Polygon through these four points
+pol = board.create('polygon', sq);
+
+let _p = board.create('point', [sq[0], right],{visible: false});
+
+// Rotate the square around point sq[0]
+rot = board.create('transform', [
+    function() {return theta.Value();}, sq[0]], {type: 'rotate'});
+
+// Apply the rotation to all but the first point of the square
+rot.bindTo(sq.slice(1));
+
+let va = board.create('line',[[0,0],sq[0]],{straightFirst:false, straightLast:false, lastArrow:true});
+let angle = board.create('angle', [_p, sq[0], sq[1]], {name: 'theta', radius: length });
+
+</script>

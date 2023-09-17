@@ -1,0 +1,110 @@
+---
+title: "ROS Nodes"
+description: "Creating nodes"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## Outline
+
+- What is a node?
+- Creating the bare minimum node (python)
+- ROS `cli` for nodes (`ros2 node`)
+
+## What is a Node
+
+Namespace: prefix to apply to entities associated with the node (node name, topics, etc).
+
+A node is used to create ROS entities:
+- publisher
+- subscribers
+- services
+    - service server
+    - service client
+- actions
+    - action server
+    - action client
+- configurable parameters (run-time)
+
+Nodes can communicate with other nodes within:
+- the same process
+- in a different process
+- on a different machine.
+
+Each node should do one logical thing.
+
+## Creating a Bare Minimum Node
+
+- Where to put the code?
+- Write the code
+- Make it available for execution `entry_points`
+
+
+<Code
+    title="bare minimum node (python)"
+    code={`
+import rclpy
+
+def main(args=None) -> None:
+
+    rclpy.init()
+
+    rclpy.spin(rclpy.create_node("bare_node"))
+
+    rclpy.shutdown()
+
+if __name__ == "__main__":
+    main()
+`}
+/>
+
+The packages of type `ament_python` are structured like a standard python package using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html).
+
+<Code
+    title="add an entry point"
+    code={`
+...
+
+entry_points={
+    'console_scripts': [
+        'bare = python_basics.bare:main',
+    ],
+},
+
+...
+`}
+/>
+
+<Terminal
+    title="format for console_scripts"
+    content="ENTRY_POINT_NAME = PACKAGE_NAME.MODULE_NAME:ENTRY_POINT"
+    prompt={false}
+/>
+
+## Coding a Minimum Logger
+
+- coding a logger (`logger.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/logger.py)
+
+## Using Classes
+
+- coding a logger using classes (`class.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/class.py)

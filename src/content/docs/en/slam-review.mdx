@@ -1,0 +1,57 @@
+---
+title: A review on SLAM
+description: Is just me exploring the field of SLAM
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+
+## Simultaneous localization and mapping: part I
+
+
+```
+Date of Publication: 05 June 2006
+Authors: H. Durrant-Whyte, T. Bailey
+Published in: IEEE Robotics & Automation Magazine ( Volume: 13, Issue: 2, June 2006)
+```
+
+> "At a theoretical and conceptual level, SLAM can now be considered a solved problem."
+
+
+Two key computational solutions:
+- EKF-SLAM: standard Bayesian form
+- FastSLAM: use of RaoBlackwellised particle filters
+
+> "The genesis of the probabilistic SLAM problem occurred at the 1986 IEEE Robotics and Automation Conference held in San Francisco."
+
+- high degree of correlation between estimates of the location of different landmarks in a map
+    - these correlations would grow with successive observations
+
+- 1995 the acronym SLAM is used for the first time. H. Durrant-Whyte, D. Rye, and E. Nebot. Localization of automatic guided vehicles.
+
+
+## People
+
+- Peter Cheeseman
+- Hugh Durrant-Whyte
+

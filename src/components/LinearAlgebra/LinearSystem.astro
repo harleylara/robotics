@@ -1,0 +1,74 @@
+---
+// IMPORTANT: import the JSXGraph wrapper component
+import JSXGraph from "../Figures/JSXGraph.astro";
+
+const {description="Please insert the description of this figure"} = Astro.props;
+---
+
+<JSXGraph description={description}>
+    <div id="linear-system" class="jsxbox" style="width: 100%; height: 480px;">
+    </div>
+</JSXGraph>
+
+<script>
+import JXG from '../../tools/jsxgraph.init.js'
+
+function sumVector(vector1, vector2){
+    return vector1 + vector2;
+}
+
+let board = JXG.JSXGraph.initBoard('linear-system', {
+    boundingbox:[-5,10,5,-5],
+    axis:true, 
+    showNavigation:true, 
+    showCopyright:false,
+    defaultAxes: {
+        x : {
+            name: 'X',
+            withLabel: true,
+            label: {
+                position: 'rt',
+                offset: [-10, -15]
+            }
+        },
+        y : {
+            withLabel:true,
+            name: 'Y',
+            label: {
+                position: 'rt',
+                offset: [-20, -10]
+            }
+        }
+}});
+
+function eq1(x){
+    return 2*x;
+}
+
+function eq2(x){
+    return (3 + x)/2;
+}
+
+let labels = [String.raw`2x - y = 0`, String.raw`-x + 2y = 3`];
+let colors = ["red", "yellow"];
+
+let line1 = board.create("functiongraph", [eq1], {
+    strokeColor: colors[0]
+});
+
+
+let line2 = board.create("functiongraph", [eq2], {
+    strokeColor: colors[1]
+});
+
+board.create("legend", [-4,6], {
+    labels: labels,
+    colors: colors,
+    strokeWidth: 3
+} )
+
+let intersection = board.create("intersection", [line1, line2, 0], {
+    name: "\\textrm{solution}"
+});
+
+</script>

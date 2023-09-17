@@ -1,0 +1,73 @@
+---
+title: "Data Distribution Service (DDS)"
+description: "Exploring DDS"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## Outline
+
+- What is DDS?
+    - Use cases
+
+## What is DDS?
+
+"The DDS specification describes a Data-Centric Publish-Subscribe (DCPS) model for distributed application communication and integration"
+
+"The Data Distribution Service (DDS) for real-time systems is an Object Management Group (OMG) machine-to-machine (sometimes called middleware or connectivity framework)"
+
+- dependable
+- high-performance
+- interoperable
+- real-time
+- scalable data exchanges 
+-  distributed discovery system
+
+using a publish–subscribe pattern.
+
+## Discovery
+
+Creating logical networks
+
+<Drawio
+    file="dds.drawio"
+    page="1"
+    description="ROS_DOMAIN_ID"
+/>
+
+Discovery:
+
+<Drawio
+    file="dds.drawio"
+    page="2"
+    description="ROS auto discovery process"
+/>
+
+More about `ROS_DOMAIN_ID` in the [official docs](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Domain-ID.html)
+
+## External References
+
+- [ROS on DDS - Design ROS](https://design.ros2.org/articles/ros_on_dds.html)
+- [DDS implementations - ROS docs](https://docs.ros.org/en/humble/Installation/DDS-Implementations.html)
+- [DDS - Specification](https://www.omg.org/spec/DDS)
+- [DDS Interoperability Wire Protocol](https://www.omg.org/spec/DDSI-RTPS/)

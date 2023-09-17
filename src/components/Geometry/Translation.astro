@@ -1,0 +1,63 @@
+---
+// IMPORTANT: import the JSXGraph wrapper component
+import JSXGraph from "../Figures/JSXGraph.astro";
+
+const {description="Please insert the description of this figure"} = Astro.props;
+---
+
+<JSXGraph description={description}>
+    <div id="gmt-translation" class="jsxbox" style="width: 100%; height: 480px;">
+    </div>
+</JSXGraph>
+
+<script>
+// IMPORTANT: import JSXGraph
+import JXG from '../../tools/jsxgraph.init.js'
+
+let board = JXG.JSXGraph.initBoard('gmt-translation', {
+    boundingbox:[-5,10,10,-3],
+    axis:true, 
+    showNavigation:true, 
+    showCopyright:false,
+    keepaspectratio:true,
+    defaultAxes: {
+        x : {
+            name: 'X',
+            withLabel: true,
+            label: {
+                position: 'rt',
+                offset: [-10, -15]
+            }
+        },
+        y : {
+            withLabel:true,
+            name: 'Y',
+            label: {
+                position: 'rt',
+                offset: [-20, -10]
+            }
+        }
+}});
+
+let a = board.create('slider',[[-4,-1],[4,-1],[-4,6,8]],{name:'x'});
+let b = board.create('slider',[[-4,-2],[4,-2],[-4,7,8]],{name:'y'});
+
+let radius = 2;
+
+let p1 = board.create('point', [
+function() {return a.Value();},
+function() {return b.Value();}]);
+
+let p2 = board.create('point', [
+function() {return p1.X()}, 
+function() {return p1.Y() + radius}], {visible:false});
+let circle1 = board.create('circle', [p1, p2]);
+let va = board.create('line',[[0,0],p1],{straightFirst:false, straightLast:false, lastArrow:true});
+
+let x = board.create('line',[[
+function(){return p1.X();},0],p1],{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
+let y = board.create('line',[[0,
+function(){return p1.Y();}],p1],{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
+
+let formula = board.create('text', [0,0,"test"]);
+</script>
