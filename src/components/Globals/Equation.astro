@@ -26,13 +26,3 @@ const caption = markToHtml(description);
         <button id="test-latex" class="hidden absolute top-2 right-2">Copy LaTeX</button>
     </div>
 </BaseContainer>
-
-<script>
-const btn = document.querySelector("#test-latex");
-const math = document.querySelector("#math");
-
-btn.addEventListener('click', () => {
-    navigator.clipboard.writeText(math.dataset.latex);
-    console.log(math.dataset.latex);
-});
-</script>
