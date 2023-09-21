@@ -37,10 +37,8 @@ export type Sidebar = Record<
 
 export const SIDEBAR: Sidebar = {
     en: {
-        'Section Header': [
-            { text: 'Introduction', link: 'en/introduction' },
-            { text: 'Page 2', link: 'en/page-2' },
-            { text: 'Page 3', link: 'en/page-3' },
+        'About': [
+            { text: 'About this site', link: 'en/introduction' },
         ],
         'Linear Algebra': [
             { text: "The Geometry of Linear Equations", link: 'en/linear-algebra-001'},
