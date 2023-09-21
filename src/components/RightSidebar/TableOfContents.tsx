@@ -90,7 +90,7 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
                 <h2 id={onThisPageID} className="heading">Table of Content</h2>
             </div>
             <hr class="h-px border-0 bg-gradient-to-r from-transparent via-dark-100 to-transparent" />
-            <ul ref={toc} class="leading-loose mx-4">
+            <ul ref={toc} class="leading-loose m-4">
                 {headings
                     .filter(({ depth }) => depth > 1 && depth < 5)
                     .map((heading) => (
