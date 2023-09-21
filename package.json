@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/markdown-remark": "^3.2.0",
     "@astrojs/mdx": "^1.1.0",
+    "@astrojs/node": "^6.0.0",
     "@astrojs/preact": "^3.0.0",
     "@astrojs/react": "^3.0.2",
     "@astrojs/tailwind": "^5.0.0",

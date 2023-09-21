@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
 import react from '@astrojs/react';
 import tailwind from "@astrojs/tailwind";
+import node from '@astrojs/node';
 
 // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -17,6 +18,10 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
+  adapter: node({
+    mode: 'standalone',
+  }),
   vite: {
     server: {
       watch: {
