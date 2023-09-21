@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+  robotics:
+    build: .
+    image: robotics
+    container_name: robotics
+    ports:
+      - 4321:4321
+
+networks:
+    default:
+        external:
+            name: nginx_default
