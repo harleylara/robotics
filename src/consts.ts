@@ -64,6 +64,7 @@ export const SIDEBAR: Sidebar = {
             { text: 'Packages', link: 'en/ros2-pkgs'},
             { text: 'Nodes', link: 'en/ros2-nodes'},
             { text: 'DDS', link: 'en/ros2-dds'},
+            { text: 'Tools', link: 'en/ros2-tools'}
         ],
         'Foundamentals': [
             { text: 'Linear Algebra', link: 'en/fnd-linear-algebra' },
