@@ -14,11 +14,10 @@ const entry = await getEntry("docs", slug);
 if (entry === undefined) {
   return Astro.redirect("/404");
 }
-const post = Astro.props;
 // 4. (Optional) Render the entry to HTML in the template
 const { Content, headings } = await entry.render();
 ---
 
-<MainLayout headings={headings} {...post.data}>
+<MainLayout headings={headings} {...entry.data}>
 	<Content />
 </MainLayout>
