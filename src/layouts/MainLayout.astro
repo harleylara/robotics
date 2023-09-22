@@ -41,7 +41,7 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
     <body class="bg-primary-dark font-roboto text-white text-base leading-relaxed">
         <Header currentPage={currentPage} />
         <main class="flex justify-center">
-            <aside class="p-4 w-72 bg-dark-50 absolute left-0" title="Site Navigation">
+            <aside class="p-4 w-72 bg-dark-50 absolute left-0 z-50" title="Site Navigation">
                 <LeftSidebar currentPage={currentPage} />
             </aside>
             <PageContent title={data.title} headings={headings} description={data.description} githubEditUrl={githubEditUrl}>
