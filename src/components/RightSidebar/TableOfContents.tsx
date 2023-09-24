@@ -15,6 +15,7 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
     const onThisPageID = 'on-this-page-heading';
     const itemOffsets = useRef<ItemOffsets[]>([]);
     const [currentID, setCurrentID] = useState('overview');
+
     useEffect(() => {
         const getItemOffsets = () => {
             const titles = document.querySelectorAll('article :is(h1, h2, h3, h4)');
