@@ -7,10 +7,10 @@ import BaseContainer from './BaseContainer.astro';
 export interface Props {
     title: string,
     content: string,
-    prompt: boolean, // TODO: change this to bool
+    prompt: string, // TODO: change this to bool
 }
 
-const { content, title="Terminal", prompt=true } = Astro.props;
+const { content, title="Terminal", prompt="true"} = Astro.props;
 
 let lines = [];
 
@@ -21,7 +21,7 @@ for (const elem of content.split("\\")) {
 ---
 
 <BaseContainer>
-    <div class="px-6">
+    <div class="px-6 w-full">
         <div class="top py-2 relative flex items-center justify-center border-dark-50 border-b">
             <div class="absolute left-0">
                 <div class="flex">
@@ -32,11 +32,11 @@ for (const elem of content.split("\\")) {
             </div>
             <p class="text-dark-200 select-none">{title}</p>
         </div>
-        <div class="py-4 overflow-auto scrollbar-thin scrollbar-thumb-dark-50 scrollbar-track-dark-200 scrollbar-rounded">
+        <div class="py-4">
             {lines.map((line) => (
-                <div class="flex items-center whitespace-nowrap">
-                    <!-- the "pt-1" is because the "$" sign do not align with the text (ik its ugly but it works) -->
-                    {prompt ? <span class="before:content-['$'] mr-2 text-dark-100 font-mono pt-1"></span> : <span class="mr-2 text-dark-100"></span>}
+                <div class="flex items-center">
+                    <!-- <span class="before:content-['$'] mr-2 text-dark-100"></span> -->
+                    {prompt == "true" ? <span class="before:content-['$'] mr-2 text-dark-100"></span> : <span class="mr-2 text-dark-100"></span>}
                     <p class="font-mono">{line}</p>
                 </div>
             ))}
