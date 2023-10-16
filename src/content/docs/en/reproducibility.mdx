@@ -1,0 +1,46 @@
+---
+title: "Reproducibility"
+description: 10 rules for reproducibility
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## Rules
+
+1. For EVERY result, keep track of how it was produced.
+    - pre-processing
+    - post processing
+    - very detail that may influence the execution of the step is recorded
+    - If is software include name and version of the software
+2. Avoid manual data manipulation steps
+    - operations like the use of copy and paste between documents should also be avoided
+3. Archive the exact version of all external programs used
+4. Version control all custom scripts
+5. Record all intermediate results, when possible in standardized formats
+6. For analysis that include randomness, note underlying random seeds
+7. Always store raw data behind plots
+8. Generate hierarchical analysis Output, allowing layers of increasing detail to be inspected
+9. Connect textual statements to underlying results
+
+## External Resources
+
+- [Ten Simple Rules for Reproducible Computational Research](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)

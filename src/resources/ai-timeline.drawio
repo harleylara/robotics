@@ -1,0 +1,49 @@
+<mxfile host="Electron" modified="2023-10-13T11:52:57.048Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="mbNp0bbGfsr7JWkdPs_z" version="22.0.2" type="device">
+  <diagram name="Page-1" id="fszSgww_1dAeZ_HgrDwM">
+    <mxGraphModel dx="2342" dy="502" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HubD9zfiLveP18eOLaB0-1" value="Back-propagation&lt;br&gt;(1970 - Seppo Linnainmaa)&lt;br&gt;in his Master Thesis" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="300" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="HubD9zfiLveP18eOLaB0-3" target="HubD9zfiLveP18eOLaB0-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-3" value="computes the effect of each elementary operation on the derivative" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="430" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-4" value="Perceptron&lt;br&gt;(1957)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="300" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-5" value="A fast learning algorithm for deep belief nets&lt;br&gt;(2006)&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-6" value="Programs with common sense&lt;br&gt;(1959 - John McCarthy)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="300" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-7" value="Learning representations by back-propagating errors&lt;br&gt;(1986 - David E. Rumelhart, Geoffrey E. Hinton &amp;amp; Ronald J. Williams)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="295" width="240" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-8" value="Long short-term memory (1997 Sepp Hochreiter and Jurgen Schmidhuber)&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="300" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-9" value="Technische Universitat Munchen" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="940" y="365" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-10" value="Optimizers Era" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-11" value="Adam: A method for stochastic optimization &lt;br&gt;(2014 D. P. Kingma and J. Ba)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1620" y="295" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-12" value="psychologist" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="15" y="365" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HubD9zfiLveP18eOLaB0-15" value="A logical calculus of the ideas immanent in nervous activity&lt;br&gt;&lt;br&gt;McCulloch &amp;amp; Pitts&lt;br&gt;(1943)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-260" y="290" width="190" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

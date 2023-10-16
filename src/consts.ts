@@ -51,6 +51,9 @@ export const SIDEBAR: Sidebar = {
         'Mobile Sensing And Robotics 1': [
             { text: "Probability Primer for Probabilistic Robotics", link: 'en/mobile-sensing-and-robotics-001'},
         ],
+        'Robot Learning': [
+            { text: "Overview", link: 'en/robot-learning-overview'}
+        ],
         'Photogrammetry': [
             { text: "Introduction to Photogrammetry", link: "en/photogrammetry-001"}
         ],
@@ -86,6 +89,12 @@ export const SIDEBAR: Sidebar = {
             { text: 'Introduction', link: 'en/aima-001'},
             { text: 'Intelligent agent', link: 'en/aima-002'},
             { text: 'Solving problems by search', link: 'en/aima-003'},
+        ],
+        'Machine Learning': [
+            { text: 'Introduction', link: 'en/ml-intro'}
+        ],
+        'Miscellaneous': [
+            { text: 'Reproducibility', link: 'en/reproducibility'}
         ],
         'Reference': [
             { text: 'Styling', link: 'en/ref' },
