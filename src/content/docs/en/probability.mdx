@@ -1,0 +1,99 @@
+---
+title: Probability
+description: I need to think in a subtitle for this
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+> How can we model a random process or "experiment"? For example how can we define the process of throwing a die.
+
+The answer to this is providad by the concept of **Probability Space**: is a mathematical construct that provides a formal model of a random process or "experiment". [Probability Space - Wikipedia](https://en.wikipedia.org/wiki/Probability_space)
+
+## The Building Blocks
+
+from Probability Essentials by Jean Jacod and Philip Protter "The theory of probability aims towards a mathematical theory which describes such phenomena. This theory contains three main ingredients":
+- **Sample space** $\Omega$
+- **Event space** $\mathcal{A}$
+- **The probability** $P$
+
+
+### Sample Space
+
+**Sample space** $\Omega$, also known as "state space": ALL possible outcomes. (an arbitrary non-empty set)
+
+### Event Space
+
+**Event space** $\mathcal{A}$, also known just as "events": An event space contains all possible events for a given experiment, [source](https://www.statisticshowto.com/event-space-probability/). (the set of all the subsets of $\Omega$)
+- this is a $\sigma$-algebra [Definition: Event Space - ProofWiki](https://proofwiki.org/wiki/Definition:Event_Space#:~:text=The%20event%20space%20of%20E,a%20sigma%2Dalgebra%20on%20%CE%A9.)
+- The *event space* is the **power set** of the *sample space*. The power set (or powerset) of a set $S$ is the set of all subsets of $S$, **including** the **empty** set and $S$ **itself**.
+
+Let $2^\Omega$ denote all subsets of $\Omega$, including the empty set denoted by $\emptyset$. With $\mathcal{A}$ being a subset of $2^\Omega$, we consider the following properties:
+
+Property 1:
+
+<Equation
+    formula="\emptyset \in \mathcal{A} \text{ and } \Omega \in \mathcal{A}"
+    description="The empty-set and the sample space are part of the *event space*"
+/>
+
+Property 2:
+<Equation
+    formula="\text{If } A \in \mathcal{A} \text{ then } A^{c} \in \mathcal{A} \text{, where } A^{c} \text{ denotes the complement of } A"
+    description="Property 2 of $\sigma$-algebra"
+/>
+
+Property 3:
+A is closed under finite unions and finite intersections
+
+### The Probability
+
+**The probability** $P$
+
+
+### WTF is "Closed"?
+
+*"closed"* (in set theory) indicate that when you perform a particular operation on elements or subsets of a set, the result remains within the same set.
+
+Operations:
+- Addition
+- Union
+- Iterception
+- Complement
+
+### Closed Under Addition
+
+Examples of closed under addition:
+- Natural Numbers $\mathbb{N}$. The sum of any two natural numbers result in another natural number.
+- Integers $\mathbb{Z}$. The sum of any two integers result in another integer.
+- Real Numbers $\mathbb{N}$: The sum of any two real numbers result in another real number.
+- Rational Numbers $\mathbb{Q}$: The sum of any two rational numbers result in another rational number.
+
+Examples of Not closed under addition:
+- A set of odd numbers
+- A set of prime numbers
+
+### Closed Under Union
+
+## External Resources
+
+- [Probability Essentials by Jean Jacod, Philip Protter](https://link.springer.com/book/10.1007/978-3-642-55682-1) chapter 2.
