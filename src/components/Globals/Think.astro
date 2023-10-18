@@ -1,0 +1,18 @@
+---
+import { markToHtml } from "../../tools/helper.parser";
+const props = Astro.props;
+
+export interface Props {
+    note: string,
+}
+
+const {
+    note, 
+} = Astro.props;
+
+---
+
+<div class="bg-dark-50 text-gray-900 dark:text-white p-4 border-l-8 border-l-blue-900 mt-6">
+    <p class="italic">Just think for a moment:</p>
+    <p class="mt-2" set:html={markToHtml(note)}></p>
+</div>
