@@ -1,0 +1,169 @@
+---
+title: The Least-Mean-Square Algorithm
+describe: LMS in a way that you may not have seen it before.
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## Original Paper
+
+- [Adaptative Switching Circuits](https://www-isl.stanford.edu/~widrow/papers/c1960adaptiveswitching.pdf) by Bernard Widrow and Marcian E. Hoff
+
+<Important
+    note="not to be confused with Mean Square Error (MSE)"
+/>
+
+## Whats Makes LMS Cool?
+
+- Complexity is linear
+- Simple
+- Roboust
+
+## The Filtering Nature of LMS
+
+Let's Explore a Dynamic Linear System:
+
+<Drawio
+    file="lms.drawio"
+    page="1"
+    description="A simple dynamic linear system"
+/>
+
+<Equation
+    formula="\mathcal{T} = \{\vx(t), d(t) ; i = 1,2,\dots, n\}"
+    description="Data set for the simple dynamic linear system"
+/>
+
+<Equation
+    formula="\vx(t) = x_{1}(t), x_{2}(t), \dots, x_{M}(t)"
+    description="Input vector $\vx$ at a given time $t$ also called **stimulus vector**"
+/>
+
+Harley: Ok wait a second, Does the stimulus vector represents all the **current**/**present** input values at a given time $t$ or it also include **pass** input values?
+
+In fact there are two way to represent the **stimulus vector**:
+- **spatial** all the values originate at different points in space, like a *snapshot of data*.
+- **temporal** this includes **present** but also **pass** ($M-1$) values of some excitation that are uniformly spaced in time.
+
+
+TBD: discuss about adaptive filter and the relationship with LMS
+
+<Equation
+    formula="y(t) = v(t) = \sum_{k=1}^{M}w_{k}(t)x_{k}(t)"
+    description="The output value of a linear neuron"
+/>
+
+This can be represented as the **inner product**
+
+
+<Equation
+    formula="y(t) = v(t) = \vx^{\transpose}(t)\vw(t)"
+    description="The output value of a linear neuron"
+/>
+
+Where:
+
+<Equation
+    formula="\vw(t) = [w_{1}(t), w_{2}(t), \dots, w_{3}(t)]^{\transpose}"
+    description="synaptic weight vector $\vw$ at time $t$ for a single neuron"
+/>
+
+Don't forget:
+
+<Equation
+    formula="e(t) = d(t) - y(t)"
+    description="error signal"
+/>
+
+<Important
+    note="The manner in which the error signal e(i) is used to control the adjustments to the neuron’s synaptic weights is determined by the cost function used to derive the adaptivefiltering algorithm of interest."
+/>
+
+## Unconstrained Optimization: a review
+
+Unconstrained optimization:
+- Steepest Descent
+- Newton’s Method
+- Gauss–Newton Method
+
+Consider a cost function (also called loss function) $\mathcal{L}(\vw)$ that is a **continuously differentiable** function of some unknown weight (parameter) vector $\vw$.
+
+More information about [differentiable functions](https://en.wikipedia.org/wiki/Differentiable_function).
+
+<Equation
+    formula="\mathcal{L}(\vw^{*}) \leq \mathcal{L}(\vw)"
+    description=""
+/>
+
+<Important
+    note="Minimize the cost function $\mathcal{L}$ with respect to the weight vector $\vw$"
+/>
+
+The necessary condition for optimality is:
+
+<Equation
+    formula="\nabla\mathcal{L}(\vw^{*}) = \mathbf{0}"
+    description="Condition for optimality."
+/>
+
+Where $\nabla$ is the **gradient operator**,
+
+<Equation
+    formula="\nabla = \begin{bmatrix}
+    \frac{\partial}{\partial w_{1}}, \frac{\partial}{\partial w_{2}}, \dots, \frac{\partial}{\partial w_{M}}
+\end{bmatrix}^{\transpose}"
+    description="Gradient operator."
+/>
+
+and $\nabla \mathcal{L}(\vw)$ is the **gradient vector** of the cost function:
+
+<Equation
+    formula="\nabla \mathcal{L}(\vw) = \begin{bmatrix}
+    \frac{\partial \mathcal{L}}{\partial w_{1}},
+    \frac{\partial \mathcal{L}}{\partial w_{2}}, 
+    \dots, 
+    \frac{\partial \mathcal{L}}{\partial w_{M}}
+    \end{bmatrix}^{\transpose}"
+    description="Gradient operator."
+/>
+
+Starting with an initial guess denoted by $\vw(0)$, generate a sequence of weight vectors $\vw(1)$, $\vw(2)$, $...$, such that the cost function $\mathcal{L}(\vw)$ is reduced at each iteration of the algorithm, as shown by:
+
+<Equation
+    formula="\mathcal{L}(\vw(i + 1)) < \mathcal{L}(\vw(i))"
+/>
+
+where $\vw(i)$ is the old value of the weight vector and $\vw(i + 1)$ is its updated value.
+
+<Important
+    note="We **hope** that the algorithm will eventually converge onto the optimal solution $\vw^{*}$."
+/>
+
+The term *"hope"* is due to the possibility that the algorithm will diverge
+
+[Dynamic programming and optimal control, 3rd Edition](https://www.semanticscholar.org/paper/Dynamic-programming-and-optimal-control%2C-3rd-Bertsekas/a82db864e472b5aa6313596ef9919f64e3363b1f) by D. Bertsekas 1995
+
+### Method of Steepest Descent
+
+[Constrained vs Unconstrained Formulations](https://qiml.radiology.wisc.edu/wp-content/uploads/sites/760/2021/03/lecture_A1_03_Constraints.pdf)
+
