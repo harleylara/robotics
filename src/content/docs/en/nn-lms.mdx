@@ -1,6 +1,6 @@
 ---
 title: The Least-Mean-Square Algorithm
-describe: LMS in a way that you may not have seen it before.
+description: LMS in a way that you may not have seen it before.
 ---
 
 export const components = {
@@ -161,9 +161,38 @@ where $\vw(i)$ is the old value of the weight vector and $\vw(i + 1)$ is its upd
 
 The term *"hope"* is due to the possibility that the algorithm will diverge
 
-[Dynamic programming and optimal control, 3rd Edition](https://www.semanticscholar.org/paper/Dynamic-programming-and-optimal-control%2C-3rd-Bertsekas/a82db864e472b5aa6313596ef9919f64e3363b1f) by D. Bertsekas 1995
+Some references:
+- [Dynamic programming and optimal control, 3rd Edition](https://www.semanticscholar.org/paper/Dynamic-programming-and-optimal-control%2C-3rd-Bertsekas/a82db864e472b5aa6313596ef9919f64e3363b1f) by D. Bertsekas 1995
+- [Constrained vs Unconstrained Formulations](https://qiml.radiology.wisc.edu/wp-content/uploads/sites/760/2021/03/lecture_A1_03_Constraints.pdf)
 
-### Method of Steepest Descent
+### Gradient Descent
 
-[Constrained vs Unconstrained Formulations](https://qiml.radiology.wisc.edu/wp-content/uploads/sites/760/2021/03/lecture_A1_03_Constraints.pdf)
+(also often called steepest descent)
+
+For convenience representation:
+
+<Equation
+    formula="\vg = \nabla \mathcal{L}(\vw)"
+    description="Gradient of the weight vector $\vw$"
+/>
+
+<Equation
+    formula="\vw(i + 1) = \vw(i) + \eta \nabla \mathcal{L}(\vw)"
+    description="Formal defintion of the gradient descent. Where $\eta$ is a positive constant called the *stepsize*, or *learning-rate*"
+/>
+
+using the convenient representation shown above
+
+<Equation
+    formula="\vw(i + 1) = \vw(i) + \eta \vg(i)"
+/>
+
+the learning-rate parameter  has a profound influence on its convergence behavior:the learning-rate parameter  has a profound influence on its convergence behavior:
+
+- When $\eta$ is small, the transient response of the algorithm is *overdamped*
+- When $\eta$ is large, the transient response of the algorithm is *underdamped*
+- When $\eta$ exceeds a certain critical value, the algorithm becomes unstable (i.e., it diverges).
+
+[Gradient Descent - Wikipedia](https://en.wikipedia.org/wiki/Gradient_descent)
+
 
