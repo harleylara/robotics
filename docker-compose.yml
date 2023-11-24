@@ -3,7 +3,7 @@ version: "2"
 services:
   robotics:
     build: .
-    image: robotics:7
+    image: robotics:8
     container_name: robotics
     ports:
       - 4321:4321
