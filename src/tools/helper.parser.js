@@ -28,7 +28,8 @@ export const markToHtml = function(text) {
 export const latexToHtml = function(latex) {
     return katex.renderToString(latex, {
         throwOnError: false,
-        macros:NOTATION
+        macros:NOTATION,
+        displayMode: true
     });
 }
 
