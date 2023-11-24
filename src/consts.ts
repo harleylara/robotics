@@ -93,6 +93,9 @@ export const SIDEBAR: Sidebar = {
         'Machine Learning': [
             { text: 'Introduction', link: 'en/ml-intro'}
         ],
+        'Neural Networks': [
+            { text: 'Introduction to NN', link: 'en/nn-intro'}
+        ],
         'Miscellaneous': [
             { text: 'Reproducibility', link: 'en/reproducibility'}
         ],
