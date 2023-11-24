@@ -61,11 +61,57 @@ Human brain:
 
 
 
+## Rosenblatt’s perceptron
 
+<Important
+    note="The perceptron is the simplest form of a neural network used for the classification of patterns said to be **linearly separable** (i.e., patterns that lie on opposite sides of a hyperplane)"
+/>
 
+<Drawio
+    file="nn-intro.drawio"
+    page="1"
+    description="Linear and non-linear separability"
+/>
 
+<Important
+    note="the classes have to be linearly separable for the perceptron to work properly"
+/>
 
-# My notes from HBRS NN
+<Drawio
+    file="nn-intro.drawio"
+    page="2"
+    description="Perceptron model"
+/>
+
+<Equation
+    formula="u^{(k)} = \sum_{i = 1}^{m} w^{(k)}_{i} x^{(k)}_{i} + b^{(k)} \\ \\
+    y^{(k)} = \varphi(u^{(k)})"
+    description="perceptron"
+/>
+
+### Perceptron Convergence Theorem
+
+<Drawio
+    file="nn-intro.drawio"
+    page="3"
+    description="Perceptron - The bais term as part of the weights vector"
+/>
+
+<Equation
+    formula="\vx^{(k)} = [+1, x^{(k)}_{1}, x^{(k)}_{2}, x^{(k)}_{3}, \dots, x^{(k)}_{m}]^\transpose"
+    description="input vector"
+/>
+
+<Equation
+    formula="\vw^{(k)} = [b^{(k)}, w^{(k)}_{1}, w^{(k)}_{2}, w^{(k)}_{3}, \dots, w^{(k)}_{m}]^\transpose"
+    description="weights vector"
+/>
+
+<Equation
+    formula="u^{(k)} = \sum_{i = 0}^{m} w^{(k)}_{i} x^{(k)}_{i} \\
+    u^{(k)} = \vw^{\transpose (k)} \vx^{(k)}"
+    description="Compact form of the linear combiner"
+/>
 
 ## Computational Learning Theory
 
