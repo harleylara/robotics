@@ -1,0 +1,65 @@
+---
+title: "ROS 2 and Realtime"
+description: Exploring the world of realtime systems and ROS 2
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## What is real-time
+
+Real-time is an ambiguous term used in multiple domains:
+- Real-time delivery tracking
+- Real-time clock
+- Real-time visualizations
+- Real-time operating systems
+- Real-time applications
+
+[Real-time computing](https://en.wikipedia.org/wiki/Real-time_computing)
+
+Some people classify it as:
+- "soft"
+- "hard"
+- "firm"
+
+But, other people argue that real-time has to strictly comply with the deadlines, just an arbritary example this video [Introduction to Realtime Linux](https://youtu.be/BKkX9WASfpI?t=424).
+
+<Important
+    note="Real-time is about determinism"
+/>
+
+## Real-time in Robotics
+
+Some applications:
+- High frequency loops (aprox. 1000 Hz)
+- Object detection and collision avoidance (aprox. 100 Hz)
+
+<Drawio
+     file="real-time.drawio"
+     page="1"
+     description="System Layers"
+/>
+
+## External Resources
+
+- [Towards a distributed and real-time framework for robots: Evaluation of ROS 2.0 communications for real-time robotic applications](https://arxiv.org/abs/1809.02595)
+- [Real-time programming with ROS 2 - ROScon workshop 2023](https://ros-realtime.github.io/roscon-2023-realtime-workshop/)
