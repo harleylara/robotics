@@ -59,6 +59,32 @@ Some applications:
      description="System Layers"
 />
 
+Sources of latency:
+- Application code
+- OS latency
+- Hardware latency
+
+## Hardware Latency
+
+Factors that affect hardware latency:
+- System management interrupts ([SMI](https://wiki.linuxfoundation.org/realtime/documentation/howto/debugging/smi-latency/smi))
+- Simultaneous multithreading
+- Non-uniform hardware performance over time
+    - Dynamic frequency scaling based on power and temperature
+    - Cache miss, branch prediction failure, etc
+- Latency due to physics
+    - Hard disk access latency
+    - Memory latency
+    - Serial communication latency
+
+How to deal with hardware latency:
+- Usually the biggest issue is SMI-induced latency
+    - Usually only controllable by the OEM
+    - Can be tested with cyclictest and hwlatdetect
+- Turn off dynamic frequency scaling and simultaneous multithreading
+- Test IO and peripheral performance
+
+
 ## External Resources
 
 - [Towards a distributed and real-time framework for robots: Evaluation of ROS 2.0 communications for real-time robotic applications](https://arxiv.org/abs/1809.02595)
