@@ -1,0 +1,68 @@
+---
+title: "My personal research workflow"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    code: CodeBlock,
+    pre: InlineCode,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## How to Read a Paper
+
+- Some researchers from different fields comment on their process [How to (seriously) read a scientific paper](https://www.science.org/content/article/how-seriously-read-scientific-paper)
+- [Ten simple rules for reading a scientific paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7392212/) by Carey MA, Steiner KL, Petri WA Jr.
+- [How to Read a Paper](https://dl.acm.org/doi/10.1145/1273445.1273458) by S. Keshav David R. Cheriton
+
+Full review:
+- Authors
+- keywords
+- Abstract
+- Proposed approach
+- Method(s) for evaluating approach
+- Results
+- Conclusions
+- Contributions
+- Challenges (in the scope of work)
+- Personal notes:
+    - Relevance
+    - Discussion compared to other methods
+    - Open-ended research questions
+
+## Good Practices
+
+- [Ten Simple Rules for Better Figures](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4161295/) by Nicolas P. Rougier, Michael Droettboom and Philip E. Bourne
+- [Ten Simple Rules for Reproducible Computational Research](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3812051/) by Geir Kjetil Sandve, Anton Nekrutenko, James Taylor and Eivind Hovig
+
+### Ten Simple Rules for Reproducible Computational Research
+
+1. For EVERY result, keep track of how it was produced.
+    - pre-processing
+    - post processing
+    - very detail that may influence the execution of the step is recorded
+    - If is software include name and version of the software
+2. Avoid manual data manipulation steps
+    - operations like the use of copy and paste between documents should also be avoided
+3. Archive the exact version of all external programs used
+4. Version control all custom scripts
+5. Record all intermediate results, when possible in standardized formats
+6. For analysis that include randomness, note underlying random seeds
+7. Always store raw data behind plots
+8. Generate hierarchical analysis Output, allowing layers of increasing detail to be inspected
+9. Connect textual statements to underlying results
