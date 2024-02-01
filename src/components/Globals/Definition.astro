@@ -1,8 +1,21 @@
 ---
-const {definition, source, link} = Astro.props;
+const {term, definition, source, link} = Astro.props;
+
+export interface Props {
+    term: string,
+    definition: string,
+    source: string,
+    link: string
+}
 ---
 
-<div class="mt-6">
+<div class="bg-dark-50 text-gray-900 dark:text-white p-4 border-l-8 border-l-green-900 mt-6">
+    <div class="mb-4">
+        <p class="font-bold text-lg">{term}</p>
+    </div>
     <p><em>"{definition}"</em></p>
-    <a href={link} class="ml-4 border-b hover:border-b-2">{source}</a>
+    <div class="mt-4 ml-4">
+        <span>- </span>
+        <a href={link} class="border-b hover:border-b-2">{source}</a>
+    </div>
 </div>
