@@ -1,6 +1,7 @@
 ---
 import type { MarkdownHeading } from 'astro';
 import TableOfContents from '../RightSidebar/TableOfContents';
+import BaseContainer from '../Globals/BaseContainer.astro';
 
 type Props = {
     title: string;
@@ -12,15 +13,19 @@ type Props = {
 const { title, headings, description, githubEditUrl } = Astro.props;
 ---
 
-<article id="article" class="content mx-8 w-[700px]">
+<article id="article" class="content mx-4 w-[700px]">
     <section class="main-section">
         <div class="mb-4">
             <h1 class="text-5xl font-bold mt-6">{title}</h1>
             <p class="text-xl font-thin mt-4">{description}</p>
         </div>
-        <nav class="block">
-            <TableOfContents client:media="(max-width: 70em)" headings={headings} />
-        </nav>
+        <div class="sticky top-0">
+            <BaseContainer>
+                <nav class="block">
+                    <TableOfContents client:media="(max-width: 70em)" headings={headings} />
+                </nav>
+            </BaseContainer>
+        </div>
         <slot />
     </section>
     <nav class="block sm:hidden">
