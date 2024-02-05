@@ -1,6 +1,6 @@
 ---
 title: Robot Learning Overview
-description: Historical time line
+description: Historical timeline
 ---
 
 export const components = {
@@ -40,10 +40,124 @@ export const components = {
     - [Self Driving Cars S1E2: ALVINN](https://www.youtube.com/watch?v=H0igiP6Hg1k)
 
 1996:
-- [Learning from Demostration](https://papers.nips.cc/paper_files/paper/1996/file/68d13cf26c4b4f4f932e3eff990093ba-Paper.pdf) by Stefan Schaal
+- [Learning from Demonstration](https://papers.nips.cc/paper_files/paper/1996/file/68d13cf26c4b4f4f932e3eff990093ba-Paper.pdf) by Stefan Schaal
 
+<Drawio
+    file="robot-learning.drawio"
+    page="1"
+    description="Just a view of the field of robot learning."
+/>
 
-## Types of Learning
+## Motivation
 
-- Imitation Learning
-- Reinforcement Learning
+Definition of robot learning: TBD
+
+<Think
+    note="Building robots is hard, and making them *'learn'* is even more difficult. If we have not yet mastered the art of building robots, how can we even think of teaching them?"
+/>
+
+Robot learning - as many other fields related to robotics -  helps us to understand the current limitations and push the limits of robots at different levels, from the technological limitations to algorithmic limitations that allow performing tasks such as sensing, planning and action.
+
+Understanding the components in isolation is crucial but one cannot lose sight of the fact that these components must interact with each other, so the limitations of one components are propagated in the pipeline, and the other parts of the system consuming this information must be able (in some cases "learn") to deal with these limitations.
+
+<Drawio
+    file="robot-learning.drawio"
+    page="2"
+    description="Dealing with imperfect information."
+/>
+
+Robot Learning can be consider [**AI-complete**](https://en.wikipedia.org/wiki/AI-complete), and yes, the term **complete** alludes to the concept of [**NP-complete**](https://en.wikipedia.org/wiki/NP-completeness) from the *computational complexity theory* (if the problem is NP and NP-Hard the problem is considered NP-complete).
+
+Assuming that we want to venture into the odyssey of making robots capable of learning, many questions will arise such as:
+- What is learning?
+- How do we learn?
+    - What information is needed to learn?
+        - How do we represent this information?
+- How do we validate if we are learning?
+- If learning produces knowledge, how do we represent knowledge?
+
+<Drawio
+    file="robot-learning.drawio"
+    page="3"
+    description="Knowledge levels."
+/>
+
+- How to make a sandwich from scratch: [How to Make a $1500 Sandwich in Only 6 Months](https://www.youtube.com/watch?v=URvWSsAgtJE)
+- Instructions on how to make a sandwich: [Exact Instructions Challenge - THIS is why my kids hate me. | Josh Darnit](https://www.youtube.com/watch?v=cDA3_5982h8)
+
+Robots are embodied systems that must interact with the real world, this interaction with the physical world presents many challenges that make keeping the knowledge updated a complex task. Here some challenges:
+- Sensor noise
+- Non-deterministic actions
+- Reactivity
+- Incrementability
+- Limited training time
+- Groundedness
+
+## The Robot Learning Problem
+
+Outline:
+- Data source for training
+- Types of feedback
+- Sorts of knowledge need to be learned (credit assignment)
+
+<Definition
+    term="Robot Learning Problem"
+    definition="Generally speaking, the robot learning problem is to infer a mapping from sensors/states to actions given a training sequence of sensory inputs, action outputs, and feedback values."
+    source="Robot Learning by Jonathan H. Connell and Sridhar Mahadevan"
+    link="https://link.springer.com/book/10.1007/978-1-4615-3184-5"
+/>
+
+<Equation
+    formula="\pi: S \rightarrow A"
+    description="Basic idea of robot learning"
+/>
+
+<Drawio
+    file="robot-learning.drawio"
+    page="4"
+    description="States maps to actions"
+/>
+
+### Training Data
+
+As we said before, we want to infer a mapping from the sensory input to actions, so:
+
+<Think
+    note="Where do these sequences (states and actions) come from?"
+/>
+
+From:
+- A teacher (supervised learning): Here the robot is being passively guided through the task.
+- From trial-and-error (actions exploring the state space - unsupervised learning): the robot attempts to learn a task in an unsupervised mode without the active guidance of a teacher.
+    - Bias from the sample space: No active exploration of unknown areas.
+
+Considerations:
+- Supervised training
+    - Less training time
+    - Difficult to produce a rich sample space
+
+Assuming we have a sequence of states and actions pairs, how do we evaluate this pair so that we get feedback on the decision taken?
+
+### Feedback/Reward
+
+<Important
+    note="Whether for a human or a robot, performance feedback is essential for learning."
+/>
+
+Types of rewards (oversimplified):
+- Scalar reward
+- Control reward
+- Analytic reward
+- Others:
+    - Gradient-based
+
+Reward frequency:
+- Spare: 
+    - only gets reinforcement when it actually reaches the goal
+    - gets reinforcement in intermediate states
+- Dense:
+    -  the robot receives rewards at every step
+
+### Credit Assignment Problem
+
+[Sutton, R.S. (1984). Temporal credit assignment in reinforcement learning. PhD Thesis](https://web.archive.org/web/20170330010838/http://incompleteideas.net/sutton/papers/Sutton-PhD-thesis.pdf)
