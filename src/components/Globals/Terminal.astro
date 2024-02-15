@@ -34,11 +34,11 @@ for (const elem of content.split("\\")) {
         </div>
         <div class="py-4">
             {lines.map((line) => (
-                <div class="flex items-center">
+                <code class="flex items-center">
                     <!-- <span class="before:content-['$'] mr-2 text-dark-100"></span> -->
                     {prompt == "true" ? <span class="before:content-['$'] mr-2 text-dark-100"></span> : <span class="mr-2 text-dark-100"></span>}
-                    <p class="font-mono">{line}</p>
-                </div>
+                    <span class="font-mono w-full">{line}</span>
+                </code>
             ))}
         </div>
     </div>

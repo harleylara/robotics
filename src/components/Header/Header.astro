@@ -2,13 +2,9 @@
 import { getLanguageFromURL, KNOWN_LANGUAGE_CODES } from '../../languages';
 import { SITE } from '../../consts';
 import Logo from './Logo.astro';
-import SkipToContent from './SkipToContent.astro';
-import SidebarToggle from './SidebarToggle';
-import LanguageSelect from './LanguageSelect';
-import Search from './Search';
 
 type Props = {
-	currentPage: string;
+    currentPage: string;
 };
 
 const { currentPage } = Astro.props;
@@ -16,18 +12,14 @@ const lang = getLanguageFromURL(currentPage);
 ---
 
 <header class="py-4 border-b border-dark-100">
-	<SkipToContent />
-	<nav class="flex items-center justify-between mx-8" title="Top Navigation">
-		<div class="hidden menu-toggle">
-			<SidebarToggle client:idle />
-		</div>
-		<div class="logo flex">
-			<a href="/" class="flex items-center">
-				<Logo size={40} />
-				<h2 class="text-white font-thin text-2xl pl-4">{SITE.title ?? 'Documentation'}</h1>
-			</a>
-		</div>
-		<div style="flex-grow: 1;"></div>
-		{KNOWN_LANGUAGE_CODES.length > 1 && <LanguageSelect lang={lang} client:idle />}
-	</nav>
+    <nav class="flex items-center justify-between mx-8" title="Top Navigation">
+        <div class="logo flex">
+            <a href="/" class="flex items-center">
+                <Logo size={40} />
+                <h2 class="text-white font-thin text-2xl pl-4">{SITE.title ?? 'Documentation'}</h1>
+            </a>
+        </div>
+        <div style="flex-grow: 1;"></div>
+        {KNOWN_LANGUAGE_CODES.length > 1 && <LanguageSelect lang={lang} client:idle />}
+    </nav>
 </header>

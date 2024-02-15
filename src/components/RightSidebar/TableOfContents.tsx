@@ -70,16 +70,16 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
     const renderDepth = (heading) => {
         let padding = 0;
 
-        if (heading.depth == 3) {
+        if (heading.depth == 2) {
             padding = 4;
-        } else if (heading.depth == 4) {
+        } else if (heading.depth == 3) {
             padding = 8;
         }
         
         return (
             <>
-                <a href={`#${heading.slug}`} onClick={onLinkClick} class={`mx-${padding} text-gray-300 border-white border-b hover:border-b-2`}>
-                    {unescape(heading.text)}
+                <a href={`#${heading.slug}`} onClick={onLinkClick} class={`mx-${padding} text-gray-300 hover:border-b`}>
+                    <span>{unescape(heading.text)}</span>
                 </a>
             </>
         )
@@ -91,19 +91,21 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
                 <h2 id={onThisPageID} className="heading">Table of Content</h2>
             </div>
             <hr class="h-px border-0 bg-gradient-to-r from-transparent via-dark-100 to-transparent" />
-            <ul ref={toc} class="leading-loose m-4">
-                {headings
-                    .filter(({ depth }) => depth > 1 && depth < 5)
-                    .map((heading) => (
-                        <li
-                            className={`header-link depth-${heading.depth} ${
+            <div class="p-4">
+                <ul ref={toc} class="leading-loose">
+                    {headings
+                        .filter(({ depth }) => depth > 1 && depth < 5)
+                        .map((heading) => (
+                            <li
+                                className={`header-link depth-${heading.depth} ${
 currentID === heading.slug ? 'current-header-link' : ''
 } my`.trim()}
                             >
-                            {renderDepth(heading)}
-                        </li>
-                ))}
-            </ul>
+                                {renderDepth(heading)}
+                            </li>
+                        ))}
+                </ul>
+            </div>
         </>
     );
 };
