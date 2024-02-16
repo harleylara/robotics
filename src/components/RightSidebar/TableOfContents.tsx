@@ -88,7 +88,7 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
     return (
         <>
             <div class="flex items-center justify-center w-full py-2">
-                <h2 id={onThisPageID} className="heading">Table of Content</h2>
+                <h2 id={onThisPageID} className="heading">Content Outline</h2>
             </div>
             <hr class="h-px border-0 bg-gradient-to-r from-transparent via-dark-100 to-transparent" />
             <div class="p-4">

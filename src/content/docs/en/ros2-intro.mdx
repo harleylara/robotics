@@ -26,44 +26,61 @@ export const components = {
 
 If you are wondering:
 
-> Do I need to learn to ROS 1 to be able to learn ROS 2 (or vice versa), the answer is NO. (what? you expected a more elaborated answer?... I'm too lazy to write it down)
+<Important
+    note="Do I need to learn to ROS 1 to be able to learn ROS 2 (or vice versa), the answer is NO. (what? you expected a more elaborated answer?... I'm too lazy to write it down)"
+/>
 
 ## Prerequisites for Diving
 
+Knowledge required:
 - Familiarity with Ubuntu's desktop environment
 - Understand GNU/Linux file system
 - Proficiency with basic terminal commands (bash)
+- Python/C++ skills, including basic OOP concepts
 
-Install ROS:
-- Check the official documentation, and follow [Ubuntu Debian packages (recommended)](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+Software requirements:
+- OS: Ubuntu 22.04
+- Install: ROS Humble, check the official documentation and follow [Ubuntu Debian packages (recommended)](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 
-## Outline
+## Why do we need ROS nowadays?
 
-- What is ROS and why use it?
-- ROS introduction
-    - Plumbing
-    - Tools
-    - Capabilities
-    - ROS Ecosystem
-- versions
-- distributions
-- resources
-- programming languages
-- Nodes
-- Messages and Topics
-
-## What is ROS and Why use it?
-
-ROS: "The Robot Operating System (ROS) is a set of software libraries and tools that help you build robot applications" (from the official [website](https://www.ros.org/))
-- [Why ROS?](https://www.ros.org/blog/why-ros/)
-
-<Drawio
-    file="ros.drawio"
-    page="1"
-    description="A toy example"
+<Think
+    note="Imagine that it is around the year 2007, and that are many research laboratories in the area of robotics, each one of them with its own robots and each roboto with its own particularities. How can you share code between researchers without reinventing the wheel?"
 />
 
-ROS is:
+If you think this is a trivial task to the point of "just share the code", I honestly wouldn't blame you for thinking that, but the reality is that is not a trivial task.
+
+I like to start with a mental exercise using a "toy example".
+
+The LiDAR sensor can cheap as the [RPLidar A1](https://www.slamtec.ai/product/slamtec-rplidar-a1/)~100 USD or expensive as the [Velodyne Puck](https://store.clearpathrobotics.com/products/puck) ~4,600 USD (there are more expensive LiDAR sensors), but apart from the price difference they have different communication interfaces. The RPLidar A1 uses an adapter from UART-to-USB and the Velodyne uses a Ethernet connection.
+
+<Drawio
+file="ros.drawio"
+page="1"
+description="A toy example"
+/>
+
+
+The first pieces of software that would later become ROS were being developed at Stanford University by two master's students Eric Berger and Keenan Wyrobek in the [Personal Robotics Program](http://personalrobotics.stanford.edu/). The first steps in creating this unified system began with building [PR1](http://personalrobotics.stanford.edu/ICRA-2008-kaw-v17.pdf) as a prototyping hardware to start working on the software from, borrowing best practices from other macros and open source software such as switchyard from Morgan Quigley another PhD student who had been working on [STAIR](http://stair.stanford.edu/index.php) (Stanford Artificial Intelligence Robot) at the Stanford Artificial Intelligence Lab. Eric Berger and Keenan Wyrobek in search of funding to continue the development of PR1 met Scott Hassan founder of Willow Garage a technology incubator. Hassan shared Berger and Keenan's vision of creating a unified system for robotics and invited them to work at Willow Garage, making the [first ROS code commit](https://sourceforge.net/p/ros/code/1/log/) on November 7, 2007.
+
+Willow Garage began developing PR2 using ROS as runtime software. Soon after ROS was released (0.4 Mango Tango) followed by a paper showing RVIZ and the first article about ROS ([ROS: an open-source Robot Operating System](http://www.robotics.stanford.edu/~ang/papers/icraoss09-ROS.pdf)).
+
+In 2010 Willow Garage started the creation of Open Source Robotics Foundation (OSRF) and then in 2013 OSRF became the main maintainer of ROS as Willow Garage would be absorbed by its founders. Then Clearpath Robotics takes over the support responsibilities for PR2 in early 2014. Since then OSRF has taken over the primary development of ROS, releasing a new version every year.
+
+Here an official blog about [Why ROS](https://www.ros.org/blog/why-ros/).
+
+## What is ROS 
+
+<Definition
+term="Robot Operating System (ROS)"
+definition="Is an open source *middleware* suit, and although ROS is not an operating system it has hardware abstraction functions, low-level device control, inter-process communication, package management, network communication and a wide range of macros, making it a flexible framework for robot software development, with a collection of tools, libraries and conventions that adapt to a wide variety of robotic platforms, with the aim of simplifying the task of creating complex and robust robotic systems."
+source="Official ROS website"
+link="https://www.ros.org"
+/>
+
+More about *middleware* later.
+
+ROS is a collection of "things":
 - Plumbing
 - Tools
 - Capabilities
@@ -103,26 +120,42 @@ ROS is:
 - Research Institute
 - More
 
-## ROS versions
+## ROS Versions
 
+If you are new to ROS you are probably a little frustrated trying to understand why there are two ROS versions, when to use one over the other or even which one to learn. As I mentioned at the beginning, don't really worry so much about it and to keep things simple, think of ROS 1 as the old one and ROS 2 as the new one.
 - ROS 1
 - ROS 2
-- [Changes between ROS 1 and ROS 2](https://design.ros2.org/articles/changes.html)
 
-## ROS distributions 
+The truth is there are many technical details that are not necessary to cover at this time with respect to the difference, but if you are curious here it is: [Changes between ROS 1 and ROS 2](https://design.ros2.org/articles/changes.html).
 
-> "A ROS distribution is a versioned set of ROS packages"
+## ROS Distributions 
+
+<Definition
+    term="ROS distribution, or just ROS distro"
+    definition="A ROS distribution is a **versioned** set of ROS **packages**."
+    source="Distributions | Official documentation."
+    link="https://docs.ros.org/en/humble/Releases.html"
+/>
+
+Full list of ROS distributions:
 - [ROS 1 list of distributions](https://wiki.ros.org/Distributions)
 - [ROS 2 list of distributions](https://docs.ros.org/en/humble/Releases.html)
 
+Is correctly spelled with a space: `ROS 2` or `ROS 1`, check the [Trademark Rules And Guidelines 2022](https://www.ros.org/imgs/TrademarkRulesAndGuidelines2022.pdf) section "ROS in text".
+
 ## ROS Programming Languages
+
+<Important
+    note="Nope, ROS is not a programming language."
+/>
 
 ROS can intermix programming languages:
 - Official support: C, C++, Python
 
-## ROS resources
+## ROS Resources
 
+ROSources ? (bad joke):
 - [ROS website](https://www.ros.org/)
 - [ROS Answers](https://answers.ros.org/) this page is no longer active, use instead [Robotics Stack Exchange](https://robotics.stackexchange.com/)
 - `<package>` wiki
-- [Official documentation](https://docs.ros.org/)
+- [Official documentation](https://docs.ros.org/) RTFM (Read The Friendly Manual) :D

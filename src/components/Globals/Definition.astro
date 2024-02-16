@@ -1,4 +1,5 @@
 ---
+import { markToHtml } from "../../tools/helper.parser";
 const {term, definition, source, link} = Astro.props;
 
 export interface Props {
@@ -13,9 +14,12 @@ export interface Props {
     <div class="mb-4">
         <p class="font-bold text-lg">{term}</p>
     </div>
-    <p><em>"{definition}"</em></p>
+    <div class="text-justify">
+        <p set:html={markToHtml(definition)}></p>
+    </div>
     <div class="mt-4 ml-4">
         <span>- </span>
         <a href={link} class="border-b hover:border-b-2">{source}</a>
     </div>
+
 </div>
