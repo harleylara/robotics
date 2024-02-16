@@ -12,6 +12,17 @@ const {
 
 ---
 
-<div class="bg-dark-50 italic text-gray-900 dark:text-white p-4 border-l-8 border-l-red-900 mt-6">
-    <p set:html={markToHtml(note)}></p>
+<div class="relative mt-6 bg-dark-50 p-px">
+    <div class="absolute top-0 left-0 bg-red-900 p-px w-4"></div>
+    <div class="absolute top-0 left-0 bg-red-900 p-px h-4"></div>
+    <div class="absolute bottom-0 right-0 bg-red-900 p-px w-4"></div>
+    <div class="absolute bottom-0 right-0 bg-red-900 p-px h-4"></div>
+    <div class="bg-primary-dark italic text-gray-900 dark:text-white p-4">
+        <p set:html={markToHtml(note)}></p>
+    </div>
+    <!-- <div class="bg-dark-50 italic text-gray-900 dark:text-white p-4 border-l-8 border-l-red-900"> -->
+    <!-- </div> -->
 </div>
+
+
+
