@@ -39,7 +39,6 @@ Names can be:
     description="Names in ROS"
 />
 
-
 External resources:
 - [ROS 1 Names](http://wiki.ros.org/Names)
 - [ROS 2 Topic and Service name mapping to DDS](https://design.ros2.org/articles/topic_and_service_names.html)
@@ -49,7 +48,14 @@ External resources:
 
 The concept of workspace is ROS VERSION independent.
 
-ROS workspace: "A workspace is a directory containing ROS packages."
+<Definition
+    term="ROS workspace"
+    definition="A workspace is a directory containing **ROS packages**."
+    source="Creating a workspace | Official documentation"
+    link="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html"
+/>
+
+But, what is a ROS package?... more about it later, for now just think about a box with some code in it, trust me.
 
 The workspace contains:
 - Packages
@@ -61,19 +67,47 @@ The workspace contains:
 
 ### Underlay
 
-A underlay workspace: It contains the necessary dependencies of all the packages required by the "overlay".
+<Definition
+    term="Underlay workspace"
+    definition="It contains the necessary dependencies of all the packages required by the 'overlay'."
+    source="Configuring environment | Official documentation"
+    link="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html"
+/>
 
-### Overlay
+<Drawio
+    file="ros.drawio"
+    page="3"
+    description="Underlay workspace."
+/>
 
-Overlay: Extends the underlay. (You will normally work here)
+Let's explore our underlay workspace: `/opt/ros/humble/`
 
 <Important
     note="Keep in mind that an underlay does not necessarily have to be the main ROS 2 installation."
 />
 
+### Overlay
+
+<Definition
+    term="Overlay workspace"
+    definition="Extends the underlay. (You will normally work here)."
+    source="Configuring environment | Official documentation"
+    link="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html"
+/>
+
+Note, that for some reason unknown to me, the terms "underlay" and "overlay" are not frequently used. The vast majority of people when they refer to workspace it is usually the overlay workspace.
+
+<Drawio
+    file="ros.drawio"
+    page="4"
+    description="Underlay workspace."
+/>
+
 Workspace activation is accumulative.
 
 ## Create a Workspace
+
+Create a overlay workspace is simple as creating a folder using the `mkdir` `bash` command. Just keep in mind that this folder MUST contain a `src` folder inside. Inside the `src` folder your packages will live.
 
 <Terminal
     title="create a workspace"
@@ -83,15 +117,17 @@ Workspace activation is accumulative.
 
 ## Building a Workspace
 
-The build tool in ROS 2 is called `colcon` (collective construction). colcon is an iteration on the ROS build tools `catkin_make`, `catkin_make_isolated`, `catkin_tools` and `ament_tools`.
+The build tool in ROS 2 is called `colcon` (collective construction). colcon is an iteration on the ROS build tools `catkin_make`, `catkin_make_isolated`, `catkin_tools` and `ament_tools`. `colcon` compile, test and install packages for you.
 
-`colcon` compile, test and install packages for you.
+Try to run the following commands:
 
 <Terminal
     title="build workspace"
     content="cd ~/ros2_ws \
     colcon build --symlink-install"
 />
+
+Failure? Why? hint: the `ament_cmake` is a ROS package that is currently no available.
 
 The option `--symlink-install` creates a symlink to their original locations instead of copying.
 
