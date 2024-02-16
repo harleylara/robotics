@@ -28,10 +28,17 @@ export const components = {
 ## Names in ROS 2
 
 Names can be:
-- relative path
-- absolute path (begins with `\`)
-- privately (begins with `~`)
-- namespace: namespace prefix to apply to entities associated with the node (node name, topics, etc).
+- absolute path (begins with `/`): `/global/name`
+- relative path: `relative/name`
+- privately (begins with `~`): `~private/name`
+- namespace: namespace prefix to apply to entities associated with the node (node name, topics, etc). `/namespace/name`
+
+<Drawio
+    file="ros.drawio"
+    page="2"
+    description="Names in ROS"
+/>
+
 
 External resources:
 - [ROS 1 Names](http://wiki.ros.org/Names)
