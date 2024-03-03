@@ -1,5 +1,5 @@
 ---
-title: "Recap C++"
+title: "The Uncle C++"
 draft: true
 ---
 
@@ -24,9 +24,27 @@ export const components = {
     p: P
 }
 
-## Dev Ecosystem
+## Prerequisites for Diving
 
-- Text editor
+Knowledge required:
+- Proficiency with basic terminal commands (bash).
+- Understand GNU/Linux file system.
+- I expect that you already know the general concepts of programming, including interpreted vs. compiled.
+- Basics of VCS (Version control system) with git.
+
+Software requirements:
+- Text editor: [Visual Studio Code](https://code.visualstudio.com/) with the following extension:
+    - [C/C++ by Microsoft](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+- Compiler: `gcc`, a reference article for installation, [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw#_prerequisites).
+
+## Content Outline
+
+Development ecosystem:
+- The build process
+    - pre-processor: example `rclcpp` debugging [RCLCPP_DEBUG](https://docs.ros2.org/latest/api/rclcpp/logging_8hpp.html#a44818c8a1fd292cd0e81759e956765d7)
+    - compiler
+    - assembler
+    - linker
 - Toolchain
 - Build system
 - OS
@@ -39,55 +57,30 @@ export const components = {
 - Test
 - Linter
 
-## Compilation Process
+## The Build Process
 
-1. Pre-process
-2. Compile
-3. Assembly
-4. Link
+You've probably heard the terms `build` and `compile`, and even though they are different processes, they are actually used for the same thing, which is to convert source code into an executable binary.
 
-### Pre-process
+There is (as far as I know) no general agreement or standard between `build` and `compile`, but in this case we will refer to these terms as two different things.
+- **compile**: convert source code to assembly code.
+- **build**: series of steps that are executed in sequence (among them, build and linking to name a few) that convert source code into executable binary.
 
-```
-g++ -E main.cpp > main.i
-```
+<Drawio
+    file="cpp.drawio"
+    page="1"
+    description="Common build process for a `.cpp` file."
+/>
 
-### Compilation
 
-```
-g++ -S main.i
-```
-
-### Assembly
-
-```
-g++ -c main.s
-```
-
-### Linking
-
-```
-g++ main.o -o main
-```
-
-## Library
-
-Type of libraries:
-- **Static**: faster, take a lot of space, become part of the end binary, name: `lib*.a`
-- **Dynamic**: slower, can be copied, referenced by a program, named `lib*.so`
-
-## Function
-
-Function **declaration** sets up a interface:
-
-```cpp
-void FuncName(int param);
-```
-
-Function **definition** holds the implementation of the function
-
-```cpp
-void FuncName(int param){
-    cout << "This function is called FuncName" << endl;
-}
-```
+Coding aspect (basics):
+- variables
+- conditions
+- arrays
+- loops
+- structs
+- functions
+- classes
+- pointers
+- inheritance
+- function templates
+- class templates
