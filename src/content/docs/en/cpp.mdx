@@ -37,26 +37,6 @@ Software requirements:
     - [C/C++ by Microsoft](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
 - Compiler: `gcc`, a reference article for installation, [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw#_prerequisites).
 
-## Content Outline
-
-Development ecosystem:
-- The build process
-    - pre-processor: example `rclcpp` debugging [RCLCPP_DEBUG](https://docs.ros2.org/latest/api/rclcpp/logging_8hpp.html#a44818c8a1fd292cd0e81759e956765d7)
-    - compiler
-    - assembler
-    - linker
-- Toolchain
-- Build system
-- OS
-- Packages
-- Debugger
-- Version Control
-- CI/CD
-- Format
-- Static code analysis
-- Test
-- Linter
-
 ## The Build Process
 
 You've probably heard the terms `build` and `compile`, and even though they are different processes, they are actually used for the same thing, which is to convert source code into an executable binary.
@@ -71,6 +51,80 @@ There is (as far as I know) no general agreement or standard between `build` and
     description="Common build process for a `.cpp` file."
 />
 
+You can run the full build process with the following command:
+
+<Terminal
+    title="Build a simple cpp file"
+    content="g++ main.cpp -o main"
+/>
+
+### Pre-processor
+
+<Definition
+    term="pre-processor"
+    definition="The preprocessor performs preliminary operations on C and C++ files before they are passed to the compiler."
+    source="C/C++ preprocessor reference"
+    link="https://learn.microsoft.com/en-us/cpp/preprocessor/c-cpp-preprocessor-reference?view=msvc-170"
+/>
+
+[Minimal example](https://github.com/harleylara/cpp-intro/blob/master/001-intro/main.cpp)
+<Terminal
+    title="Pre-process only"
+    content="g++ -E main.cpp > main.i"
+/>
+
+[Simple example](https://github.com/harleylara/cpp-intro/blob/master/001-intro/pre.cpp)
+<Terminal
+    title="Build simple macro example for logging"
+    content="g++ pre.cpp -DDEBUG=1 -o pre && ./pre"
+/>
+
+Use of macros in ROS: `rclcpp` debugging [RCLCPP_DEBUG](https://docs.ros2.org/latest/api/rclcpp/logging_8hpp.html#a44818c8a1fd292cd0e81759e956765d7).
+
+### Compiler
+
+<Terminal
+    title="Compile only"
+    content="g++ -S main.i"
+/>
+
+### Assembler
+
+<Terminal
+    title="Assembly only"
+    content="g++ -c main.s"
+/>
+
+### Linker
+
+<Terminal
+    title="Linking only"
+    content="g++ main.o -o main"
+/>
+
+Demo minimal library:
+<Terminal
+    title="Compile and assemble, but do not link. (not yet)"
+    content="g++ -c simplelib.cpp -o simplelib.o"
+/>
+
+Compile your program and link the library:
+<Terminal
+    title="Compile the main program and link"
+    content="g++ link.cpp simplelib.o -o link && ./link"
+/>
+
+This was a `static library` example.
+
+## Build System: `CMAKE`
+
+A build system is a set of tools and practices used to automate the process of build source code into executable software, along with managing dependencies, configurations, and other tasks related to the software development process. Check this [list of build automation software](https://en.wikipedia.org/wiki/List_of_build_automation_software).
+
+<Drawio
+    file="cpp.drawio"
+    page="2"
+    description="Simple CMAKE build flow."
+/>
 
 Coding aspect (basics):
 - variables
