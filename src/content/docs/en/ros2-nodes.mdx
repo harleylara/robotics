@@ -54,10 +54,7 @@ Each node should do one logical thing.
 - Write the code
 - Make it available for execution `entry_points`
 
-
-<Code
-    title="bare minimum node (python)"
-    code={`
+```python filename='bare.py'
 import rclpy
 
 def main(args=None) -> None:
@@ -70,14 +67,11 @@ def main(args=None) -> None:
 
 if __name__ == "__main__":
     main()
-`}
-/>
+```
 
 The packages of type `ament_python` are structured like a standard python package using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html).
 
-<Code
-    title="add an entry point"
-    code={`
+```python filename="setup.py"
 ...
 
 entry_points={
@@ -87,8 +81,7 @@ entry_points={
 },
 
 ...
-`}
-/>
+```
 
 <Terminal
     title="format for console_scripts"

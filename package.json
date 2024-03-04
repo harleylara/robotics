@@ -46,6 +46,8 @@
     "unified": "^10.1.2"
   },
   "devDependencies": {
+    "@astrojs/prism": "^3.0.0",
+    "astro-mdx-code-blocks": "^0.0.6",
     "html-escaper": "^3.0.3"
   }
 }

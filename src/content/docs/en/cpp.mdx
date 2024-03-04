@@ -81,6 +81,8 @@ You can run the full build process with the following command:
 
 Use of macros in ROS: `rclcpp` debugging [RCLCPP_DEBUG](https://docs.ros2.org/latest/api/rclcpp/logging_8hpp.html#a44818c8a1fd292cd0e81759e956765d7).
 
+More about pre-processor in [Preprocessor directives](https://cplusplus.com/doc/tutorial/preprocessor/).
+
 ### Compiler
 
 <Terminal
@@ -148,3 +150,19 @@ ROS use [colcon](https://colcon.readthedocs.io/en/released/) (collective constru
 ## External Resources
 
 - [CMake Tutorial](https://cmake.org/cmake/help/latest/guide/tutorial/index.html)
+
+```astro filename="demo.astro"
+---
+// Example: Fetch Markdown from a remote API
+// and render it to HTML, at runtime.
+// Using "marked" (https://github.com/markedjs/marked)
+
+import { marked } from 'marked';
+const response = await fetch('https://raw.githubusercontent.com/wiki/adam-p/markdown-here/Markdown-Cheatsheet.md');
+
+const markdown = await response.text();
+const content = marked.parse(markdown);
+
+---
+<article set:html={content} />
+```
