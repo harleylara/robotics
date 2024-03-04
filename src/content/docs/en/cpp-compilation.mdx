@@ -1,0 +1,52 @@
+## Compilation Process
+
+1. Pre-process
+2. Compile
+3. Assembly
+4. Link
+
+### Pre-process
+
+```
+g++ -E main.cpp > main.i
+```
+
+### Compilation
+
+```
+g++ -S main.i
+```
+
+### Assembly
+
+```
+g++ -c main.s
+```
+
+### Linking
+
+```
+g++ main.o -o main
+```
+
+## Library
+
+Type of libraries:
+- **Static**: faster, take a lot of space, become part of the end binary, name: `lib*.a`
+- **Dynamic**: slower, can be copied, referenced by a program, named `lib*.so`
+
+## Function
+
+Function **declaration** sets up a interface:
+
+```cpp
+void FuncName(int param);
+```
+
+Function **definition** holds the implementation of the function
+
+```cpp
+void FuncName(int param){
+    cout << "This function is called FuncName" << endl;
+}
+```

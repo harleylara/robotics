@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-03-04T00:00:33.661Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="VkAqlG9w_RVB0ACJCIfA" version="23.0.2" type="device" pages="2">
+<mxfile host="Electron" modified="2024-03-04T00:19:27.037Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="8Ls4gotVnVekhXFeB6fi" version="23.0.2" type="device" pages="2">
   <diagram name="build" id="UqRmnIJvj32oJmDdNIwl">
     <mxGraphModel dx="1559" dy="1041" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -84,7 +84,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="lYe3i1QetRt5YN0rgRbm-2" value="CMAKE" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="lYe3i1QetRt5YN0rgRbm-2" value="CMake" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="220" y="210" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="ZraxGCMc3j-KjYrMxSlr-13" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZraxGCMc3j-KjYrMxSlr-1" target="lYe3i1QetRt5YN0rgRbm-2">
@@ -138,7 +138,7 @@
         <mxCell id="5LEw7u3iUttWWvEIlUeh-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="lYe3i1QetRt5YN0rgRbm-2" target="5LEw7u3iUttWWvEIlUeh-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="5LEw7u3iUttWWvEIlUeh-4" value="CMAKE generates build scripts for various build tools, such as `make`, `ninja`, Apple&#39;s Xcode, and Microsoft Visual Studio." style="text;whiteSpace=wrap;" vertex="1" parent="1">
+        <mxCell id="5LEw7u3iUttWWvEIlUeh-4" value="CMake generates build scripts for various build tools, such as `make`, `ninja`, Apple&#39;s Xcode, and Microsoft Visual Studio." style="text;whiteSpace=wrap;" vertex="1" parent="1">
           <mxGeometry x="460" y="280" width="200" height="70" as="geometry" />
         </mxCell>
         <mxCell id="5LEw7u3iUttWWvEIlUeh-6" value="build tool" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">

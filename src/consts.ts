@@ -57,11 +57,12 @@ export const SIDEBAR: Sidebar = {
         'Photogrammetry': [
             { text: "Introduction to Photogrammetry", link: "en/photogrammetry-001"}
         ],
-        'Programming': [
-            { text: 'Cpp Intro', link: 'en/cpp' }
+        'C++': [
+            { text: 'Intro', link: 'en/cpp' },
+            { text: 'Bsics', link: 'en/cpp-basics' }
         ],
         'ROS': [
-            { text: 'ROS context', link: 'en/ros-intro' },
+            // { text: 'ROS context', link: 'en/ros-intro' },
             { text: 'Introduction', link: 'en/ros2-intro' },
             { text: 'Workspace', link: 'en/ros2-ws' },
             { text: 'Packages', link: 'en/ros2-pkgs'},
