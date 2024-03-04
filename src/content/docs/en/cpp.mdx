@@ -116,7 +116,7 @@ Compile your program and link the library:
 
 This was a `static library` example.
 
-## Build System: `CMAKE`
+## Build System: `CMake`
 
 A build system is a set of tools and practices used to automate the process of build source code into executable software, along with managing dependencies, configurations, and other tasks related to the software development process. Check this [list of build automation software](https://en.wikipedia.org/wiki/List_of_build_automation_software).
 
@@ -125,6 +125,25 @@ A build system is a set of tools and practices used to automate the process of b
     page="2"
     description="Simple CMAKE build flow."
 />
+
+[CMake Demo](https://www.github.com/harleylara/cpp-intro/001-intro/CMakeLists.txt)
+
+<Terminal
+    title="Build with CMake"
+    content="mkdir build\
+cd build\
+cmake ..\
+cmake --build ."
+/>
+
+Run executable
+<Terminal
+    title="Run demo linking"
+    content="./link"
+/>
+
+
+ROS use [colcon](https://colcon.readthedocs.io/en/released/) (collective construction): A `CLI` tool to build projects (python or cpp). `colcon` uses [ament_cmake](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Documentation.html) which is a wrapper around `CMAKE`.
 
 Coding aspect (basics):
 - variables
