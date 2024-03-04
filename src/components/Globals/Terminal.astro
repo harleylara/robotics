@@ -12,6 +12,8 @@ export interface Props {
 
 const { content, title="Terminal", prompt="true"} = Astro.props;
 
+const hasTitle = !!title;
+
 let lines = [];
 
 for (const elem of content.split("\\")) {
@@ -30,7 +32,17 @@ for (const elem of content.split("\\")) {
                     <div class="ml-2 h-3 w-3 bg-dark-100 rounded-full"></div>
                 </div>
             </div>
-            <p class="text-dark-200 select-none">{title}</p>
+                {hasTitle ? (
+                    <span class="text-dark-200 select-none">
+                        {title}
+                    </span>
+                ) : (
+                    <!-- hacky way to fix went there is not filename -->
+                    <span class="filename text-dark-200 select-none invisible">
+                        empty
+                    </span>
+                )
+                }
         </div>
         <div class="py-4">
             {lines.map((line) => (

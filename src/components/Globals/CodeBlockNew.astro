@@ -39,11 +39,17 @@ if (hasRemoteURL){
                     <div class="ml-2 h-3 w-3 bg-dark-100 rounded-full"></div>
                 </div>
             </div>
-                {hasFileName && (
+                {hasFileName ? (
                     <span class="filename text-dark-200 select-none">
                         {filename}
                     </span>
-                )}
+                ) : (
+                    <!-- hacky way to fix went there is not filename -->
+                    <span class="filename text-dark-200 select-none invisible">
+                        empty
+                    </span>
+                )
+                }
         </div>
 
         <Prism
