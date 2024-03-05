@@ -9,7 +9,6 @@ export const components = {
     blockquote: Blockquote,
     a: A,
     pre: Pre,
-    code: CodeBlock,
     em: Em,
     h1: H1,
     h2: H2,
@@ -77,7 +76,7 @@ before a line break…
 
 Using `Image` component:
 
-```
+```plain
 <Image
     src="/banner.png"
     description="Image description here"
@@ -106,7 +105,7 @@ f(x) = x + a
 $$
 
 The recommended way is using the `Equation` component:
-```
+```plain
 <Equation 
     formula="f(x) = \sqrt{x^2 + y^2}" 
     description="Just a description"
@@ -140,7 +139,7 @@ When many diagrams are produced the way I always organize them in a Drawio file 
 
 IMPORTANT: All diagrams should be placed in the `resources` folder inside `src/resources`.
 
-```
+```plain
 <Drawio 
     file="test.drawio"
     page="1"

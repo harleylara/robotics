@@ -97,11 +97,11 @@ export const SIDEBAR: Sidebar = {
         'Neural Networks': [
             { text: 'Introduction to NN', link: 'en/nn-intro'}
         ],
-        'Miscellaneous': [
-            { text: 'Reproducibility', link: 'en/reproducibility'}
+        'Research Methodology': [
+            { text: 'Research workflow', link: 'en/research-workflow'},
+            { text: 'Information sources', link: 'en/research-sources'},
         ],
         'Reference': [
-            { text: 'Styling', link: 'en/ref' },
             { text: 'Notation', link: 'en/ref-notation' },
             { text: 'Sources', link: 'en/sources'}
         ],
