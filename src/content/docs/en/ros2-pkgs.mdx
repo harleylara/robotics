@@ -37,7 +37,7 @@ Packages types:
 - [`ament_python`](https://docs.ros.org/en/humble/How-To-Guides/Developing-a-ROS-2-Package.html)
 - [`ament_cmake_python`](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Python-Documentation.html)
 
-#### Cmake-based package:
+### Cmake-based package:
 
 <Terminal
     title="ament_cmake package structure"
@@ -49,7 +49,7 @@ Packages types:
 └── src/"
 />
 
-#### Python-based package:
+### Python-based package:
 
 <Terminal
     title="ament_python package structure"
@@ -62,9 +62,8 @@ Packages types:
 └── my_package/"
 />
 
-### Examination of important files
 
-#### `package.xml`
+### `package.xml`
 
 `package.xml`: is a manifest file with meta-data about the package.
 
@@ -79,7 +78,7 @@ Dependencies types:
     - `<test_depend>`: Only additional dependencies for unit tests.
     - `<doc_depend>`: Needed to generate documentation.
 
-#### `CMakeLists.txt`
+### `CMakeLists.txt`
 
 `CMakeLists.txt`: standard cmake rules to build the package.
 
@@ -88,7 +87,7 @@ Most relevant parts:
 - `ament_target_dependencies(myNode rclcpp std_msgs)`: Links node `myNode` to dependency headers and libraries.
 - `install(TARGETS myNode DESTINATION lib/${PROJECT_NAME})`: Copies nodes/libraries to workspace’s “install” directory.
 
-#### `setup.py`
+### `setup.py`
 
 - `data_files`
 - `entry_points`

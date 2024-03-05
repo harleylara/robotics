@@ -74,8 +74,10 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
             padding = 4;
         } else if (heading.depth == 3) {
             padding = 8;
+        } else if (heading.depth == 4) {
+            padding = 12;
         }
-        
+
         return (
             <>
                 <a href={`#${heading.slug}`} onClick={onLinkClick} class={`mx-${padding} text-gray-300 hover:border-b`}>
