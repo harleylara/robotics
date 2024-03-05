@@ -9,7 +9,7 @@ export const components = {
     blockquote: Blockquote,
     a: A,
     pre: Pre,
-    pre: InlineCode,
+    code: CodeBlock,
     em: Em,
     h1: H1,
     h2: H2,
@@ -37,7 +37,8 @@ Ok, problem solved (really?). Clearly the decision to use MDX is just the tip of
 ## Define Title
 
 To define a title use the `frontmatter` `title` to properly source it to the meta-data of the page:
-```
+
+```plain
 ---
 title: "Define you title like this"
 ---

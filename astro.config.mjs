@@ -7,6 +7,7 @@ import node from '@astrojs/node';
 // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatex from 'rehype-katex';
+import rehypeExternalLinks from 'rehype-external-links';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import { NOTATION } from './src/consts';
@@ -43,10 +44,16 @@ export default defineConfig({
   markdown: {
     // Applied to .md and .mdx files
     remarkPlugins: [remarkMath, remarkGfm],
-    rehypePlugins: [[rehypeAutolinkHeadings, {
-      behavior: 'append'
-    }], [rehypeKatex, {
-      macros: NOTATION
-    }]]
+    rehypePlugins: [
+        [rehypeAutolinkHeadings, {
+            behavior: 'append'
+        }],
+        [rehypeKatex, {
+            macros: NOTATION
+        }],
+        [rehypeExternalLinks, {
+          content: { type: 'text', value: ' ↗' }
+        }]
+    ]
   }
 });
