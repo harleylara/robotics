@@ -1,12 +1,12 @@
 ---
-title: "ROS 2"
+title: "ROS 2 Introduction"
+description: "What is ROS in a nutshell"
 ---
 
 export const components = {
     blockquote: Blockquote,
     a: A,
     pre: Pre,
-    pre: InlineCode,
     em: Em,
     h1: H1,
     h2: H2,
@@ -55,9 +55,9 @@ I like to start with a mental exercise using a "toy example".
 The LiDAR sensor can cheap as the [RPLidar A1](https://www.slamtec.ai/product/slamtec-rplidar-a1/)~100 USD or expensive as the [Velodyne Puck](https://store.clearpathrobotics.com/products/puck) ~4,600 USD (there are more expensive LiDAR sensors), but apart from the price difference they have different communication interfaces. The RPLidar A1 uses an adapter from UART-to-USB and the Velodyne uses a Ethernet connection.
 
 <Drawio
-file="ros.drawio"
-page="1"
-description="A toy example"
+    file="ros.drawio"
+    page="0"
+    description="A toy example"
 />
 
 
@@ -137,6 +137,12 @@ The truth is there are many technical details that are not necessary to cover at
     link="https://docs.ros.org/en/humble/Releases.html"
 />
 
+<Drawio
+    file="ros.drawio"
+    page="5"
+    description="The concept of ROS Distributions"
+/>
+
 Full list of ROS distributions:
 - [ROS 1 list of distributions](https://wiki.ros.org/Distributions)
 - [ROS 2 list of distributions](https://docs.ros.org/en/humble/Releases.html)
@@ -146,7 +152,7 @@ Is correctly spelled with a space: `ROS 2` or `ROS 1`, check the [Trademark Rule
 ## ROS Programming Languages
 
 <Important
-    note="Nope, ROS is not a programming language."
+    note="Nope, ROS is NOT a programming language."
 />
 
 ROS can intermix programming languages:
@@ -156,9 +162,21 @@ ROS can intermix programming languages:
 
 <Drawio
     file="ros.drawio"
-    page="5"
+    page="4"
     description="Architecture ROS 1 vs. ROS 2."
 />
+
+Source code for ROS 2 stack:
+- Officially supported client libraries:
+    - [ROS Client Library for C++](https://github.com/ros2/rclcpp)
+    - [ROS Client Library for Python](https://github.com/ros2/rclpy)
+- [ROS client library (rcl)](https://github.com/ros2/rcl)
+- [ROS middleware (rmw)](https://github.com/ros2/rmw)
+- DDS vendors:
+    - [Fast DDS by eProsima](https://github.com/ros2/rmw_fastrtps)
+    - [Eclipse Cyclone DDS](https://github.com/ros2/rmw_cyclonedds)
+    - [Connext DDS by RTI](https://github.com/ros2/rmw_connextdds)
+
 
 ## ROS Resources
 
