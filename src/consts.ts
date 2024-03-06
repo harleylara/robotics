@@ -41,6 +41,7 @@ export const SIDEBAR: Sidebar = {
             { text: 'About this site', link: 'en/introduction' },
         ],
         'Linear Algebra': [
+            { text: 'Recap', link: 'en/fnd-linear-algebra' },
             { text: "The Geometry of Linear Equations", link: 'en/linear-algebra-001'},
             { text: "Elimination with Matrices", link: 'en/linear-algebra-002'},
             { text: "Multiplication and Inverse Matrices", link: 'en/linear-algebra-003'},
@@ -55,6 +56,7 @@ export const SIDEBAR: Sidebar = {
             { text: "Overview", link: 'en/robot-learning-overview'}
         ],
         'Photogrammetry': [
+            { text: 'Geometry', link: 'en/fnd-geometry' },
             { text: "Introduction to Photogrammetry", link: "en/photogrammetry-001"}
         ],
         'C++': [
@@ -73,10 +75,6 @@ export const SIDEBAR: Sidebar = {
             { text: 'Tools', link: 'en/ros2-tools'},
             { text: 'URDF', link: 'en/ros2-urdf'}
         ],
-        'Foundamentals': [
-            { text: 'Linear Algebra', link: 'en/fnd-linear-algebra' },
-            { text: 'Geometry', link: 'en/fnd-geometry' },
-        ],
         'Algorithms': [
             { text: 'Intro to Algorithms', link: 'en/alg-intro'},
         ],
@@ -84,10 +82,6 @@ export const SIDEBAR: Sidebar = {
             { text: 'Introduction', link: 'en/auto-mobile' },
             { text: 'Perception', link: 'en/auto-mobile-percep'},
             { text: 'SLAM', link: 'en/slam-review'}
-        ],
-        'Mathematics for Robotics': [
-            { text: 'Lecture 1', link: 'en/mrc-01' },
-            { text: 'Lecture 2', link: 'en/mrc-02' },
         ],
         'Artificial Intelligence': [
             { text: 'Introduction', link: 'en/aima-001'},
@@ -106,7 +100,6 @@ export const SIDEBAR: Sidebar = {
         ],
         'Reference': [
             { text: 'Notation', link: 'en/ref-notation' },
-            { text: 'Sources', link: 'en/sources'}
         ],
     },
 };
