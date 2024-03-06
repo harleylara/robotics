@@ -27,15 +27,33 @@ export const components = {
 ## Short About DDS
 
 Communication paradigms:
-- Publication/Subscription (asynchronous)
-- Services (synchronous)
-- Actions (asynchronous)
+- Topics (asynchronous): Publication/Subscription
+- Services (synchronous): Request/Response
+- Actions (asynchronous): Request/Response with feedback (something conceptually similar to long polling and WebSockets)
 
 ## ROS Interfaces
 
-- Messages: used by "publishers" and "subscribers"
-- Services: used by "service clients" and "service servers".
-- Actions: used by "action clients" and "action servers"
+- **Topics**: uses messages defined with a `.msg` file to communicate between "publishers" and "subscribers".
+- **Services**: uses services defined with a `.srv` filo to communicate between "service clients" and "service servers".
+- **Actions**: uses actitios with a `.action` file to communicate between "action clients" and "action servers"
 
-## What is a Message
+## Topics
 
+Topics are:
+- publishers/subscribers
+- Anonymous
+- Strongly-typed
+
+## Anonymous
+
+## Strongly-typed
+
+The communication using topic relies in the concept of messages.
+
+### Messages
+
+Messages are a way for a ROS 2 node to send data on the network to other ROS nodes, with no response expected.
+
+## External Resources
+
+- [Interfaces - ROS 2 Docs](https://docs.ros.org/en/humble/Concepts/Basic/About-Interfaces.html)

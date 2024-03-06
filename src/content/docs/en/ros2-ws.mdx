@@ -187,6 +187,11 @@ What is the diference on `setup.bash` in the underlay an `local_setup.bash` in t
     note="You may need to re-source the workspace after adding new packages"
 />
 
-### Sourcing Tips
+## Sourcing Tips
 
-- `.bashrc`
+If you want to automate the process of sourcing the underlaying workspace you can use the power of bash in linux:
+
+<Terminal
+    title=""
+    content="cat 'source /opt/ros/humble/setup.bash' >> ~/.bashrc"
+/>

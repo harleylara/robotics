@@ -3,11 +3,14 @@ title: "ROS Nodes"
 description: "Creating nodes"
 ---
 
+import CodeBlock from "../../../components/Globals/CodeBlock.astro"
+
 export const components = {
     blockquote: Blockquote,
     a: A,
     pre: Pre,
     pre: InlineCode,
+    code: _CodeBlock,
     em: Em,
     h1: H1,
     h2: H2,
@@ -53,20 +56,13 @@ Each node should do one logical thing.
 - Write the code
 - Make it available for execution `entry_points`
 
-```python filename='bare.py'
-import rclpy
 
-def main(args=None) -> None:
-
-    rclpy.init()
-
-    rclpy.spin(rclpy.create_node("bare_node"))
-
-    rclpy.shutdown()
-
-if __name__ == "__main__":
-    main()
-```
+<CodeBlock
+    filename="bare.py" 
+    code="" 
+    lang="py"
+    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/bare.py"
+/>
 
 The packages of type `ament_python` are structured like a standard python package using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html).
 
@@ -88,14 +84,100 @@ entry_points={
     prompt={false}
 />
 
+## Running Nodes
+
+You can run ROS nodes using the ROS `cli` with the following format:
+```plain
+ros2 run <package_name> <node_name>
+```
+
+In this case:
+```plain
+ros2 run python_basics bare
+```
+
+erros?... here's a list of common mistakes you may be making:
+- `ros2 command not found` (assuming you have ros correctly installed using debian packages) Have you already activated the underlying workspace? `source /opt/ros/humble/setup.bash`
+- `Package 'python_basics' not found` (assuming you have the package in the `src` folder in your workspace)
+    - remember that every time you have new code files that you want to execute you must **build** the workspace, have you already done it? in the root directory of your workspace `colcon build --symlink-install`
+    - have you already activated the overlaying workspace (your worksapce)? `source ~/ros2_ws/install/local_setup.bash`
+
+clearly not all possible error cases can be covered, so it is advisable to read the error message and try to understand it (I know, sometimes just sometimes error messages are not very useful).
+
+In case you haven't wondered yet. You: *"Wait!?, my node is python, why do I need to build my workspace if python is interpreted and does not require compiling.?"*. Let me tell you that is an excellent question, `colcon build` does not only compile code, it has the potential to do many more things that we will not mention here (but you can see [colcon docs](https://colcon.readthedocs.io/en/released/)), in the case of `ament_python` packages colcon does not compile the code, but instead copies it from your package to the `lib` directory inside the `install` folder of the workspace. However this copy alone is not enough, you must source the workspace in a way that lets ROS know that there are new files in the install folder.
+
+The `--symlink-install` directive tells colcon not to perform a hard-copy (default behavior) but to perform a symlink of the files, this option is extremely useful when you are developing with python as it allows you to make changes to your file and because it is just a symbolic link the changes are automatically reflected from the file perspective in the `install` folder, which means that if you use `--symlink-install` you don't have to do `colcon build` for every time you change the file (example `bare.py`), but you have to redo `colcon build --symlink-install` **once** every time there is a new file, this is for the purpose of creating the symlink of the new file. e.g. a new node called `new.py` and then you can just keep changing the file since the symlink already exist.
+
+<Important
+    note="The symlink concept is not exclusive for nodes, but also applies to any type of shared resource such as launch files, configurations, urdfs etc. Just keep in mind that currently (March 2024) there are no mechanisms to create symlinks for the resources specified in the `setup.py` section `data_files` of your `ament_python`."
+/>
+
 ## Coding a Minimum Logger
 
-- coding a logger (`logger.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/logger.py)
+coding a logger (`logger.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/logger.py)
 
-## Using Classes
+<CodeBlock
+    filename="logger.py" 
+    code="" 
+    lang="py"
+    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/logger.py"
+/>
 
-- coding a logger using classes (`class.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/class.py)
+Don't forget to add the entry point in the `setup.py`: `logger = python_basics.logger:main`
+
+## Using Classes (Recommended)
+
+coding a logger using classes (`class.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/class.py)
+
+<CodeBlock
+    filename="class.py" 
+    code="" 
+    lang="py"
+    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/class.py"
+/>
+
+Don't forget to add the entry point in the `setup.py`: `class = python_basics.class:main`
+
+## Capabilities
+
+Nodes can:
+- publish data
+- subscribe data
+- act as a service client
+- act as a service server
+- act as a action client
+- act as a action server
+
+Nodes are often a complex combination of publishers, subscribers, service servers, service clients, action servers, and action clients, all at the same time.
+
+## Discovery
+
+Creating logical networks
+
+<Drawio
+    file="dds.drawio"
+    page="0"
+    description="ROS_DOMAIN_ID"
+/>
+
+Discovery:
+
+<Drawio
+    file="dds.drawio"
+    page="1"
+    description="ROS auto discovery process"
+/>
+
+More about `ROS_DOMAIN_ID` in the [official docs](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Domain-ID.html)
+
+I'm planning to explain more in the [DDS](/en/ros2-dds) page.
+
+## Lifecycle Nodes
+
+TBD
 
 ## External References
 
 - [Managed nodes - ROS 2 Design](https://design.ros2.org/articles/node_lifecycle.html)
+- [ROS2 from the Ground Up: Part 5- Concurrency, Executors and Callback Groups](https://medium.com/@nullbyte.in/ros2-from-the-ground-up-part-5-concurrency-executors-and-callback-groups-c45900973fd2)
+- [ROS2 from the Ground Up: Part 4- Building Robust Robotics Systems with ROS2 Composition](https://medium.com/@nullbyte.in/ros2-from-the-ground-up-part-4-building-robust-robotics-systems-with-ros2-composition-209ed023d8e5)
