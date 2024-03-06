@@ -8,6 +8,7 @@ export const components = {
     a: A,
     pre: Pre,
     pre: InlineCode,
+    code: _CodeBlock,
     em: Em,
     h1: H1,
     h2: H2,
@@ -25,48 +26,25 @@ export const components = {
 }
 
 
-## What is a Package
 
-ROS package: "A package is an organizational unit for your code."
 
 ## Packages in ROS 2
+
+What is a Package?
+
+<Definition
+term="ROS package"
+definition="A package is an organizational unit for your code."
+source="Creating a package - ROS docs"
+link="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html"
+/>
 
 Packages types:
 - [`ament_cmake`](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Documentation.html)
 - [`ament_python`](https://docs.ros.org/en/humble/How-To-Guides/Developing-a-ROS-2-Package.html)
 - [`ament_cmake_python`](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Python-Documentation.html)
 
-### Cmake-based package:
-
-<Terminal
-    title="ament_cmake package structure"
-    prompt={false}
-    content="my_package/\
-├── CMakeLists.txt\
-├── include/my_package/\
-├── package.xml\
-└── src/"
-/>
-
-### Python-based package:
-
-<Terminal
-    title="ament_python package structure"
-    prompt={false}
-    content="my_package/\
-├── package.xml\
-├── resource/my_package\
-├── setup.cfg\
-├── setup.py\
-└── my_package/"
-/>
-
-
-### `package.xml`
-
-`package.xml`: is a manifest file with meta-data about the package.
-
-Dependencies types:
+Regardless of the type of packages, all of them must contain a file called `package.xml` wich is a manifest file with meta-data about the package.
 - Common:
     - `<buildtool_depend>`: Needed to build itself. (Typically ament_cmake)
     - `<build_depend>`: Needed to build this package.
@@ -77,19 +55,52 @@ Dependencies types:
     - `<test_depend>`: Only additional dependencies for unit tests.
     - `<doc_depend>`: Needed to generate documentation.
 
-### `CMakeLists.txt`
+## ROS `cli` Tool for Packages
 
-`CMakeLists.txt`: standard cmake rules to build the package.
+- `ros2 pkg create`: to create the minimal template structure of a given package type (default `ament_cmake`).
+- `ros2 pkg list`: list all the "available". Note that you need to source the correponding workspace to make the package available.
 
-Most relevant parts:
+### Cmake-based package
+
+```bash filename="ament_cmake_package_structure"
+my_package
+├── include/my_package/
+├── src/
+├── CMakeLists.txt
+└── package.xml
+```
+
+`CMakeLists.txt`: standard cmake rules to build the package. Most relevant parts:
 - `add_executable(myNode src/myNode.cpp)`: Builds program `myNode` from `myNode.cpp`.
 - `ament_target_dependencies(myNode rclcpp std_msgs)`: Links node `myNode` to dependency headers and libraries.
 - `install(TARGETS myNode DESTINATION lib/${PROJECT_NAME})`: Copies nodes/libraries to workspace’s “install” directory.
 
-### `setup.py`
+### Python-based package
 
+```bash filename="ament_python_package_structure"
+my_package/
+├── resource/my_package
+├── my_package/
+├── setup.cfg
+├── setup.py
+└── package.xml
+```
+
+`setup.py`: python package definition. Most relevant parts:
 - `data_files`
 - `entry_points`
+
+Let's create a `ament_python` into the `src` folder inside the workspace:
+
+<Terminal
+    title="create a ament_python package"
+    content="cd ~/ros2_ws/src/\
+    ros2 pkg create my_package --build-type ament_python --dependencies rclpy std_msgs"
+/>
+
+<Important
+    note="Don't forget to build and source the workspace after adding packages to it."
+/>
 
 ## Install Existing Packages
 
@@ -104,7 +115,7 @@ Structure: `sudo apt-get install ros-<DISTRO>-<PACKAGE-NAME>`
 For example, to install the package called `teleop_twist_keyboard` using debian packages:
 
 <Important
-    note="When installing ros packages using debian packages replace '_' with '-'"
+    note="When installing ros packages using debian packages replace '_' with '-' in the name of the package."
 />
 
 <Terminal
@@ -119,28 +130,26 @@ To remove a package use:
     content="sudo apt-get remove ros-<DISTRO>-<PACKAGE-NAME>"
 />
 
-### Packages from Sources
+### Packages from Source
 
 1. Git clone the repository (watch out the git branch) of the package into your `src` folder into the workspace.
-2. Install dependencies if need it (TODO: add reference to `rosdep`.
+```plain
+cd ~/ros2_ws/src
+git clone https://github.com/harleylara/ros2-intro.git
+```
+
+2. Install dependencies if need it either manually (painful way), or using [`rosdep`](https://docs.ros.org/en/independent/api/rosdep/html/). Keep in mind that `rosdep` is not magic, it cannot guess the dependencies of your package or third party packages, `rosdep` will check inside the `package.xml` of the package for the defined dependencies, so be organized and don't forget to add your dependencies inside the package manifest.
+```plain
+sudo apt update && rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
+```
+
 3. Build the workspace using `colcon`.
+```plain
+cd ~/ros2_ws/
+colcon build --symlink-install
+```
+
 4. Source the workspace to make the package available.
-
-## ROS `cli` Tool for Packages
-
-- ros2 pkg create
-- ros2 pkg list
-
-## Create an `ament_python` Package
-
-Into the `src` folder inside the workspace:
-
-<Terminal
-    title="create a ament_python package"
-    content="cd ~/ros2_ws/src/\
-    ros2 pkg create my_package --build-type ament_python --dependencies rclpy std_msgs"
-/>
-
-<Important
-    note="Don't forget to build and source the workspace after adding packages to it."
-/>
+```plain
+source install/local_setup.bash
+```
