@@ -61,7 +61,8 @@ export const SIDEBAR: Sidebar = {
         ],
         'C++': [
             { text: 'Intro', link: 'en/cpp' },
-            { text: 'Bsics', link: 'en/cpp-basics' }
+            { text: 'Bsics', link: 'en/cpp-basics' },
+            { text: 'STL', link: 'en/cpp-stl' },
         ],
         'ROS': [
             // { text: 'ROS context', link: 'en/ros-intro' },
