@@ -44,19 +44,31 @@ Topics are:
 - Anonymous
 - Strongly-typed
 
+
 <Drawio
     file="ros.drawio"
     page="6"
     description="Simple Topic-based interface."
 />
 
-## Anonymous
+For details about topics names: check [Names in ROS 2](/en/ros2-ws#names-in-ros-2).
 
-## Strongly-typed
+### Publishers/Subscribers
+
+Topics use a asynchronous communication paradigms refer as publication/subscription:
+- publishers don’t know if anyone’s listening
+- subscribers are event-triggered (by incoming messages)
+- messages may be dropped
+
+### Anonymous
+
+Topics are anonymous: "This means that when a subscriber gets a piece of data, it doesn’t generally know or care which publisher originally sent it (though it can find out if it wants). " from [Official ROS docs](https://docs.ros.org/en/rolling/Concepts/Basic/About-Topics.html#anonymous).
+
+### Strongly-typed
 
 The communication using topic relies in the concept of messages.
 
-### Messages
+## Messages
 
 Messages are a way for a ROS 2 node to send data on the network to other ROS nodes, with no response expected.
 
