@@ -34,7 +34,7 @@ Namespace: prefix to apply to entities associated with the node (node name, topi
 
 A node is used to create ROS entities:
 - publisher
-- subscribers
+- subscriber
 - services
     - service server
     - service client
@@ -48,14 +48,15 @@ Nodes can communicate with other nodes within:
 - in a different process
 - on a different machine.
 
-Each node should do one logical thing.
+Ideally each node should do one logical thing.
+
+<Important
+    note="A ROS node can be composed of none, one or several ROS entities, each with their respective interfaces."
+/>
 
 ## Creating a Bare Minimum Node
 
-- Where to put the code?
-- Write the code
-- Make it available for execution `entry_points`
-
+A bare minimum node without any ROS entity.
 
 <CodeBlock
     filename="bare.py" 
@@ -64,7 +65,7 @@ Each node should do one logical thing.
     remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/bare.py"
 />
 
-The packages of type `ament_python` are structured like a standard python package using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html).
+The packages of type `ament_python` are structured like a standard python package using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html). Add the node **entry point** in the `entry_points` section inside the file `setup.py` of your package.
 
 ```python filename="setup.py"
 ...
@@ -77,6 +78,12 @@ entry_points={
 
 ...
 ```
+
+<Drawio
+    file="ros-nodes.drawio"
+    page="0"
+    description="Node entry points structure description."
+/>
 
 <Terminal
     title="format for console_scripts"
