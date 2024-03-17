@@ -56,16 +56,30 @@ Unordered containers (hash table):
     description="STL containers iterators."
 />
 
+- Fixed Size: Arrays have a fixed size determined at compile time and cannot be resized dynamically.
+- Contiguous Memory Allocation: Elements in an array are stored in contiguous memory locations, which allows for efficient traversal and access.
+- Random Access: Elements in an array can be accessed directly using an index, providing O(1) time complexity for access.
+- Homogeneous Elements: Arrays can only contain elements of the same data type. They cannot store elements of different data types within the same array.
+- Static Allocation: Memory for arrays is allocated statically either on the stack or in the global/static memory segment.
+
+{/*
 <CodeBlock
 filename="array.cpp"
 code="" 
 lang="cpp"
 remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/003-stl/array.cpp"
 />
+*/}
 
 [C++ reference for array](https://en.cppreference.com/w/cpp/container/array)
 
 ## Vector
+
+<Drawio
+    file="cpp-stl.drawio"
+    page="1"
+    description="vector container memory layout."
+/>
 
 ```plain
 #include <vector>
@@ -86,3 +100,18 @@ remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/003-stl
 */}
 
 [C++ reference for vector](https://en.cppreference.com/w/cpp/container/vector)
+
+## Deque
+
+**Deque** or double-ended queue.
+
+The complexity (efficiency) of common operations on deques is as follows:
+- Random access - constant $O(1)$.
+- Insertion or removal of elements at the end or beginning - constant $O(1)$.
+- Insertion or removal of elements - linear $O(n)$.
+
+<Drawio
+    file="cpp-stl.drawio"
+    page="2"
+    description="Deque container memory layout."
+/>
