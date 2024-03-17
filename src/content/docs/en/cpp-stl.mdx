@@ -1,0 +1,73 @@
+---
+title: "C++ Standard Library (STD)"
+draft: true
+---
+
+import CodeBlock from "../../../components/Globals/CodeBlock.astro"
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+Standard library:
+- array
+- vector
+- string
+- streams
+
+Sequence containers:
+- array
+- vector
+- deque
+- list
+- forward list
+
+Associative containers:
+- set, multiset,
+- map, multimap
+
+Unordered containers (hash table):
+- Unordered set/multiset
+- Unordered map/multiset
+
+## Array
+
+[C++ reference for array](https://en.cppreference.com/w/cpp/container/array)
+
+## Vector
+
+```
+#include <vector>
+```
+
+Dynamical array. continuous memory allocation.
+- fast insert/remove at the end: O(1)
+- slow insert/remove at the beginning or in the middle: O(n)
+- slow search: O(n)
+
+{/*
+<CodeBlock
+filename="vector.cpp" 
+code="" 
+lang="cpp"
+remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/003-stl/vector.cpp"
+/>
+*/}
+
+[C++ reference for vector](https://en.cppreference.com/w/cpp/container/vector)
