@@ -44,7 +44,6 @@ Topics are:
 - Anonymous
 - Strongly-typed
 
-
 <Drawio
     file="ros.drawio"
     page="6"
@@ -72,6 +71,32 @@ The communication using topic relies in the concept of messages.
 
 Messages are a way for a ROS 2 node to send data on the network to other ROS nodes, with no response expected.
 
+### Message Definition Structure
+
+<Drawio
+    file="ros.drawio"
+    page="7"
+    description="Simple message definition."
+/>
+
+Structure:
+- Fiel type
+- Field name
+- Field with constant value
+- Feilf with default value
+
+### Field Types
+
+- [Built-in-type](https://docs.ros.org/en/rolling/Concepts/Basic/About-Interfaces.html#field-types)
+- Using other message as the type to define a field (nesting messages)
+
+### Field with Constant Value
+
+<Important
+    note="Field names with constant values have to be UPPERCASE"
+/>
+
 ## External Resources
 
 - [Interfaces - ROS 2 Docs](https://docs.ros.org/en/humble/Concepts/Basic/About-Interfaces.html)
+- [Interface definition - ROS 2 Design](https://design.ros2.org/articles/interface_definition.html#naming-of-messages-and-services)
