@@ -58,7 +58,7 @@ Unordered containers (hash table):
 
 - Fixed Size: Arrays have a fixed size determined at compile time and cannot be resized dynamically.
 - Contiguous Memory Allocation: Elements in an array are stored in contiguous memory locations, which allows for efficient traversal and access.
-- Random Access: Elements in an array can be accessed directly using an index, providing O(1) time complexity for access.
+- Random Access: Elements in an array can be accessed directly using an index, providing $O(1)$ time complexity for access.
 - Homogeneous Elements: Arrays can only contain elements of the same data type. They cannot store elements of different data types within the same array.
 - Static Allocation: Memory for arrays is allocated statically either on the stack or in the global/static memory segment.
 
@@ -109,12 +109,15 @@ The complexity (efficiency) of common operations on deques is as follows:
 - Random access - constant $O(1)$.
 - Insertion or removal of elements at the end or beginning - constant $O(1)$.
 - Insertion or removal of elements - linear $O(n)$.
+- Slow search: $O(n)$
 
 <Drawio
     file="cpp-stl.drawio"
     page="2"
     description="Deque container memory layout."
 />
+
+[C++ reference deque](https://en.cppreference.com/w/cpp/container/deque)
 
 ## List
 
@@ -124,6 +127,8 @@ The complexity (efficiency) of common operations on deques is as follows:
     description="List container memory layout."
 />
 
+[C++ reference for list](https://en.cppreference.com/w/cpp/container/list)
+
 ## Forward-list
 
 <Drawio
@@ -131,3 +136,5 @@ The complexity (efficiency) of common operations on deques is as follows:
     page="4"
     description="Forward-list container memory layout."
 />
+
+[C++ reference for Forward-list](https://en.cppreference.com/w/cpp/container/forward_list)
