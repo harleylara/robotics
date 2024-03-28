@@ -1,0 +1,137 @@
+---
+title: "ROS Topics"
+description: "Creating and managing ROS topics"
+---
+
+import CodeBlock from "../../../components/Globals/CodeBlock.astro"
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    pre: InlineCode,
+    code: _CodeBlock,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## Before to start
+
+Create an `ament_cmake` built-type package called `demo_interfaces`
+
+```plain
+ros2 pkg create --build-type ament_cmake demo_interfaces
+```
+
+## Topics
+
+Topics are:
+- publishers/subscribers
+- Anonymous
+- Strongly-typed
+
+<Drawio
+    file="ros.drawio"
+    page="6"
+    description="Simple Topic-based interface."
+/>
+
+For details about topics names: check [Names in ROS 2](/en/ros2-ws#names-in-ros-2).
+
+### Publishers/Subscribers
+
+Topics use a asynchronous communication paradigms refer as publication/subscription:
+- publishers don’t know if anyone’s listening
+- subscribers are event-triggered (by incoming messages)
+- messages may be dropped
+
+### Anonymous
+
+Topics are anonymous: "This means that when a subscriber gets a piece of data, it doesn’t generally know or care which publisher originally sent it (though it can find out if it wants). " from [Official ROS docs](https://docs.ros.org/en/rolling/Concepts/Basic/About-Topics.html#anonymous).
+
+### Strongly-typed
+
+The communication using topic relies in the concept of messages.
+
+## Messages
+
+Messages are a way for a ROS 2 node to send data on the network to other ROS nodes, with no response expected. Messages are described and defined in `.msg` files in the `msg/` directory of a ROS package.
+
+### Message Definition Structure
+
+<Drawio
+    file="ros.drawio"
+    page="7"
+    description="Simple message definition."
+/>
+
+Structure:
+- Field type
+- Field name
+- Field with constant value
+- Field with default value
+
+### Field Types
+
+- [Built-in-type](https://docs.ros.org/en/rolling/Concepts/Basic/About-Interfaces.html#field-types)
+- Using other message as the type to define a field (nesting messages)
+
+### Field with Constant Value
+
+<Important
+    note="Field names with constant values have to be UPPERCASE"
+/>
+
+## Creating a Simple Message
+
+with in the `demo_interfaces` package, let's create a folder called `msg`.
+
+<Terminal
+    title="Create a 'msg' folder"
+    content="mkdir msg"
+/>
+
+Inside `msg` directory create a file called `Counter.msg` with the following content:
+
+<CodeBlock
+    filename="Counter.msg"
+    code="" 
+    lang="plain"
+    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/demo_interfaces/msg/Counter.msg"
+/>
+
+Add the `rosidl_default_generators` and "friends" to the `package.xml` of the `demo_interfaces` package.
+
+```xml
+<buildtool_depend>rosidl_default_generators</buildtool_depend>
+<exec_depend>rosidl_default_runtime</exec_depend>
+<member_of_group>rosidl_interface_packages</member_of_group>
+```
+
+Add the following code to the `CMakeLists.txt`:
+
+```CMakeLists
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/Counter.msg"
+)
+```
+
+Build the message definition:
+<Terminal
+    title="Build the workspace"
+    content="cd ~/ros2_ws/ && colcon build --symlink-install"
+/>

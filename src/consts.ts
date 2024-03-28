@@ -72,6 +72,7 @@ export const SIDEBAR: Sidebar = {
             { text: 'Nodes', link: 'en/ros2-nodes'},
             // { text: 'Distributed Systems', link: 'en/ros2-ds' },
             { text: 'Interfaces', link: 'en/ros2-interfaces'},
+            { text: 'Topics', link: 'en/ros2-topics'},
             { text: 'DDS', link: 'en/ros2-dds'},
             { text: 'Tools', link: 'en/ros2-tools'},
             { text: 'URDF', link: 'en/ros2-urdf'}
