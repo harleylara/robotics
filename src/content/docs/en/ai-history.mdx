@@ -23,27 +23,71 @@ export const components = {
     p: P
 }
 
+This note is essentially a minified version of Jürgen Schmidhuber's wonderful blog on [Annotated History of Modern AI and Deep Learning](https://people.idsia.ch/~juergen/deep-learning-history.html). It also contains links to the publications mentioned during this note.
 
-## [1943] A Logical Calculus of the Ideas Immanent in Nervous Activity
+## Foundations
 
-Warren Sturgis McCulloch:
-- American neurophysiologist
+### [1679]
 
-Walter Pitts:
-- self-taught logician. Source: [McCulloch & Pitts Publish the First Mathematical Model of a Neural Network](https://www.historyofinformation.com/detail.php?entryid=782)
+[Gottfried Wilhelm Leibniz](https://people.idsia.ch/~juergen/leibniz-father-computer-science-375.html): the chain rule appeared in a 1676 memoir by Leibniz (with a sign error in the calculation), check [The manuscripts of leibniz on his discovery of the differential calculus. part II](https://www.jstor.org/stable/27900650)
 
+[1696] [Guillaume de l'Hopital](https://en.wikipedia.org/wiki/Guillaume_de_l%27H%C3%B4pital) used in his book [Analyse des Infiniment Petits pour l'Intelligence des Lignes Courbes](https://en.wikipedia.org/wiki/Analyse_des_Infiniment_Petits_pour_l%27Intelligence_des_Lignes_Courbes)
 
-Concepts:
-- [All-or-none law](https://en.wikipedia.org/wiki/All-or-none_law): The nerve fibre either gives a maximal response or none at all.
+Chain rule is in the heart of NNs today. Check [Annotated History of Modern AI and Deep Learning](https://people.idsia.ch/~juergen/deep-learning-history.html) by Jürgen Schmidhuber, KAUST AII, Swiss AI Lab IDSIA, USI.
 
-Facts:
-- "[...] including the Principia conventions for dots."
-    - [The Use of Dots for Punctuation and for Conjunction in Principia Mathematica](https://plato.stanford.edu/entries/pm-notation/dots.html)
+### [1847]
 
+[Augustin-Louis Cauchy](https://en.wikipedia.org/wiki/Augustin-Louis_Cauchy): The gradient descent (GD) [C. Lemarechal. Cauchy and the Gradient Method. Doc Math Extra, pp. 251-254, 2012.](https://web.archive.org/web/20200716194017/https://elibm.org/ft/10011456000)
 
-## [1958]
+[1907] [Jacques Hadamard](https://en.wikipedia.org/wiki/Jacques_Hadamard) independently proposed a similar method in "Mémoire sur le problème d'analyse relatif à l'équilibre des plaques élastiques encastrées"
 
-- []
+[1951] [Herbert Robbins](https://en.wikipedia.org/wiki/Herbert_Robbins) and Sutton Monro proposed the stochastic version called SGD [A Stochastic Approximation Method](https://web.archive.org/web/20240508194319/https://www.columbia.edu/~ww2040/8100F16/RM51.pdf)
+
+## First NN / Linear Regression / Shallow Learning
+
+### [1805]
+
+[Adrien-Marie Legendre](https://en.wikipedia.org/wiki/Adrien-Marie_Legendre) Legendre published the first description of the method of least squares as an algebraic fitting procedure. It was subsequently justified on statistical grounds by Gauss and Laplace [Legendre, Adrien-Marie - Encyclopedia of Mathematics](https://encyclopediaofmath.org/wiki/Legendre,_Adrien-Marie), in his book [Nouvelles méthodes pour la détermination des orbites des comètes](https://archive.org/details/nouvellesmthode00legegoog/)
+
+## RNN
+
+[1943] W. S. McCulloch, W. Pitts. [A Logical Calculus of Ideas Immanent in Nervous Activity](https://web.archive.org/web/20240503205959/https://www.cs.cmu.edu/~./epxing/Class/10715/reading/McCulloch.and.Pitts.pdf)
+- [Warren Sturgis McCulloch](https://en.wikipedia.org/wiki/Warren_Sturgis_McCulloch): American neurophysiologist
+- Walter Pitts: self-taught logician. Source: [McCulloch & Pitts Publish the First Mathematical Model of a Neural Network](https://www.historyofinformation.com/detail.php?entryid=782)
+- Interesting facts:
+    - "[...] including the Principia conventions for dots.". [The Use of Dots for Punctuation and for Conjunction in Principia Mathematica](https://plato.stanford.edu/entries/pm-notation/dots.html)
+- Concepts in the paper:
+    - [All-or-none law](https://en.wikipedia.org/wiki/All-or-none_law): The nerve fibre either gives a maximal response or none at all.
+
+[1956] Stephen Cole Kleene [Representation of Events in Nerve Nets and Finite Automata.](https://web.archive.org/web/20240515144938/https://www.rand.org/content/dam/rand/pubs/research_memoranda/2008/RM704.pdf)
+
+## 1956 The Birth of the Term Artificial Intelligence (AI)
+
+Some readings:
+- [Dartmouth workshop - Wikipedia Article](https://en.wikipedia.org/wiki/Dartmouth_workshop)
+- [The Meeting of the Minds That Launched AI - IEEE Article](https://spectrum.ieee.org/dartmouth-ai-workshop)
+
+## Multilayer Feedforward NN (without Deep Learning)
+
+[1958] [Frank Rosenblatt](https://en.wikipedia.org/wiki/Frank_Rosenblatt) [The Perceptron: a probabilistic model for information storage and organization in the brain](https://web.archive.org/web/20240503205959/https://www.ling.upenn.edu/courses/cogs501/Rosenblatt1958.pdf): although their work included "multi-layer percetrons" (MLP), it is still not considered deep learning because only the last layer "learned".
+
+[1959] Oliver Selfridge, Contributions to perceptron theory. PhD thesis
+
+[1961] Karl Steinbuch [Die Lernmatrix - Paper in German](https://link.springer.com/content/pdf/10.1007/BF00293853.pdf)
+
+[1961] Roger David Joseph [Pandemonium: a paradigm for learning](https://web.archive.org/web/20240128101931/https://aitopics.org/download/classics:504E1BAC)
+
+[1962] Frank Rosenblatt [Principles of Neurodynamics](https://web.archive.org/web/20240515164657/https://safari.ethz.ch/digitaltechnik/spring2018/lib/exe/fetch.php?media=neurodynamics1962rosenblatt.pdf)
+
+## Getting Deeper
+
+[1965] Alexey Ivakhnenko and Valentin Lapa [Cybernetic Predicting Devices](https://web.archive.org/web/20240515165109/https://gwern.net/doc/ai/1966-ivakhnenko.pdf)
+
+[1971] Ivakhnenko, A. G. [Polynomial theory of complex systems](https://web.archive.org/web/20240515165457/https://www.knowledgeminer.eu/pdf/Ivakhnenko_Polynomial.pdf) describing a DNN with 8 layers train with the [Group Method of Data Handling](https://en.wikipedia.org/wiki/Group_method_of_data_handling).
+
+->>> [1986] Rina Dechter [Learning While Searching in Constraint-Satisfaction-Problems.](https://web.archive.org/web/20240515170643/https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=9c7375bc09274fd14de0f7417963e932e9bb9c93) introduced the term "deep" in the context of machine learning.
+
+->>> [2000] Aizenberg et al [Multi-Valued and Universal Binary Neurons](https://link.springer.com/book/10.1007/978-1-4757-3115-6) use of the term "deep" in the context of NNs.
 
 ## [1960 - 1970]
 
@@ -63,6 +107,7 @@ Facts:
 
 ## External References
 
+- [Annotated History of Modern AI and Deep Learning](https://people.idsia.ch/~juergen/deep-learning-history.html) by Jürgen Schmidhuber, KAUST AII, Swiss AI Lab IDSIA, USI.
 - [Timeline of Deep Learning Highlights 1960-2013](https://people.idsia.ch/~juergen/firstdeeplearner.html) by Jürgen Schmidhuber
 - [Critique of Honda Prize for Dr. Hinton](https://people.idsia.ch/~juergen/critique-honda-prize-hinton.html) by Jürgen Schmidhuber
 - [Who Invented Backpropagation?](https://people.idsia.ch/~juergen/who-invented-backpropagation.html) by Jürgen Schmidhuber
