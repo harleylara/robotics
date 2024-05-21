@@ -1,0 +1,60 @@
+---
+title: "Single-layer Networks: Regression"
+description: Exploring DL
+---
+
+import LinearModel from "../../../components/DeepLearning/LinearModel.astro"
+import NonLinearModel from "../../../components/DeepLearning/NonLinearModel.astro"
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+
+## Linear Regression
+
+<Equation
+    formula="y(\vx, \vw) = w_0 + w_1 x_1 + \dots + w_D x_D"
+    description="Linear regresion model."
+/>
+
+<Equation
+    formula="y(\vx) = w x + b"
+    description="Simple linear model."
+/>
+
+<LinearModel
+    description="Linear model."
+/>
+
+<NonLinearModel
+    description="Linear model trying to fit a set of non-linear sample points."
+/>
+
+<Think
+    note="How can we use linear models to aproximate non-linear data?"
+/>
+
+
+### Basis Functions
+
+## References
+
+Book:
+- [Deep Learning: Foundations and Concepts](https://www.bishopbook.com/)
