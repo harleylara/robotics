@@ -1,5 +1,5 @@
-<mxfile host="Electron" modified="2024-05-23T04:46:34.373Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="izg2rOHTRveBS5jqcsaL" version="23.0.2" type="device">
-  <diagram name="Page-1" id="PV_4P2uYeImmRSqiTvNd">
+<mxfile host="Electron" modified="2024-05-23T05:01:57.070Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="To9xp4Kk3dlUKAjnPg5f" version="23.0.2" type="device" pages="2">
+  <diagram name="basis-functions" id="PV_4P2uYeImmRSqiTvNd">
     <mxGraphModel dx="897" dy="616" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="1" shadow="0">
       <root>
         <mxCell id="0" />
@@ -123,6 +123,48 @@
         </mxCell>
         <mxCell id="nbcgYMWaoBFh7E8aOMSV-41" value="\(\sigma(a) = \frac{1}{1-e^{-a}}\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="320" y="830" width="90" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ZOchp2hpxrbisU63P39z" name="Page-2">
+    <mxGraphModel dx="564" dy="388" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vdF0k42k8hVy9W0-x-wN-1" value="\(\mathbf{X}\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="130" y="80" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vdF0k42k8hVy9W0-x-wN-2" value="The dataset denoted:" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="85" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="vdF0k42k8hVy9W0-x-wN-3" value="is a collection of input vectors." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="105" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="vdF0k42k8hVy9W0-x-wN-4" value="\(\mathbf{X} = \begin{bmatrix}&lt;br&gt;\mathbf{x}_1 \newline&lt;br&gt;\mathbf{x}_2 \newline&lt;br&gt;\vdots \newline&lt;br&gt;\mathbf{x}_N&lt;br&gt;\end{bmatrix}\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="80" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="vdF0k42k8hVy9W0-x-wN-5" value="The desire/target values are denoted:" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="85" width="220" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="vdF0k42k8hVy9W0-x-wN-6" value="\(\mathbf{t}\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="110" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="vdF0k42k8hVy9W0-x-wN-7" value="\(\mathbf{t} = \begin{bmatrix}&lt;br&gt;t_1 \newline&lt;br&gt;t_2 \newline&lt;br&gt;\vdots \newline&lt;br&gt;t_N&lt;br&gt;\end{bmatrix}\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="165" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vdF0k42k8hVy9W0-x-wN-9" value="" style="curved=1;endArrow=classic;html=1;rounded=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="125" y="154" as="sourcePoint" />
+            <mxPoint x="357" y="152" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="190" y="140" />
+              <mxPoint x="300" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vdF0k42k8hVy9W0-x-wN-10" value="every input vector has a corresponding target value" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="210" y="140" width="90" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
