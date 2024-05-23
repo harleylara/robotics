@@ -1,0 +1,130 @@
+<mxfile host="Electron" modified="2024-05-23T04:46:34.373Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="izg2rOHTRveBS5jqcsaL" version="23.0.2" type="device">
+  <diagram name="Page-1" id="PV_4P2uYeImmRSqiTvNd">
+    <mxGraphModel dx="897" dy="616" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-1" value="$$y(\mathbf{x}, \mathbf{w}) = w_0 + \sum_{j=1}^{M-1}w_{j}\phi_{j}(\mathbf{x})$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="120" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-2" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="469" y="169" as="sourcePoint" />
+            <mxPoint x="460" y="143" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-3" value="basis function" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="450" y="170" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-4" value="Where:" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="290" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-5" value="$$y(\mathbf{x}, \mathbf{w}) = \sum_{j=0}^{M-1}w_{j}\phi_{j}(\mathbf{x}) = \mathbf{w}^{T}\phi(\mathbf{x})$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="240" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-6" value="$$\phi_0(x)=1$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="290" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-8" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="376" y="165" as="sourcePoint" />
+            <mxPoint x="385.5" y="144" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-9" value="bias term" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="344" y="165" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-10" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="220" as="sourcePoint" />
+            <mxPoint x="530" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-11" value="In the simplest case: \(\phi_j(\mathbf{x}) = x_j\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="550" y="240" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-12" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="360" y="400" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-13" value="as a network representation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="330" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-19" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="nbcgYMWaoBFh7E8aOMSV-14" target="nbcgYMWaoBFh7E8aOMSV-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-14" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="360" y="460" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-18" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="nbcgYMWaoBFh7E8aOMSV-15" target="nbcgYMWaoBFh7E8aOMSV-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-15" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="360" y="540" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-16" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="480" y="460" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-20" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="nbcgYMWaoBFh7E8aOMSV-12" target="nbcgYMWaoBFh7E8aOMSV-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-21" value="\(\phi_0(\mathbf{x})\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="405" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-22" value="\(\phi_1(\mathbf{x})\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="465" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-23" value="\(\phi_{M-1}(\mathbf{x})\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="300" y="545" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-24" value="\(&lt;br&gt;\vdots\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="347" y="503" width="65" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-25" value="\(w_0\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="420" y="420" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-27" value="\(w_1\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="401" y="454" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-28" value="\(w_{M-1}\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="420" y="530" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-29" value="\(y(\mathbf{x},\mathbf{w})\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="465" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-30" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="610" as="sourcePoint" />
+            <mxPoint x="530" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-31" value="Some examples of Basis Functions" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="280" y="620" width="240" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-32" value="\(\phi_{j}(x) = x^j\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="295" y="660" width="75" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-33" value="$$\phi_{j}(x) = e^{-\frac{(x - \mu_j)^2}{2s^2}}$$" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="295" y="710" width="115" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-34" value="polynomial" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="230" y="660" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-35" value="Gaussian" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="230" y="720" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-37" value="Sigmoidal" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="230" y="780" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-39" value="\(\phi_{j}(x) = \sigma(\frac{x - \mu_j}{s})\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="300" y="780" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-40" value="where:" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="287" y="810" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nbcgYMWaoBFh7E8aOMSV-41" value="\(\sigma(a) = \frac{1}{1-e^{-a}}\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="830" width="90" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
