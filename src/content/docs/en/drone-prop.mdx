@@ -23,6 +23,31 @@ export const components = {
     p: P
 }
 
+## Momentum Theory of Rotors
+
+### Frames of Reference
+
+**Inertial frame** $\fI$:
+- Origin located on the ground (e.g. base station)
+- Conventions:
+    - For PX4 and Ardupilot, X North, Y East, Z Down (NED) or X Forward, Y Right, Z Down (FRD)
+    - For Robot Operating System (ROS), X East, Y North, Z Up (ENU) or X Forward, Y Left, Z Up (FLU), and usually named [map](https://www.ros.org/reps/rep-0105.html#id16) or [odom](https://www.ros.org/reps/rep-0105.html#id15).
+
+**Body frame** $\fB$:
+- Origin located at the center of gravity (COG) of the quadrotor
+- Convetions:
+    - For PX4 and Ardupilot, X Forward, Y Right, Z Down (FRD)
+    - For Robot Operating System (ROS), X Forward, Y Left, Z Up (FLU), and usually named [base_link](https://www.ros.org/reps/rep-0105.html#id14).
+
+The rotor reference frame $\fC$.
+
+
+## Introduction to Momentum Theory
+
+
+
+---
+
 Types of powers:
 - Electrical power (from battery)
 - Mechanical power (from motor)
@@ -42,7 +67,7 @@ Factors that influence prop thrust and efficiency:
 
 ## Disk Loading
 
-
+More details [Wikipedia](https://en.wikipedia.org/wiki/Disk_loading).
 
 
 

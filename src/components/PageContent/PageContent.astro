@@ -1,7 +1,9 @@
 ---
 import type { MarkdownHeading } from 'astro';
 import TableOfContents from '../RightSidebar/TableOfContents';
+import Test from '../RightSidebar/Test.tsx';
 import BaseContainer from '../Globals/BaseContainer.astro';
+import Toc from  '../PageContent/Toc.astro'
 
 type Props = {
     title: string;
@@ -16,20 +18,20 @@ const { title, headings, description, githubEditUrl } = Astro.props;
 <article id="article" class="content mx-4 w-[700px]">
     <section class="main-section">
         <div class="my-10 border-l-2 border-white">
-            <div class="bg-white w-fit px-2 py-1">
-                <h1 class="text-5xl font-bold text-primary-dark">{title}</h1>
+            <div class="w-fit px-2 py-1">
+                <h1 class="text-5xl font-bold font-outfit">{title}</h1>
             </div>
-            <p class="text-xl text-dark font-thin pt-2 pl-2">{description}</p>
+            <p class="text-xl text-dark font-thin pt-2 pl-2 font-outfit">{description}</p>
+            <span class="bg-red-500 h-px w-2"></span>
         </div>
-        <div class="non-sticky top-0 z-50">
-            <BaseContainer>
-                <nav class="block">
-                    <TableOfContents client:media="(max-width: 70em)" headings={headings} />
-                </nav>
-            </BaseContainer>
+        <div class="flex items-center justify-center w-full py-2">
+            <p2 className="heading">Content Outline</p2>
         </div>
+        <hr class="h-px border-0 bg-gradient-to-r from-transparent via-dark-100 to-transparent" />
+        <!-- <div class="sticky top-0 bg-primary-dark"> -->
+        <!--     <TableOfContents client:media="(max-width: 70em)" headings={headings} /> -->
+        <!-- </div> -->
+        <Toc></Toc>
         <slot />
     </section>
-    <nav class="block sm:hidden">
-    </nav>
 </article>

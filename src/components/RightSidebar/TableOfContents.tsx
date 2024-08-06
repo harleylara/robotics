@@ -1,5 +1,5 @@
 import type { MarkdownHeading } from 'astro';
-import { FunctionalComponent, render } from 'preact';
+import { FunctionalComponent, render } from 'react';
 import { unescape } from 'html-escaper';
 import { useState, useEffect, useRef } from 'preact/hooks';
 
@@ -27,7 +27,6 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
 
         getItemOffsets();
         window.addEventListener('resize', getItemOffsets);
-
         return () => {
             window.removeEventListener('resize', getItemOffsets);
         };
@@ -89,10 +88,6 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
 
     return (
         <>
-            <div class="flex items-center justify-center w-full py-2">
-                <h2 id={onThisPageID} className="heading">Content Outline</h2>
-            </div>
-            <hr class="h-px border-0 bg-gradient-to-r from-transparent via-dark-100 to-transparent" />
             <div class="p-4">
                 <ul ref={toc} class="leading-loose">
                     {headings

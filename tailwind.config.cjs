@@ -6,6 +6,7 @@ module.exports = {
              fontFamily: {
                 roboto: ['Roboto', 'sans-serif'],
                 mono: ['Roboto Mono', 'sans-serif'],
+                outfit: ['Outfit', 'sans-serif'],
             },
             colors: {
                 'primary-dark': '#101010',

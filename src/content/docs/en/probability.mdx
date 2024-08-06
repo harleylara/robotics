@@ -1,5 +1,5 @@
 ---
-title: Probability
+title: Probability Axioms
 description: I need to think in a subtitle for this
 ---
 
@@ -24,32 +24,78 @@ export const components = {
     p: P
 }
 
+<Drawio
+    file="probability.drawio"
+    page="0"
+    description="Types of processes and outcomes."
+/>
+
+I took the following excerpt from the from [Introduction to Bayesian Scientific Computing](https://link.springer.com/book/10.1007/978-0-387-73394-4) and decided to copy it as it is written because I think it is very well put:
+
+*"[...] randomness means lack of information. The degree of information or more generally, our belief about the outcome of a random event is expressed in terms of probability."*
+
+*"That said, it is clear that the concept of probability has a **subjective** component, since it is a subjective matter to decide what is reasonable to believe, and what previous experience the belief is based on. The concept of probability advocated in this book is called **subjective probability**, which is often a synonym of **Bayesian probability**"*
 
 <Think
-    note="How can we model a random process or 'experiment'? For example how can we define the process of throwing a die."
+    note="How can we model a random process or 'experiment' in away that allow us to predict the outcome? For example how can we define the process of throwing a die?"
 />
 
 The answer to this is provided by the concept of **Probability Space**: is a mathematical construct that provides a formal model of a random process or "experiment". [Probability Space - Wikipedia](https://en.wikipedia.org/wiki/Probability_space)
 
+Let's break it down.
+
 ## The Building Blocks
 
-from Probability Essentials by Jean Jacod and Philip Protter "The theory of probability aims towards a mathematical theory which describes such phenomena. This theory contains three main ingredients":
-- **Sample space** $\Omega$
-- **Event space** $\mathcal{A}$
-- **The probability** $P$
+from [Probability Essentials by Jean Jacod and Philip Protter](https://link.springer.com/book/10.1007/978-3-642-55682-1) *"The theory of probability aims towards a mathematical theory (the probability space) which describes such phenomena. This theory (the probability space) contains three main ingredients"*:
+- **Sample space**: $\Omega$
+- **Event space**: $\mathcal{A}$
+- **The probability measure**: $P$
 
+This formalization of this theory is largely due to [Andrey Kolmogorov](https://en.wikipedia.org/wiki/Andrey_Kolmogorov).
+
+<Drawio
+    file="probability.drawio"
+    page="1"
+    description="Set of axions proposed by Kolmogorov."
+/>
 
 ### Sample Space
 
-**Sample space** $\Omega$, also known as "state space": ALL possible outcomes. (an arbitrary non-empty set)
+**Sample space** $\Omega$, also known as "state space": This is a set of **ALL** possible outcomes of the experiment. For expample if you throw a die with 6 faces all the possible outcomes can be represented as:
+
+<Equation
+    formula="\Omega = \{1,2,3,4,5,6\}"
+    description="Sample space of throwing a 6 faces die."
+/>
+
+If the experiment is throwing two coins the sample space is as follow:
+
+<Equation
+    formula="\Omega = \{hh, tt, ht, th\}\text{, where } h \text { is head and } t \text{ is tail}"
+    description="Sample space of throwing throwing two coins."
+/>
+
+<Drawio
+    file="probability.drawio"
+    page="7"
+    description="Sample space examples."
+/>
+
 
 ### Event Space
 
-**Event space** $\mathcal{A}$, also known just as "events": An event space contains all possible events for a given experiment, [source](https://www.statisticshowto.com/event-space-probability/). (the set of all the subsets of $\Omega$)
-- this is a $\sigma$-algebra [Definition: Event Space - ProofWiki](https://proofwiki.org/wiki/Definition:Event_Space#:~:text=The%20event%20space%20of%20E,a%20sigma%2Dalgebra%20on%20%CE%A9.)
-- The *event space* is the **power set** of the *sample space*. The power set (or powerset) of a set $S$ is the set of all subsets of $S$, **including** the **empty** set and $S$ **itself**.
+Let's derive the event space concept intuitively with an example first.
 
-Let $2^\Omega$ denote all subsets of $\Omega$, including the empty set denoted by $\emptyset$. With $\mathcal{A}$ being a subset of $2^\Omega$, we consider the following properties:
+<Drawio
+    file="probability.drawio"
+    page="8"
+    description="Power set of the sample space."
+/>
+
+**Event space** $\mathcal{A}$, also known just as "events": An event space is a set that contains ALL possible events for a given experiment, [source](https://www.statisticshowto.com/event-space-probability/). (the set of all the subsets of $\Omega$)
+
+
+Let represent the powerset with $2^\Omega$ which denote all subsets of $\Omega$, including the empty set denoted by $\emptyset$. With $\mathcal{A}$ being a subset of $2^\Omega$, we consider the following properties:
 
 Property 1:
 
@@ -60,12 +106,42 @@ Property 1:
 
 Property 2:
 <Equation
-    formula="\text{If } A \in \mathcal{A} \text{ then } A^{c} \in \mathcal{A} \text{, where } A^{c} \text{ denotes the complement of } A"
-    description="Property 2 of $\sigma$-algebra"
+    formula="\text{If } \sA \in \mathcal{A} \text{ then } \scA \in \mathcal{A} \text{, where } \scA \text{ denotes the complement of } \sA"
+    description="The **event space** $\mathcal{A}$ is closed under complement."
 />
 
 Property 3:
-A is closed under finite unions and finite intersections
+<Equation
+    formula="\forall \sA_1, \sA_2, \dots \sA_n \in \mathcal{A}, \quad \bigcup_{i=1}^{n} \sA_i \in \mathcal{A} \quad \text{and} \quad \bigcap_{i=1}^{n} \sA_i \in \mathcal{A}"
+    description="The **event space** $\mathcal{A}$ is **closed** under *finite* **unions** and **intersections**."
+/>
+
+<Definition
+    term="Finite set"
+    definition="In mathematics, particularly set theory, a finite set is a set that has a finite number of elements.. Example the set of all outcomes of throwing a dice ${1,2,3,4,5,6}$."
+    source="Finite set - Wikipedia"
+    link="https://en.wikipedia.org/wiki/Finite_set"
+/>
+
+Property 4:
+
+<Equation
+    formula="\forall \sA_1, \sA_2, \dots \sA_n \in \mathcal{A}, \quad \bigcup_{i=1}^{\infty} \sA_i \in \mathcal{A} \quad \text{and} \quad \bigcap_{i=1}^{\infty} \sA_i \in \mathcal{A}"
+    description="The **event space** $\mathcal{A}$ is **closed** under *countable* unions and intersections."
+/>
+
+<Definition
+    term='Countable set'
+    definition="In mathematics, a set is countable if either it is finite or it can be made in one to one correspondence with the set of natural numbers ([A bijection, bijective function, or one-to-one correspondence](https://en.wikipedia.org/wiki/Bijection))."
+    source="Countable set - wikipedia"
+    link="https://en.wikipedia.org/wiki/Countable_set"
+/>
+
+The event space $\mathcal{A}$ is an algebra if it satisfies properties 1, 2 and 3 above. It is a $\sigma$-algebra, (or a $\sigma$-field) if it satisfies 1, 2, and 4 above. Closure under countable unions directly implies closure under finite unions because a finite union is a special case of countable union. Specially:
+
+For any finite collection of sets $\sA_1, \sA_2, \dots, \sA_n \in \mathcal{A}$ the union $\sA_1 \cup \sA_2 \cup \dots \cup \sA_n$ is just a particular case of the countable union.
+
+Keep in mind that the properties 1 and 4 emplies 3, hence any $\sigma$-algebra is a algebra but there are algebras that are not $\sigma$-algebras.
 
 ### The Probability
 
@@ -113,6 +189,3 @@ Examples of Not closed under addition:
 ## External Resources
 
 - [Probability Essentials by Jean Jacod, Philip Protter](https://link.springer.com/book/10.1007/978-3-642-55682-1) chapter 2.
-
-
-this is a vector: $\va$ $\mathbf{a}$

@@ -1,0 +1,169 @@
+---
+// src/components/StickyComponent.astro
+---
+
+<style>
+.sticky {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    padding: 20px;
+    transition: background-color 0.3s ease, max-height 0.3s ease, padding 0.3s ease;
+    overflow: auto; /* Allows scrolling when content overflows */
+    z-index: 1000;
+}
+
+
+.sticky.stuck {
+    /* background-color: #333; */
+
+    max-height: 50px; /* Adjust as needed for collapsed height */
+    padding: 10px; /* Adjust padding to make space for scrollbar if needed */
+}
+
+
+.sticky ul {
+    list-style-type: none;
+}
+
+.sticky li {
+    padding: 10px 0;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 1rem;
+}
+</style>
+
+
+<div id="sticky-element" class="sticky bg-primary-dark font-roboto text-base leading-relaxed border-b border-dark-200 text-gray-300 ">
+    <button id="toggle-button" class="toggle-button">Collapse</button>
+    <div>
+        <ul id="sticky-content">
+        </ul>
+    </div>
+</div>
+
+<script>
+if (typeof window !== 'undefined') {
+    const stickyElement = document.getElementById('sticky-element');
+    const toggleButton = document.getElementById('toggle-button');
+
+    const headers = Array.from(document.querySelectorAll('h2')); // Select all <h2> elements as sections
+
+    let isManuallyToggled = false;
+    let lastKnownScrollPosition = 0;
+
+    let ticking = false;
+    const threshold = 10; // Adjust this threshold as needed
+
+    function onScroll() {
+        lastKnownScrollPosition = window.scrollY;
+
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const offset = stickyElement.getBoundingClientRect().top;
+
+                if (!isManuallyToggled) {
+                    if (offset <= threshold && !stickyElement.classList.contains('stuck')) {
+                        stickyElement.classList.add('stuck');
+                    } else if (offset > threshold && stickyElement.classList.contains('stuck')) {
+                        stickyElement.classList.remove('stuck');
+                    }
+
+                }
+
+
+                ticking = false;
+            });
+
+            ticking = true;
+        }
+
+
+        // Scroll the sticky component to ensure the current section is visible
+        scrollToCurrentHeader();
+    }
+
+    function onToggleButtonClick() {
+
+        isManuallyToggled = !isManuallyToggled;
+
+        if (isManuallyToggled) {
+            stickyElement.style.maxHeight = stickyElement.scrollHeight + "px"; // Expand to the full content height
+            stickyElement.classList.add('stuck');
+            toggleButton.textContent = 'Expand';
+        } else {
+            // Adding a slight delay before collapsing to ensure smooth transition
+            setTimeout(() => {
+                stickyElement.style.maxHeight = '50px'; // Set collapsed height
+                toggleButton.textContent = 'Collapse';
+            }, 0); // Adjust the delay if needed
+
+            // Ensure maxHeight is reset after the transition to avoid extra space
+            stickyElement.addEventListener('transitionend', function onTransitionEnd() {
+                if (!isManuallyToggled) {
+                    // stickyElement.style.maxHeight = 'none';
+                    stickyElement.removeEventListener('transitionend', onTransitionEnd);
+                }
+            });
+        }
+    }
+
+    function scrollToCurrentHeader() {
+        const currentHeader = headers.find(header => {
+            const rect = header.getBoundingClientRect();
+            // Check if the header is exactly at the top of the viewport
+            return rect.top <= 0 && rect.bottom > 0;
+        });
+
+        if (currentHeader) {
+
+            const stickyContent = stickyElement.querySelector('ul');
+            const targetLink = stickyContent.querySelector(`a[href='#${currentHeader.id}']`);
+            if (targetLink) {
+
+                const targetIndex = Array.from(stickyContent.querySelectorAll('li')).indexOf(targetLink.parentElement);
+
+                stickyElement.scrollTop = targetIndex * targetLink.parentElement.offsetHeight;
+            }
+        }
+    }
+
+    window.addEventListener('scroll', onScroll);
+    toggleButton.addEventListener('click', onToggleButtonClick);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all h2 and h3 elements
+        const headers = document.querySelectorAll('h2, h3');
+        // Select the existing ul element
+        const ul = document.getElementById('sticky-content');
+
+        // Iterate over each header and create a new li element for each
+        headers.forEach(header => {
+
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            if (header.tagName.toLowerCase() === 'h3') {
+                li.classList.add('pl-4');
+            }
+            a.textContent = header.textContent;
+            a.href = '#' + header.id;
+            li.appendChild(a);
+            ul.appendChild(li);
+        });
+    });
+}
+
+</script>
+
+

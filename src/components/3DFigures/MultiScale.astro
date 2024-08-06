@@ -1,0 +1,72 @@
+---
+import Canvas from "../Figures/Canvas.astro";
+const { description } = Astro.props;
+---
+
+<Canvas description={description}>
+    <canvas id="viewport" class="flex justify-center w-96"></canvas>
+</Canvas>
+
+<script>
+// import tello from '../3d/hero.js'
+
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const viewport = {
+    width: 500,
+    height: 300
+}
+
+const canvas = document.getElementById('viewport');
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(75, viewport.width/viewport.height);
+camera.position.z = 1;
+
+const targetPlaneSize = { width: 2, height: 2};
+
+const projection_camera = new THREE.PerspectiveCamera(75, viewport.width/viewport.height);
+projection_camera.position.z = 1;
+
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    alpha: true,
+});
+
+
+renderer.setSize(viewport.width, viewport.height);
+renderer.setAnimationLoop(animate);
+
+const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(0.5, 0.5, 0.5),
+    new THREE.MeshBasicMaterial({color: "green"})
+);
+
+scene.add(cube)
+
+const cube2 = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1),
+    new THREE.MeshBasicMaterial({color: "red"})
+);
+cube2.position.z = -1;
+scene.add(cube2);
+
+const size = 10;
+const divisions = 10;
+
+const gridHelper = new THREE.GridHelper( size, divisions );
+scene.add( gridHelper );
+
+
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.update();
+
+function animate(){
+
+    controls.update();
+
+    renderer.render(scene, camera);
+}
+</script>
