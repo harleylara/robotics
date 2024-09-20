@@ -31,7 +31,7 @@ Names can be:
 - absolute path (begins with `/`): `/global/name`
 - relative path: `relative/name`
 - privately (begins with `~`): `~private/name`
-- namespace: namespace prefix to apply to entities associated with the node (node name, topics, etc). `/namespace/name`
+- namespace: namespace prefix to apply to entities associated with the node (node name, topics, etc). `/namespace/name`, this is very useful to group nodes and topics by *"groups”* in this case the *“group”* is the prefix namespace.
 
 <Drawio
     file="ros.drawio"
@@ -46,7 +46,7 @@ External resources:
 
 ## The Workspace
 
-The concept of workspace is ROS VERSION independent.
+The concept of workspace is *ROS VERSION independent*, with this I mean that it doesn't matter if you are using ROS 1 or ROS 2, both use the workspace concept.
 
 <Definition
     term="ROS workspace"
@@ -55,15 +55,17 @@ The concept of workspace is ROS VERSION independent.
     link="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html"
 />
 
-But, what is a ROS package?... more about it later, for now just think about a box with some code in it, trust me.
+But, what is a ROS package?... more about it later (see [ROS Packages](ros2-pkgs)), for now just think about a box/package with some code, configs and more in it, trust me.
 
 The workspace contains:
-- Packages
+- Packages contains:
     - Executables
     - Libraries
     - Message definitions
-- Meta-Packages (ROS 1): a package containing other packages
+    - Config files and more
+- Meta-Packages (ROS 1 concept): a package containing other packages
     - [Metapackages ROS 1](http://wiki.ros.org/Metapackages)
+    - In ROS 2 there is no **explicit** type of package know as "meta-package"
 
 ### Underlay
 
@@ -95,15 +97,13 @@ Let's explore our underlay workspace: `/opt/ros/humble/`
     link="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html"
 />
 
-Note, that for some reason unknown to me, the terms "underlay" and "overlay" are not frequently used. The vast majority of people when they refer to workspace it is usually the overlay workspace.
+Note, that for some reason unknown to me, the terms "underlay" and "overlay" are not frequently used in the ROS community. The vast majority of people when they refer to workspace it is usually the overlay workspace.
 
 <Drawio
     file="ros.drawio"
     page="3"
     description="Overlay workspace."
 />
-
-Workspace activation is accumulative.
 
 ## Create a Workspace
 
@@ -117,9 +117,9 @@ Create a overlay workspace is simple as creating a folder using the `mkdir` `bas
 
 ## Building a Workspace
 
-The build tool in ROS 2 is called `colcon` (collective construction). colcon is an iteration on the ROS build tools `catkin_make`, `catkin_make_isolated`, `catkin_tools` and `ament_tools`. `colcon` compile, test and install packages for you.
+The build tool in ROS 2 is called `colcon` (collective construction). colcon is an iteration on the ROS build tools `catkin_make`, `catkin_make_isolated`, `catkin_tools` and `ament_tools`. `colcon` compile, test and install packages for you. `colcon` internally uses build systems depending on the type of package to compile or test, [CMake](https://cmake.org/) for C++ packages and [setuptools](https://setuptools.pypa.io/en/latest/index.html) for python.
 
-Try to run the following commands:
+Open a new terminal and try to run the following commands:
 
 <Terminal
     title="build workspace"
@@ -127,7 +127,7 @@ Try to run the following commands:
     colcon build --symlink-install"
 />
 
-Failure? Why? hint: the `ament_cmake` is a ROS package that is currently no available.
+Failure? Why? hint: the `ament_cmake` is a ROS package that is currently not available.
 
 The option `--symlink-install` creates a symlink to their original locations instead of copying.
 
@@ -143,25 +143,9 @@ This will create a three folders:
 External resources:
 - [A universal build tool](https://design.ros3.org/articles/build_tool.html)
 
-### Build Tools
-
-`colcon` is the tool in charge of compiling the workspace, but internally it uses other build systems depending on the type of package to compile or test.
-
-In ROS2 is usually:
-- CMake for C++
-- setuptools for python
-
-
-### Installing Dependencies
-
-Managing dependencies:
-
-<Terminal
-    title="install dependencies with rosdep"
-    content="rosdep install -i --from-path src --rosdistro humble -y"
-/>
-
 ## Source a Workspace (Activate it)
+
+**Workspace activation (source)** is accumulative.
 
 Don't forget to source your underlay in EVERY terminal you open.
 
@@ -172,7 +156,7 @@ Don't forget to source your underlay in EVERY terminal you open.
 
 <Terminal
     title="source overlay"
-    content="source ~/ros2_ws/local_setup.bash"
+    content="source install/local_setup.bash"
 />
 
 External reference on sourcing [here](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#source-the-overlay)
@@ -193,5 +177,14 @@ If you want to automate the process of sourcing the underlaying workspace you ca
 
 <Terminal
     title=""
-    content="cat 'source /opt/ros/humble/setup.bash' >> ~/.bashrc"
+    content="echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc"
+/>
+
+## Installing Dependencies
+
+Managing dependencies:
+
+<Terminal
+    title="install dependencies with rosdep"
+    content="rosdep install -i --from-path src --rosdistro humble -y"
 />

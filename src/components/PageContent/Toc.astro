@@ -46,7 +46,7 @@
 
 
 <div id="sticky-element" class="sticky bg-primary-dark font-roboto text-base leading-relaxed border-b border-dark-200 text-gray-300 ">
-    <button id="toggle-button" class="toggle-button">Collapse</button>
+    <button id="toggle-button" class="toggle-button">Expand</button>
     <div>
         <ul id="sticky-content">
         </ul>
@@ -101,12 +101,12 @@ if (typeof window !== 'undefined') {
         if (isManuallyToggled) {
             stickyElement.style.maxHeight = stickyElement.scrollHeight + "px"; // Expand to the full content height
             stickyElement.classList.add('stuck');
-            toggleButton.textContent = 'Expand';
+            toggleButton.textContent = 'Collapse';
         } else {
             // Adding a slight delay before collapsing to ensure smooth transition
             setTimeout(() => {
                 stickyElement.style.maxHeight = '50px'; // Set collapsed height
-                toggleButton.textContent = 'Collapse';
+                toggleButton.textContent = 'Expand';
             }, 0); // Adjust the delay if needed
 
             // Ensure maxHeight is reset after the transition to avoid extra space

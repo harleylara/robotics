@@ -1,0 +1,71 @@
+---
+title: "ROS Learning Path"
+description: "Set of notes for reviewing ROS concepts"
+---
+
+export const components = {
+    blockquote: Blockquote,
+    a: A,
+    pre: Pre,
+    pre: InlineCode,
+    code: _CodeBlock,
+    em: Em,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    hr: Hr,
+    img: Img,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    strong: Strong,
+    p: P
+}
+
+## Prerequisites for Diving
+
+Knowledge required: 
+- [Linux Command Line and Shell Scripting Bible, 4th Edition](https://www.wiley.com/en-us/Linux+Command+Line+and+Shell+Scripting+Bible%2C+4th+Edition-p-9781119700937)
+    - Familiarity with Ubuntu's desktop environment
+    - Understand GNU/Linux file system
+    - Proficiency with basic terminal commands (bash)
+- [Python Data Science Handbook by Jake VanderPlas](https://jakevdp.github.io/PythonDataScienceHandbook/)
+    - Python/C++ skills, including basic OOP concepts
+- [Pro Git by Scott Chacon and Ben Straub](https://git-scm.com/book/en/v2)
+    - Basics of VCS (Version control system) with git
+
+Software requirements:
+- OS: Ubuntu 22.04 Desktop
+- Install: ROS Humble, check the official documentation and follow [Ubuntu Debian packages (recommended)](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+
+## Module 1 - Basics
+
+Content Outline:
+- [ROS 2 Introduction](ros2-intro)
+- [Workspace](ros2-ws): Create and manage a ROS workspaces
+- [Packages](ros2-pkgs): Structure and management
+- [Nodes](ros2-nodes)
+- [Interfaces](ros2-interfaces)
+- [Topics](ros2-topics)
+- TBA [Services](ros2-services)
+- TBA [Actions](ros2-actions)
+- TBA [Parameters server](ros2-parameters)
+- TBA [Launch System](ros2-launch)
+
+
+## Module 2 - Intermediate
+
+Intermediate - Tooling
+- Introduction to RVIZ
+- Robot model definition - URDF and XACRO
+- Transformations with TF2
+- Introduction to Gazebo
+- Building sim environment in Gazebo
+- Gazebo plugins ecosystem
+- Introduction to ROS 2 Control
+- Lifecycle of controllers and hardware (ROS 2 Control)
+- Hardware interface (ROS 2 Control)
+- Minimal controller (ROS 2 Control)

@@ -30,37 +30,42 @@ export const components = {
 
 ## Packages in ROS 2
 
-What is a Package?
-
 <Definition
 term="ROS package"
-definition="A package is an organizational unit for your code."
-source="Creating a package - ROS docs"
+definition="A ROS package is an organizational unit for your code, configuration files and any other resources necessary for the proper operation of your code."
+source="Own definition inspired by Creating a package - ROS docs"
 link="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html"
 />
 
-Packages types:
-- [`ament_cmake`](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Documentation.html)
-- [`ament_python`](https://docs.ros.org/en/humble/How-To-Guides/Developing-a-ROS-2-Package.html)
+<Think
+note="Why do we need a so called 'ROS Package'?"
+/>
+
+ROS Packages allow you to make your code shareable within other systems that also use ROS, so it is reasonable to think of a ROS package as an analogue to for example a *python package* (like [numpy](https://numpy.org/)).
+
+ROS 2 support the following packages types:
+- [`ament_python`](https://docs.ros.org/en/humble/How-To-Guides/Developing-a-ROS-2-Package.html): This package type is design to contain python code. ROS follows a [standard Python package](https://packaging.python.org/en/latest/) structure defined by the [Python Packaging Authority](https://www.pypa.io/en/latest/). Such packaging functionality is provided by `colcon`, which internally uses [setuptools](https://setuptools.pypa.io/en/latest/index.html).
+- [`ament_cmake`](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Documentation.html): This package type is design to contain C++ code. ROS uses [CMake](https://cmake.org/) with a set of **custom cmake macros** to handle C++ packaging. For those curious check out [ament_cmake github](https://github.com/ament/ament_cmake/tree/rolling)
 - [`ament_cmake_python`](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Python-Documentation.html)
 
-Regardless of the type of packages, all of them must contain a file called `package.xml` wich is a manifest file with meta-data about the package.
-- Common:
+Regardless of the type of package, all of them must contain a file called `package.xml` which is a **Package Manifest File** with meta-data about the package. The latest (version 3) format specification is under [REP 149](https://ros.org/reps/rep-0149.html)
+- Common tags:
     - `<buildtool_depend>`: Needed to build itself. (Typically ament_cmake)
     - `<build_depend>`: Needed to build this package.
     - `<exec_depend>`: Needed to run code in this package.
     - `<depend>`: Needed to build, export, and execution dependency.
-- Uncommon:
+- Uncommon tags:
     - `<build_export_depend>`: Needed to build against this package.
     - `<test_depend>`: Only additional dependencies for unit tests.
     - `<doc_depend>`: Needed to generate documentation.
 
 ## ROS `cli` Tool for Packages
 
+ROS offers a command line interface (CLI), which has functions for interacting with packages, for example:
 - `ros2 pkg create`: to create the minimal template structure of a given package type (default `ament_cmake`).
-- `ros2 pkg list`: list all the "available". Note that you need to source the correponding workspace to make the package available.
+- `ros2 pkg list`: list all the "available" packages. Note that you need to source the corresponding workspace to make the package available for ROS.
 
-### Cmake-based package
+### CMake-based package
 
 ```bash filename="ament_cmake_package_structure"
 my_package
@@ -70,7 +75,7 @@ my_package
 └── package.xml
 ```
 
-`CMakeLists.txt`: standard cmake rules to build the package. Most relevant parts:
+`CMakeLists.txt`: standard CMake rules to build the package. Most relevant parts:
 - `add_executable(myNode src/myNode.cpp)`: Builds program `myNode` from `myNode.cpp`.
 - `ament_target_dependencies(myNode rclcpp std_msgs)`: Links node `myNode` to dependency headers and libraries.
 - `install(TARGETS myNode DESTINATION lib/${PROJECT_NAME})`: Copies nodes/libraries to workspace’s “install” directory.

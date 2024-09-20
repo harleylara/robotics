@@ -30,6 +30,14 @@ export const components = {
 
 ## What is a Node
 
+
+<Definition
+    term="ROS Node"
+    definition="test"
+    source="Own definition inspired by Wiki ROS"
+    url="https://wiki.ros.org/Nodes"
+/>
+
 Namespace: prefix to apply to entities associated with the node (node name, topics, etc).
 
 A node is used to create ROS entities:
@@ -65,7 +73,7 @@ A bare minimum node without any ROS entity.
     remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/bare.py"
 />
 
-The packages of type `ament_python` are structured like a standard python package using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html). Add the node **entry point** in the `entry_points` section inside the file `setup.py` of your package.
+Remember that packages of type `ament_python` are structured like a standard python packages using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html). So, to make your node usable as a `console script` add an `entry_points` kwarg inside the `setup()` function within the `setup.py` file of your package. Check [Setuptools - Entry Points](https://setuptools.pypa.io/en/latest/userguide/entry_point.html) for more details.
 
 ```python filename="setup.py"
 ...
@@ -104,12 +112,12 @@ ros2 run python_basics bare
 ```
 
 erros?... here's a list of common mistakes you may be making:
-- `ros2 command not found` (assuming you have ros correctly installed using debian packages) Have you already activated the underlying workspace? `source /opt/ros/humble/setup.bash`
+- `ros2 command not found` (assuming you have ROS correctly installed using debian packages) Have you already source the underlying workspace? `source /opt/ros/humble/setup.bash`
 - `Package 'python_basics' not found` (assuming you have the package in the `src` folder in your workspace)
     - remember that every time you have new code files that you want to execute you must **build** the workspace, have you already done it? in the root directory of your workspace `colcon build --symlink-install`
     - have you already activated the overlaying workspace (your worksapce)? `source ~/ros2_ws/install/local_setup.bash`
 
-clearly not all possible error cases can be covered, so it is advisable to read the error message and try to understand it (I know, sometimes just sometimes error messages are not very useful).
+clearly not all possible error cases can be covered, so it is advisable to read the error message and try to understand it (I know, sometimes, just sometimes, error messages are not very useful).
 
 In case you haven't wondered yet. You: *"Wait!?, my node is python, why do I need to build my workspace if python is interpreted and does not require compiling.?"*. Let me tell you that is an excellent question, `colcon build` does not only compile code, it has the potential to do many more things that we will not mention here (but you can see [colcon docs](https://colcon.readthedocs.io/en/released/)), in the case of `ament_python` packages colcon does not compile the code, but instead copies it from your package to the `lib` directory inside the `install` folder of the workspace. However this copy alone is not enough, you must source the workspace in a way that lets ROS know that there are new files in the install folder.
 
@@ -146,6 +154,8 @@ coding a logger using classes (`class.py`) in the package `python_basics`, code 
 Don't forget to add the entry point in the `setup.py`: `class = python_basics.class:main`
 
 ## Capabilities
+
+
 
 Nodes can:
 - publish data
