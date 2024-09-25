@@ -17,7 +17,7 @@
 .sticky.stuck {
     /* background-color: #333; */
 
-    max-height: 40px; /* Adjust as needed for collapsed height */
+    max-height: 35px; /* Adjust as needed for collapsed height */
     padding: 5px; /* Adjust padding to make space for scrollbar if needed */
 }
 
@@ -103,7 +103,7 @@ if (typeof window !== 'undefined') {
         } else {
             // Adding a slight delay before collapsing to ensure smooth transition
             setTimeout(() => {
-                stickyElement.style.maxHeight = '50px'; // Set collapsed height
+                stickyElement.style.maxHeight = '35px'; // Set collapsed height [CHECK CSS to MATCH values]
                 toggleButton.textContent = '▼';
             }, 0); // Adjust the delay if needed
 
