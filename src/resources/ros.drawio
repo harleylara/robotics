@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-09-20T15:17:42.020Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="FXQxcG3pPiVCd_1w1jqo" version="23.0.2" type="device" pages="8">
+<mxfile host="Electron" modified="2024-09-24T19:49:03.120Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="L1x-c5Rv6XtsGoy0o8Tp" version="23.0.2" type="device" pages="8">
   <diagram id="kyD7J-bpgCdMhgo7olan" name="Page-1">
     <mxGraphModel dx="1749" dy="1202" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1500" math="0" shadow="0">
       <root>
@@ -399,7 +399,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="no1_zvUtxHtZZ9lV7QF_" name="topics">
-    <mxGraphModel dx="2195" dy="913" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1795" dy="650" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -482,8 +482,8 @@
         <mxCell id="4AQOm0SxLd1FivSDnN3B-23" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;subscriber node&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="530" y="400" width="120" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="4AQOm0SxLd1FivSDnN3B-43" value="&lt;u style=&quot;font-size: 16px;&quot;&gt;Topics&lt;/u&gt; are &lt;b style=&quot;font-size: 16px;&quot;&gt;communication channels&lt;br&gt;&lt;/b&gt;and&lt;br&gt;&amp;nbsp;&lt;u&gt;Messages&lt;/u&gt; are the &lt;b&gt;actual data&lt;/b&gt; sent with a &lt;i&gt;specific structure&lt;/i&gt; including &lt;i&gt;data types&lt;/i&gt; (more on this soon)" style="text;whiteSpace=wrap;html=1;align=center;fontSize=16;" parent="1" vertex="1">
-          <mxGeometry x="157" y="100" width="295" height="110" as="geometry" />
+        <mxCell id="4AQOm0SxLd1FivSDnN3B-43" value="&lt;u style=&quot;font-size: 16px;&quot;&gt;Topic&lt;/u&gt;&amp;nbsp;is &lt;b&gt;the interface&amp;nbsp;&lt;/b&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;(communication channel)&lt;br&gt;&lt;/span&gt;and&lt;br&gt;&amp;nbsp;&lt;u&gt;Messages&lt;/u&gt; are the &lt;b&gt;actual data&lt;/b&gt; sent with a &lt;i&gt;specific structure&lt;/i&gt; including &lt;i&gt;data types&lt;/i&gt; (more on this soon)" style="text;whiteSpace=wrap;html=1;align=center;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="129.5" y="100" width="350" height="110" as="geometry" />
         </mxCell>
         <mxCell id="4AQOm0SxLd1FivSDnN3B-45" value="Topics are:&lt;br&gt;&lt;ul&gt;&lt;li&gt;publishers/subscribers&lt;/li&gt;&lt;li&gt;Anonymous&lt;/li&gt;&lt;li&gt;Strongly-typed&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="180" y="420" width="180" height="75" as="geometry" />
