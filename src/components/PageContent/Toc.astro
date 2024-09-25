@@ -17,8 +17,8 @@
 .sticky.stuck {
     /* background-color: #333; */
 
-    max-height: 50px; /* Adjust as needed for collapsed height */
-    padding: 10px; /* Adjust padding to make space for scrollbar if needed */
+    max-height: 40px; /* Adjust as needed for collapsed height */
+    padding: 5px; /* Adjust padding to make space for scrollbar if needed */
 }
 
 
@@ -31,26 +31,24 @@
 }
 
 .toggle-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: sticky;
+    top: 0px;
+    float: inline-end;
     padding: 5px 10px;
     cursor: pointer;
-    background-color: #444;
     color: white;
     border: none;
     border-radius: 3px;
     font-size: 1rem;
+    z-index: 1001;
 }
 </style>
 
 
-<div id="sticky-element" class="sticky bg-primary-dark font-roboto text-base leading-relaxed border-b border-dark-200 text-gray-300 ">
-    <button id="toggle-button" class="toggle-button">Expand</button>
-    <div>
-        <ul id="sticky-content">
-        </ul>
-    </div>
+<div id="sticky-element" class="sticky bg-primary-dark font-roboto text-base leading-relaxed border-b border-dark-200 text-gray-300 shadow-xl shadow-primary-dark ">
+    <button id="toggle-button" class="toggle-button">▼</button>
+    <ul id="toc-list">
+    </ul>
 </div>
 
 <script>
@@ -101,12 +99,12 @@ if (typeof window !== 'undefined') {
         if (isManuallyToggled) {
             stickyElement.style.maxHeight = stickyElement.scrollHeight + "px"; // Expand to the full content height
             stickyElement.classList.add('stuck');
-            toggleButton.textContent = 'Collapse';
+            toggleButton.textContent = '▲';
         } else {
             // Adding a slight delay before collapsing to ensure smooth transition
             setTimeout(() => {
                 stickyElement.style.maxHeight = '50px'; // Set collapsed height
-                toggleButton.textContent = 'Expand';
+                toggleButton.textContent = '▼';
             }, 0); // Adjust the delay if needed
 
             // Ensure maxHeight is reset after the transition to avoid extra space
@@ -143,14 +141,10 @@ if (typeof window !== 'undefined') {
     toggleButton.addEventListener('click', onToggleButtonClick);
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Select all h2 and h3 elements
         const headers = document.querySelectorAll('h2, h3');
-        // Select the existing ul element
-        const ul = document.getElementById('sticky-content');
+        const ul = document.getElementById('toc-list');
 
-        // Iterate over each header and create a new li element for each
         headers.forEach(header => {
-
             const li = document.createElement('li');
             const a = document.createElement('a');
             if (header.tagName.toLowerCase() === 'h3') {
