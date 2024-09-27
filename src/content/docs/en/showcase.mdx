@@ -1,0 +1,117 @@
+---
+title: "Showcase"
+description: Find out the tools integrated in this notes!
+---
+
+import Cube from '../../../components/Figures/Cube.astro';
+import LeastSquareError from '../../../components/AutoMobile/LeastSquareError.astro';
+import LineProblem from '../../../components/AutoMobile/LineProblem.astro';
+import LaserData from '../../../components/AutoMobile/LaserData.astro';
+import MeasurementError from '../../../components/AutoMobile/MeasurementError.astro';
+
+## Markdown Support
+
+Support for [CommonMark](https://commonmark.org/) and [GFM (GitHub Flavored Markdown)](https://github.github.com/gfm/).
+
+## Custom Components
+
+I can create custom component and import them along the markdown note:
+
+```jsx
+import Cube from '../components/Figures/Cube.astro';
+
+## Some cool text
+
+Insert the custom component:
+
+<Cube/>
+
+```
+
+<Cube/>
+
+or:
+
+<LeastSquareError
+    description="Visualizing the least square error on a set of data points."
+/>
+
+or:
+
+<LineProblem/>
+
+<LaserData/>
+
+<MeasurementError/>
+
+## Images
+
+
+Using `Image` component I'm obliged to add a description xD:
+
+```jsx
+<Image
+    src="/banner.png"
+    description="Image description here"
+/>
+```
+
+<Image
+    src="/banner.png"
+    description="Just a description with markdown and $\LaTeX$ support."
+/>
+
+## Mathematical Notation
+
+This is one of my favorite parts of the notes. There is support for LaTeX including a set of global macros for consistency in the notation. For exmaple if you want to write a vector you could do: $\mathbf{v}$ (`\mathbf{v}`), or $\vec{v}$ (`\vec{v}`), or $\tilde{v}$ (`\tilde{v}`), or $\overline{v}$ (`\overline{v}`).
+
+To simplify things I have a set the **global macros** (across all notes) that are intended to make the job of writing equations easier and help maintain notational consistency; in the vector case there are many macros that in dependence on the vector, I can do $\vv$ (`\vv`) or if it is the vector $\va$ (`\va`).
+
+Some of the custom macros (see `CONST.ts` for all):
+- Scalar: $a$ (integer or real) (`a`)
+- Vector: $\va$ (`\va`)
+- Matrix: $\mA$ (`\mA`)
+- Tensor $\tA$ (`\tA`)
+
+`Equation` component:
+```jsx
+<Equation 
+    formula="f(x) = \sqrt{x^2 + y^2}" 
+    description="Just a description"
+/>
+```
+
+<Equation 
+    formula="f(x) = \sqrt{x^2 + y^2} + \evh" 
+    description="Just a description with markdown and $\LaTeX$ support."
+/>
+
+
+## Embedding Diagrams
+
+To create diagram I like to use [Drawio](https://www.draw.io/). The problem I have always faced is having to export the diagram everytime  after making changes and making sure to use the same name and put it in the same folder to overwrite the previus one, and I know, it sounds simple but it gets tedious, for that reason I created the `Drawio` component for embedding the diagram `file` directly into the notes (no more annoying export).
+
+The problem I have always faced is that if I want to change something in the diagram or I'm constantly doing modifications, I always have to export the diagram in some format like `jpg`,`png` or `svg` and during the process I have to make sure to use the same name and format of the previous file to overwrite it with the new one, and I know, it sounds simple but it becomes tedious, for that reason I created the `Drawio` component to embed the diagram file directly in the notes (no more annoying exports), plus you get a online interactive version of it.
+
+When many diagrams are produced the way I always organize them in a Drawio file `.drawio` containing "pages" in it, and each page is a different diagram.
+
+IMPORTANT: All diagrams should be placed in the `resources` folder inside `src/resources`.
+
+```plain
+<Drawio 
+    file="test.drawio"
+    page="1"
+    description="Here you can describe the diagram"
+/>
+```
+
+<Drawio 
+    file="test.drawio"
+    page="1"
+    description="Here you can describe the diagram"
+/>
+
+<Drawio 
+    file="test.drawio"
+    page="2"
+/>

@@ -3,8 +3,6 @@ title: "ROS Topics"
 description: "Creating and managing ROS topics"
 ---
 
-import CodeBlock from "../../../components/Globals/CodeBlock.astro"
-
 export const components = {
     blockquote: Blockquote,
     a: A,
@@ -38,9 +36,11 @@ ros2 pkg create --build-type ament_cmake demo_interfaces
 ## Topics
 
 Topics are:
-- publishers/subscribers
 - Anonymous
 - Strongly-typed
+- Allow:
+    - intra-process
+    - inter-process
 
 <Drawio
     file="ros.drawio"
@@ -55,7 +55,7 @@ For details about topics names: check [Names in ROS 2](/en/ros2-ws#names-in-ros-
 Topics use a asynchronous communication paradigms refer as publication/subscription:
 - publishers don’t know if anyone’s listening
 - subscribers are event-triggered (by incoming messages)
-- messages may be dropped
+- messages may be dropped (depending on the QoS, but more on that later.)
 
 ### Anonymous
 
@@ -63,7 +63,7 @@ Topics are anonymous: "This means that when a subscriber gets a piece of data, i
 
 ### Strongly-typed
 
-The communication using topic relies in the concept of messages.
+The communication using topics relies in the concept of **Strongly-typed** definitions called messages.
 
 ## Messages
 
@@ -78,25 +78,16 @@ Messages are a way for a ROS 2 node to send data on the network to other ROS nod
 />
 
 Structure:
-- Field type
+- Field type. 
+    - Any [Built-in-types](https://docs.ros.org/en/humble/Concepts/Basic/About-Interfaces.html#field-types).
+    - Other message as the type to define a field (nesting messages).
 - Field name
-- Field with constant value
+- Field with constant value. Fields with constant values have to be UPPERCASE.
 - Field with default value
-
-### Field Types
-
-- [Built-in-type](https://docs.ros.org/en/rolling/Concepts/Basic/About-Interfaces.html#field-types)
-- Using other message as the type to define a field (nesting messages)
-
-### Field with Constant Value
-
-<Important
-    note="Field names with constant values have to be UPPERCASE"
-/>
 
 ## Creating a Simple Message
 
-with in the `demo_interfaces` package, let's create a folder called `msg`.
+With in the `demo_interfaces` package, let's create a folder called `msg`.
 
 <Terminal
     title="Create a 'msg' folder"
@@ -135,3 +126,33 @@ Build the message definition:
     title="Build the workspace"
     content="cd ~/ros2_ws/ && colcon build --symlink-install"
 />
+
+## Creating a Mininal Publisher
+
+Let's create a minimal publisher that publishes our custom message definition called `Counter.msg`.
+
+<CodeBlock
+    filename="publisher.py"
+    code="" 
+    lang="python"
+    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/refs/heads/master/python_basics/python_basics/publisher.py"
+/>
+
+## Creating a Mininal Subscriber
+
+Let’s create a minimal subscriber that subscribes our custom message definition called `Counter.msg`.
+
+<CodeBlock
+    filename="subscriber.py"
+    code="" 
+    lang="python"
+    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/refs/heads/master/python_basics/python_basics/subscriber.py"
+/>
+
+## Quality of Service (QoS)
+
+"ROS 2 offers a rich variety of Quality of Service (QoS) policies that allow you to tune communication between nodes" from [Quality of Service settings](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Quality-of-Service-Settings.html).
+
+"A set of **QoS policies** combine to form a **QoS profile**. Given the complexity of choosing the correct QoS policies for a given scenario, ROS 2 provides a set of predefined QoS profiles for common use cases (e.g. sensor data). At the same time, developers are given the flexibility to control specific policies of the QoS profiles."
+
+Check [Quality of Service settings](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Quality-of-Service-Settings.html) for more details.

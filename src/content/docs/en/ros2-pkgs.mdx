@@ -3,31 +3,6 @@ title: "ROS Packages"
 description: "Managing ROS packages"
 ---
 
-export const components = {
-    blockquote: Blockquote,
-    a: A,
-    pre: Pre,
-    pre: InlineCode,
-    code: _CodeBlock,
-    em: Em,
-    h1: H1,
-    h2: H2,
-    h3: H3,
-    h4: H4,
-    h5: H5,
-    h6: H6,
-    hr: Hr,
-    img: Img,
-    ul: Ul,
-    ol: Ol,
-    li: Li,
-    strong: Strong,
-    p: P
-}
-
-
-
-
 ## Packages in ROS 2
 
 <Definition
@@ -138,17 +113,20 @@ To remove a package use:
 ### Packages from Source
 
 1. Git clone the repository (watch out the git branch) of the package into your `src` folder into the workspace.
+
 ```plain
 cd ~/ros2_ws/src
 git clone https://github.com/harleylara/ros2-intro.git
 ```
 
 2. Install dependencies if need it either manually (painful way), or using [`rosdep`](https://docs.ros.org/en/independent/api/rosdep/html/). Keep in mind that `rosdep` is not magic, it cannot guess the dependencies of your package or third party packages, `rosdep` will check inside the `package.xml` of the package for the defined dependencies, so be organized and don't forget to add your dependencies inside the package manifest.
+
 ```plain
 sudo apt update && rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
 ```
 
 3. Build the workspace using `colcon`.
+
 ```plain
 cd ~/ros2_ws/
 colcon build --symlink-install

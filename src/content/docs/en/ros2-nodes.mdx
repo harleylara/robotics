@@ -3,64 +3,44 @@ title: "ROS Nodes"
 description: "Creating nodes"
 ---
 
-import CodeBlock from "../../../components/Globals/CodeBlock.astro"
+## Motivation
 
-export const components = {
-    blockquote: Blockquote,
-    a: A,
-    pre: Pre,
-    pre: InlineCode,
-    code: _CodeBlock,
-    em: Em,
-    h1: H1,
-    h2: H2,
-    h3: H3,
-    h4: H4,
-    h5: H5,
-    h6: H6,
-    hr: Hr,
-    img: Img,
-    ul: Ul,
-    ol: Ol,
-    li: Li,
-    strong: Strong,
-    p: P
-}
-
+<Drawio
+    file="ros.drawio"
+    page="0"
+    description="A toy example"
+/>
 
 ## What is a Node
 
-
 <Definition
     term="ROS Node"
-    definition="test"
-    source="Own definition inspired by Wiki ROS"
-    url="https://wiki.ros.org/Nodes"
+    definition="A node is a process that performs computation, and uses a client library to communicate with other nodes. Nodes are combined together into a graph and communicate with one another using streaming topics, RPC services, and the Parameter Server."
+    source="Combined definition from ROS official docs."
+    link="https://wiki.ros.org/Nodes"
 />
 
-Namespace: prefix to apply to entities associated with the node (node name, topics, etc).
+Sources: [About Nodes - ROS2 Docs](https://docs.ros.org/en/humble/Concepts/Basic/About-Nodes.html#nodes), [Nodes - ROS Wiki](https://wiki.ros.org/Nodes).
 
-A node is used to create ROS entities:
-- publisher
-- subscriber
-- services
-    - service server
-    - service client
-- actions
-    - action server
-    - action client
-- configurable parameters (run-time)
+Benefits of nodes:
+- Fault tolerance: as crashes are isolated to individual nodes (remember that nodes are individual processes).
+- Reduce code complexity: is reduced in comparison to monolithic systems.
+- Expose a minimal API: Implementation details are also well hidden for other nodes.
+- Language agnostic
+- Modularity
+- Code reuse
 
 Nodes can communicate with other nodes within:
 - the same process
 - in a different process
 - on a different machine.
 
-Ideally each node should do one logical thing.
-
 <Important
-    note="A ROS node can be composed of none, one or several ROS entities, each with their respective interfaces."
+    note="Ideally each node should do one logical thing."
 />
+
+
+Namespace: prefix to apply to entities associated with the node (node name, topics, etc).
 
 ## Creating a Bare Minimum Node
 
@@ -93,11 +73,9 @@ entry_points={
     description="Node entry points structure description."
 />
 
-<Terminal
-    title="format for console_scripts"
-    content="ENTRY_POINT_NAME = PACKAGE_NAME.MODULE_NAME:ENTRY_POINT"
-    prompt={false}
-/>
+```plain
+ENTRY_POINT_NAME = PACKAGE_NAME.MODULE_NAME:ENTRY_POINT
+```
 
 ## Running Nodes
 
@@ -155,43 +133,18 @@ Don't forget to add the entry point in the `setup.py`: `class = python_basics.cl
 
 ## Capabilities
 
+The real power of nodes in ROS lies in their ability to contain various **ROS entities**:
+- Publisher: this entity allows a node to publish information.
+- Subscriber: allows a node to subscribe information.
+- Services
+    - service client: allows a node to **request** a service (from a service server).
+    - service server: allows a node to **response** to a request.
+- Actions
+    - action client: allows a node to **request** an ACTION service.
+    - action server: allows a node to **response** to an ACTION request.
+- Configurable parameters (run-time)
 
-
-Nodes can:
-- publish data
-- subscribe data
-- act as a service client
-- act as a service server
-- act as a action client
-- act as a action server
-
-Nodes are often a complex combination of publishers, subscribers, service servers, service clients, action servers, and action clients, all at the same time.
-
-## Discovery
-
-Creating logical networks
-
-<Drawio
-    file="dds.drawio"
-    page="0"
-    description="ROS_DOMAIN_ID"
-/>
-
-Discovery:
-
-<Drawio
-    file="dds.drawio"
-    page="1"
-    description="ROS auto discovery process"
-/>
-
-More about `ROS_DOMAIN_ID` in the [official docs](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Domain-ID.html)
-
-I'm planning to explain more in the [DDS](/en/ros2-dds) page.
-
-## Lifecycle Nodes
-
-TBD
+A ROS node can be composed of none, one or several ROS entities, each with their respective interfaces. We will discuss each ros entity and their respective interfaces later in this serie of notes.
 
 ## External References
 
