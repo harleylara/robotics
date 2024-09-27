@@ -24,6 +24,9 @@ export const components = {
     p: P
 }
 
+<Presentation>
+
+<Slide>
 If you are wondering:
 
 <Important
@@ -34,24 +37,15 @@ If you are wondering:
 <blockquote class="twitter-tweet" data-conversation="none" data-theme="dark"><p lang="en" dir="ltr">More than half of all ROS users use ROS 2 and of those ROS 2 users most of them use the latest LTS release. <a href="https://t.co/jejuyDCbMq">pic.twitter.com/jejuyDCbMq</a></p>&mdash; Robot Operating System (ROS) (@rosorg) <a href="https://twitter.com/rosorg/status/1762921729171620048?ref_src=twsrc%5Etfw">February 28, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 
-## Prerequisites for Diving
-
-Knowledge required: 
-- Familiarity with Ubuntu's desktop environment
-- Understand GNU/Linux file system
-- Proficiency with basic terminal commands (bash)
-- Python/C++ skills, including basic OOP concepts
-- Basics of VCS (Version control system) with git
-
-Software requirements:
-- OS: Ubuntu 22.04 Desktop
-- Install: ROS Humble, check the official documentation and follow [Ubuntu Debian packages (recommended)](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+</Slide>
 
 ## Why do we need ROS nowadays?
 
+<Slide>
 <Think
     note="Imagine that it is around the year 2007, and that are many research laboratories in the area of robotics, each one of them with its own robots and each robot with its own particularities. How can you share code between researchers without reinventing the wheel (minimize code rewrite)?"
 />
+</Slide>
 
 If you think this is a trivial task to the point of "just share the code", I honestly wouldn't blame you for thinking that, but the reality is that is not a trivial task.
 
@@ -59,6 +53,7 @@ I like to start with a mental exercise using a "toy example".
 
 The LiDAR sensor can be as cheap as the [RPLidar A1](https://www.slamtec.ai/product/slamtec-rplidar-a1/) ~100 USD or expensive as the [Velodyne Puck](https://store.clearpathrobotics.com/products/puck) ~4,600 USD (there are more expensive LiDAR sensors), but apart from the price difference they have different communication interfaces. The RPLidar A1 uses an adapter from UART-to-USB and the Velodyne uses a Ethernet connection.
 
+<Slide centered>
 To motivate the example let's think about a **2D LiDAR** and the following pipeline:
 
 <Drawio
@@ -66,7 +61,9 @@ To motivate the example let's think about a **2D LiDAR** and the following pipel
     page="0"
     description="A toy example"
 />
+</Slide>
 
+</Presentation>
 
 The first pieces of software that would later become ROS were being developed at Stanford University by two master's students Eric Berger and Keenan Wyrobek in the [Personal Robotics Program](http://personalrobotics.stanford.edu/). The first steps in creating this unified system began with building [PR1](http://personalrobotics.stanford.edu/ICRA-2008-kaw-v17.pdf) as a prototyping hardware to start working on the software from, borrowing best practices from other macros and open source software such as switchyard from Morgan Quigley another PhD student who had been working on [STAIR](http://stair.stanford.edu/index.php) (Stanford Artificial Intelligence Robot) at the Stanford Artificial Intelligence Lab. Eric Berger and Keenan Wyrobek in search of funding to continue the development of PR1 met Scott Hassan founder of Willow Garage a technology incubator. Hassan shared Berger and Keenan's vision of creating a unified system for robotics and invited them to work at Willow Garage, making the [first ROS code commit](https://sourceforge.net/p/ros/code/1/log/) on November 7, 2007.
 
