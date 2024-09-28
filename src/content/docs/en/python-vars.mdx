@@ -1,0 +1,57 @@
+---
+title: Python Variables
+description: Internal mechanisim of python variables
+---
+
+This note is inspired (almost a copy) on the video [How variables works in Python | Explained with Animations](https://www.youtube.com/watch?v=Bz3ir-vKqkk), but I just wanted to add links and more references.
+
+## Variables
+
+Everything in python is ultimately an object, either a [PyObject](https://docs.python.org/3/c-api/structures.html#c.PyObject) or [PyVarObject](https://docs.python.org/3/c-api/structures.html#c.PyVarObject) type.
+
+
+<Drawio
+    file="python-vars.drawio"
+    page="1"
+    description="PyObject example."
+/>
+
+
+```python filename="pyobject.py" remoteURL="https://raw.githubusercontent.com/harleylara/python/refs/heads/master/vars/pyobject.py"
+```
+
+## Container Variables
+
+<Drawio
+    file="python-vars.drawio"
+    page="2"
+    description="PyObject example."
+/>
+
+```python filename="pyvarobject.py" remoteURL="https://raw.githubusercontent.com/harleylara/python/refs/heads/master/vars/pyvarobject.py"
+```
+
+## Equality of Variables
+
+```python filename="equality.py" remoteURL="https://raw.githubusercontent.com/harleylara/python/refs/heads/master/vars/equality.py"
+```
+
+## Mutable Default Arguments
+
+```python filename="mutable_default.py" remoteURL="https://raw.githubusercontent.com/harleylara/python/refs/heads/master/vars/mutable_default.py"
+```
+
+## Augmented Arithmetic Assignment Operators
+
+```python filename="assig.py" remoteURL="https://raw.githubusercontent.com/harleylara/python/refs/heads/master/vars/assig.py"
+```
+
+## Tuple
+
+```python filename="assig.py" remoteURL="https://raw.githubusercontent.com/harleylara/python/refs/heads/master/vars/tuple.py"
+```
+
+## External Reference
+
+- [How variables works in Python | Explained with Animations](https://www.youtube.com/watch?v=Bz3ir-vKqkk)
+- [Expert Python Programming: Become a master in Python by learning coding best practices and advanced programming concepts in Python 3.7, 3rd edition](https://www.packtpub.com/en-DE/product/expert-python-programming-9781789808896), section: A closer look at Python/C API.
