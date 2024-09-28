@@ -2,7 +2,6 @@
 import MainLayout from '../layouts/MainLayout.astro';
 
 import A from '../components/Globals/A.astro'
-import Pre from '../components/Globals/Pre.astro'
 import InlineCode from '../components/Globals/InlineCode.astro'
 import Em from '../components/Globals/Em.astro'
 import H1 from '../components/Globals/H1.astro'
@@ -39,8 +38,7 @@ const { Content, headings } = await entry.render();
 <MainLayout headings={headings} {...entry.data}>
     <Content components={{
         a: A,
-        // pre: Pre,
-        // pre: InlineCode,
+        code: InlineCode,
         em: Em,
         h1: H1 ,
         h2: H2,
