@@ -5,11 +5,13 @@ import tailwind from "@astrojs/tailwind";
 import node from '@astrojs/node';
 
 // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
+import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatex from 'rehype-katex';
 import rehypeExternalLinks from 'rehype-external-links';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
+import remarkCapitalizeHeadings from 'remark-capitalize-headings';
 import { NOTATION } from './src/consts';
 
 // Component auto import
@@ -55,8 +57,9 @@ export default defineConfig({
   site: `https://robotics.harleylara.com`,
   markdown: {
     // Applied to .md and .mdx files
-    remarkPlugins: [remarkMath, remarkGfm],
+    remarkPlugins: [remarkMath, remarkGfm, remarkCapitalizeHeadings],
     rehypePlugins: [
+        rehypeSlug,
         [rehypeAutolinkHeadings, {
             behavior: 'append'
         }],
@@ -64,6 +67,8 @@ export default defineConfig({
             macros: NOTATION
         }],
         [rehypeExternalLinks, {
+          rel: ['nofollow'],
+          target: '_blank',
           content: { type: 'text', value: ' ↗' }
         }]
     ]
