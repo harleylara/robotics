@@ -16,6 +16,7 @@ import { NOTATION } from './src/consts';
 import AutoImport from 'astro-auto-import';
 
 import mdx from "@astrojs/mdx";
+import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
 
 // https://astro.build/config
 export default defineConfig({
@@ -37,20 +38,19 @@ export default defineConfig({
   // the global Math object
   AutoImport({
       imports: [
-        './src/components/Globals/CodeBlock.astro',
-        './src/components/Globals/P.astro',
+        mdxCodeBlockAutoImport('./src/components/Globals/CodeBlock.astro'),
         './src/components/Globals/Equation.astro',
         './src/components/Globals/Image.astro',
         './src/components/Globals/Drawio.astro',
         './src/components/Globals/Definition.astro',
         './src/components/Globals/Important.astro',
         './src/components/Globals/Terminal.astro',
-        './src/components/Globals/Code.astro',
         './src/components/Globals/Think.astro',
         './src/components/Presentations/Presentation.astro',
         './src/components/Presentations/Slide.astro',
         './src/components/Presentations/OnlyOnSlide.astro']
-    }), 
+    }),
+    MDXCodeBlocks(),
     mdx()],
   site: `https://robotics.harleylara.com`,
   markdown: {
