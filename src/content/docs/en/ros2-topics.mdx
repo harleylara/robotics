@@ -3,33 +3,11 @@ title: "ROS Topics"
 description: "Creating and managing ROS topics"
 ---
 
-export const components = {
-    blockquote: Blockquote,
-    a: A,
-    pre: Pre,
-    pre: InlineCode,
-    code: _CodeBlock,
-    em: Em,
-    h1: H1,
-    h2: H2,
-    h3: H3,
-    h4: H4,
-    h5: H5,
-    h6: H6,
-    hr: Hr,
-    img: Img,
-    ul: Ul,
-    ol: Ol,
-    li: Li,
-    strong: Strong,
-    p: P
-}
-
 ## Before to start
 
 Create an `ament_cmake` built-type package called `demo_interfaces`
 
-```plain
+```plain filename="test.cpp"
 ros2 pkg create --build-type ament_cmake demo_interfaces
 ```
 
@@ -96,12 +74,8 @@ With in the `demo_interfaces` package, let's create a folder called `msg`.
 
 Inside `msg` directory create a file called `Counter.msg` with the following content:
 
-<CodeBlock
-    filename="Counter.msg"
-    code="" 
-    lang="plain"
-    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/demo_interfaces/msg/Counter.msg"
-/>
+```plain filename="Counter.msg remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/demo_interfaces/msg/Counter.msg"
+```
 
 Add the `rosidl_default_generators` and "friends" to the `package.xml` of the `demo_interfaces` package.
 
@@ -131,23 +105,15 @@ Build the message definition:
 
 Let's create a minimal publisher that publishes our custom message definition called `Counter.msg`.
 
-<CodeBlock
-    filename="publisher.py"
-    code="" 
-    lang="python"
-    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/refs/heads/master/python_basics/python_basics/publisher.py"
-/>
+```python filename="publisher.py remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/refs/heads/master/python_basics/python_basics/publisher.py"
+```
 
 ## Creating a Mininal Subscriber
 
 Let’s create a minimal subscriber that subscribes our custom message definition called `Counter.msg`.
 
-<CodeBlock
-    filename="subscriber.py"
-    code="" 
-    lang="python"
-    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/refs/heads/master/python_basics/python_basics/subscriber.py"
-/>
+```python filename="subscriber.py remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/refs/heads/master/python_basics/python_basics/subscriber.py"
+```
 
 ## Quality of Service (QoS)
 
