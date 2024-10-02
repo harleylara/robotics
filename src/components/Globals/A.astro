@@ -4,7 +4,7 @@ const props = Astro.props;
 <style is:global>
 
 /* remove the default style of the `A` component */
-h2 a {
+h2 a, h3 a, h4 a {
     border: none;
     text-decoration: none;
 }
@@ -14,7 +14,7 @@ span.icon-link::before {
   border: none;
   content: '#';
   color: gray;
-  font-size: 0.5em;
+  font-size: 0.6em;
   vertical-align: top;
   margin-left: 5px;
   opacity: 0.4;

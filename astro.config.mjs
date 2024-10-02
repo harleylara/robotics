@@ -9,6 +9,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatex from 'rehype-katex';
 import rehypeExternalLinks from 'rehype-external-links';
+import rehypeCitation from 'rehype-citation';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import remarkCapitalizeHeadings from 'remark-capitalize-headings';
@@ -70,6 +71,14 @@ export default defineConfig({
           rel: ['nofollow'],
           target: '_blank',
           content: { type: 'text', value: ' ↗' }
+        }],
+        [rehypeCitation, {
+          "bibliography": [
+            "https://raw.githubusercontent.com/timlrx/rehype-citation/main/test/references-data.bib",
+            "./src/content/docs/en/references.bib"
+          ],
+          // "csl": "https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl",
+          "linkCitations": true
         }]
     ]
   }
