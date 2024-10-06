@@ -46,12 +46,8 @@ Namespace: prefix to apply to entities associated with the node (node name, topi
 
 A bare minimum node without any ROS entity.
 
-<CodeBlock
-    filename="bare.py" 
-    code="" 
-    lang="py"
-    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/bare.py"
-/>
+```python filename="bare.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/bare.py"
+```
 
 Remember that packages of type `ament_python` are structured like a standard python packages using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html). So, to make your node usable as a `console script` add an `entry_points` kwarg inside the `setup()` function within the `setup.py` file of your package. Check [Setuptools - Entry Points](https://setuptools.pypa.io/en/latest/userguide/entry_point.html) for more details.
 
@@ -101,20 +97,14 @@ In case you haven't wondered yet. You: *"Wait!?, my node is python, why do I nee
 
 The `--symlink-install` directive tells colcon not to perform a hard-copy (default behavior) but to perform a symlink of the files, this option is extremely useful when you are developing with python as it allows you to make changes to your file and because it is just a symbolic link the changes are automatically reflected from the file perspective in the `install` folder, which means that if you use `--symlink-install` you don't have to do `colcon build` for every time you change the file (example `bare.py`), but you have to redo `colcon build --symlink-install` **once** every time there is a new file, this is for the purpose of creating the symlink of the new file. e.g. a new node called `new.py` and then you can just keep changing the file since the symlink already exist.
 
-<Important
-    note="The symlink concept is not exclusive for nodes, but also applies to any type of shared resource such as launch files, configurations, urdfs etc. Just keep in mind that currently (March 2024) there are no mechanisms to create symlinks for the resources specified in the `setup.py` section `data_files` of your `ament_python`."
-/>
+The symlink concept is not exclusive for nodes, but also applies to any type of shared resource such as launch files, configurations, urdfs etc. ~Just keep in mind that currently (January 2024) there are no mechanisms to create symlinks for the resources specified in the `setup.py` section `data_files` of your `ament_python`~. You can symlink data files in packages of type `ament_python`, thanks to the PR [Implement a custom distutils command to symlink data_files #592](https://github.com/colcon/colcon-core/pull/592)
 
 ## Coding a Minimum Logger
 
 coding a logger (`logger.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/logger.py)
 
-<CodeBlock
-    filename="logger.py" 
-    code="" 
-    lang="py"
-    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/logger.py"
-/>
+```python filename="logger.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/logger.py"
+```
 
 Don't forget to add the entry point in the `setup.py`: `logger = python_basics.logger:main`
 
@@ -122,12 +112,8 @@ Don't forget to add the entry point in the `setup.py`: `logger = python_basics.l
 
 coding a logger using classes (`class.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/class.py)
 
-<CodeBlock
-    filename="class.py" 
-    code="" 
-    lang="py"
-    remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/class.py"
-/>
+```python filename="class.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/class.py"
+```
 
 Don't forget to add the entry point in the `setup.py`: `class = python_basics.class:main`
 
