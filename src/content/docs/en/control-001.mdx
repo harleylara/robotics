@@ -1,14 +1,13 @@
 ---
-title: "Introduction to Digitial Control"
+title: "Introduction to Control"
 description: "Overview"
 ---
 
-## Outline
+<Presentation>
 
-- The definition of:
-    - control
-    - system
-    - modern
+## Basic Concepts and Terminology
+
+### System
 
 <Definition
     term="System"
@@ -30,7 +29,42 @@ Other definition,
     source="Modern Control Engineering 5th edition by Katsuhiko Ogata"
 />
 
+<Drawio
+    file="control-001.drawio"
+    page="1"
+    description="Minimal form of a system."
+/>
+
 This set of *devices/components/elements* could be **sensors** and **actuators** for example.
+
+### Plant
+
+<Definition
+    term="Plan"
+    definition="A plant may be a piece of equipment, perhaps just a set of machine parts functioning together, the purpose of which is to perform a particular operation."
+    source="Modern Control Engineering 5th edition by Katsuhiko Ogata"
+/>
+
+Any controllable device or object can be referred to as a plant.
+
+### Process
+
+Ogata refers to "process" as any operation to be controlled.
+
+<Drawio
+    file="control-001.drawio"
+    page="2"
+    description="Representation of a process."
+/>
+
+### Disturbances
+
+<Definition
+    term="Disturbances"
+    definition="A disturbance is a signal that tends to **adversely** affect the value of the output of a system. If a disturbance is generated within the system, it is called *internal*, while an *external* disturbance is generated outside the system and is an input."
+    source="Modern Control Engineering 5th edition by Katsuhiko Ogata"
+/>
+
 
 ### Sensor
 
@@ -47,6 +81,8 @@ This set of *devices/components/elements* could be **sensors** and **actuators**
     source="Own definition influenced by Chapter 1, Data Acquisition Handbook of modern sensors."
 />
 
+Sensor: quantifying physical properties
+
 ### Actuator
 
 <Definition
@@ -55,13 +91,81 @@ This set of *devices/components/elements* could be **sensors** and **actuators**
     source="Own definition influenced by Chapter 1, Data Acquisition Handbook of modern sensors."
 />
 
-Sensor: quantifying physical properties
+## System Cofigurations
 
+### Open-Loop Systems
 
+<Drawio
+    file="control-001.drawio"
+    page="3"
+    description="Open-Loop system representation."
+/>
 
+### Closed-Loop Systems
 
-## Why Do We Need Control?
+<Drawio
+    file="control-001.drawio"
+    page="4"
+    description="Closed-Loop system representation."
+/>
 
+## Examples of Control Systems
 
-## Refere
-- Modern control systems by Richard C. Dorf and Robert H. Bishop
+### Automobile Steering Control
+
+<Drawio
+    file="control-001.drawio"
+    page="5"
+    description="Automobile steering control system (minimal representation)"
+/>
+
+### A manual Control System
+
+<Drawio
+    file="control-001.drawio"
+    page="6"
+    description="A manual valve control system (minimal representation)."
+/>
+
+### Position Control Systems
+
+<Drawio
+    file="control-001.drawio"
+    page="7"
+    description="Antenna azimuth position control system (minimal representation)."
+/>
+
+## Design Process
+
+<Drawio
+    file="control-001.drawio"
+    page="8"
+    description="The control system design process."
+/>
+
+### Transform Requirements Into a Physical System
+
+### Draw a Functional Block Diagram
+
+### Identify the Variables to be Controlled
+
+### Create a Schematic
+
+### Develop a (Mathematical) Model
+
+### Reduce the Model
+
+### Analyze and Design
+
+## Computer-Aided Design Tools
+
+- Show the computational tools available for Control design/simulation
+- MATLAB and simulink (for model-based design)
+- LabView
+- Python
+
+</Presentation>
+
+## References
+
+-  Ogata 1.1, Dorf-Bishop 1.1
