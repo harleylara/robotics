@@ -21,17 +21,32 @@ bibliography: references.bib
 
 Methods to evaluate:
 - DPT
+    - The method adopts the Vision Transformer (ViT)
 - ZoeDepth
+    - combines both monocular depth estimation (MDE) and relative depth estimation (RDE)
 - MiDaS
-- DenseDepth
+    - that are invariant to scale and shift to address uncertainties in true depth labels
+    - MiDaS V1 and V2 utilize ResNet-based design. MiDaS v3.1, five encoder types.
+- DenseDepth (@alhashimHighQualityMonocular2019)
+    - it utilizes feature representations from well-performing pre-trained (DenseNet-169 on ImageNet) networks to initialize the encoder.
 
 They dont show the sources that lead to pick these method: "The scientific literature and other reputable sources like Paper with Codes have highlighted these algorithms as top performers"
 
 Method(s) for evaluation:
-- cloud-to-cloud distances
-- MAE
-- RMSE
-- MTF
+- Root Mean Square Error (RMSE)
+- Mean Absolute Error (MAE)
+- Mean Relative Error (MRE)
+- Peek signal-to-noise ratio (PSNR)
+- Structural Similarity Index Measure (SSIM)
+- Edge sharpness analysis:
+    - Motion transfer function (MTF)
+    - The edge spread function (ESF)
+    - Line Spread Function (LSF)
+- cloud-to-cloud distances ??
+
+Datasets for assessment:
+- [ENRICH](https://github.com/davidemarelli/ENRICH)
+- [ArchDepth2](https://3dom.fbk.eu/projects/on-going/archdepth)
 
 Similar refered works (from paper: "Other unbiased MDE evaluations are presented in"):
 - Kock er al. (2020)
