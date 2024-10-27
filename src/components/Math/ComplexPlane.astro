@@ -1,0 +1,121 @@
+---
+// IMPORTANT: import the JSXGraph wrapper component
+import JSXGraph from "../Figures/JSXGraph.astro";
+
+const {description="Please insert the description of this figure"} = Astro.props;
+---
+
+<JSXGraph description={description}>
+    <div id="complex-plane" class="jsxbox" style="width: 100%; height: 480px;">
+    </div>
+</JSXGraph>
+
+<script>
+// IMPORTANT: import JSXGraph
+import JXG from '../../tools/jsxgraph.init.js'
+
+let board = JXG.JSXGraph.initBoard('complex-plane', {
+    boundingbox:[-1.5, 1.5, 1.5, -1.5],
+    axis:true, 
+    showNavigation:true, 
+    showCopyright:false,
+    keepaspectratio:true,
+    defaultAxes: {
+        x : {
+            name: '\\textrm{real}',
+            withLabel: true,
+            label: {
+                position: 'rt',
+                offset: [-10, -15]
+            }
+        },
+        y : {
+            withLabel:true,
+            name: '\\textrm{imaginary}',
+            label: {
+                position: 'rt',
+                offset: [-20, -10]
+            }
+        }
+    }});
+
+const center = board.create('point', [0, 0], { 
+    visible: false,
+    strokeWidth: 2
+});
+
+board.create('circle', [center, 1], {
+    strokeColor: '#1f77b4',
+    strokeWidth: 2,
+    fixed:true
+});
+
+const complexPoint = board.create('point', [Math.sin(Math.PI/4), Math.cos(Math.PI/4)], {
+    name: 'z',
+    color: 'red',
+    size: 3,
+    snapToGrid: false,
+    attractorDistance: 0.01
+});
+
+// Ensure the point stays on the unit circle when dragged
+complexPoint.on('drag', function() {
+    const r = Math.sqrt(complexPoint.X() ** 2 + complexPoint.Y() ** 2);
+    complexPoint.setPosition(JXG.COORDS_BY_USER, [complexPoint.X() / r, complexPoint.Y() / r]);
+})
+
+// Create an arrow for the complex vector
+const vector = board.create('arrow', [[0, 0], complexPoint], {
+    strokeColor: 'red',
+    strokeWidth: 2
+});
+
+// Dynamic Real component line
+const realComponent = board.create('line', [[0, 0], [() => complexPoint.X(), 0]], {
+    straightFirst: false,
+    straightLast: false,
+    strokeColor: 'green',
+    strokeWidth: 2,
+    dash: 1
+});
+
+// Dynamic Imaginary component line
+const imaginaryComponent = board.create('line', [[() => complexPoint.X(), 0], [() => complexPoint.X(), () => complexPoint.Y()]], {
+    straightFirst: false,
+    straightLast: false,
+    strokeColor: 'blue',
+    strokeWidth: 2,
+    dash: 1
+});
+
+// Dynamic labels for Real and Imaginary parts
+board.create('text', [() => complexPoint.X() / 2, -0.1, function() {
+    const realPart = complexPoint.X().toFixed(2);
+    return realPart;
+
+}], {
+    anchorX: 'middle',
+    anchorY: 'top'
+});
+board.create('text', [() => complexPoint.X() + 0.1, () => complexPoint.Y() / 2, function() {
+    const imagPart = complexPoint.Y().toFixed(2);
+    return imagPart;
+    return `${imagPart}i`;
+}], {
+    anchorX: 'left',
+    anchorY: 'middle'
+});
+
+// Display the complex number in "x + yi" format
+const complexLabel = board.create('text', [1.2, 1.2, function() {
+    const realPart = complexPoint.X().toFixed(2);
+    const imagPart = complexPoint.Y().toFixed(2);
+    const sign = imagPart >= 0 ? '+' : ''; // Add a "+" sign if the imaginary part is positive
+    return `${realPart} ${sign} ${imagPart}i`;
+}], {
+        anchorX: 'left',
+        anchorY: 'top',
+        fontSize: 16,
+    });
+
+</script>
