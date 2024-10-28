@@ -41,4 +41,50 @@ JXG.Options.slider.highlightStrokeColor = highlightColor;
 JXG.Options.navbar.strokeColor = baseColor;
 JXG.Options.navbar.fillColor = dark100;
 
+
+JXG.Options = JXG.merge(JXG.Options, {
+  board: {
+    showNavigation: false,
+    showCopyright: false,
+    axis: true,
+    keepaspectratio:true,
+    defaultAxes: {
+        x : {
+            name: 'x',
+            withLabel: true,
+            label: {
+                position: 'rt',
+                offset: [-10, -15]
+            },
+            ticks: {
+                majorHeight: 5,
+            },
+        },
+        y : {
+            withLabel:true,
+            name: 'y',
+            label: {
+                position: 'rt',
+                offset: [-20, -10]
+            },
+            ticks: {
+                majorHeight: 5,
+            },
+      }
+    },
+    grid: {
+      major: {
+        face: 'point',
+        size: 2
+      },
+      minor: {
+        face: 'point',
+        size: 0
+      },
+      minorElements: 'auto',
+      includeBoundaries: false,
+    }
+  }
+});
+
 export default JXG;
