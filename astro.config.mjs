@@ -72,14 +72,14 @@ export default defineConfig({
           target: '_blank',
           content: { type: 'text', value: ' ↗' }
         }],
-        [rehypeCitation, {
-          "bibliography": [
-            "https://raw.githubusercontent.com/timlrx/rehype-citation/main/test/references-data.bib",
-            "./src/content/docs/en/references.bib"
-          ],
-          // "csl": "https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl",
-          "linkCitations": true
-        }]
+        // [rehypeCitation, {
+        //   "bibliography": [
+        //     "https://raw.githubusercontent.com/timlrx/rehype-citation/main/test/references-data.bib",
+        //     "./src/content/docs/en/references.bib"
+        //   ],
+        //   // "csl": "https://raw.githubusercontent.com/citation-style-language/styles/master/acm-sig-proceedings.csl",
+        //   "linkCitations": true
+        // }]
     ]
   }
 });
