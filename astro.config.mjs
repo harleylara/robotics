@@ -20,6 +20,7 @@ import AutoImport from 'astro-auto-import';
 
 import mdx from "@astrojs/mdx";
 import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
+import { citationTransform } from './src/plugins/citation.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -54,11 +55,12 @@ export default defineConfig({
         './src/components/Presentations/OnlyOnSlide.astro']
     }),
     MDXCodeBlocks(),
-    mdx()],
+    mdx()
+  ],
   site: `https://robotics.harleylara.com`,
   markdown: {
     // Applied to .md and .mdx files
-    remarkPlugins: [remarkMath, remarkGfm, remarkCapitalizeHeadings],
+    remarkPlugins: [remarkMath, remarkGfm],
     rehypePlugins: [
         rehypeSlug,
         [rehypeAutolinkHeadings, {
