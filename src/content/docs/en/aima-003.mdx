@@ -111,7 +111,7 @@ Informed search: One that uses *domain-specific hints* about the location of goa
 
 <Equation
     formula="h(n)"
-    description="**Heuristic function**: estimated cost of the cheapest path from the state at node `n` to a goal state."
+    description="**Heuristic function**: estimated cost of the **cheapest path** from the state at node `n` to a goal state."
 />
 
 
@@ -126,29 +126,56 @@ Informed search strategies:
 
 ### Greedy search
 
-A form of best-first search that expands first the node with lowest $h(n)$ value (the node that appears to be closest to the goal) on the grounds that this is likely to lead to a solution quickly. So the evaluation function $f (n) = h(n)$.
+*"A form of best-first search that expands first the node with lowest $h(n)$ value (the node that appears to be closest to the goal) on the grounds that this is likely to lead to a solution quickly. So the evaluation function $f (n) = h(n)$."* from section 3.5.1 of AIMA Book
 
 <Drawio 
     file="aima-03.drawio"
-    page="3"
+    page="2"
     description="Greedy search example."
 />
 
 ### A*
 
-The most common informed search algorithm is A∗ search (pronounced “A-star search”), a best-first search that uses the evaluation function:
+The original paper of A* [A Formal Basis for the Heuristic Determination of Minimum Cost Paths (Hart et al., 1968)](https://ai.stanford.edu/~nilsson/OnlinePubs-Nils/PublishedPapers/astar.pdf)
+The most common informed search algorithm is A* search (pronounced “A-star search”), a best-first search that uses the evaluation function:
 
 $$
 f (n) = g(n) + h(n)
 $$
 
-- $g(n)$ is the path cost from the initial state to node $n$.
-- $h(n)$ is the estimated cost of the shortest path from $n$ to a goal state.
+- $g(n)$ is the **actual** cost of an optimal path from $s$ to $n$,
+- $h(n)$ is the **actual** cost of an optimal path from $n$ to a preferred goal node of $n$.
 
 So we have $f(n)$ = estimated cost of the best path that continues from n to a goal.
-
 <Drawio
     file="aima-03.drawio"
-    page="4"
+    page="3"
     description="A* search example"
 />
+
+Side node: A* was develop for [Shakey](https://www.computerhistory.org/revolution/artificial-intelligence-robotics/13/289), consider "the first mobile robot with the ability to perceive and reason about its surroundings." (source [Shakey the Robot - SRI](https://www.sri.com/hoi/shakey-the-robot/)). For full details, [Shakey the robot - Technical Note 323](https://ai.stanford.edu/~nilsson/OnlinePubs-Nils/shakey-the-robot.pdf)
+
+#### Proof Admissibility of A*
+
+<Definition
+term="Admissibility"
+definition="We call an algorithm *admissible* if it is guaranteed to find a **optimal path** from $n$ to a preferred goal node of $n$ for any $\epsilon$ graph."
+source="A Formal Basis for the Heuristic Determination of Minimum Cost Paths. Section I. Subsection C. Algorithms for Finding Minimun Cost Paths"
+/>
+
+The valuation function on A*:
+
+$$
+f^*(n) = g^*(n) + h^*(n)
+$$
+
+Consider:
+- $g^*(n)$: is the cost of the path from $s$ (start) to $n$ with minimum cost so far found by A*
+- $h^*(n)$: is any estimate of the cost of an optimal path from $n$ to a preferred goal node of $n$.
+
+**Lemma 1**:  For any nonclosed node $n$ and optimal path $P$ from $s$ to $n$, there exists an $\textrm{OPEN}$ node $n'$ on $P$ with $g^*(n') = g(n')$.
+
+**Proof**:
+- Case 1 (trivial) $s$ node is $\textrm{OPEN}$: Let us assume that the initial node $s$ is $\textrm{OPEN}$, which implies that A* has not performed any iteration, so the open node $n'$ in $P=(s)$ is $s$ - $s=n'$- in this case the lemma is trivially true since $g^*(s)=g(s)=0$.
+- Case 2 $s$ is $\textrm{CLOSED}$: Let us assume that $s$ is $\textrm{CLOSED}$ and let $\Delta$ be the set of all $\textrm{CLOSED}$ nodes $n_i$ in $P$ for which $g^*(n_i) = g(n_i)$. Let $n^*$ be the element of $\Delta$ with the highest index. Clearly, $n^* \neq n$ as $n$ is $\textrm{OPEN}$.
+

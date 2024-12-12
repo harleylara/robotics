@@ -1,0 +1,55 @@
+---
+title: Cubic Equation
+description: Exploring the the history of the Cubic Equation
+---
+
+import CubicEquation from "../../../components/Math/CubicEquation.astro"
+import CubicEquationFeatures from "../../../components/Math/CubicEquationFeatures.astro"
+import Cite from "../../../components/Cite.astro"
+
+How did I get here?
+
+ANS: In October 2024, me and [Rolf Becker](https://www.hochschule-rhein-waal.de/en/user/7254) (a good friend and my lab manager) were going to teach the class “CI_W.09 Control Engineering” in the bachelor's program [Infotronic Systems Engineering](https://www.hochschule-rhein-waal.de/de/fakultaeten/kommunikation-und-umwelt/studienangebot/bachelorstudiengaenge/infotronic-systems). As I was preparing class material for the topic of “Laplace transform” I realized how fascinating the ideas proposed by Pierre-Simon Laplace were and wanted to explore the historical context of how the ideas developed. This exploration led me to the bottom of this rabbit hole as follows: Laplace transform $\rightarrow$ Fourier transform $\rightarrow$ Fourier series $\rightarrow$ Euler's formula $\rightarrow$ imaginary unit and complex numbers $\rightarrow$ cubic equation.
+
+After reading about the fascinating stories, people and ideas behind all the topics I decided to take the time and explore each of them, so here we are at the bottom of the rabbit hole.
+
+Side note: due to time constraints I had to abandon my support in the control class, but the curiosity for the origin of the ideas remained in me.
+
+## The (Modern) General Equation
+
+<Equation
+    formula="ax^3 + bx^2 + cx + d = 0"
+    description="General form of a **cubic equation** where $a$ is not zero."
+/>
+
+"The solutions of this equation are called **roots** of the cubic function defined by the left-hand side of the equation. If all of the coefficients $a$, $b$, $c4, and $d$ of the cubic equation are **real numbers**, then it has at least one real root (this is true for all *odd-degree* polynomial functions)." from [Cubic Equation - Wikipedia](https://en.wikipedia.org/wiki/Cubic_equation)
+
+<CubicEquation/>
+
+## Brief History
+
+
+- Italian mathematician [Scipione del Ferro (1465–1526)](https://en.wikipedia.org/wiki/Scipione_del_Ferro): Known for Solving the depressed cubic equation.
+- [Niccolò Tartaglia (1500–1557)](https://en.wikipedia.org/wiki/Nicolo_Tartaglia)
+- [Gerolamo Cardano (1501–1576)](https://en.wikipedia.org/wiki/Gerolamo_Cardano): "Complex numbers are [...] subtle as they are useless [...]"
+
+## Properties
+
+- least one real root (solution).
+- A [inflection point](https://en.wikipedia.org/wiki/Inflection_point).
+- Is symmetric with respect to the inflection point. For [odd functions](https://en.wikipedia.org/wiki/Even_and_odd_functions) $f(-x) = -f(x)$
+
+for the equation $f(x) = ax^3 + bx^2 + cx + d$,
+
+The first derivative $f'(x) = 3ax^2 + 2bx + c$
+
+The second derivative $f''(x) = 6ax + 2b$.
+
+Solve for $x$. $6ax + 2b = 0$, give $x = -\frac{b}{3a}$
+
+<CubicEquationFeatures/>
+
+## External References
+
+- [Cubic Equation - Wikipedia](https://en.wikipedia.org/wiki/Cubic_equation)
+- [500 years of NOT teaching THE CUBIC FORMULA. What is it they think you can't handle?](https://www.youtube.com/watch?v=N-KXStupwsc): one of the most beautiful videos explaining the cubic formula.

@@ -1,0 +1,45 @@
+---
+title: Depth Estimation
+---
+
+## Summary of Models
+
+| Model             | Training Code | Repo                                                       | Website                                         |
+|-------------------|---------------|------------------------------------------------------------|-------------------------------------------------|
+| Depth Pro         | No            | [link](https://github.com/apple/ml-depth-pro/tree/main)    | [website](https://depthcrafter.github.io/)      |
+| Marigold          | Yes           | [link](https://github.com/prs-eth/Marigold)                | [website](https://marigoldmonodepth.github.io/) |
+| Depth Anything v2 | Yes           | [link](https://github.com/DepthAnything/Depth-Anything-V2) | [website](https://depth-anything-v2.github.io/) |
+| Metric3D v2       | Yes           | [link](https://github.com/YvanYin/Metric3D)                | [website](https://jugghm.github.io/Metric3Dv2/) |
+| DPT               | Unofficial    | [link](https://github.com/isl-org/DPT)                     | N.A.                                            |
+| DepthCrafter      | No            | [link](https://github.com/Tencent/DepthCrafter)            | [website](https://depthcrafter.github.io/)      |
+
+
+## Depth Pro
+
+Paper: @bochkovskiiDepthProSharp2024
+
+Features:
+- metric depth estimation (absolute scale)
+- no metadata for camera intrinsics
+
+
+- efficient multi-scale vision transformer
+
+Contributions:
+- "efficient multi-scale ViT-based architecture"
+- "set of loss functions and a training curriculum that promote sharp depth estimates"
+- zero-shot focal length estimation from a single image
+
+The ideal scenario:
+- zero-shot
+- domain independent
+- metric depth (harley: is this relly necesary, what about human vision?)
+- high resolution input
+- fine-grained depth maps
+- low latency
+
+
+## Datasets
+
+- [AM-2K](https://paperswithcode.com/dataset/am-2k)
+- [DISK-5K](https://xuebinqin.github.io/dis/index.html#download)

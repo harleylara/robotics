@@ -1,0 +1,74 @@
+---
+// IMPORTANT: import the JSXGraph wrapper component
+import JSXGraph from "../Figures/JSXGraph.astro";
+
+const {description="Please insert the description of this figure"} = Astro.props;
+---
+
+<JSXGraph description={description}>
+    <div id="cubic-equation" class="jsxbox" style="width: 100%; height: 480px;">
+    </div>
+</JSXGraph>
+
+<style>
+.text-background {
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
+            padding: 5px;
+            border-radius: 5px;
+        }
+</style>
+
+<script>
+// IMPORTANT: import JSXGraph
+import JXG from '../../tools/jsxgraph.init.js'
+
+let board = JXG.JSXGraph.initBoard('cubic-equation', {
+    boundingbox:[-5, 10, 5, -10],
+    axis:true, 
+    showNavigation:true, 
+    showCopyright:false,
+    keepaspectratio:true,
+    defaultAxes: {
+        x : {
+            name: 'x',
+            withLabel: true,
+            label: {
+                position: 'rt',
+                offset: [-10, -15]
+            }
+        },
+        y : {
+            withLabel:true,
+            name: 'y',
+            label: {
+                position: 'rt',
+                offset: [-20, -10]
+            }
+        }
+    }});
+
+// Define sliders for the coefficients a, b, c, and d in the function f(x) = ax^3 + bx^2 + cx + d
+var sliderA = board.create('slider', [[2, -3], [8, -3], [-5, 1, 5]], {name: 'a', snapWidth: 0.1});
+var sliderB = board.create('slider', [[2, -4], [8, -4], [-5, -3, 5]], {name: 'b', snapWidth: 0.1});
+var sliderC = board.create('slider', [[2, -5], [8, -5], [-5, 2, 5]], {name: 'c', snapWidth: 0.1});
+var sliderD = board.create('slider', [[2, -6], [8, -6], [-5, 0, 5]], {name: 'd', snapWidth: 0.1});
+
+// Define the cubic function based on the slider values
+function cubicFunction(x) {
+    return sliderA.Value() * Math.pow(x, 3) + sliderB.Value() * Math.pow(x, 2) + sliderC.Value() * x + sliderD.Value();
+}
+
+// Create the function graph
+var graph = board.create('functiongraph', [cubicFunction, -50, 50], {strokeColor: 'blue', strokeWidth: 2});
+
+// Create a text element that updates to show the current function
+var funcText = board.create('text', [-10, 6, function() {
+    return 'f(x) = ' 
+        + sliderA.Value().toFixed(2) + 'x^3 + '
+        + sliderB.Value().toFixed(2) + 'x^2 + '
+        + sliderC.Value().toFixed(2) + 'x + '
+        + sliderD.Value().toFixed(2);
+}], {
+        fontSize: 8,
+    });
+</script>

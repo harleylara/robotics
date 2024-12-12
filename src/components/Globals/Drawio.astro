@@ -2,6 +2,8 @@
 import { markToHtml } from '../../tools/helper.parser';
 import BaseContainer from './BaseContainer.astro';
 
+const isProduction = import.meta.env.MODE === 'production';
+
 /*
 Some relevant documentation about drawio and URL parameters
 - [Supported URL parameters](https://www.drawio.com/doc/faq/supported-url-parameters)
@@ -16,7 +18,8 @@ const {
 
 const file_url = `https://raw.githubusercontent.com/harleylara/robotics/master/src/resources/${file}`
 
-const src = `https://viewer.diagrams.net/?dark=1&edit=_blank&tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&page=${page}&title=test.drawio#U${file_url}`;
+const src = `https://viewer.diagrams.net/?dark=1&edit=_blank&tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&page=${page}&title=${file}#U${file_url}`;
+
 ---
 
 <BaseContainer>

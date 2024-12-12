@@ -1,0 +1,56 @@
+---
+title: Complexity Theory
+---
+
+## Intro
+
+- worst-case analysis: longest running time of all inputs of a particular length.
+- average-case analysis: average of all running times of inputs of a particular length.
+
+## Big-O and Small-O notation
+
+determining the run time of an algorithm can involve complicated expressions so it is more common to use approximation for this purpose. [**asymptotic analysis**](https://en.wikipedia.org/wiki/Asymptotic_analysis)
+
+For example the function $f(n) = 6n^3 + 2n^2 + 20n + 45$, the highest order term is $6n^3$. If we **do not** consider the coefficient $6$ (from $6n^3$) we can say that $f$ is **asymptotically** at most $n^3$. So we can represent this analysis with **asymptotic notation** or **big-O notation** as $f(n) = O(n^3)$.
+
+The following is a formal definition of $big-O$:
+
+<Definition
+    term="big-O"
+    definition="Let $f, g : \sN \rightarrow \sR^{+}$. Say that $f(n) = O(g(n))$  if positive integers $c$ and $n_0$ exist such that for every integer $n ≥ n_0$, $f (n) ≤ c g(n)$."
+    source="Definition 7.2 from Introduction to the Theory of Computation by Michael Sipser"
+/>
+
+When $f(n) = O(g(n))$ we way that $g(n)$ is an **upper bound** for $f(n)$, or more precisely, that $g(n)$ is an **asymptotic upper bound** for $f(n)$.
+
+At first it was a bit difficult for me to understand the formal definition, so if you allow me to paraphrase it in a different way this is my re-interpretation: 
+
+<Important
+    note="Can we find an integer $c$ and $n_0$ so that when evaluating the functions $f(n)$ and $g(n)$ for a $n \geq n_0$ they satisfy the expression (Inequality) $f(n) \leq c\,g(n)$?"
+/>
+
+For example consider the function $f(n)=2n^3 + 10n$ and $g(n) = n^3$
+
+<Equation
+    formula="\begin{aligned}
+f(n) &\leq c\, g(n)\\
+2n^3 + 10n &\leq c\, n^3\\
+\frac{2n^3}{n^3} + \frac{10n}{n^3} &\leq c \\
+2 + \frac{10}{n^2} &\leq c \\
+\end{aligned}"
+    description="Example for big-O."
+/>
+
+For the previus inequality, lets explore:
+1. What happens if we select $n_0=1$ and $c=1$? $12 \leq 1 \text{(This inequality is false)}$
+2. What if $n \rightarrow \infty$ and $c=1$? (remember that we are interested in analyzing the runtime for large values of $n$) $2 \leq 1 \text{(this inequality is false)}$
+3. What if $n_0=1$ and $c=12$? $12 \leq 12 \text{(this inequality is true)}$
+
+We found a integer for $c$ and $n_0$ for which the inequatiy $f(n) \leq c\, g(n)$ is true, so we can satisfactorily say $f(n) = O(n^3)$.
+
+For you: can you check if the function $f_1(n) = 5n^3 + 2n^2 + 22n + 6$ is $O(n^2)$?
+
+## External Resources
+
+- [(video) P vs. NP: The Biggest Puzzle in Computer Science](https://www.youtube.com/watch?v=pQsdygaYcE4)
+- [Growth of Functions](https://www.cs.sfu.ca/~ggbaker/zju/math/growth.html): nice examples for big-O.

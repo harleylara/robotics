@@ -1,0 +1,71 @@
+---
+title: "Mathematical Modeling"
+description: "Overview"
+---
+
+<Presentation>
+## Introduction
+
+<Slide>
+<Definition
+    term="A mathematical model of a dynamic system"
+    definition="Set of equations that represents the dynamics of the system accurately, or at least fairly well."
+    source="Modern Control Engineering, Section 2.1 by Ogata"
+/>
+
+A mathematical model is:
+- Not unique: A system may be represented in many different ways.
+
+</Slide>
+
+<Slide>
+Dynamics can be modeled by means of differential equations, such differential equations may be obtained by using physical laws governing a particular system:
+- Newton’s laws: for mechanical systems
+- Kirchhoff’s laws: for electrical systems
+</Slide>
+
+<Slide>
+**The principle of causality**: the output of the system at time $t = 0$ depends on the past input for $t < 0$ but does not depend on the future input for $t > 0$.
+</Slide>
+
+### Mathematical Models
+
+Depending on the particular system and the particular circumstances, one mathematical model may be better suited than other models.
+- state-space representation: suited for optimal control problems.
+- transfer function representation: more convenient for transient-response or frequency-response analysis of single-input, single-output, linear, time-invariant systems.
+
+### Simplicity Versus Accuracy
+
+Simplicity:
+- ignore certain inherent physical properties of the system
+- ignore certain nonlinearities
+- wich may be valid in low-frequency operations, may not be valid at sufficiently high frequencies
+    - example: the mass of a spring may be neglected in lowfrequency operations
+
+### Linear Systems
+
+The principle of superposition, states that, for all linear systems, the net response caused by two or more stimuli is the sum of the responses that would have been caused by each stimulus individually. 
+
+Superposition can be defined by two simpler properties:
+- additivity
+- homogeneity
+
+<Equation
+    formula="F(x_1 + x_2) = F(x_1) + F(x_2)"
+    description="additivity property of the principle of superposition."
+/>
+
+<Equation
+    formula="F(ax) = aF(x)"
+    description="homogeneity property of the principle of superposition."
+/>
+
+A system is linear if it satisfies the principle of superposition.
+
+### Linear Time-Invariant Systems and Linear Time-Varying Systems
+
+## Transfer Function
+
+
+
+</Presentation>

@@ -16,6 +16,7 @@
     "@astrojs/preact": "^3.0.0",
     "@astrojs/react": "^3.0.2",
     "@astrojs/tailwind": "^5.0.0",
+    "@benrbray/rehype-cite": "^2.0.1-alpha.5",
     "@docsearch/css": "^3.1.0",
     "@docsearch/react": "^3.1.0",
     "@types/node": "^18.0.0",
@@ -43,7 +44,8 @@
     "tailwindcss": "^3.2.7",
     "three": "^0.150.1",
     "uglify-js": "^3.17.4",
-    "unified": "^10.1.2"
+    "unified": "^10.1.2",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@astrojs/prism": "^3.0.0",
