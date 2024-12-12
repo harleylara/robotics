@@ -1,5 +1,3 @@
-version: "2"
-
 services:
   robotics:
     build: .
@@ -10,5 +8,5 @@ services:
 
 networks:
     default:
-        external:
-            name: nginx_default
+        external: true
+        name: nginx_default
