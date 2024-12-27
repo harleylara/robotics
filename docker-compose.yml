@@ -1,7 +1,7 @@
 services:
   robotics:
     build: .
-    image: robotics:21
+    image: robotics:22
     container_name: robotics
     ports:
       - 4321:4321
