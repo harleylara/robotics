@@ -22,12 +22,12 @@ import mdx from "@astrojs/mdx";
 import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
 import { citationTransform } from './src/plugins/citation.mjs';
 
+import vercel from '@astrojs/vercel';
+
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: node({
-    mode: 'standalone',
-  }),
+  adapter: vercel(),
   vite: {
     server: {
       watch: {
