@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2025-01-02T20:09:46.150Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="ACiCU4ceeLnXXjLlE8hh" version="23.0.2" type="device">
-  <diagram name="Page-1" id="-i_4LwG6oIBlEjILtCey">
-    <mxGraphModel dx="1287" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
+<mxfile host="Electron" modified="2025-01-04T19:13:33.080Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="nSSkxABmX1TZJISJNBiH" version="23.0.2" type="device">
+  <diagram name="structure" id="-i_4LwG6oIBlEjILtCey">
+    <mxGraphModel dx="632" dy="432" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
