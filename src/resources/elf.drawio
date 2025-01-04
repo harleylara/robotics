@@ -1,0 +1,52 @@
+<mxfile host="Electron" modified="2025-01-02T20:09:46.150Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="ACiCU4ceeLnXXjLlE8hh" version="23.0.2" type="device">
+  <diagram name="Page-1" id="-i_4LwG6oIBlEjILtCey">
+    <mxGraphModel dx="1287" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bvqvSSTPlONtIsi53vhY-1" value="ELF Header" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="70" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-3" value="Program Header Table&lt;br&gt;(optional)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="110" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-4" value="Section 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="150" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-5" value="..." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="190" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-6" value="Section n" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="230" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-7" value="Section Header Table" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="270" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-8" value="Linking View" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="85" y="30" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-9" value="ELF Header" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="70" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-10" value="Program Header Table" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="110" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-11" value="Section 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="150" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-12" value="..." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="190" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-13" value="Section n" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="230" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-14" value="Section Header Table&lt;br&gt;(optional)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="270" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bvqvSSTPlONtIsi53vhY-15" value="Executuion&amp;nbsp; View" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="266" y="30" width="148" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
