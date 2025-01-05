@@ -4,14 +4,90 @@ description: Exploring the State of the Art
 bibliography: references.bib
 ---
 
-[TBA] Add defintion of monocular depth estimation.
+Research questions:
+- What are the features that humans considere in the estimation of depth? Level of relevance?
+    - perspective, scale relative to known objects, appearance in lighting or occlusion or more ?
 
-@Nash1950
 
-## Defintion
+Collection of papers (dates from last revision):
+- (Jun 2014) @eigenDepthMapPrediction2014 [Depth Map Prediction from a Single Image using a Multi-Scale Deep Network](https://arxiv.org/pdf/1406.2283) [ref in: @bhoiMonocularDepthEstimation2019, @zhaoMonocularDepthEstimation2020]
+    - From KITTI: 28 scenes for training and 28 for testing
+- (Dec 2015) [Predicting depth, surface normals and semantic labels with a common multi-scale convolutional architecture](https://arxiv.org/pdf/1411.4734) [ref in: @bhoiMonocularDepthEstimation2019]
+    - pixel level depth
+- (Dec 2014) [Deep Convolutional Neural Fields for Depth Estimation from a Single Image](https://arxiv.org/pdf/1411.6387) [ref in: @bhoiMonocularDepthEstimation2019]
+- (Apr 2017) [Learning Depth-Aware Deep Representations for Robotic Perception](https://ieeexplore.ieee.org/document/7778240) [ref in: @bhoiMonocularDepthEstimation2019]
 
-- [Evaluating monocular depth estimation methods]
-    - Estimating depth from a single image
+Pixel level depth:
+- (Oct 2015) [Holistically-Nested Edge Detection](https://arxiv.org/pdf/1504.06375) [ref in: @bhoiMonocularDepthEstimation2019]
+- (Mar 2018) [Structured Attention Guided Convolutional Neural Fields for Monocular Depth Estimation](https://arxiv.org/pdf/1803.11029) [ref in: @bhoiMonocularDepthEstimation2019]
+
+Conditional Random Fields:
+- (May 2017) [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915) [ref in: @bhoiMonocularDepthEstimation2019]
+- (Jun 2015) [Depth and surface normal estimation from monocular images using regression on deep features and hierarchical CRFs](https://openaccess.thecvf.com/content_cvpr_2015/papers/Li_Depth_and_Surface_2015_CVPR_paper.pdf) [ref in: @bhoiMonocularDepthEstimation2019]
+- (Mar 2018) [Monocular depth estimation using multi-scale continuous crfs as sequential deep networks](https://arxiv.org/pdf/1803.00891) [ref in: @bhoiMonocularDepthEstimation2019]
+
+
+
+- (Apr 2019) [CAM-Convs: Camera-Aware Multi-Scale Convolutions for Single-View Depth](https://arxiv.org/pdf/1904.02028) [ref in: @zhaoMonocularDepthEstimation2020]
+- (Jul 2016) [Unsupervised CNN for Single View Depth Estimation: Geometry to the Rescue](https://arxiv.org/pdf/1603.04992) (CNN) [ref in: @zhaoMonocularDepthEstimation2020]
+- (Apr 2019) [Recurrent Neural Network for (Un-)supervised Learning of Monocular VideoVisual Odometry and Depth](https://arxiv.org/pdf/1904.07087) (RNN) [ref in: @zhaoMonocularDepthEstimation2020 ]
+- (Feb 2019) [GEN-SLAM: Generative Modeling for Monocular Simultaneous Localization and Mapping](https://arxiv.org/pdf/1902.02086) (VAEs) [ref in: @zhaoMonocularDepthEstimation2020]
+- (Jan 2019) [Generative Adversarial Networks for unsupervised monocular depth prediction](https://openaccess.thecvf.com/content_ECCVW_2018/papers/11129/Aleotti_Generative_Adversarial_Networks_for_unsupervised_monocular_depth_prediction_ECCVW_2018_paper.pdf) (GAN) [ref in: @zhaoMonocularDepthEstimation2020]
+
+More:
+- (Apr 2017) [Unsupervised Monocular Depth Estimation with Left-Right Consistency](https://arxiv.org/pdf/1609.03677) [ref in: @zhaoMonocularDepthEstimation2020]
+- (Mar 2018) [GeoNet: Unsupervised Learning of Dense Depth, Optical Flow and Camera Pose](https://arxiv.org/pdf/1803.02276) [ref in: @zhaoMonocularDepthEstimation2020]
+- (Aug 2017) [Unsupervised Learning of Depth and Ego-Motion from Video](https://arxiv.org/pdf/1704.07813) [ref in: @zhaoMonocularDepthEstimation2020]
+- (Oct 2019) [Unsupervised Scale-consistent Depth and Ego-motion Learning from Monocular Video](https://arxiv.org/pdf/1908.10553) [ref in: @zhaoMonocularDepthEstimation2020]
+- (May 2009) [Make3D: Learning 3D Scene Structure from a Single Still Image](https://www.cs.cornell.edu/~asaxena/reconstruction3d/saxena_make3d_learning3dstructure.pdf) [ref in: @zhaoMonocularDepthEstimation2020]
+- (Jul 2005) [Automatic Photo Pop-up](https://dhoiem.cs.illinois.edu/publications/popup.pdf) [ref in: @zhaoMonocularDepthEstimation2020]
+
+Deep Learning tools:
+- Convolutional Neural Networks (CNN)
+- Recurrent Neural Network (RNN)
+- Variational auto-encoders (vaes)
+- Generative adversarial networks (GANs)
+
+## Surveys and Others
+
+- [Monocular Depth Estimation: A Survey by Amlaan Bhoi](https://arxiv.org/abs/1901.09402)
+- (Jul 2020) [Monocular Depth Estimation Based On Deep Learning: An Overview](https://arxiv.org/pdf/2003.06620)
+- [TO READ] [How Do Neural Networks See Depth in Single Images?](https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf)
+
+## Datasets
+
+@zhaoMonocularDepthEstimation2020:
+- KITTI [Are we ready for Autonomous Driving? The KITTI Vision Benchmark Suite](https://www.cvlibs.net/publications/Geiger2012CVPR.pdf) [website](https://www.cvlibs.net/datasets/kitti/)
+- NYU Depth (V1) [Indoor Segmentation and Support Inference from RGBD Images](https://cs.nyu.edu/~fergus/datasets/indoor_seg_support.pdf) [website](https://cs.nyu.edu/~fergus/datasets/nyu_depth_v1.html)
+- NYU Depth (V2) (same paper as in V1) [website](https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html)
+- Cityscapes [The Cityscapes Dataset for Semantic Urban Scene Understanding](https://arxiv.org/pdf/1604.01685) [website](https://www.cityscapes-dataset.com/)
+    - mainly for semantic segmentation
+    - stereo images
+- (May 2009) Make3D [Make3D: Learning 3D Scene Structure from a Single Still Image](https://www.cs.cornell.edu/~asaxena/reconstruction3d/saxena_make3d_learning3dstructure.pdf)
+
+
+- [ENRICH](https://github.com/davidemarelli/ENRICH)
+- [ArchDepth2](https://3dom.fbk.eu/projects/on-going/archdepth)
+
+## Metrics
+
+Proposed by @eigenDepthMapPrediction2014:
+- Root Mean Square Error (RMSE)
+- Root Mean Square Error Log scale (RMSE-Log)
+- Absolute Relative Difference (Abs Rel)
+- Squared Relative Difference (Sq Rel)
+- Accuracies
+
+Method(s) for evaluation:
+- Mean Absolute Error (MAE)
+- Mean Relative Error (MRE)
+- Peek signal-to-noise ratio (PSNR)
+- Structural Similarity Index Measure (SSIM)
+- Edge sharpness analysis:
+    - Motion transfer function (MTF)
+    - The edge spread function (ESF)
+    - Line Spread Function (LSF)
+- cloud-to-cloud distances ??
 
 ## Papers
 
@@ -32,21 +108,6 @@ Methods to evaluate:
 
 They dont show the sources that lead to pick these method: "The scientific literature and other reputable sources like Paper with Codes have highlighted these algorithms as top performers"
 
-Method(s) for evaluation:
-- Root Mean Square Error (RMSE)
-- Mean Absolute Error (MAE)
-- Mean Relative Error (MRE)
-- Peek signal-to-noise ratio (PSNR)
-- Structural Similarity Index Measure (SSIM)
-- Edge sharpness analysis:
-    - Motion transfer function (MTF)
-    - The edge spread function (ESF)
-    - Line Spread Function (LSF)
-- cloud-to-cloud distances ??
-
-Datasets for assessment:
-- [ENRICH](https://github.com/davidemarelli/ENRICH)
-- [ArchDepth2](https://3dom.fbk.eu/projects/on-going/archdepth)
 
 Similar refered works (from paper: "Other unbiased MDE evaluations are presented in"):
 - Kock er al. (2020)
