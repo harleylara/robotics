@@ -9,39 +9,36 @@ Research questions:
     - perspective, scale relative to known objects, appearance in lighting or occlusion or more ?
 
 
-Collection of papers (dates from last revision):
-- (2005) [Learning Depth from Single Monocular Images](https://papers.nips.cc/paper_files/paper/2005/file/17d8da815fa21c57af9829fb0a869602-Paper.pdf)
-- (Jun 2014) @eigenDepthMapPrediction2014 [Depth Map Prediction from a Single Image using a Multi-Scale Deep Network](https://arxiv.org/pdf/1406.2283) [ref in: @bhoiMonocularDepthEstimation2019, @zhaoMonocularDepthEstimation2020]
-    - From KITTI: 28 scenes for training and 28 for testing
-- (Dec 2015) [Predicting depth, surface normals and semantic labels with a common multi-scale convolutional architecture](https://arxiv.org/pdf/1411.4734) [ref in: @bhoiMonocularDepthEstimation2019]
-    - pixel level depth
-- (Dec 2014) [Deep Convolutional Neural Fields for Depth Estimation from a Single Image](https://arxiv.org/pdf/1411.6387) [ref in: @bhoiMonocularDepthEstimation2019]
-- (Apr 2017) [Learning Depth-Aware Deep Representations for Robotic Perception](https://ieeexplore.ieee.org/document/7778240) [ref in: @bhoiMonocularDepthEstimation2019]
+| Year       | Aka          | Paper                                                                                                                                                                                                                | Ref in                                                                                                       |
+|------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| (2005)     |              | [Learning Depth from Single Monocular Images](https://papers.nips.cc/paper_files/paper/2005/file/17d8da815fa21c57af9829fb0a869602-Paper.pdf)                                                                         | [ref in: @vandijkHowNeuralNetworks2019]                                                                      |
+| (Jun 2014) |              | @eigenDepthMapPrediction2014 [Depth Map Prediction from a Single Image using a Multi-Scale Deep Network](https://arxiv.org/pdf/1406.2283)                                                                            | [ref in: @bhoiMonocularDepthEstimation2019, @zhaoMonocularDepthEstimation2020, @eigenDepthMapPrediction2014] |
+| (Dec 2015) |              | [Predicting depth, surface normals and semantic labels with a common multi-scale convolutional architecture](https://arxiv.org/pdf/1411.4734)                                                                        | [ref in: @bhoiMonocularDepthEstimation2019]                                                                  |
+| (Oct 2015) |              | [Holistically-Nested Edge Detection](https://arxiv.org/pdf/1504.06375)                                                                                                                                               | [ref in: @bhoiMonocularDepthEstimation2019]                                                                  |
+| (Dec 2014) |              | [Deep Convolutional Neural Fields for Depth Estimation from a Single Image](https://arxiv.org/pdf/1411.6387)                                                                                                         | [ref in: @bhoiMonocularDepthEstimation2019]                                                                  |
+| (Apr 2017) |              | [Learning Depth-Aware Deep Representations for Robotic Perception](https://ieeexplore.ieee.org/document/7778240)                                                                                                     | [ref in: @bhoiMonocularDepthEstimation2019]                                                                  |
+| (Mar 2018) |              | [Structured Attention Guided Convolutional Neural Fields for Monocular Depth Estimation](https://arxiv.org/pdf/1803.11029)                                                                                           | [ref in: @bhoiMonocularDepthEstimation2019]                                                                  |
+| (Jun 2015) |              | [Depth and surface normal estimation from monocular images using regression on deep features and hierarchical CRFs](https://openaccess.thecvf.com/content_cvpr_2015/papers/Li_Depth_and_Surface_2015_CVPR_paper.pdf) | [ref in: @bhoiMonocularDepthEstimation2019]                                                                  |
+| (May 2017) |              | [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915)                                                                  | [ref in: @bhoiMonocularDepthEstimation2019]                                                                  |
+| (Apr 2019) |              | [CAM-Convs: Camera-Aware Multi-Scale Convolutions for Single-View Depth](https://arxiv.org/pdf/1904.02028)                                                                                                           | [ref in: @zhaoMonocularDepthEstimation2020]                                                                  |
+| (Jul 2016) |              | [Unsupervised CNN for Single View Depth Estimation: Geometry to the Rescue](https://arxiv.org/pdf/1603.04992) (CNN)                                                                                                  | [ref in: @zhaoMonocularDepthEstimation2020, @vandijkHowNeuralNetworks2019]                                   |
+| (Apr 2019) |              | [Recurrent Neural Network for (Un-)supervised Learning of Monocular VideoVisual Odometry and Depth](https://arxiv.org/pdf/1904.07087) (RNN)                                                                          | [ref in: @zhaoMonocularDepthEstimation2020 ]                                                                 |
+| (Feb 2019) |              | [GEN-SLAM: Generative Modeling for Monocular Simultaneous Localization and Mapping](https://arxiv.org/pdf/1902.02086) (VAEs)                                                                                         | [ref in: @zhaoMonocularDepthEstimation2020]                                                                  |
+| (Apr 2017) | MonoDepth V1 | [Unsupervised Monocular Depth Estimation with Left-Right Consistency](https://arxiv.org/pdf/1609.03677)                                                                                                              | [ref in: @zhaoMonocularDepthEstimation2020, @vandijkHowNeuralNetworks2019]                                   |
+| (Mar 2018) |              | [GeoNet: Unsupervised Learning of Dense Depth, Optical Flow and Camera Pose](https://arxiv.org/pdf/1803.02276)                                                                                                       | [ref in: @zhaoMonocularDepthEstimation2020]                                                                  |
+| (Aug 2017) | SfMLearner   | [Unsupervised Learning of Depth and Ego-Motion from Video](https://arxiv.org/pdf/1704.07813)                                                                                                                         | [ref in: @zhaoMonocularDepthEstimation2020, @vandijkHowNeuralNetworks2019]                                   |
+| (Oct 2019) |              | [Unsupervised Scale-consistent Depth and Ego-motion Learning from Monocular Video](https://arxiv.org/pdf/1908.10553)                                                                                                 | [ref in: @zhaoMonocularDepthEstimation2020]                                                                  |
+| (May 2009) |              | [Make3D: Learning 3D Scene Structure from a Single Still Image](https://www.cs.cornell.edu/~asaxena/reconstruction3d/saxena_make3d_learning3dstructure.pdf)                                                          | [ref in: @zhaoMonocularDepthEstimation2020]                                                                  |
+| (Jul 2005) |              | [Automatic Photo Pop-up](https://dhoiem.cs.illinois.edu/publications/popup.pdf)                                                                                                                                      | [ref in: @zhaoMonocularDepthEstimation2020]                                                                  |
+| (Mar 2018) |              | [Monocular depth estimation using multi-scale continuous crfs as sequential deep networks](https://arxiv.org/pdf/1803.00891)                                                                                         | [ref in: @bhoiMonocularDepthEstimation2019]                                                                  |
+| (Dec 2017) | LKVOLearner  | [Learning Depth from Monocular Videos using Direct Methods](https://arxiv.org/pdf/1712.00175)                                                                                                                        | [ref in: @vandijkHowNeuralNetworks2019]                                                                      |
+| (May 2017) | Semodepth    | [Semi-Supervised Deep Learning for Monocular Depth Map Prediction](https://arxiv.org/pdf/1702.02706)                                                                                                                 | [ref in: @vandijkHowNeuralNetworks2019]                                                                      |
 
-Pixel level depth:
-- (Oct 2015) [Holistically-Nested Edge Detection](https://arxiv.org/pdf/1504.06375) [ref in: @bhoiMonocularDepthEstimation2019]
-- (Mar 2018) [Structured Attention Guided Convolutional Neural Fields for Monocular Depth Estimation](https://arxiv.org/pdf/1803.11029) [ref in: @bhoiMonocularDepthEstimation2019]
 
-Conditional Random Fields:
-- (May 2017) [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915) [ref in: @bhoiMonocularDepthEstimation2019]
-- (Jun 2015) [Depth and surface normal estimation from monocular images using regression on deep features and hierarchical CRFs](https://openaccess.thecvf.com/content_cvpr_2015/papers/Li_Depth_and_Surface_2015_CVPR_paper.pdf) [ref in: @bhoiMonocularDepthEstimation2019]
-- (Mar 2018) [Monocular depth estimation using multi-scale continuous crfs as sequential deep networks](https://arxiv.org/pdf/1803.00891) [ref in: @bhoiMonocularDepthEstimation2019]
-
-
-
-- (Apr 2019) [CAM-Convs: Camera-Aware Multi-Scale Convolutions for Single-View Depth](https://arxiv.org/pdf/1904.02028) [ref in: @zhaoMonocularDepthEstimation2020]
-- (Jul 2016) [Unsupervised CNN for Single View Depth Estimation: Geometry to the Rescue](https://arxiv.org/pdf/1603.04992) (CNN) [ref in: @zhaoMonocularDepthEstimation2020]
-- (Apr 2019) [Recurrent Neural Network for (Un-)supervised Learning of Monocular VideoVisual Odometry and Depth](https://arxiv.org/pdf/1904.07087) (RNN) [ref in: @zhaoMonocularDepthEstimation2020 ]
-- (Feb 2019) [GEN-SLAM: Generative Modeling for Monocular Simultaneous Localization and Mapping](https://arxiv.org/pdf/1902.02086) (VAEs) [ref in: @zhaoMonocularDepthEstimation2020]
-- (Jan 2019) [Generative Adversarial Networks for unsupervised monocular depth prediction](https://openaccess.thecvf.com/content_ECCVW_2018/papers/11129/Aleotti_Generative_Adversarial_Networks_for_unsupervised_monocular_depth_prediction_ECCVW_2018_paper.pdf) (GAN) [ref in: @zhaoMonocularDepthEstimation2020]
-
-More:
-- (Apr 2017) [Unsupervised Monocular Depth Estimation with Left-Right Consistency](https://arxiv.org/pdf/1609.03677) [ref in: @zhaoMonocularDepthEstimation2020]
-- (Mar 2018) [GeoNet: Unsupervised Learning of Dense Depth, Optical Flow and Camera Pose](https://arxiv.org/pdf/1803.02276) [ref in: @zhaoMonocularDepthEstimation2020]
-- (Aug 2017) [Unsupervised Learning of Depth and Ego-Motion from Video](https://arxiv.org/pdf/1704.07813) [ref in: @zhaoMonocularDepthEstimation2020]
-- (Oct 2019) [Unsupervised Scale-consistent Depth and Ego-motion Learning from Monocular Video](https://arxiv.org/pdf/1908.10553) [ref in: @zhaoMonocularDepthEstimation2020]
-- (May 2009) [Make3D: Learning 3D Scene Structure from a Single Still Image](https://www.cs.cornell.edu/~asaxena/reconstruction3d/saxena_make3d_learning3dstructure.pdf) [ref in: @zhaoMonocularDepthEstimation2020]
-- (Jul 2005) [Automatic Photo Pop-up](https://dhoiem.cs.illinois.edu/publications/popup.pdf) [ref in: @zhaoMonocularDepthEstimation2020]
+Extra papers to support the idea of monocular depth estimation:
+| Year       | Category      | Paper                                                                                                             | Ref in                          |
+|------------|---------------|-------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| (Apr 2019) | Visualization | [Visualization of Convolutional Neural Networks for Monocular Depth Estimation](https://arxiv.org/pdf/1904.03380) | [@vandijkHowNeuralNetworks2019] |
 
 Deep Learning tools:
 - Convolutional Neural Networks (CNN)
@@ -51,9 +48,23 @@ Deep Learning tools:
 
 ## Surveys and Others
 
-- [Monocular Depth Estimation: A Survey by Amlaan Bhoi](https://arxiv.org/abs/1901.09402)
-- (Jul 2020) [Monocular Depth Estimation Based On Deep Learning: An Overview](https://arxiv.org/pdf/2003.06620)
-- [TO READ] @vandijkHowNeuralNetworks2019 [How Do Neural Networks See Depth in Single Images?](https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf)
+- ✅ [Monocular Depth Estimation: A Survey by Amlaan Bhoi](https://arxiv.org/abs/1901.09402)
+- 🕵️ (Jul 2020) [Monocular Depth Estimation Based On Deep Learning: An Overview](https://arxiv.org/pdf/2003.06620)
+- ✅ (May 2019) @vandijkHowNeuralNetworks2019 [How Do Neural Networks See Depth in Single Images?](https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf)
+- (Nov 2021) [Towards Real-Time Monocular Depth Estimation for Robotics: A Survey](https://arxiv.org/pdf/2111.08600)
+- (Jan 2021) [Deep Learning for Monocular Depth Estimation: A Review](https://pure.port.ac.uk/ws/files/26286067/Deep_Learning_for_Monocular_Depth_Estimation_A_Review_pp.pdf)
+- (Jan 2023) [Monocular Depth Estimation: a Review of the 2022 State of the Art](https://www.ipol.im/pub/art/2023/459/article_lr.pdf)
+- (Oct 2023) [Monocular Depth Estimation: A Survey](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10311687)
+- (Nov 2023) [A Survey of Monocular Depth Estimation based on Deep Learning](https://drpress.org/ojs/index.php/fcis/article/view/15765/15302)
+- (Jul 2022) [Monocular Depth Estimation Using Deep Learning: A Review](https://www.mdpi.com/1424-8220/22/14/5353)
+- (Jun 2024) [Deep Learning-based Depth Estimation Methods from Monocular Image and Videos: A Comprehensive Survey](https://dl.acm.org/doi/pdf/10.1145/3677327)
+- (Sep 2022) [Survey on Monocular Depth Estimation for Unmanned Aerial Vehicles using Deep Learning](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10053950)
+
+Visualization to understand the network learning process:
+- (Jun 2009) [Visualizing Higher-Layer Features of a Deep Network](https://papers.baulab.info/papers/also/Erhan-2009.pdf)
+- (Feb 2014) [Intriguing properties of neural networks](https://arxiv.org/pdf/1312.6199)
+- (Nov 2013) [Visualizing and Understanding Convolutional Networks](https://arxiv.org/pdf/1311.2901)
+- (2017) [Feature Visualization - How neural networks build up their understanding of images](https://distill.pub/2017/feature-visualization/)
 
 ## Datasets
 
