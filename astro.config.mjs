@@ -28,13 +28,6 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   output: 'server',
   adapter: vercel(),
-  vite: {
-    server: {
-      watch: {
-        usePolling: true
-      }
-    }
-  },
   integrations: [preact(), react(), tailwind(),
   // AutoImport expose components in the global scope
   // IMPORTANT!!: Do not use Global Objects from Javascript
