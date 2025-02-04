@@ -1,0 +1,82 @@
+---
+title: Introduction to CUDA
+description: Exploratory notes on CUDA
+---
+
+## The CPU evolution (super brief)
+
+from 1MHz to 1 to 4 GHz.
+- the clock speed is not the only way to get more performance, but it has always been a reliable source for improved performance.
+- power limitation
+- heat restrictions
+- physical limit to transistor size
+
+add more cores....
+
+## The Born of the GPU
+
+GPU: Graphics processing unit
+
+In the early 1990s: *"These display accelerators offered hardware-assisted bitmap operations to assist in the display and usability of graphical operating systems."*
+
+1992: OpenGL library
+
+mid 1990s: The game industry with games like Doom
+
+2001: NVIDIA’s release of the GeForce 3
+
+add this point the APIs for GPUs where mainly focus on rendering and graphics, no in general-purpose computation. *"In essence, the GPU was being tricked into performing nonrendering tasks by making those tasks appear as if they were a standard rendering."*
+- lacking the ability to write to arbitrary locations in memory (scatter)
+- *"it was nearly impossible to predict how your particular GPU would deal with floating-point data, if it handled floating-point data at all")*
+
+So at this point in time the only way to interact with the GPU was using OpenGL or DirectX.
+
+In November 2006: the GeForce 8800 GTX, 
+- first DirectX 10 GPU
+- first GPU to be built with NVIDIA's CUDA Architecture
+
+WHAT THE HECK IS THE CUDA Architecture (not the API)?
+- unified shader pipeline
+- comply with IEEE requirements for single-precision floating-point arithmetic
+- instruction set tailored for general computation (more generic that just for graphics)
+- allowed arbitrary read and write access to memory
+- software-managed cache known as **shared memory**
+
+you still need to use OpenGL's GLSL or Microsoft's HLSL shader language.
+
+*"A few months after the launch of the GeForce 8800 GTX, NVIDIA made public a compiler for this language, CUDA C"*... (but you are required to have a driver to talk to the GPU)
+
+## Getting Started
+
+Prerequisites:
+- A CUDA-enabled graphics processor: Since 2008 all NVIDIA's GPUs are CUDA-enabled, but over the year they have different feature sets.
+- An NVIDIA device driver
+- A CUDA development toolkit: this contains NVIDIA's compiler for the GPU code
+- A standard C compiler
+
+`host`: CPU and the system’s memory as the host
+`device`: GPU and its memory
+
+A `function` that executes on the `device` is typically called a `kernel`.
+
+INSERT THE CODE DEMO HERE
+
+- CUDA C adds the `__global__` **qualifier** to standard C. *"This mechanism alerts the compiler that a function should be compiled to run on a device instead of the host."*
+- The angle brackets denote arguments to pass to the runtime system.
+
+## Querying Devices
+
+Check for CUDA devices and **capabilities** (or "Compute Capabilities")
+
+<Definition
+    term="Compute Capabilities"
+    definition="Set of specifications and features of a compute device depend on."
+    source="CUDA C Programming Guide"
+    url="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#compute-capabilities"
+/>
+
+## External Resources
+
+- [Cuda by Example](https://developer.nvidia.com/cuda-example)
+- [CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/)
+- [Intro to CUDA (part 1): High Level Concepts](https://www.youtube.com/watch?v=4APkMJdiudU)
