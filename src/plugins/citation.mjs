@@ -8,13 +8,17 @@ export function citationTransform() {
       const keyPattern = /\[@([a-zA-Z0-9]+(?:;[a-zA-Z0-9]+)*)\]/g;
       const matches = [...node.value.matchAll(keyPattern)];
 
+      console.log(node)
+
       if (matches.length > 0) {
         // Replace matched patterns as desired
-        node.type = "hmtl"
+        // node.type = "html"
         node.value = node.value.replace(keyPattern, (match, keys) => {
           // You can split the keys by semicolon and process them individually
           const keyList = keys.split(';');
-          return `<Cite citeKeys="${keyList.join(', ')}">@${keyList.join(' ; ')}</Cite>`;
+          // return `<Cite citeKeys="${keyList.join(', ')}">@${keyList.join(' ; ')}</Cite>`;
+          // return `<span citeKeys="${keyList.join(', ')}">@${keyList.join(' ; ')}</span>`;
+          return `<span>@${keyList.join(' ; ')}</span>`;
         });
       }
     })
