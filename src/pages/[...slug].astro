@@ -17,6 +17,7 @@ import Ol from '../components/Globals/Ol.astro'
 import Li from '../components/Globals/Li.astro'
 import Strong from '../components/Globals/Strong.astro'
 import P from '../components/Globals/P.astro'
+import Table from '../components/Globals/Table.astro'
 
 import { getEntry } from "astro:content";
 // 1. Get the slug from the incoming server request
@@ -52,6 +53,7 @@ const { Content, headings } = await entry.render();
         ol: Ol,
         li: Li,
         strong: Strong,
-        p: P
+        p: P,
+        table: Table
     }} />
 </MainLayout>

@@ -1,0 +1,19 @@
+---
+const props = Astro.props;
+---
+
+<style is:global>
+thead {
+  @apply bg-dark-50
+}
+
+tbody tr {
+  @apply border-b border-dark-100
+}
+</style>
+
+<div class="overflow-x-auto">
+  <table {...props} class="table-auto min-w-full mt-4">
+    <slot/>
+  </table>
+</div>
