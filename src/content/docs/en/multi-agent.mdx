@@ -3,9 +3,70 @@ title: Multi-Agent
 description: Exploratory study of frameworks
 ---
 
+## Some Terminology
+
+- swarm intelligence (SI)
+- swarm robotics (SR)
+- multi-robot system (MRS)
+
+Keywords:
+- cellular robotics
+- collective robotics
+- distributed robotics
+
+diagram: (SI (SR))
+
+For [@khaldiOverviewSwarmRobotics2015] "SR is the study of how to coordinate large groups of relatively simple robots through the use of local rules."
+- coordinate
+
 | Paper | Year |
 |----|-----|
-| [@khaldiOverviewSwarmRobotics2015a]  | 2015 |
+| [@khaldiOverviewSwarmRobotics2015]  | 2015 |
 
+SR vs MRS (proposed by @dorigoGuestEditorial2004):
+- Autonomy: the swarm-robotic system is made up of autonomous robots that are able to physically interact with the environment and affect it.
+- Large number: The swarm-robotic system should be consisted of limited homogeneous groups of robots in which each group contains of large number of members. Hence, highly heterogeneous robot groups tend to fall outside swarm robotics).
+- Limited capabilities: the SR system is composed of robots relatively incapable or inefficient to carry out tasks on their own but they are highly efficient when they cooperate.
+- Scalability and robustness: A swarm-robotic system should be scalable and robust. Increasing the number of unites will improve the performance of the overall system and on the other hand, reducing some units will not yield to a breakdown of the system.
+Distributed coordination: in SR, the coordination between robots is distributed; each robot should only have local and limited sensing and communication abilities.
+
+
+To read:
+- 📌 [@sahinSwarmRoboticsSAB2005]
+- [@tanSwarmRoboticsCollective2013]
+- [@sharkeySwarmRoboticsMinimalism2007]
+- Modeling Artificial, Mobile Swarm Systems
+- @khaldiOverviewSwarmRobotics2015 claim; the origin of the field is in @beniSwarmIntelligenceCellular1993
+- @ferranteControlArchitectureHeterogeneous2009
+- [@dorigoEvolvingSelfOrganizingBehaviors2004]
+- (short article) [@dorigoGuestEditorial2004]
+
+Complete overview:
+- @yangSwarmBasedMetaheuristicAlgorithms2012
+
+Algorithms for swarm ("most well-knowm"):
+- Ant Colony Optimization (ACO)
+- Particle Swarm Optimization (PSO)
+- Artificial fish swarm (AFSA): survey, @neshatArtificialFishSwarm2014
+- Bee based algorithms: survey: @hamdiBeebasedAlgorithmsReview2010
+
+## Simulators
+
+See my notes on [Simulators](simulators).
+
+2D:
+- [Player/stage](https://playerstage.sourceforge.net/)
+- [Enki](https://github.com/enki-community/enki)
+
+3D:
+- [Gazebo](https://gazebosim.org/home)
+- [UberSim](https://www.cs.cmu.edu/~robosoccer/ubersim/)
+- [USARSim](https://sourceforge.net/projects/usarsim/), paper [@carpinUSARSimRobotSimulator2007]
+- [Webots](https://cyberbotics.com/)
+- [Breve](https://github.com/jonklein/breve)
+- [CoppeliaSim](https://www.coppeliarobotics.com/) (formerly V-REP)
+- [ARGoS](https://www.argos-sim.info/)
+- [TeamBots](https://www.cs.cmu.edu/~trb/TeamBots/)
+- [Modular OpenRobots Simulation Engine](https://morse-simulator.github.io/)
 
 ## References
