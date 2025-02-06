@@ -62,7 +62,7 @@ export default defineConfig({
       }],
       [rehypeKatex, {
         macros: NOTATION,
-        stric: "ignore"
+        strict: "ignore"
       }],
       [rehypeExternalLinks, {
         rel: ['nofollow'],
