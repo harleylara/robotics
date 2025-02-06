@@ -71,8 +71,9 @@ export default defineConfig({
       }],
       [rehypeCitation, {
         "bibliography": [
-          "./src/content/docs/en/references.bib",
+          "references.bib",
         ],
+        "path": "./src/content/docs/en/",
         "csl": "https://raw.githubusercontent.com/citation-style-language/styles/refs/heads/master/apa.csl",
         "lang": "https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-eu.xml",
         "linkCitations": true
