@@ -61,7 +61,8 @@ export default defineConfig({
         behavior: 'append'
       }],
       [rehypeKatex, {
-        macros: NOTATION
+        macros: NOTATION,
+        stric: "ignore"
       }],
       [rehypeExternalLinks, {
         rel: ['nofollow'],
