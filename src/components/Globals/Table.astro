@@ -1,5 +1,6 @@
 ---
 const props = Astro.props;
+import BaseContainer from "./BaseContainer.astro";
 ---
 
 <style is:global>
@@ -7,13 +8,23 @@ thead {
   @apply bg-dark-50
 }
 
+thead tr th {
+  @apply p-2 border border-dark-100
+}
+
 tbody tr {
   @apply border-b border-dark-100
 }
+
+tbody tr td {
+  @apply p-2 border border-dark-100
+}
 </style>
 
-<div class="overflow-x-auto">
-  <table {...props} class="table-auto min-w-full mt-4">
-    <slot/>
-  </table>
-</div>
+<BaseContainer>
+  <div class="overflow-x-auto">
+    <table {...props} class="table-auto min-w-full w-max">
+      <slot/>
+    </table>
+  </div>
+</BaseContainer>
