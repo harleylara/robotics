@@ -18,6 +18,7 @@ import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import { NOTATION } from './src/consts';
 
+import rehypeCitationTooltip from './src/tools/rehype-citation-tooltip.js'
 
 export default defineConfig({
   output: 'server',
@@ -76,7 +77,8 @@ export default defineConfig({
         lang: "https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-eu.xml",
         linkCitations: true,
         inlineClass: ["bib-reference"]
-      }]
+      }],
+      [rehypeCitationTooltip, {inlineClass: "bib-reference"}],
     ]
   }
 });
