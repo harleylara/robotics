@@ -70,11 +70,12 @@ export default defineConfig({
         content: { type: 'text', value: ' ↗' }
       }],
       [rehypeCitation, {
-        "bibliography": "references.bib",
-        "path": "./src/content/docs/en/",
-        "csl": "https://raw.githubusercontent.com/citation-style-language/styles/refs/heads/master/apa.csl",
-        "lang": "https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-eu.xml",
-        "linkCitations": true
+        bibliography: "references.bib",
+        path: "./src/content/docs/en/",
+        csl: "https://raw.githubusercontent.com/citation-style-language/styles/refs/heads/master/apa.csl",
+        lang: "https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-eu.xml",
+        linkCitations: true,
+        inlineClass: ["bib-reference"]
       }]
     ]
   }
