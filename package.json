@@ -10,7 +10,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^6.0.1",
     "@astrojs/mdx": "^4.0.3",
     "@astrojs/node": "^9.0.0",
     "@astrojs/preact": "^4.0.1",
