@@ -74,7 +74,7 @@ export default defineConfig({
         bibliography: "references.bib",
         path: "./src/content/docs/en/",
         csl: "apa",
-        lang: "https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-eu.xml",
+        // lang: "https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-eu.xml",
         linkCitations: true,
         inlineClass: ["bib-reference"]
       }],
