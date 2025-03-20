@@ -14,10 +14,10 @@ export interface Props {
     <div class="mb-4">
         <p class="font-bold text-lg">{term}</p>
     </div>
-    <div class="text-justify">
+    <div class="text-justify text-gray-300">
         <p set:html={markToHtml(definition)}></p>
     </div>
-    <div class="mt-4 ml-4">
+    <div class="mt-4 ml-4 text-gray-300">
         <span>- </span>
         <a href={link} target="_blank" rel="noopener noreferrer" class="border-b hover:border-b-2">{source}</a>
     </div>
