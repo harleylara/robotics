@@ -1,0 +1,30 @@
+---
+title: Arguments, ROS Arguments and Parameters
+describe: Showing the difference
+---
+
+## Arguments
+
+**user-defined arguments** or **executable arguments**.
+
+## ROS Arguments
+
+`--ros-args`:
+- `--remap` or `-r`: name remapping. see [Remapping Names - ROS 2 Design](https://design.ros2.org/articles/static_remapping.html)
+    - `__ns`: changes the default namespace
+    - `__name` or `__node`: changes node name
+- `--param` or `-p`: **single** parameter assignment.
+    - `param_name:=param_value`
+- `--params-file path/to/file.yaml`
+
+## Parameters
+
+**node parameters**
+
+
+## External References
+
+- [Parameter API design in ROS - ROS 2 Design](design.ros2.org/articles/ros_parameters.html)
+- [Understanding parameters - ROS 2 Docs](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html)
+- [ROS Command Line Arguments - ROS 2 Design](https://design.ros2.org/articles/ros_command_line_arguments.html)
+- [Passing ROS arguments to nodes via the command-line](https://docs.ros.org/en/humble/How-To-Guides/Node-arguments.html)
