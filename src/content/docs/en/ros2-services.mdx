@@ -5,11 +5,13 @@ description: Servers and clients
 
 ## Create a Custom Service defintion
 
-- create `.srv` file
+create `.srv` file
 
 
 ```python filename="EuclideanDistance.srv" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/demo_interfaces/srv/EuclideanDistance.srv"
 ```
+
+Add dependencies and append `.srv` to `rosidl_generate_interfaces`
 
 ```cmake
 ...
@@ -24,6 +26,12 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 
 ...
+```
+
+Add any dependencies to `package.xml`
+
+```cmake
+    <build_depend>geometry_msgs</build_depend>
 ```
 
 ## Minimal Server
