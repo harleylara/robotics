@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-06-13T07:57:29.999Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="NZXowEhYp-EAc5NVG8p-" version="23.0.2" type="device" pages="9">
+<mxfile host="Electron" modified="2025-04-08T12:52:33.144Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="F4I0ifkO-rt_3Fihz7XU" version="23.0.2" type="device" pages="9">
   <diagram id="JE0fnqlVocu_NNxFKGSQ" name="events">
-    <mxGraphModel dx="939" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+    <mxGraphModel dx="555" dy="382" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -16,7 +16,7 @@
         <mxCell id="RWMjAid2LWg_gitp_uKJ-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="RWMjAid2LWg_gitp_uKJ-5" target="RWMjAid2LWg_gitp_uKJ-6" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="RWMjAid2LWg_gitp_uKJ-5" value="Non-Deterministic (random) process" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="RWMjAid2LWg_gitp_uKJ-5" value="Stochastic (&quot;random&quot;) process" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="140" y="250" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="RWMjAid2LWg_gitp_uKJ-6" value="The outome is &lt;b&gt;not fully&lt;/b&gt; predictable." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
