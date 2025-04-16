@@ -1,0 +1,32 @@
+---
+// IMPORTANT: import the JSXGraph wrapper component
+import JSXGraph from "../Figures/JSXGraph.astro";
+
+const {description="Please insert the description of this figure"} = Astro.props;
+---
+
+<JSXGraph description={description}>
+    <div id="function-example" class="jsxbox" style="width: 100%; height: 480px;">
+    </div>
+</JSXGraph>
+
+<script>
+// IMPORTANT: import JSXGraph
+import JXG from '../../tools/jsxgraph.init.js'
+
+let board = JXG.JSXGraph.initBoard('function-example', {
+  boundingbox:[-5, 10, 5, -10],
+  axis:true, 
+  showNavigation:true, 
+  showCopyright:false,
+  keepaspectratio:true,
+  });
+
+const graph = board.create('functiongraph', [
+  function(x) { return x * x; },
+  -5, 5
+], {
+    strokeColor: 'blue',
+    strokeWidth: 2
+  });
+</script>

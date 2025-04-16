@@ -1,0 +1,93 @@
+---
+title: On Functions
+---
+
+import FunctionMappingSimple from "../../../components/Math/FunctionMappingSimple.astro"
+import FunctionMappingExample from "../../../components/Math/FunctionMappingExample.astro"
+import FunctionExample from "../../../components/Math/FunctionExample.astro"
+
+<Think
+    note="What is a function?"
+/>
+
+Even if you have many years of study, a bachelor's, master's or even a PhD, we usually don't stop to think about the concept of a function, we just accept them and go on with our lives (at least that was my situation for a long time). Of course, this scenario is not always representative for people who study areas very close to mathematics or who directly study mathematics (like [Mathematical analysis](https://en.wikipedia.org/wiki/Mathematical_analysis)). But the purpose of this note is to explore the concept of function, and to discover or re-discover its -- **functionality** --.
+
+*Note: This note does not replace formal literature explaining the concept of functions. For more formal literature see the references in this note.*
+
+## Intuition
+
+**THE Function** is such a fundamental concept throughout our student life, and it is difficult to emphasize its importance better than [Prof. Thomas A. Garrity](https://math.williams.edu/thomas-garrity/) does in the video [On Mathematical Maturity (1)](https://youtu.be/zHU1xH6Ogs4?t=57). The video later on expands on the concept of [Mathematical Maturity](https://en.wikipedia.org/wiki/Mathematical_maturity), but what I want to emphasize in this note is the motivation for the functions. *"Function describe the world"*.
+
+But again:
+
+<Think
+    note="What is a function?"
+/>
+
+@brendanw.sullivanEverythingYouAlways2013 in section 7.2 Definition and Examples, invites us to reflect on how we at the personal level interpret functions. Some terms that are used in conjunction with the concept of functions are: mapping, relation or rule.
+
+Informal conceptualization of a function: Think of the function as a mathematical tool that allows us to describe relationships between two sets.
+
+Formal definition:
+
+<Equation
+    formula="\forall x \in \sX, \quad \exist ! y \in \sY \quad \textrm{such that } (x,y) \in f"
+    description="Let $\sX$, $\sY$ be sets. Let $f$ be a relation between $\sX$ and $\sY$, so $f ⊆ \sX \times \sY$"
+/>
+
+This means:
+- For every element $x$ in set $\sX$ (called **domain**),
+- There exists a unique element $y$ in the set $\sY$ (refer as **codomain**),
+- Such that the ordered pair $(x,y)$ is in the function $f$.
+
+<Drawio
+    file="functions.drawio"
+    page="1"
+    description="Visual intuition of a function."
+/>
+
+Given this perspective, the terms we used before; mapping, relation or rule, probably make more sense. Let's play we this visual mapping:
+
+<FunctionMappingSimple
+    description="Mapping/relation from domain to codomain with a relation described as $x^2$"
+/>
+
+in the case of $x^2$:
+- The domain: set of real numbers $\sR$
+- The codomain: set of **non-negative** real numbers $\sR_{\ge 0}$
+
+Note: **non-negative** is important to include zero, if we say positive we are excluding zero.
+
+Notation has not yet been introduced but it allows to represent this mapping/relationship as:
+
+<Equation
+    formula="f: \sR \rightarrow \sR_{\ge 0}, \quad f(x) = x^2"
+    description=""
+/>
+
+<FunctionMappingExample/>
+
+As you can see this representation is a bit difficult to interpret, so it is common to represent it as follows, where the horizontal axis is the domain and the vertial axis is the codomain.
+
+<FunctionExample/>
+
+## Notation
+
+|                     | Notation                 |
+|---------------------|--------------------------|
+| Functional notation | $f(X) = x^2$             |
+| Arrow notation      | $x \rightarrow x^2$      |
+| Index notation      | $f_x = x^2$              |
+| Dot notation        | $x \rightarrow f(\cdot)$ |
+
+## Preimage
+
+The **preimage** or also called **inverse image**.
+
+
+## External Resources
+
+- [Function (mathematics) - Wikipedia](https://en.wikipedia.org/wiki/Function_(mathematics))
+- [Image (mathematics) - Wikipedia](https://en.wikipedia.org/wiki/Image_(mathematics))
+
+## References

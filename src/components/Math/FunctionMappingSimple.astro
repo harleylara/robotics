@@ -1,0 +1,87 @@
+---
+// IMPORTANT: import the JSXGraph wrapper component
+import JSXGraph from "../Figures/JSXGraph.astro";
+
+const {description="Please insert the description of this figure"} = Astro.props;
+---
+
+<JSXGraph description={description}>
+    <div id="function-mapping-simple" class="jsxbox" style="width: 100%; height: 480px;">
+    </div>
+</JSXGraph>
+
+<script>
+// IMPORTANT: import JSXGraph
+import JXG from '../../tools/jsxgraph.init.js'
+
+let board = JXG.JSXGraph.initBoard('function-mapping-simple', {
+  boundingbox:[-10,2,10,-2],
+  axis: false,
+  showNavigation:true, 
+  showCopyright:false,
+  // keepaspectratio:true
+});
+
+
+// First axis (domain) at y = 0
+var domain = board.create('axis', [[0,1.5], [1,1.5]], {
+  firstArrow: true,
+  lastArrow: true,
+  ticks: {
+    drawZero: true,
+    ticksDistance: 1,
+    majorHeight: 30,
+    tickEndings: [1,1],
+    minorTicks: 0
+  }
+
+});
+
+
+// Second axis (codomain) at y = -1.5
+var codomain = board.create('axis', [[0,-1.5], [1,-1.5]], {
+  firstArrow: true,
+  lastArrow: true,
+  ticks: {
+    drawZero: true,
+    ticksDistance: 1,
+    majorHeight: 30,
+    tickEndings: [1,1],
+    minorTicks: 0
+  }
+});
+
+board.create('text', [-5.5, (domain.point1.Y() + 1), '\\textrm{Domain}'], { fontSize: 14 });
+board.create('text', [-5.5, (codomain.point1.Y() + 1), '\\textrm{Codomain}'], { fontSize: 14 });
+
+// Glider point on domain axis
+var xPt = board.create('glider', [-2, 0, domain], {
+  name: 'x',
+  color: 'blue',
+  size: 4
+});
+
+// Point representing x^2 on codomain axis
+var yPt = board.create('point', [
+  () => Math.pow(xPt.X(), 2),
+  -1.5
+
+], {
+
+  name: 'x²',
+  color: 'red',
+  size: 4,
+  fixed: true
+});
+
+// Arrow showing the mapping
+var arrow = board.create('arrow', [
+  () => [xPt.X(), domain.point1.Y()],
+  () => [Math.pow(xPt.X(), 2), codomain.point1.Y()]
+], {
+    strokeWidth: 1,
+    dash: 2,
+  strokeColor: '#ccc'
+});
+
+</script>
