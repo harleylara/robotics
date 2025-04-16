@@ -34,7 +34,7 @@
     "react-compiler-runtime": "^19.0.0-beta-b2e8e9c-20241220",
     "react-dom": "^18.2.0",
     "rehype-autolink-headings": "^6.1.1",
-    "rehype-citation": "^2.2.2",
+    "rehype-citation": "^2.3.1",
     "rehype-external-links": "^3.0.0",
     "rehype-katex": "^6.0.2",
     "rehype-remark": "^9.1.2",
