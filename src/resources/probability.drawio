@@ -1,26 +1,65 @@
-<mxfile host="Electron" modified="2025-04-16T09:46:58.629Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="AVE4b29Qxx1HUZ4fdxXZ" version="23.0.2" type="device" pages="9">
+<mxfile host="Electron" modified="2025-04-20T18:23:39.930Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="7f8ErzDiKt36kMvd7ZNu" version="23.0.2" type="device" pages="9">
   <diagram id="JE0fnqlVocu_NNxFKGSQ" name="events">
-    <mxGraphModel dx="1738" dy="1188" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+    <mxGraphModel dx="729" dy="501" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="RWMjAid2LWg_gitp_uKJ-2" value="The outome is &lt;b&gt;completely &lt;/b&gt;predictable." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="290" y="175" width="150" height="30" as="geometry" />
+        <mxCell id="RWMjAid2LWg_gitp_uKJ-2" value="The outome is &lt;b&gt;completely &lt;/b&gt;predictable." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="150" width="150" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="RWMjAid2LWg_gitp_uKJ-4" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="RWMjAid2LWg_gitp_uKJ-3" target="RWMjAid2LWg_gitp_uKJ-2" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="96Dk1cM6sycAfwApplKq-1" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="65" y="70" as="sourcePoint" />
+            <mxPoint x="580" y="70" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="RWMjAid2LWg_gitp_uKJ-3" value="Deterministic&lt;br&gt;process" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="140" y="160" width="120" height="60" as="geometry" />
+        <mxCell id="96Dk1cM6sycAfwApplKq-3" value="degree of *information" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="252.5" y="40" width="145" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="RWMjAid2LWg_gitp_uKJ-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="RWMjAid2LWg_gitp_uKJ-5" target="RWMjAid2LWg_gitp_uKJ-6" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="96Dk1cM6sycAfwApplKq-4" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="115" y="120" as="sourcePoint" />
+            <mxPoint x="115" y="80" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="RWMjAid2LWg_gitp_uKJ-5" value="Stochastic (&quot;random&quot;) process" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="140" y="250" width="120" height="60" as="geometry" />
+        <mxCell id="96Dk1cM6sycAfwApplKq-5" value="Deterministic" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="85" y="120" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="RWMjAid2LWg_gitp_uKJ-6" value="The outome is &lt;b&gt;not fully&lt;/b&gt; predictable." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="290" y="265" width="150" height="30" as="geometry" />
+        <mxCell id="96Dk1cM6sycAfwApplKq-6" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="325" y="120" as="sourcePoint" />
+            <mxPoint x="325" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="96Dk1cM6sycAfwApplKq-7" value="Stochastic" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="295" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="96Dk1cM6sycAfwApplKq-8" value="The outome is &lt;b&gt;not fully/entirely&lt;/b&gt;&lt;br&gt;&amp;nbsp;predictable." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="150" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="96Dk1cM6sycAfwApplKq-9" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="535" y="120" as="sourcePoint" />
+            <mxPoint x="535" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="96Dk1cM6sycAfwApplKq-10" value="Nondeterministic" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="505" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="96Dk1cM6sycAfwApplKq-11" value="The outome is &lt;b&gt;not&amp;nbsp;&lt;/b&gt;predictable." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="150" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="96Dk1cM6sycAfwApplKq-13" value="- Classical Mechanics&lt;br&gt;- ODEs&lt;br&gt;- PDEs&lt;br&gt;- Linear Algebra" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="52.5" y="190" width="125" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="96Dk1cM6sycAfwApplKq-14" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Probability Theory&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Markov Chains and Markov Processes&lt;/div&gt;&lt;div&gt;- Control Theory (with noise or uncertainty)&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="210" y="190" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="96Dk1cM6sycAfwApplKq-16" value="-&amp;nbsp;Non-deterministic Automata&lt;br&gt;- Chaos Theory&lt;br&gt;- Quantum Mechanics&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="190" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="96Dk1cM6sycAfwApplKq-17" value="*Information, in the context of &lt;strong data-start=&quot;79&quot; data-end=&quot;101&quot;&gt;Information Theory&lt;/strong&gt;." style="text;whiteSpace=wrap;html=1;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="40" y="300" width="300" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
