@@ -5,9 +5,11 @@ const {term, definition, source, link} = Astro.props;
 export interface Props {
     term: string,
     definition: string,
-    source: string,
-    link: string
+    source?: string,
+    link?: string
 }
+
+const hasSource = typeof source === "string" && source.trim() !== "";
 ---
 
 <div class="text-gray-900 dark:text-white pl-4 py-2 border-l-8 border-l-green-900 mt-6">
@@ -16,9 +18,11 @@ export interface Props {
     </div>
     <div class="text-justify text-gray-300">
         <p set:html={markToHtml(definition)}></p>
-    </div>
+  </div>
+  {hasSource && (
     <div class="mt-4 ml-4 text-gray-300">
-        <span>- </span>
-        <a href={link} target="_blank" rel="noopener noreferrer" class="border-b hover:border-b-2">{source}</a>
+      <span>- </span>
+      <a href={link} target="_blank" rel="noopener noreferrer" class="border-b hover:border-b-2">{source}</a>
     </div>
+  )}
 </div>
