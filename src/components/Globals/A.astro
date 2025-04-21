@@ -1,5 +1,7 @@
 ---
 const props = Astro.props;
+// weird whitespace insert by astro: https://github.com/NordSecurity/storyblok-rich-text-astro-renderer/issues/263
+// fix: single line
 ---
 <style is:global>
 
@@ -40,6 +42,4 @@ span.icon-link::before {
 }
 </style>
 
-<a {...props} class="border-b border-white hover:border-b-2">
-    <slot/>
-</a>
+<a {...props} class="border-b border-white hover:border-b-2"><slot/></a>
