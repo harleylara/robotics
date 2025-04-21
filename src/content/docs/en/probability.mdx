@@ -1,7 +1,24 @@
 ---
-title: Probability Axioms
-description: I need to think in a subtitle for this
+title: Fundamentals of Probability
+description: Losing and finding my mind
 ---
+
+## Motivation
+
+**Personal motivation**: I would be one of the first to ask, why some notes on probability in the context of "robotics notes"? my personal answer is because there are simply many fields that extend to the area of robotics that require foundations in probability, to mention some of them; state estimation, deep learning, machine learning, gausing processes, PAC Learning and many more. Therefore, the main purpose of these notes is to lay the necessary foundations in the area of probability in order to be able to explore more areas of robotics later on.
+
+In addition to the motivation to expand my knowlege-base in robotics it is fair to mention the motivations sown by other people, in this case [Prof. Dr. Alexander Asteroth](https://www.h-brs.de/de/inf/prof-dr-alexander-asteroth) who in both his courses "Bayesian Inference and Gaussian Processes" and "Complexity, Randomization, Approximation and PAC-Learning" made me rediscover how fascinating this area is.
+
+Honestly, this note is also driven by a desire to learn and to explore beyond formulas and procedures -- to dive into ideas.
+
+## Historical Background
+
+See: @stiglerHistoryStatisticsMeasurement1986
+
+## About Events
+
+Equivalent terms: Event, experiment, process
+
 
 <Drawio
     file="probability.drawio"
@@ -9,49 +26,96 @@ description: I need to think in a subtitle for this
     description="Types of processes and outcomes."
 />
 
+<Definition
+    term="Random Event"
+    definition="A random event is the complement of a deterministic event in the sense that if a deterministic event is one whose outcome is completely predictable, by complementarity the outcome of a random event is not fully predictable."
+    source="Introduction to Bayesian Scientific Computing: Ten Lectures on Subjective Computing (2007), section 1.1"
+/>
+
 I took the following excerpt from the from [Introduction to Bayesian Scientific Computing](https://link.springer.com/book/10.1007/978-0-387-73394-4) and decided to copy it as it is written because I think it is very well put:
 
-*"[...] randomness means lack of information. The degree of information or more generally, our belief about the outcome of a random event is expressed in terms of probability."*
+*"[...] randomness means lack of information. The degree of information, or more generally, our belief about the outcome of a random event, is expressed in terms of probability."* @calvettiIntroductionBayesianScientific2007 in section 1.1.
 
 *"That said, it is clear that the concept of probability has a **subjective** component, since it is a subjective matter to decide what is reasonable to believe, and what previous experience the belief is based on. The concept of probability advocated in this book is called **subjective probability**, which is often a synonym of **Bayesian probability**"*
 
+export const think_modelling_random = "How can we model a random process or 'experiment' in away that allow us to predict the outcome? For example how can we define the process of throwing a die?"
+
 <Think
-    note="How can we model a random process or 'experiment' in away that allow us to predict the outcome? For example how can we define the process of throwing a die?"
+    note={think_modelling_random}
 />
 
 The answer to this is provided by the concept of **Probability Space**: is a mathematical construct that provides a formal model of a random process or "experiment". [Probability Space - Wikipedia](https://en.wikipedia.org/wiki/Probability_space)
 
 Let's break it down.
 
+Side track to the rabbit hole:
+- [What is Random?](https://www.youtube.com/watch?v=9rIy0xY99a0) by Vsauce
+- [what is NOT Random?](https://www.youtube.com/watch?v=sMb00lz-IfE) by Veritasium
+- [Computational irreducibility - Wolfram MathWorld](https://mathworld.wolfram.com/ComputationalIrreducibility.html)
+    - [Stephen Wolfram: ChatGPT and the Nature of Truth, Reality & Computation | Lex Fridman Podcast #376](https://youtu.be/PdE-waSx-d8?t=737), talking about Computational irreducibility.
+
 ## The Building Blocks
 
-from [Probability Essentials by Jean Jacod and Philip Protter](https://link.springer.com/book/10.1007/978-3-642-55682-1) *"The theory of probability aims towards a mathematical theory (the probability space) which describes such phenomena. This theory (the probability space) contains three main ingredients"*:
+The formalization of the probability theory is largely due to [Andrey Kolmogorov](https://en.wikipedia.org/wiki/Andrey_Kolmogorov), in his book @kolmogoroffGrundbegriffeWahrscheinlichkeitsrechnung1933 (later tranlated into @kolmogorovFoundationsTheoryProbability1960), who a as @jacodProbabilityEssentials2004 mention at the beginning of chapter 1, Kolmogorov *"[...] saw the connection between the ideas of Borel and Lebesgue and probability theory and gave probability theory its rigorous basis of measurement theory."*, but *"[...] Paul Lévy set the tone for modern Probability [...]"*. In addition, @jaynesProbabilityTheoryLogic2003 provides a comparative view of Kolmogorov's approach on probability (and others) and constracts it with the ideas derived in his book ("Probability Theory: The logic of science"),
+
+Probability as we know it today has its roots in [Measure Theory](https://en.wikipedia.org/wiki/Measure_(mathematics)). Measure Theory provides a framework for generalizing and formalizing the concept of "measure" (in the most generic extension of the word) to any context. Measures are fundamental to probability theory, the theory of integration and others areas. A good resource to explore is @taoIntroductionMeasureTheory2011. In simple words, measurement theory seeks to assign numbers to "things" by figuring out whether they can actually be measured, and by "things" we mean any kind of things -- physical or abstract --, such as; numbers, symbols, geometric shapes, variables, or even other "collection of things", and I know, the term "things" is not very concrete or formal so in mathematics it is usually referred as **set**.
+
+Side track to the rabbit hole:
+- @durrettProbabilityTheoryExamples2019
+- [The Man Who Almost Broke Math (And Himself...)](https://www.youtube.com/watch?v=_cr46G2K5Fo), about [Georg Cantor](https://en.wikipedia.org/wiki/Georg_Cantor) and the historical background that laid the foundations of set theory.
+
+And what does all this have to do with probability? Well, before explaining the concepts of probability, let me introduce an abstraction tool in term of wording which (hopefully) will help to generalize the ideas and understand the underlaying principles for probability.
+
+In probability the term "events" is used extensibly, so if necessary use the following table to be able to generalize ideas of probability to other domains, or on the contrary to concretize ideas of measure theory in terms of probability.
+
+| Measure Theory          | Probability      |
+|-------------------------|------------------|
+| Measurable sets         | Events           |
+| Element/member of a set | Event            |
+| Measurable functions    | Random variables |
+
+From @jacodProbabilityEssentials2004 (Probability Essentials) *"The theory of probability aims towards a mathematical theory -- the probability space -- which describes such phenomena. This theory -- the probability space -- contains three main ingredients"*:
 - **Sample space**: $\Omega$
-- **Event space**: $\mathcal{A}$
+- **Event space**: $\ssA$
 - **The probability measure**: $P$
 
-This formalization of this theory is largely due to [Andrey Kolmogorov](https://en.wikipedia.org/wiki/Andrey_Kolmogorov).
+Note: the concept of probability space will be discussed later, but in essence it is derived from the concept of [measure space](https://en.wikipedia.org/wiki/Measure_space) of Measure theory.
 
-<Drawio
-    file="probability.drawio"
-    page="1"
-    description="Set of axions proposed by Kolmogorov."
-/>
+At this point we already have a hint (the necessary ingredients) that will help us answer the question: {think_modelling_random}. Now, let's dissect each individual ingredient and its inner workings.
 
 ### Sample Space
 
-**Sample space** $\Omega$, also known as "state space": This is a set of **ALL** possible outcomes of the experiment. For expample if you throw a die with 6 faces all the possible outcomes can be represented as:
+If when you read the word "space" you think of a physical space — maybe 3D, 2D, 1D, or even N-dimensional — then you're thinking in terms of **Euclidean spaces**, and you're not far from the intuition behind a **sample space**.
+And if what first came to your mind was outer space... well, that shows you have a great imagination.
+
+
+Now, if we push the idea even further and allow for **non-physical spaces**, accepting abstract spaces, we open the door to working in much more general settings, such as:
+- The space of outcomes when flipping a coin.
+- The space of outcomes when rolling a die.
+
+In this way, the concept of "space" becomes a structure that can be as concrete or as abstract as needed to model the situation we want to study. Thus, you can intuitively think of a sample space as the space that lists all possibilities. For example, 
+- In a 3D space, the sample space would be all the 3D coordinates — that is, $\sR^3$.
+- In the space of flipping a coin, the possibilities are simply: $\{\textrm{heads, tails}\}$.
+
+With this intuition in place we can define:
+
+<Definition
+    term="Sample space"
+    definition="Denoted $\Omega$, also known as state space, can be any finite or infinite set, meaning that the sample space is a set of **ALL** possible outcomes of an experiment."
+/>
+
+For example if you throw a die with 6 faces all the possible outcomes can be represented as:
 
 <Equation
     formula="\Omega = \{1,2,3,4,5,6\}"
     description="Sample space of throwing a 6 faces die."
 />
 
-If the experiment is throwing two coins the sample space is as follow:
+If the experiment is throwing two (independent) coins the sample space is as follow:
 
 <Equation
     formula="\Omega = \{hh, tt, ht, th\}\text{, where } h \text { is head and } t \text{ is tail}"
-    description="Sample space of throwing throwing two coins."
+    description="Sample space of throwing two (independent) coins."
 />
 
 <Drawio
@@ -71,28 +135,29 @@ Let's derive the event space concept intuitively with an example first.
     description="Power set of the sample space."
 />
 
-**Event space** $\mathcal{A}$, also known just as "events": An event space is a set that contains ALL possible events for a given experiment, [source](https://www.statisticshowto.com/event-space-probability/). (the set of all the subsets of $\Omega$)
+**Event space** $\ssA$, also known just as "events": An event space is a set that contains ALL possible events for a given experiment, [source](https://www.statisticshowto.com/event-space-probability/). (the set of all the subsets of $\Omega$)
 
+The event space is based on the concept of $\sigma$-algebra -- a fundamental concept in Measure Theory --.
 
-Let represent the powerset with $2^\Omega$ which denote all subsets of $\Omega$, including the empty set denoted by $\emptyset$. With $\mathcal{A}$ being a subset of $2^\Omega$, we consider the following properties:
+Let represent the [powerset](https://en.wikipedia.org/wiki/Power_set) with $2^\Omega$ which denote all subsets of $\Omega$, including the empty set denoted by $\emptyset$. With $\ssA$ being a subset of $2^\Omega$, we consider the following properties:
 
 Property 1:
 
 <Equation
-    formula="\emptyset \in \mathcal{A} \text{ and } \Omega \in \mathcal{A}"
+    formula="\emptyset \in \ssA \text{ and } \Omega \in \ssA"
     description="The empty-set and the sample space are part of the *event space*"
 />
 
 Property 2:
 <Equation
-    formula="\text{If } \sA \in \mathcal{A} \text{ then } \scA \in \mathcal{A} \text{, where } \scA \text{ denotes the complement of } \sA"
-    description="The **event space** $\mathcal{A}$ is closed under complement."
+    formula="\text{If } \sA \in \ssA \text{ then } \scA \in \ssA \text{, where } \scA \text{ denotes the complement of } \sA"
+    description="The **event space** $\ssA$ is closed under complement."
 />
 
 Property 3:
 <Equation
-    formula="\forall \sA_1, \sA_2, \dots \sA_n \in \mathcal{A}, \quad \bigcup_{i=1}^{n} \sA_i \in \mathcal{A} \quad \text{and} \quad \bigcap_{i=1}^{n} \sA_i \in \mathcal{A}"
-    description="The **event space** $\mathcal{A}$ is **closed** under *finite* **unions** and **intersections**."
+    formula="\forall \sA_1, \sA_2, \dots \sA_n \in \ssA, \quad \bigcup_{i=1}^{n} \sA_i \in \ssA \quad \text{and} \quad \bigcap_{i=1}^{n} \sA_i \in \ssA"
+    description="The **event space** $\ssA$ is **closed** under *finite* **unions** and **intersections**."
 />
 
 <Definition
@@ -105,8 +170,8 @@ Property 3:
 Property 4:
 
 <Equation
-    formula="\forall \sA_1, \sA_2, \dots \sA_n \in \mathcal{A}, \quad \bigcup_{i=1}^{\infty} \sA_i \in \mathcal{A} \quad \text{and} \quad \bigcap_{i=1}^{\infty} \sA_i \in \mathcal{A}"
-    description="The **event space** $\mathcal{A}$ is **closed** under *countable* unions and intersections."
+    formula="\forall \sA_1, \sA_2, \dots \sA_n \in \ssA, \quad \bigcup_{i=1}^{\infty} \sA_i \in \ssA \quad \text{and} \quad \bigcap_{i=1}^{\infty} \sA_i \in \ssA"
+    description="The **event space** $\ssA$ is **closed** under *countable* unions and intersections."
 />
 
 <Definition
@@ -116,16 +181,15 @@ Property 4:
     link="https://en.wikipedia.org/wiki/Countable_set"
 />
 
-The event space $\mathcal{A}$ is an algebra if it satisfies properties 1, 2 and 3 above. It is a $\sigma$-algebra, (or a $\sigma$-field) if it satisfies 1, 2, and 4 above. Closure under countable unions directly implies closure under finite unions because a finite union is a special case of countable union. Specially:
+The event space $\ssA$ is an algebra if it satisfies properties 1, 2 and 3 above. It is a $\sigma$-algebra, (or a $\sigma$-field) if it satisfies 1, 2, and 4 above. Closure under countable unions directly implies closure under finite unions because a finite union is a special case of countable union. Specially:
 
-For any finite collection of sets $\sA_1, \sA_2, \dots, \sA_n \in \mathcal{A}$ the union $\sA_1 \cup \sA_2 \cup \dots \cup \sA_n$ is just a particular case of the countable union.
+For any finite collection of sets $\sA_1, \sA_2, \dots, \sA_n \in \ssA$ the union $\sA_1 \cup \sA_2 \cup \dots \cup \sA_n$ is just a particular case of the countable union.
 
 Keep in mind that the properties 1 and 4 emplies 3, hence any $\sigma$-algebra is a algebra but there are algebras that are not $\sigma$-algebras.
 
 ### The Probability
 
 **The probability** $P$
-
 
 ### WTF is "Closed"?
 
@@ -154,17 +218,33 @@ Examples of Not closed under addition:
 ## Random Variable
 
 <Equation
-    formula="X: \Omega \rightarrow \mathcal{T}"
+    formula="X: \Omega \rightarrow \ssT"
     description="Definition of a random variable"
 />
 
 ## Discrete and Continuous
 
-<Drawio
-    file="probability.drawio"
-    page="3"
-/>
+## Law of large numbers
+
+Chapter 2: @durrettProbabilityTheoryExamples2019, "Measure theory ends and probability begins with the definition of independence."
+
+## Jungle of Notation
+
+| Reference                                                        | Set | Complement | Set of sets   |
+|------------------------------------------------------------------|-----|------------|---------------|
+| @grinsteadGrinsteadSnellsIntroduction2009                        | $A$ | $\tilde A$ | ?             |
+| @jacodProbabilityEssentials2004                                  | $A$ | $A^{c}$    | $\mathcal{A}$ |
+| @jaynesProbabilityTheoryLogic2003                                | $A$ | $\bar{A}$  | $F$           |
+| @rasmussenGaussianProcessesMachine2008                           | $A$ | $A^{c}$    | $\mathcal{A}$ |
+| @walpoleProbabilityStatisticsEngineers2017                       | $A$ | $A'$       | $\mathcal{A}$ |
+| @deisenrothMathematicsMachineLearning (chapter 6)                | $A$ | ?          | $\mathcal{A}$ |
+| @bishopPatternRecognitionMachine2006 (chapter 1.2 and chapter 2) | $A$ | TBA        | TBA           |
+| @bishopDeepLearningFoundations2024 (chapter 2)                   | $A$ | TBA        | TBA           |
+| @goodfellowDeepLearning2016 (chapter 3)                          | $A$ | TBA        | TBA           |
+ 
 
 ## External Resources
 
 - [Probability Essentials by Jean Jacod, Philip Protter](https://link.springer.com/book/10.1007/978-3-642-55682-1) chapter 2.
+
+## References
