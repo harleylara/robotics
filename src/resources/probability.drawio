@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2025-04-23T12:22:23.548Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="h0EqADRDcthBSJEJMszd" version="23.0.2" type="device" pages="10">
+<mxfile host="Electron" modified="2025-04-23T19:37:38.368Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="A3ZGyUMjAZ4SigWGcttB" version="23.0.2" type="device" pages="10">
   <diagram id="JE0fnqlVocu_NNxFKGSQ" name="events">
     <mxGraphModel dx="1060" dy="728" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
       <root>
@@ -1670,7 +1670,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="sWdKVqyQid2xLAyR4BMc" name="de-morgan-intersections">
-    <mxGraphModel dx="486" dy="334" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="1" shadow="0">
+    <mxGraphModel dx="999" dy="687" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="1" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />

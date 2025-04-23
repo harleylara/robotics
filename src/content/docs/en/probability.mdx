@@ -249,11 +249,19 @@ So,
 | Intersections | yes (using De Morgan's law) | yes (using De Morgan's law)    |
 
 
-
-
 Side track to the rabbit hole:
 - [The Man Who Almost Broke Math (And Himself...)](https://www.youtube.com/watch?v=_cr46G2K5Fo), about [Georg Cantor](https://en.wikipedia.org/wiki/Georg_Cantor) and the historical background that laid the foundations of set theory, including explanation of the [Vitali set](https://en.wikipedia.org/wiki/Vitali_set), [timestamp to Vitali set](https://youtu.be/_cr46G2K5Fo?t=1069).
 
+As promised, here we are, the **event space**, the punchline is that the **event space** is just a $\sigma-algebra$-algebra, therefore the definition of $\sigma$-algebra is the definition of event space. 🤯
+
+<Definition
+    term='Even Space'
+    definition="The event space is a $\sigma$-algebra that contains ALL possible events for a given experiment."
+    source="Event Space Probability - Statistics How To"
+    link="https://www.statisticshowto.com/event-space-probability/"
+/>
+
+Here are some concrete examples:
 
 <Drawio
     file="probability.drawio"
@@ -261,18 +269,49 @@ Side track to the rabbit hole:
     description="Power set of the sample space."
 />
 
-**Event space** $\ssA$, also known just as "events": An event space is a set that contains ALL possible events for a given experiment, [source](https://www.statisticshowto.com/event-space-probability/). (the set of all the subsets of $\Omega$)
+With these two concepts -- [sample space](#sample-space) and [event space](#event-space) -- we can construct what is called a "measurable space", which is for by a pair $(\Omega, \ssA)$, where:
+- $\Omega$ is the sample space, representing the set of all possible outcomes.
+- $\ssA$ is the event space, a collection of subsets of $\Omega$ that is closed under countable unions, countable intersections, and complements—formally, a $\sigma$-algebra.
 
-The event space is based on the concept of $\sigma$-algebra -- a fundamental concept in Measure Theory --.
 
-The event space $\ssA$ is an algebra if it satisfies properties 1, 2 and 3 above. It is a $\sigma$-algebra, (or a $\sigma$-field) if it satisfies 1, 2, and 4 above. Closure under countable unions directly implies closure under finite unions because a finite union is a special case of countable union. Specially:
+In measure theory, this pair $(\Omega, \ssA)$ defines a structure -- measurable space -- on which a measure can be meaningfully defined. This framework allows for the rigorous assignment of values (such as probabilities) to subsets of $\Omega$ that belong to the $\sigma$-algebra $\ssA$.
 
+| Measure Theory   | Probability Theory    | Description                                                    |
+|------------------|-----------------------|----------------------------------------------------------------|
+| abstract space   | sample space $\Omega$ | all possible states $w \in \Omega$                             |
+| $\sigma$-algebra | event space $\ssA$    | set of all possible events $\sE \in \ssA$ that one can measure |
+| measure function | probability function  | mapping from $\sigma$-algebra to $[0,1]$                       |
 
 
 ### The Probability
 
 **The probability** $P$
 
+<MathDefinition
+    concept="Measure function"
+    definition={`
+Is a function that maps from a $\\sigma$-algebra to the positive reals: $\\mu: \\ssA \\rightarrow \\sR^{+}$ such that:
+(i) $\\mu(\\emptyset) = 0$
+(ii) $\\\mu(\\bigcup_{i}^{\\infty}\\sE_i ) = \\sum_{i}^{\\infty} \\mu(\\sE_i)$ for a **pairwise disjoint** $\\sE_i \\in \\ssA, i \\in \\sN$ ($\\sigma$-additivity)
+`
+}
+/>
+
+**measure space** is a triplet $(\sS, \ssA, \mu)$, where $(\sS, \ssA)$ is a **measurable space** and $\mu$ is a measure on $\ssA$.
+
+<MathDefinition
+    concept="Probability measure"
+    definition={`
+A probability measure defined on a $\\sigma$-algebra $\\ssA$ of $\\Omega$ **is a measure**, denoted with $P \\,:\\, \\rightarrow [0,1]$ that satisfies:
+(i) $\\P(\\Omega) = 1$
+(ii) $\\\mu(\\bigcup_{i}^{\\infty}\\sE_i ) = \\sum_{i}^{\\infty} \\mu(\\sE_i)$ for a **pairwise disjoint** $\\sE_i \\in \\ssA, i \\in \\sN$ ($\\sigma$-additivity)
+`
+}
+/>
+
+Probability space is a measure space $(\sS, \ssA, P)$, where $P$ is a probability measure on $\ssA$.
+
+For intuitio about functio see the note [On Functions](functions)
 
 ## Random Variable
 
