@@ -62,7 +62,6 @@ Probability as we know it today has its roots in [Measure Theory](https://en.wik
 
 Side track to the rabbit hole:
 - @durrettProbabilityTheoryExamples2019
-- [The Man Who Almost Broke Math (And Himself...)](https://www.youtube.com/watch?v=_cr46G2K5Fo), about [Georg Cantor](https://en.wikipedia.org/wiki/Georg_Cantor) and the historical background that laid the foundations of set theory.
 
 And what does all this have to do with probability? Well, before explaining the concepts of probability, let me introduce an abstraction tool in term of wording which (hopefully) will help to generalize the ideas and understand the underlaying principles for probability.
 
@@ -88,8 +87,7 @@ At this point we already have a hint (the necessary ingredients) that will help 
 If when you read the word "space" you think of a physical space — maybe 3D, 2D, 1D, or even N-dimensional — then you're thinking in terms of **Euclidean spaces**, and you're not far from the intuition behind a **sample space**.
 And if what first came to your mind was outer space... well, that shows you have a great imagination.
 
-
-Now, if we push the idea even further and allow for **non-physical spaces**, accepting abstract spaces, we open the door to working in much more general settings, such as:
+Now, if we push the idea even further and allow for **non-physical spaces**, accepting **abstract spaces**, we open the door to working in much more general settings, such as:
 - The space of outcomes when flipping a coin.
 - The space of outcomes when rolling a die.
 
@@ -127,7 +125,135 @@ If the experiment is throwing two (independent) coins the sample space is as fol
 
 ### Event Space
 
-Let's derive the event space concept intuitively with an example first.
+With this intuition of sample space, now we can start exploring the space itself and we can try to find "sub-spaces" -- subsets within the defined space -- that we can measure. The problem is that this is not an easy task, for example think the space of all real numbers from zero to one:
+
+$$ \Omega = [0,1] = \{x \in \sR \, \vert \, 0 \leq x \leq 1 \} $$
+
+can you think of "sub-spaces" that can be derived from this space ?
+
+Note: That I'm using the word "sub-spaces" to refer to the more formal concept of **subsets**.
+
+Some examples:
+- $\{1,2,3,4\}$ (measurable)
+- all the rationals (measurable)
+- all the irrationals (measurable)
+- cantor set (measurable)
+- vitaly set (non-measurable)
+
+As you can see not all of them are measurable, and this is exactly a mathematician named [Giuseppe Vitaly](https://en.wikipedia.org/wiki/Giuseppe_Vitali) found, that not all subsets of a space can be measurable. Luckily for us, in probability we don't have to deal with these unruly sets.
+
+In mathematics there is a way of referring to the collection of all sets in a space, this is called **powerset** ( @taoIntroductionMeasureTheory2011 refer to it as *discrete algebra* ), and is usually denoted as $2^\Omega$ or $\mathcal{P}(\Omega)$, but be careful, because as you can see in our previous example with the set of real numbers, there are spaces in the powerset that may contain subsets that are not measurable, and including them in our analysis would cause us problems. As @michaelbetancourtProbabilityTheoryScientists2018 states: *"[...] we often want to consider not the entire power set but rather a restriction of the power set that avoids any pathological sets that might be hiding."*
+
+But you may be wondering: how do we filter or restrict only those sets that have nice properties and are measurable? What are the properties that determine whether a set is measurable or not?
+Well, this is exactly what the Measure Theory branch of mathematics studies, @follandRealAnalysisModern1999 in section 1.2 of the book introduces the concept of **Algebra**, which he then extends to **Sigma-algebra**, this is exactly the solution to our previous question; **Algebras and Sigma-Algebras** define certain properties -- which we will discuss next -- that help us to filter or restrict consistent sets that can be measurable.
+
+<MathDefinition
+    concept="Algebra"
+    tag="algebra"
+    definition={`
+Let $\\sX$ be a **non empty set** (our space). A collection $\\ssA$ of subsets of $\\sX$ is a **Algebra** if:
+(i). If $\\sE \\in \\ssA$ then $\\scE \\in \\ssA$. In words: Pick some set from $\\sX$, for example $\\sE$, if $\\sE$ is in the algebra its complement is also in the algebra.
+(ii). If $\\sE_1, \\dots, \\sE_{n} \\in \\ssA$ then $\\bigcup_{j=1}^{n} \\sE_j \\in \\ssA$. In words: If a **finite** collection of sets ($\\sE_1, \\dots \\sE_{n}$) is in $\\ssA$ then the union of all of them is also in $\\ssA$.
+`
+}
+/>
+
+<Drawio
+    file="probability.drawio"
+    page="3"
+    description="Illustration of an Algebra."
+/>
+
+From these two simple but powerful properties of Algebras we can derive more properties:
+- $\Omega \in \ssA$ and $\emptyset \in \ssA$. If we place our complete space, in this case demonimated $\Omega$, the first property of Algebras (closed under complements) tells us that we also have to include its complement.
+- If $\sE \in \ssA$ then $\scE \in \ssA$. Property (i) by itself: Closed under complements.
+- If $\sE_1, \dots, \sE_{n} \in \ssA$ then $\bigcup_{j=1}^{n} \sE_j \in \ssA$. Property (ii) by itself: Closed under **finite** unions.
+- If $\sE_1, \dots, \sE_{n} \in \ssA$ then $\bigcap_{j=1}^{n} \sE_j \in \ssA$. Closed under **finite** intersections. This property may not be obvious at first sight, but it is simply a consequence of (i) and (ii).
+
+<Definition
+    term="Finite set"
+    definition="In mathematics, particularly set theory, a finite set is a set that has a finite number of elements.. Example the set of all outcomes of throwing a dice ${1,2,3,4,5,6}$."
+    source="Finite set - Wikipedia"
+    link="https://en.wikipedia.org/wiki/Finite_set"
+/>
+
+Derivation of **closed under finite intersections**:
+
+You can simply invoke De Morgan law:  $\sA \cap \sB = (\scA \cup \scB)^{\complement}$, so that property (i) and (ii) cause property of closed under intersections. Here is a visual illustration of De Morgan law.
+
+<Drawio
+    file="probability.drawio"
+    page="9"
+    description="Illustration of De Morgan law."
+/>
+
+To keep this brief, as an exercise, you can generalize this rule for $n$-sets.
+
+<Think
+    note="Why are we doing all this, I thought we were going to talk about Event Space?"
+/>
+
+I don't blame you for thinking that, but trust me — we'll get there soon, and hopefully, you'll have an Aha! moment when we introduce the Event Space. Think of this paragraph as a quick stop at the shore to catch your breath before we head back into the water.
+
+Before we get back just a quick recap:
+- An abstract space (like the sample space) ...
+- can contain subsets that are not measurable ...
+- so we can filter or restrict them with the properties of the Algebras
+
+At this point we have made the assumption that we are working with **FINITE unions**, the problem is that in Probability it is not enough, and sometimes we have to work with **Countable unions**. As @taoIntroductionMeasureTheory2011 explains in section 1.4.2, this property of infinite unions is also important in integration theory, and @follandRealAnalysisModern1999 in section 1.1 explains more details about it. Then, to work with **Countable unions** we must use not Algebras, but [**Sigma-algebras**](https://en.wikipedia.org/wiki/%CE%A3-algebra).
+
+
+If you're thinking, "wait, another concept?" ... yes, another concept but don't worry it will be easy, I promise.
+
+<MathDefinition
+    concept="Sigma-algebra"
+    tag="sigma-algebra"
+    definition={`A $\\sigma$-algebra, also known as $\\sigma$-field or borel-field, **is an algebra** that is closed under countable unions.`}
+/>
+
+You may be thinking, "Wait, that's it?". Actually yes, a $\sigma$-algebra is an extension of Algebras that allows us to work with countable unions, so all the properties you learned from an Algebras are present on a $\sigma$-algebra. But in favor of completness, here is an expansion of the $\sigma$-algebra definition.
+
+<MathDefinition
+    concept="Sigma-Algebra (explicit)"
+    definition={`
+We assume a $\\sigma$-algebra denoted $\\ssA$ if it satisfies the following properties:
+(i). If $\\sE \\in \\ssA$ then $\\scE \\in \\ssA$. In words: The same property (i) of Algebras.
+(ii). If $\\sE_i \\in \\ssA, \\forall i \\in \\sN$, then $\\bigcup_{i=1}^{\\infty} \\sE_i \\in \\ssA$. In words: If a **countable** collection of sets is in $\\ssA$ then the union of all of them is also in $\\ssA$.
+`
+}
+/>
+
+Just as properties (i) and (ii) of an [Algebra](#algebra) imply closure under finite intersections, properties (i) and (ii) of a sigma-algebra imply closure under countable intersections. Keep in mind that for any finite collection of sets $\sA_1, \dots, \sA_n \in \ssA$ the union $\bigcup_{i=1}^{n} \sA_i$ is just a particular case of the countable union, Therefore the properties (i) and (ii) of a $\sigma$-algebra implies finite unions, hence any $\sigma$-algebra is a algebra but there are algebras that are not $\sigma$-algebras.
+
+In simple mathematical words:
+- A algebra is **closed** under **finite** unions and complements.
+- A Sigma-algebra is **closed** under **countable** unions and complements.
+
+Note: The word "closed" is like a safety belt, which ensures that we can do operations such as complements, unions or interceptions without leaving our space (our set). Why? consistency... But why?  this is out of the scope of probability and these notes so I recommend you to see; @taoIntroductionMeasureTheory2011 and @follandRealAnalysisModern1999.
+
+<Definition
+    term='Countable set'
+    definition="In mathematics, a set is countable if either it is finite or it can be made in one to one correspondence with the set of natural numbers ([A bijection, bijective function, or one-to-one correspondence](https://en.wikipedia.org/wiki/Bijection))."
+    source="Countable set - wikipedia"
+    link="https://en.wikipedia.org/wiki/Countable_set"
+/>
+
+So,
+- the smallest Sigma-algebra ( @taoIntroductionMeasureTheory2011 calls it the *trivial algebra*) is: $\{\emptyset, \sX\}$, also denoted as $\sigma(\sX)$
+- the largest Sigma-algebra is: the power set $2^\Omega$
+
+|               | Algebra                     | Sigma-algebra                  |
+|---------------|-----------------------------|--------------------------------|
+| Unions        | finite only                 | countable (finite or infinite) |
+| Complements   | yes                         | yes                            |
+| Intersections | yes (using De Morgan's law) | yes (using De Morgan's law)    |
+
+
+
+
+Side track to the rabbit hole:
+- [The Man Who Almost Broke Math (And Himself...)](https://www.youtube.com/watch?v=_cr46G2K5Fo), about [Georg Cantor](https://en.wikipedia.org/wiki/Georg_Cantor) and the historical background that laid the foundations of set theory, including explanation of the [Vitali set](https://en.wikipedia.org/wiki/Vitali_set), [timestamp to Vitali set](https://youtu.be/_cr46G2K5Fo?t=1069).
+
 
 <Drawio
     file="probability.drawio"
@@ -139,81 +265,14 @@ Let's derive the event space concept intuitively with an example first.
 
 The event space is based on the concept of $\sigma$-algebra -- a fundamental concept in Measure Theory --.
 
-Let represent the [powerset](https://en.wikipedia.org/wiki/Power_set) with $2^\Omega$ which denote all subsets of $\Omega$, including the empty set denoted by $\emptyset$. With $\ssA$ being a subset of $2^\Omega$, we consider the following properties:
-
-Property 1:
-
-<Equation
-    formula="\emptyset \in \ssA \text{ and } \Omega \in \ssA"
-    description="The empty-set and the sample space are part of the *event space*"
-/>
-
-Property 2:
-<Equation
-    formula="\text{If } \sA \in \ssA \text{ then } \scA \in \ssA \text{, where } \scA \text{ denotes the complement of } \sA"
-    description="The **event space** $\ssA$ is closed under complement."
-/>
-
-Property 3:
-<Equation
-    formula="\forall \sA_1, \sA_2, \dots \sA_n \in \ssA, \quad \bigcup_{i=1}^{n} \sA_i \in \ssA \quad \text{and} \quad \bigcap_{i=1}^{n} \sA_i \in \ssA"
-    description="The **event space** $\ssA$ is **closed** under *finite* **unions** and **intersections**."
-/>
-
-<Definition
-    term="Finite set"
-    definition="In mathematics, particularly set theory, a finite set is a set that has a finite number of elements.. Example the set of all outcomes of throwing a dice ${1,2,3,4,5,6}$."
-    source="Finite set - Wikipedia"
-    link="https://en.wikipedia.org/wiki/Finite_set"
-/>
-
-Property 4:
-
-<Equation
-    formula="\forall \sA_1, \sA_2, \dots \sA_n \in \ssA, \quad \bigcup_{i=1}^{\infty} \sA_i \in \ssA \quad \text{and} \quad \bigcap_{i=1}^{\infty} \sA_i \in \ssA"
-    description="The **event space** $\ssA$ is **closed** under *countable* unions and intersections."
-/>
-
-<Definition
-    term='Countable set'
-    definition="In mathematics, a set is countable if either it is finite or it can be made in one to one correspondence with the set of natural numbers ([A bijection, bijective function, or one-to-one correspondence](https://en.wikipedia.org/wiki/Bijection))."
-    source="Countable set - wikipedia"
-    link="https://en.wikipedia.org/wiki/Countable_set"
-/>
-
 The event space $\ssA$ is an algebra if it satisfies properties 1, 2 and 3 above. It is a $\sigma$-algebra, (or a $\sigma$-field) if it satisfies 1, 2, and 4 above. Closure under countable unions directly implies closure under finite unions because a finite union is a special case of countable union. Specially:
 
-For any finite collection of sets $\sA_1, \sA_2, \dots, \sA_n \in \ssA$ the union $\sA_1 \cup \sA_2 \cup \dots \cup \sA_n$ is just a particular case of the countable union.
 
-Keep in mind that the properties 1 and 4 emplies 3, hence any $\sigma$-algebra is a algebra but there are algebras that are not $\sigma$-algebras.
 
 ### The Probability
 
 **The probability** $P$
 
-### WTF is "Closed"?
-
-*"closed"* (in set theory) indicate that when you perform a particular operation on elements or subsets of a set, the result remains within the same set.
-
-Operations:
-- Addition
-- Union
-- Iterception
-- Complement
-
-### Closed Under Addition
-
-Examples of closed under addition:
-- Natural Numbers $\mathbb{N}$. The sum of any two natural numbers result in another natural number.
-- Integers $\mathbb{Z}$. The sum of any two integers result in another integer.
-- Real Numbers $\mathbb{N}$: The sum of any two real numbers result in another real number.
-- Rational Numbers $\mathbb{Q}$: The sum of any two rational numbers result in another rational number.
-
-Examples of Not closed under addition:
-- A set of odd numbers
-- A set of prime numbers
-
-### Closed Under Union
 
 ## Random Variable
 
