@@ -6,36 +6,50 @@ describe: Let's see inside a NN
 
 ## Introduction
 
-- The brain is a highly complex, nonlinear, and parallel computer.
 
-Build up a set of rules and behaviors through was is refer as "experience".
-
-Neuron or processing unit: a single computing cell/unit.
-
-
-> A neural network is a massively parallel distributed processor made up of simple processing units that has a natural propensity for storing experiential knowledge and making it available for use.
+The premise from @haykinNeuralNetworksLearning2009 (Chapter 1):
+- "The brain is a highly complex, nonlinear, and parallel computer"
+- Build up a set of rules and behaviors through was is refer as "experience".
+- Neuron or processing unit: a single computing cell/unit.
+- A neural network is a massively parallel distributed processor made up of simple processing units that has a natural propensity for storing experiential knowledge and making it available for use .
 
 1. Knowledge is acquired by the network from its environment through a learning process.
 2. Interneuron connection strengths, known as synaptic weights, are used to store the acquired knowledge.
 
 learning algorithm: is the procedure of modifying the synaptic weights in order to attain a desired objective.
 
-> Generalization refers to the neural network’s production of reasonable outputs for inputs not encountered during training (learning).
-
-
-NN capabilities:
+> Generalization refers to the neural network’s production of reasonable outputs for inputs not encountered during training (learning). Neural Networks capabilities:
 - Nonlinearity
 - Input–Output Mapping
 - Adaptivity
 - Evidential Response
 - Fault Tolerance
 - VLSI Implementability (Old fashon)
+- Uniformity of Analysis and Design
+- Neurobiological Analogy
 
+The fundamental idea of the (biologycal) **neuron** as a structural constituents of the brain, was proposed by @ramonycajalHistologieSystemeNerveux1909. I highly recommend to have a look the the wonderful illustrations on his book. Side node: He wanted to follow an artistic path.
 
 Human brain:
 - approximately 10 billion neurons in the human cortex, and 60 trillion synapses or connections (Shepherd and Koch, 1990).
 - the energetic efficiency of the brain is approximately $10^{-16}$ joules (J)
 
+In an adult brain, plasticity may be accounted for by two mechanisms:
+- creation new synaptic connections
+- modification of existing synapses
+
+Parts of a neuron:
+- Axons
+- Dendrites (from the greek "dendron" meaning tree)
+
+wide variety of shapes and sizes in neurons (in different parts of the brain):
+- pyramidal cell (most common type)
+
+Harley pauses to think for a moment: It's ~1900, did microscopes already exist that could see neurons?
+- Answer: Yes ! with the [Golgi's method](https://en.wikipedia.org/wiki/Golgi%27s_method) develop by Camillo Golgi and published the first picture made with the technique in 1873.
+- Harley to harley: I need to stop here because I'm about to go down the rabbit hole with staiting techniques.
+
+[Brain Basics: The Life and Death of a Neuron](https://www.ninds.nih.gov/health-information/public-education/brain-basics/brain-basics-life-and-death-neuron) nice article about the basics.
 
 ## Rosenblatt’s perceptron (the 1960s)
 
@@ -89,6 +103,43 @@ Human brain:
     description="Compact form of the linear combiner"
 />
 
+## Knowledge Representation
+
+Knowledge representation:
+1. What information is made explicit
+2. how is this information encoded to be stored and used later on?
+
+> *"A major task for a neural network is to learn a model of the world (environment) in which it is embedded, and to maintain the model sufficiently consistently with the real world so as to achieve the specified goals of the application of interest."* @haykinNeuralNetworksLearning2009
+
+Information in the world:
+- The known world state, represented by facts about what is and what has been known
+- Observations (measurements) of the world, obtained by means of sensors designed to probe the environment
+
+### Characteristic of knowledge representation:
+
+1. similar inputs should produce similar outputs.
+    - how do we measure if an input is similar with another input (the same for the output)? this is called **measure of similarity**
+    - There is a plethora of measures for determining the similarity between inputs.
+        - Euclidian distance
+        - Inner product
+        - In stochastic setups **Mahalanobis distance**
+2. Items to be categorized as separate classes should be given widely different representations in the network. Essentially the opposite of rule 1
+3. If a particular feature is important, then there should be a large number of neurons involved in the representation of that item in the network.
+4. Prior information and invariances should be built into the design of a neural network whenever they are available, so as to simplify the network design by its not having to learn them.
+
+### Adding Information Into the Architecture
+
+<Definition
+    term="Receptive field"
+    definition="The receptive field of a neuron is defined as that region of the input field over which the incoming stimuli can influence the output signal produced by the neuron."
+    source="Haykin & Haykin (2009)"
+/>
+
+### Build Invariances
+
+There are at least three techniques for rendering classifier-type neural networks invariant to transformations (Barnard and Casasent, 1991):
+
+
 ## Computational Learning Theory
 
 Question: "when if you do well with training data if you will have small amount of our training data you will do well in the test data"
@@ -101,4 +152,4 @@ VC-dimension
 
 
 
-
+## References
