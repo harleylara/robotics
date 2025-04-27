@@ -18,6 +18,14 @@ Below is a list of key terms with their specific meanings to avoid confusion in 
 - [Robotics simulator - Wikipedia](https://en.wikipedia.org/wiki/Robotics_simulator): *"is a simulator used to create an application for a physical robot without depending on the physical machine, thus saving cost and time."*
 - Simulator Framework: a collection of multiples software components adjusted to work togetter....
 
+@collinsReviewPhysicsSimulators2021 defines a simulator as: "an end-user software application that includes at least the following functionality:"
+- physics engine
+- collision detection and friction models (harley's note: is not part of the physics engine?)
+- Graphical User Interface
+- Import capabilities (mesh and scenes)
+- API
+- models for an array of joints, actuators and sensors readily available.
+
 What makes a robotics simulator a robotics simulator:
 - robot model support: Support for standard robotic models (URDF, SDF)
 - sensors: LIDAR, cameras, IMU, force-torque
@@ -38,7 +46,8 @@ Importance of simulator in robotics:
 - @Teixeira2015EducationalRS
 
 General Robotic Simulators surveys:
-- @collinsReviewPhysicsSimulators2021
+- ✅ @collinsReviewPhysicsSimulators2021
+    - just a minimal mention on differentiable simulation
 
 Aerial robotics:
 - @dimmigSurveySimulatorsAerial2023
@@ -49,7 +58,9 @@ Underwater:
 Swarm robotics:
 - @calderon-arceSwarmRoboticsSimulators2022
 
-
+Differentiable sims:
+- [Introduction to Differentiable Physics](https://physicsbaseddeeplearning.org/diffphys.html)
+- @newburyReviewDifferentiableSimulators2024
 
 ## Simulators
 
@@ -134,6 +145,9 @@ Features on Simulation, Analysis, Planning, Control Design:
 | (2D) [Chipmunk](https://chipmunk-physics.net/)                                                                                        |                                                                                                              |                                                                                            |                                                                        |
 | (2D) [Box2D](https://box2d.org/), paper @cattoIterativeDynamicsTemporal2005                                                           |                                                                                                              | MIT License                                                                                | [github](https://github.com/erincatto/box2d)                           |
 | [Simscape Multibody](https://www.mathworks.com/products/simscape-multibody.html) (formerly SimMechanics) product of MathWorks         |                                                                                                              | Commercial                                                                                 | -                                                                      |
+
+Not included:
+[RaiSim](https://raisim.com/), Closed-source.
 
 Others Physics Engine:
 - [Chaos Physics](https://dev.epicgames.com/documentation/en-us/unreal-engine/chaos-physics-overview?application_version=4.27) built-in in Unreal Engine
