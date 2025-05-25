@@ -3,6 +3,8 @@ title: Fundamentals of Probability
 description: Losing and finding my mind
 ---
 
+"Probability is too important to be left to the experts." @hammingArtProbabilityScientists1991 chapter 1.
+
 ## Motivation
 
 **Personal motivation**: I would be one of the first to ask, why some notes on probability in the context of "robotics notes"? my personal answer is because there are simply many fields that extend to the area of robotics that require foundations in probability, to mention some of them; state estimation, deep learning, machine learning, gausing processes, PAC Learning and many more. Therefore, the main purpose of these notes is to lay the necessary foundations in the area of probability in order to be able to explore more areas of robotics later on.
@@ -58,10 +60,7 @@ Side track to the rabbit hole:
 
 The formalization of the probability theory is largely due to [Andrey Kolmogorov](https://en.wikipedia.org/wiki/Andrey_Kolmogorov), in his book @kolmogoroffGrundbegriffeWahrscheinlichkeitsrechnung1933 (later tranlated into @kolmogorovFoundationsTheoryProbability1960), who a as @jacodProbabilityEssentials2004 mention at the beginning of chapter 1, Kolmogorov *"[...] saw the connection between the ideas of Borel and Lebesgue and probability theory and gave probability theory its rigorous basis of measurement theory."*, but *"[...] Paul Lévy set the tone for modern Probability [...]"*. In addition, @jaynesProbabilityTheoryLogic2003 provides a comparative view of Kolmogorov's approach on probability (and others) and constracts it with the ideas derived in his book ("Probability Theory: The logic of science"),
 
-Probability as we know it today has its roots in [Measure Theory](https://en.wikipedia.org/wiki/Measure_(mathematics)). Measure Theory provides a framework for generalizing and formalizing the concept of "measure" (in the most generic extension of the word) to any context. Measures are fundamental to probability theory, the theory of integration and others areas. A good resource to explore is @taoIntroductionMeasureTheory2011. In simple words, measurement theory seeks to assign numbers to "things" by figuring out whether they can actually be measured, and by "things" we mean any kind of things -- physical or abstract --, such as; numbers, symbols, geometric shapes, variables, or even other "collection of things", and I know, the term "things" is not very concrete or formal so in mathematics it is usually referred as **set**.
-
-Side track to the rabbit hole:
-- @durrettProbabilityTheoryExamples2019
+Probability as we know it today has its roots in [Measure Theory](https://en.wikipedia.org/wiki/Measure_(mathematics)). Measure Theory provides a framework for generalizing and formalizing the concept of "measure" (in the most generic extension of the word) to any context. Measures are fundamental to probability theory, the theory of integration and others areas. A good resource to explore is @taoIntroductionMeasureTheory2011. In simple words, measure theory seeks to assign numbers to "things" by figuring out whether they can actually be measured, and by "things" we mean any kind of things -- physical or abstract --, such as; numbers, symbols, geometric shapes, variables, or even other "collection of things", and I know, the term "things" is not very concrete or formal so in mathematics it is usually referred as **set**.
 
 And what does all this have to do with probability? Well, before explaining the concepts of probability, let me introduce an abstraction tool in term of wording which (hopefully) will help to generalize the ideas and understand the underlaying principles for probability.
 
@@ -73,9 +72,9 @@ In probability the term "events" is used extensibly, so if necessary use the fol
 | Element/member of a set | Event            |
 | Measurable functions    | Random variables |
 
-From @jacodProbabilityEssentials2004 (Probability Essentials) *"The theory of probability aims towards a mathematical theory -- the probability space -- which describes such phenomena. This theory -- the probability space -- contains three main ingredients"*:
+From @jacodProbabilityEssentials2004 (Probability Essentials) *"The theory of probability aims towards a mathematical theory which describes such phenomena. This theory -- the probability space -- contains three main ingredients"*:
 - **Sample space**: $\Omega$
-- **Event space**: $\ssA$
+- **Event space**: $\ssE$
 - **The probability measure**: $P$
 
 Note: the concept of probability space will be discussed later, but in essence it is derived from the concept of [measure space](https://en.wikipedia.org/wiki/Measure_space) of Measure theory.
@@ -129,9 +128,11 @@ With this intuition of sample space, now we can start exploring the space itself
 
 $$ \Omega = [0,1] = \{x \in \sR \, \vert \, 0 \leq x \leq 1 \} $$
 
-can you think of "sub-spaces" that can be derived from this space ?
+<Think
+    note='can you think of "sub-spaces" that can be derived from this space ?'
+/>
 
-Note: That I'm using the word "sub-spaces" to refer to the more formal concept of **subsets**.
+Note: I'm using the word "sub-spaces" to refer to the more formal concept of **subsets**.
 
 Some examples:
 - $\{1,2,3,4\}$ (measurable)
@@ -142,7 +143,7 @@ Some examples:
 
 As you can see not all of them are measurable, and this is exactly a mathematician named [Giuseppe Vitaly](https://en.wikipedia.org/wiki/Giuseppe_Vitali) found, that not all subsets of a space can be measurable. Luckily for us, in probability we don't have to deal with these unruly sets.
 
-In mathematics there is a way of referring to the collection of all sets in a space, this is called **powerset** ( @taoIntroductionMeasureTheory2011 refer to it as *discrete algebra* ), and is usually denoted as $2^\Omega$ or $\mathcal{P}(\Omega)$, but be careful, because as you can see in our previous example with the set of real numbers, there are spaces in the powerset that may contain subsets that are not measurable, and including them in our analysis would cause us problems. As @michaelbetancourtProbabilityTheoryScientists2018 states: *"[...] we often want to consider not the entire power set but rather a restriction of the power set that avoids any pathological sets that might be hiding."*
+In mathematics there is a way of referring to the collection of **all sets in a space**, this is called **powerset** ( @taoIntroductionMeasureTheory2011 refer to it as *discrete algebra* ), and is usually denoted as $2^\Omega$ or $\mathcal{P}(\Omega)$, but be careful, because as you can see in our previous example with the set of real numbers, there are spaces in the powerset that may contain subsets that are not measurable, and including them in our analysis would cause us problems. As @michaelbetancourtProbabilityTheoryScientists2018 states: *"[...] we often want to consider not the entire power set but rather a restriction of the power set that avoids any pathological sets that might be hiding."*
 
 But you may be wondering: how do we filter or restrict only those sets that have nice properties and are measurable? What are the properties that determine whether a set is measurable or not?
 Well, this is exactly what the Measure Theory branch of mathematics studies, @follandRealAnalysisModern1999 in section 1.2 of the book introduces the concept of **Algebra**, which he then extends to **Sigma-algebra**, this is exactly the solution to our previous question; **Algebras and Sigma-Algebras** define certain properties -- which we will discuss next -- that help us to filter or restrict consistent sets that can be measurable.
@@ -151,9 +152,9 @@ Well, this is exactly what the Measure Theory branch of mathematics studies, @fo
     concept="Algebra"
     tag="algebra"
     definition={`
-Let $\\sX$ be a **non empty set** (our space). A collection $\\ssA$ of subsets of $\\sX$ is a **Algebra** if:
-(i). If $\\sE \\in \\ssA$ then $\\scE \\in \\ssA$. In words: Pick some set from $\\sX$, for example $\\sE$, if $\\sE$ is in the algebra its complement is also in the algebra.
-(ii). If $\\sE_1, \\dots, \\sE_{n} \\in \\ssA$ then $\\bigcup_{j=1}^{n} \\sE_j \\in \\ssA$. In words: If a **finite** collection of sets ($\\sE_1, \\dots \\sE_{n}$) is in $\\ssA$ then the union of all of them is also in $\\ssA$.
+Let $\\sX$ be a **non empty set** (our space). A collection $\\ssE$ of subsets of $\\sX$ is a **Algebra** if:
+(i). If $\\sE \\in \\ssE$ then $\\scE \\in \\ssE$. In words: Pick some set from $\\sX$, for example $\\sE$, if $\\sE$ is in the algebra its complement is also in the algebra.
+(ii). If $\\sE_1, \\dots, \\sE_{n} \\in \\ssE$ then $\\bigcup_{j=1}^{n} \\sE_j \\in \\ssE$. In words: If a **finite** collection of sets ($\\sE_1, \\dots \\sE_{n}$) is in $\\ssE$ then the union of all of them is also in $\\ssE$.
 `
 }
 />
@@ -165,10 +166,10 @@ Let $\\sX$ be a **non empty set** (our space). A collection $\\ssA$ of subsets o
 />
 
 From these two simple but powerful properties of Algebras we can derive more properties:
-- $\Omega \in \ssA$ and $\emptyset \in \ssA$. If we place our complete space, in this case demonimated $\Omega$, the first property of Algebras (closed under complements) tells us that we also have to include its complement.
-- If $\sE \in \ssA$ then $\scE \in \ssA$. Property (i) by itself: Closed under complements.
-- If $\sE_1, \dots, \sE_{n} \in \ssA$ then $\bigcup_{j=1}^{n} \sE_j \in \ssA$. Property (ii) by itself: Closed under **finite** unions.
-- If $\sE_1, \dots, \sE_{n} \in \ssA$ then $\bigcap_{j=1}^{n} \sE_j \in \ssA$. Closed under **finite** intersections. This property may not be obvious at first sight, but it is simply a consequence of (i) and (ii).
+- $\Omega \in \ssE$ and $\emptyset \in \ssE$. If we place our complete space, in this case demonimated $\Omega$, the first property of Algebras (closed under complements) tells us that we also have to include its complement.
+- If $\sE \in \ssE$ then $\scE \in \ssE$. Property (i) by itself: Closed under complements.
+- If $\sE_1, \dots, \sE_{n} \in \ssE$ then $\bigcup_{j=1}^{n} \sE_j \in \ssE$. Property (ii) by itself: Closed under **finite** unions.
+- If $\sE_1, \dots, \sE_{n} \in \ssE$ then $\bigcap_{j=1}^{n} \sE_j \in \ssE$. Closed under **finite** intersections. This property may not be obvious at first sight, but it is simply a consequence of (i) and (ii).
 
 <Definition
     term="Finite set"
@@ -216,14 +217,14 @@ You may be thinking, "Wait, that's it?". Actually yes, a $\sigma$-algebra is an 
 <MathDefinition
     concept="Sigma-Algebra (explicit)"
     definition={`
-We assume a $\\sigma$-algebra denoted $\\ssA$ if it satisfies the following properties:
-(i). If $\\sE \\in \\ssA$ then $\\scE \\in \\ssA$. In words: The same property (i) of Algebras.
-(ii). If $\\sE_i \\in \\ssA, \\forall i \\in \\sN$, then $\\bigcup_{i=1}^{\\infty} \\sE_i \\in \\ssA$. In words: If a **countable** collection of sets is in $\\ssA$ then the union of all of them is also in $\\ssA$.
+We assume a $\\sigma$-algebra denoted $\\ssE$ if it satisfies the following properties:
+(i). If $\\sE \\in \\ssE$ then $\\scE \\in \\ssE$. In words: The same property (i) of Algebras.
+(ii). If $\\sE_i \\in \\ssE, \\forall i \\in \\sN$, then $\\bigcup_{i=1}^{\\infty} \\sE_i \\in \\ssE$. In words: If a **countable** collection of sets is in $\\ssE$ then the union of all of them is also in $\\ssE$.
 `
 }
 />
 
-Just as properties (i) and (ii) of an [Algebra](#algebra) imply closure under finite intersections, properties (i) and (ii) of a sigma-algebra imply closure under countable intersections. Keep in mind that for any finite collection of sets $\sA_1, \dots, \sA_n \in \ssA$ the union $\bigcup_{i=1}^{n} \sA_i$ is just a particular case of the countable union, Therefore the properties (i) and (ii) of a $\sigma$-algebra implies finite unions, hence any $\sigma$-algebra is a algebra but there are algebras that are not $\sigma$-algebras.
+Just as properties (i) and (ii) of an [Algebra](#algebra) imply closure under finite intersections, properties (i) and (ii) of a sigma-algebra imply closure under countable intersections. Keep in mind that for any finite collection of sets $\sA_1, \dots, \sA_n \in \ssE$ the union $\bigcup_{i=1}^{n} \sA_i$ is just a particular case of the countable union, Therefore the properties (i) and (ii) of a $\sigma$-algebra implies finite unions, hence any $\sigma$-algebra is a algebra but there are algebras that are not $\sigma$-algebras.
 
 In simple mathematical words:
 - A algebra is **closed** under **finite** unions and complements.
@@ -252,10 +253,10 @@ So,
 Side track to the rabbit hole:
 - [The Man Who Almost Broke Math (And Himself...)](https://www.youtube.com/watch?v=_cr46G2K5Fo), about [Georg Cantor](https://en.wikipedia.org/wiki/Georg_Cantor) and the historical background that laid the foundations of set theory, including explanation of the [Vitali set](https://en.wikipedia.org/wiki/Vitali_set), [timestamp to Vitali set](https://youtu.be/_cr46G2K5Fo?t=1069).
 
-As promised, here we are, the **event space**, the punchline is that the **event space** is just a $\sigma-algebra$-algebra, therefore the definition of $\sigma$-algebra is the definition of event space. 🤯
+As promised, here we are, the **event space**, the punchline is that the **event space** is just a $\sigma$-algebra, therefore the definition of $\sigma$-algebra is the definition of event space. 🤯
 
 <Definition
-    term='Even Space'
+    term='Event Space'
     definition="The event space is a $\sigma$-algebra that contains ALL possible events for a given experiment."
     source="Event Space Probability - Statistics How To"
     link="https://www.statisticshowto.com/event-space-probability/"
@@ -269,58 +270,154 @@ Here are some concrete examples:
     description="Power set of the sample space."
 />
 
-With these two concepts -- [sample space](#sample-space) and [event space](#event-space) -- we can construct what is called a "measurable space", which is for by a pair $(\Omega, \ssA)$, where:
+With these two concepts -- [sample space](#sample-space) and [event space](#event-space) -- we can construct what is called a "measurable space":
+<Equation
+    formula="(\Omega, \ssE)"
+    description="Measurable space"
+/>
+
+Which is form by a pair $(\Omega, \ssE)$, where:
 - $\Omega$ is the sample space, representing the set of all possible outcomes.
-- $\ssA$ is the event space, a collection of subsets of $\Omega$ that is closed under countable unions, countable intersections, and complements—formally, a $\sigma$-algebra.
+- $\ssE$ is the event space, a collection of subsets of $\Omega$ that is closed under countable unions, countable intersections, and complements—formally, a $\sigma$-algebra.
 
+In measure theory, this pair $(\Omega, \ssE)$ defines a structure -- measurable space -- on which a measure can be meaningfully defined. This framework allows for the rigorous assignment of values (such as probabilities) to subsets of $\Omega$ that belong to the $\sigma$-algebra $\ssE$.
 
-In measure theory, this pair $(\Omega, \ssA)$ defines a structure -- measurable space -- on which a measure can be meaningfully defined. This framework allows for the rigorous assignment of values (such as probabilities) to subsets of $\Omega$ that belong to the $\sigma$-algebra $\ssA$.
+### The Probability Measure
 
-| Measure Theory   | Probability Theory    | Description                                                    |
-|------------------|-----------------------|----------------------------------------------------------------|
-| abstract space   | sample space $\Omega$ | all possible states $w \in \Omega$                             |
-| $\sigma$-algebra | event space $\ssA$    | set of all possible events $\sE \in \ssA$ that one can measure |
-| measure function | probability function  | mapping from $\sigma$-algebra to $[0,1]$                       |
+As mentioned at the beginning of the [The Building Blocks](#the-building-blocks) section, the third and final missing piece of the **probability triplet** is the **probability measure**.
 
+I want to remind you of the measurable space $(\Omega, \ssE)$. Maybe it will help you to conceptualize it as an abstract space with defined states (the sample space), and a collection f subsets that we are interested in analyzing (the event space). However, we still lack a way to <ins>measure</ins> or **assign values** to each of the elements of the event space over the sample space. Essentially, we need a way to map (measure) from an set in $\ssE$ (event space) to a real number. The keyword here is **"measure"**, which if we think of it in geometrical terms (Euclidean spaces) we easily associate it with length, area or volume but we could also **"measure"** other magnitudes such as mass, or probability of an event to happen. 
 
-### The Probability
+Again, measure theory studies the concept of [measure](https://en.wikipedia.org/wiki/Measure_(mathematics)) and generalizes it so that we can use it in abstract spaces like $\{head,tail\}$ where thinking in terms of length, area or volume is not feasible. This **measure** is carried out by means of a **set function** denoted by $\mu$, which is called a **measure function** or sometimes just **measure**.
 
-**The probability** $P$
+<Drawio
+    file="probability.drawio"
+    page="10"
+    description="Measure function."
+/>
 
 <MathDefinition
     concept="Measure function"
     definition={`
-Is a function that maps from a $\\sigma$-algebra to the positive reals: $\\mu: \\ssA \\rightarrow \\sR^{+}$ such that:
+Is a function that maps from a $\\sigma$-algebra to the positive reals: $\\mu: \\ssE \\rightarrow \\sR^{+}$ such that:
 (i) $\\mu(\\emptyset) = 0$
-(ii) $\\\mu(\\bigcup_{i}^{\\infty}\\sE_i ) = \\sum_{i}^{\\infty} \\mu(\\sE_i)$ for a **pairwise disjoint** $\\sE_i \\in \\ssA, i \\in \\sN$ ($\\sigma$-additivity)
+(ii) $\\\mu(\\bigcup_{i}^{\\infty}\\sE_i ) = \\sum_{i}^{\\infty} \\mu(\\sE_i)$ for a **pairwise disjoint** $\\sE_i \\in \\ssE, i \\in \\sN$ ($\\sigma$-additivity)
 `
 }
 />
 
-**measure space** is a triplet $(\sS, \ssA, \mu)$, where $(\sS, \ssA)$ is a **measurable space** and $\mu$ is a measure on $\ssA$.
+From: @taoIntroductionMeasureTheory2011, Definition 1.4.27
+
+Note to Harley: Should I add the [properties of a measure?](https://en.wikipedia.org/wiki/Measure_(mathematics)#Basic_properties)
+
+**measure space** is a triplet $(\sS, \ssE, \mu)$, where $(\sS, \ssE)$ is a **measurable space** and $\mu$ is a measure on $\ssE$.
+
+Okay, and you might be wondering; *I thought we were going to talk about something called "probability measure"*, and you are absolutely right that is the goal, but as you might guess at this point the whole idea of **measure** and **measure function** are fundamental concepts to help us understand **probability measure**.
+
+It turns out that there are [classes of measures](https://en.wikipedia.org/wiki/Measure_(mathematics)#Instances), but in probability we are interested in our **measure function** mapping to the interval $[0, 1]$, so it is called a **probability measure**.
+
+<Drawio
+    file="probability.drawio"
+    page="11"
+    description="Probability measure."
+/>
 
 <MathDefinition
     concept="Probability measure"
     definition={`
-A probability measure defined on a $\\sigma$-algebra $\\ssA$ of $\\Omega$ **is a measure**, denoted with $P \\,:\\, \\rightarrow [0,1]$ that satisfies:
-(i) $\\P(\\Omega) = 1$
-(ii) $\\\mu(\\bigcup_{i}^{\\infty}\\sE_i ) = \\sum_{i}^{\\infty} \\mu(\\sE_i)$ for a **pairwise disjoint** $\\sE_i \\in \\ssA, i \\in \\sN$ ($\\sigma$-additivity)
+A probability measure defined on a $\\sigma$-algebra $\\ssE$ of $\\Omega$ is a **measure function** (or simply measure), denoted with $P \\,:\\, \\ssE \\rightarrow [0,1]$ that satisfies:
+(i) $P(\\Omega) = 1$
+(ii) $P(\\bigcup_{i}^{\\infty}\\sE_i ) = \\sum_{i}^{\\infty} P(\\sE_i)$ for a **pairwise disjoint** $\\sE_i \\in \\ssE, i \\in \\sN$ ($\\sigma$-additivity)
 `
 }
 />
 
-Probability space is a measure space $(\sS, \ssA, P)$, where $P$ is a probability measure on $\ssA$.
+Probability space is a measure space $(\sS, \ssE, P)$, where $P$ is a probability measure on $\ssE$.
 
-For intuitio about functio see the note [On Functions](functions)
+| Measure Theory   | Probability Theory    | Description                                                    |
+|------------------|-----------------------|----------------------------------------------------------------|
+| abstract space   | sample space $\Omega$ | all possible states $w \in \Omega$                             |
+| $\sigma$-algebra | event space $\ssE$    | set of all possible events $\sE \in \ssE$ that one can measure |
+| measure function | probability function  | mapping from $\sigma$-algebra to $[0,1]$                       |
+
+For an intuition about functions, see the note [On Functions](functions).
+
+Taking back the example of trowing a die,....
+
+Just an arbitrary example:
+- Sample space $\Omega = \{1, 2, 3\}$
+- Event space: the power set $2^{\Omega} = \{ \{\},\{1\},\{2\},\{3\},\{1,2\},\{2,3\},\{1,3\},\{1,2,3\}\}$ 
+- The probability measure: $P(1) = 1/4$, $P(2) = 1/4$, $P(3) = 1/2$
+
+Do you see the problem with the probability measure?
 
 ## Random Variable
 
+For this section, I spent a considerable amount of time looking for an intuition, idea, example to motivate discussion and the importance of random variable. Clearly it is a fundamental concept in probability but most resources focus on the formal definition, and leave a little bit aside the intuition: Why do we need this and why is it important?, At least for me, given my limitations, it was difficult to justify its role and connection beyond simply referencing the definitions "by hard".
+
+After reading the answer of [P. Vanchinathan](https://mathoverflow.net/users/22878/p-vanchinathan) in mathoverflow on the question; ["Why do we need random variables?"](https://mathoverflow.net/a/252491) it felt like eye opening, and going back to the formal definitions in the books felt that the answer to the question "why do we need random variables?" was always in front of me, only occluded in abstraction and formulas, and that indeed "random variable" is a construct that is born naturally from the need to model a "variable" produced by a "random" process or event. 
+
+how it connects to all this probability space machinery we have been describing, and how it interplays with the different components.
+
+In the spirit of this note (digging into ideas and not just concepts), I must admit that after realizing the role of a random variable, I felt a sense of shame for not having recognized its importance earlier. However, this feeling was quickly overshadowed by an eye-opening sense of revelation. The goal of this section is to formally introduce the concept of a random variable, while also providing examples to build a solid and intuitive understanding—and maybe, you’ll experience the same aha moment.
+[disambiguation with the name]
+
+"A random variable represents an unknown quantity (hence the term variable) that varies not as a variable in an algebraic relation (such as x2 − 9 = 0), but rather varies with the outcome of a random event." @jacodProbabilityEssentials2004 chapter 5
+
+It is hard to pinpoint a moment in history for the born of a random variable or coin the terminology to someone o some work, as it own nature seems go intuitive (as you would see later), there's is no general agreement on the introduction of random variable, al thought this is not extrictly relevant for it definition it only offers a window into the history and rational behind the naming convention for this mapping random variable
+
+[formal and general introduction measure-theoretic]
+
+In a generic and [axiomatic](https://en.wikipedia.org/wiki/Axiomatic) setting (Measure-theoretic definition), a random variable is a **measurable map** from one measurable space to another measurable space:
+
+<MathDefinition
+    concept="Measurable map"
+    definition={`
+A function $X : \\Omega \\rightarrow \\ssS$ is said to be a measurable map from $(\\Omega, \\ssE)$ to $(S, \\ssS)$ if:
+$X^{-1}(B) = \\{\\omega \\in \\Omega : X(\\omega) \\in S\\}$
+\\
+If $(S, \\ssS) = (S^d, \\ssS^d)$  and $d > 1$ then $X$ is called a **random vector**. Of course, if $d = 1$, $X$ is called a **random variable**, or $r.v.$ for short.
+`
+}
+/>
+
+<Drawio
+    file="probability.drawio"
+    page="12"
+    description="Example of random variable."
+/>
+
+<Drawio
+    file="probability.drawio"
+    page="13"
+    description="Example of multiples random variable over the same sample space."
+/>
+
+<Drawio
+    file="probability.drawio"
+    page="14"
+    description="demo"
+/>
+
+General setting: 
+- @durrettProbabilityTheoryExamples2019 section 1.3
+- @jacodProbabilityEssentials2004 chapter 5, "a function from $\Omega$ into a set $\sT$"
+- [Radom variable - Wikipedia](https://en.wikipedia.org/wiki/Random_variable#Measure-theoretic_definition)
+- @calvettiIntroductionBayesianScientific2007 section 1.2
+
+
 <Equation
-    formula="X: \Omega \rightarrow \ssT"
+    formula="X: \Omega \rightarrow \sR"
     description="Definition of a random variable"
 />
 
-## Discrete and Continuous
+
+- "In this example, the identity of the box that will be chosen is a random variable, which we shall denote by B." @bishopPatternRecognitionMachine2006 section 1.2 already assume you know what a random variable is.
+- "Because the values of these variables can vary from one person to another in a way that is generally unknown, they are called random variables or stochastic variables."  @bishopDeepLearningFoundations2024 section 2.1.2
+
+## Distribution
+
+## Desity
 
 ## Law of large numbers
 
