@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2025-05-25T11:22:34.318Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="-LAk9peuFT5rI4gDRYc_" version="23.0.2" type="device" pages="15">
+<mxfile host="Electron" modified="2025-05-25T12:47:04.489Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="a_UTxQGwamE3CzC09udC" version="23.0.2" type="device" pages="15">
   <diagram id="JE0fnqlVocu_NNxFKGSQ" name="events">
     <mxGraphModel dx="1749" dy="1202" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
       <root>
@@ -2265,7 +2265,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="n6uj9HDQY2MTVWUs57w9" name="random-variable-play">
-    <mxGraphModel dx="853" dy="586" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="1" shadow="0">
+    <mxGraphModel dx="714" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="1" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -2325,8 +2325,8 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="GGRMvy1LXzr4b7YhfuB7-17" value="\(X^{-1}(S) = \{\omega \in \Omega : X(\omega)\in S\}\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="840" y="430" width="207" height="30" as="geometry" />
+        <mxCell id="GGRMvy1LXzr4b7YhfuB7-17" value="\(X^{-1}(S) = \{\omega \in \Omega : X(\omega)\in S\} \in \mathscr{E} \quad \forall S \in \mathscr{S}\)&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="846.5" y="450" width="207" height="30" as="geometry" />
         </mxCell>
         <mxCell id="GGRMvy1LXzr4b7YhfuB7-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GGRMvy1LXzr4b7YhfuB7-18" target="GGRMvy1LXzr4b7YhfuB7-25">
           <mxGeometry relative="1" as="geometry">
@@ -2371,6 +2371,9 @@
         </mxCell>
         <mxCell id="RvZ2cL0jAIzVBn2YBhcn-4" value="Probability Space: \((\Omega, \mathscr{E},P)\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1240" y="130" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RvZ2cL0jAIzVBn2YBhcn-6" value="\(\mathscr{S}\)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="820" y="215" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
