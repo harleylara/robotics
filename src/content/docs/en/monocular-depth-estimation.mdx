@@ -1,11 +1,59 @@
 ---
 title: Monocular Depth Estimation
-description: Exploring the State of the Art
+description: Through the Lens of Robotics
 ---
+
+This note is an exploration of the state of the art in Monocular Depth Estimation with extra comments under the perspective of robotics applications.
 
 Research questions:
 - What are the features that humans considere in the estimation of depth? Level of relevance?
     - perspective, scale relative to known objects, appearance in lighting or occlusion or more ?
+
+The OGs of depth estimation:
+- Depth-from-defocus
+- Structure from Motion (SfM)
+- Structured Light
+
+
+Robotics-imposed constraints:
+- Power compumtion: external sensor power consumption
+- Computational power: inferencing time
+- Autonomy time (battery): sensor weight
+
+Robotics-Specific Advantages for Monocular Depth Estimation:
+- Known Camera Parameters
+- Access to Odometry and Pose Information using IMU, wheel encoders, GPS and other position sensors
+
+## What is Monocular Depth Estimation
+
+From a monocular image => estimate the depth of each pixel in the input image.
+
+## Challenges
+
+List of challenges from @rajapakshaDeepLearningbasedDepth2024:
+- 3D-to-2D mapping ambiguity
+- camera parameters estimation
+    - this not problematic in robotics, most of the time we know the parameters of the camera in use.
+- Brightness inconsistency in scenes
+- Temporal consistency
+- moving objects and moving camera
+
+## The Problems with getting ground truth
+
+deep-learning-based problems
+
+| Source                             | Upside                                  | Down side                                                                                                                                                                                                                                                                                                                                                | Overcome downside                                                                         |
+|------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| Synthetic                          | pixel perfect labeled data              | Models train with Synthetic data offen does not translate well to real world images due to the really gap. <br/> tedious to create realistic 3D environments                                                                                                                                                                                             | Domain Adaptation via Image Style Transfer. @atapour-abarghoueiRealTimeMonocularDepth2018 |
+| Image + Metric sources. E.g. LiDAR | Truth metric data                       | Affected by environmental conditions like fog or snow.<br/>Costly (getting cheaper overtime), bulty and heavy (improving over time like the [Mid 360 by Livox](https://www.livoxtech.com/mid-360)), power hungry devices<br/> require reprojection intro the camera frame<br/> sparse point data from LiDAR (see KITTI) depth is not pixel-wise with RGB | See.   @niculescuUltraLightweightCollaborativeMapping2024                                 |
+| Stereo images                      | Predict right and left Consistency loss | Stereo datasets are scare ?<br/>Stereo camera setup to collect training data.                                                                                                                                                                                                                                                                            |                                                                                           |
+| Monocular videos                   | widely available                        | unknown camera pose from frame to frame, assuming statict world                                                                                                                                                                                                                                                                                          | pose-net to get camera ego-motion                                                         |
+| Scene flow (3D Optical flow)       |                                         |                                                                                                                                                                                                                                                                                                                                                          |                                                                                           |
+
+Generalization and adaptation to new domains. This in general a open problem in any deep-learning-based task.
+
+
+## Some Models
 
 
 | Year       | Aka          | Paper                                                                                                                                                                                                                | Ref in                                                                                                       |
@@ -35,9 +83,10 @@ Research questions:
 
 
 Extra papers to support the idea of monocular depth estimation:
-| Year       | Category      | Paper                                                                                                             | Ref in                          |
-|------------|---------------|-------------------------------------------------------------------------------------------------------------------|---------------------------------|
-| (Apr 2019) | Visualization | [Visualization of Convolutional Neural Networks for Monocular Depth Estimation](https://arxiv.org/pdf/1904.03380) | [@vandijkHowNeuralNetworks2019] |
+| Year       | Category            | Paper                                                                                                                             | Ref in                          |
+|------------|---------------------|-----------------------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| (Apr 2019) | Visualization       | [Visualization of Convolutional Neural Networks for Monocular Depth Estimation](https://arxiv.org/pdf/1904.03380)                 | [@vandijkHowNeuralNetworks2019] |
+| (Dec 2022) | training strategies | [What makes the unsupervised monocular depth estimation (UMDE) model training better](www.nature.com/articles/s41598-022-26613-0) | @wangWhatMakesUnsupervised2022  |
 
 Deep Learning tools:
 - Convolutional Neural Networks (CNN)
@@ -67,6 +116,10 @@ Deep Learning tools:
 - (Nov 2023) [A Survey of Monocular Depth Estimation based on Deep Learning](https://drpress.org/ojs/index.php/fcis/article/view/15765/15302)
 - (Jul 2022) [Monocular Depth Estimation Using Deep Learning: A Review](https://www.mdpi.com/1424-8220/22/14/5353)
 - 📌 (Jun 2024) [Deep Learning-based Depth Estimation Methods from Monocular Image and Videos: A Comprehensive Survey](https://dl.acm.org/doi/pdf/10.1145/3677327)
+    - Missing some papers in the survey time frame (Jan. 2022 to Jan. 2024). Learning Optical Flow, Depth, and Scene Flow without Real-World Labels
+    - Recent papers outside the survey time frame
+        - (D4RD) Digging into Contrastive Learning for Robust Depth Estimation with Diffusion Models
+        - (SPIdepth) SPIdepth: Strengthened Pose Information for Self-supervised Monocular Depth Estimation
 
 📌: Keep in mind.
 
