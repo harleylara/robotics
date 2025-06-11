@@ -1,0 +1,88 @@
+---
+title: A Gentle Introduction to MAVLink
+---
+
+From the official [website](https://mavlink.io/en/): *"MAVLink (Micro Air Vehicle Link) is a very lightweight messaging protocol for communicating with drones (and between onboard drone components)."*
+
+Considers this note as a summary guide that re-organizes the sequence of topics in the official documentation, with the objective of providing a conceptual starting point to help new readers better navigate the official documentation. By no means is this note intended to replace the official documentation.
+
+## On Versions
+
+|                                           | MAVLink v1 | MAVLink v2 |
+|-------------------------------------------|------------|------------|
+| Message ID                                | 8 bit      | 24 bit     |
+| Package signing                           | x          | yes        |
+| Message extensions                        | x          | yes        |
+| Empty-byte payload truncation             | x          | yes        |
+| Compatibility Flags/Incompatibility Flags | x          | yes        |
+
+<Drawio
+    file="mavlink.drawio"
+    description="Conceptual overview of the different parts of MAVLink as a project and not just as a protocol."
+/>
+
+## Concepts
+
+Concepts:
+- System: Is a collection of one or more components that together represent a device in MAVLink communication. It can be anything, from a boat, airplane to a Ground Control Software, generally a drone.
+- Component: Represent an element within a system that has its own MAVLink identity and performs a specific function (e.g., autopilot, camera, gimbal). See [Component ID Assignment](https://mavlink.io/en/messages/common.html#MAV_COMPONENT) to help categorize the types of components. *"Component IDs should be manually assigned by the system integrator."*  from [Component ID Assignment](https://mavlink.io/en/services/mavlink_id_assignment.html#component-id-assignment)
+
+<Drawio
+    file="mavlink.drawio"
+    page="3"
+    description="General concept in MAVLink Networks."
+/>
+
+## Package Format (over-the-wire)
+
+(in-memory representation might differ)
+
+<Drawio
+    file="mavlink.drawio"
+    page="2"
+    description="MAVLink packet frame structure and comparison."
+/>
+
+source: [MAVLink 2 Package Format](https://mavlink.io/en/guide/serialization.html#mavlink2_packet_format)
+
+## Messages IDs and Definitions
+
+MAVLink has a range of messages IDs associated with msgs definitions that are managed directly by the MAVLink project and serve as a common, standardized set of messages in systems that adopt MAVLink as a communication protocol. The common set of messages definitions are under [`common.xml`](https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml). See [MAVLink-Standard Definitions](https://mavlink.io/en/messages/)
+
+However, this does not restrict the implementation of custom messages, in the context of MAVLink these are called ["dialects"](https://mavlink.io/en/messages/dialects.html) and are considered *"protocol- and vendor-specific messages"* within a MAVLink network and may or may not be interoperable by other systems or vendors.
+
+The current range of messages IDs can be found on [Message Id Ranges](https://mavlink.io/en/guide/define_xml_element.html#message_id_ranges).
+
+| Dialect           | Range         |
+|-------------------|---------------|
+| Common.xml        | 300 - 10000   |
+| uAvionix.xml      | 10001 - 10999 |
+| ArduPilotMega.xml | 11000 - 1199  |
+| icarous.xml       | 42000 - 42999 |
+
+## Library Generation
+
+The structure of MAVLink messages is automatically generated from the message definition written in XML. This allows MAVLink to generate message definitions in different programming languages. This is thanks to the [mavgen.py](https://github.com/ArduPilot/pymavlink/blob/master/generator/mavgen.py) tool maintained by the [Ardupilot](https://ardupilot.org/) project.
+
+## MAVLink Network
+
+The MAVLink "network" is a term I am allowing myself to use to refer to a series of inter-working parts of MAVLink and **IS NOT A TERM** recognized/used by the official MAVLink documentation/implementation.
+
+This conceptual "network" contains:
+- [Routing](https://mavlink.io/en/guide/routing.html)
+- [Message Signing (Authentication)](https://mavlink.io/en/guide/message_signing.html)
+- [Redundancy and Message/Command De-duplication](https://mavlink.io/en/guide/redundancy_deduplication.html)
+- [Packet Loss Calculation](https://mavlink.io/en/guide/packet_loss.html)
+- [MAVLink CRC](https://mavlink.io/en/guide/crc.html)
+
+## Microservices
+
+*"The MAVLink "microservices" define higher-level protocols that MAVLink systems can adopt in order to better inter-operate. For example, QGroundControl, ArduPilot and PX4 autopilots all share a common Command Protocol for sending point-to-point messages that require an acknowledgment."*
+
+See [Microservices](https://mavlink.io/en/services/) for a complete list of microservices available in MAVLink.
+
+## External Resources
+
+- [Some Proposals for MAVLink 2](https://docs.google.com/document/d/1XtbD0ORNkhZ8eKrsbSIZNLyg9sFRXMXbsR2mp37KbIg/edit?tab=t.0)
+- [MAVLink Messaging - PX4 Docs](https://docs.px4.io/main/en/mavlink/)
+- [MAVLink Microservices (Protocols) - PX4 Supported Microservices](https://docs.px4.io/main/en/mavlink/protocols.html)
