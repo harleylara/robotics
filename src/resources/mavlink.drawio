@@ -1,0 +1,22 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Page-1" id="6k3d2F5rb6RmoAqbTHOL">
+    <mxGraphModel dx="484" dy="345" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BUOKrMml_NW1kDoO8oSc-1" value="MAVLink Packet Format" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="440" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="BUOKrMml_NW1kDoO8oSc-2" value="Messeges IDs and defintions&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;(XML)&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="400" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="BUOKrMml_NW1kDoO8oSc-3" value="&lt;div&gt;Auto-Lib generation&lt;/div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;(mavgen)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="360" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="BUOKrMml_NW1kDoO8oSc-4" value="High level implementations&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;(mavsdk, pymalink, ....)&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="310" width="200" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
