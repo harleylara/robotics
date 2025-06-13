@@ -108,7 +108,7 @@ Drivers availability.
 ## ROS Versions
 
 If you are new to ROS you are probably a little frustrated trying to understand why there are two ROS versions, when to use one over the other or even which one to learn. As I mentioned at the beginning, don't really worry so much about it and to keep things simple, think of ROS 1 as the old one and ROS 2 as the new one.
-- ROS 1
+- ROS 1 (End-of-life 2025-05-31). See [Upcoming ROS 1 End of Life - Migration Paths for ROS 1 Users](https://www.ros.org/blog/noetic-eol/)
 - ROS 2
 
 The truth is there are many technical details that are not necessary to cover at this time with respect to the difference, but if you are curious here it is: [Changes between ROS 1 and ROS 2](https://design.ros2.org/articles/changes.html).
@@ -133,6 +133,7 @@ Is correctly spelled with a space: `ROS 2` or `ROS 1`, check the [Trademark Rule
 Full list of ROS distributions:
 - [ROS 1 list of distributions](https://wiki.ros.org/Distributions)
 - [ROS 2 list of distributions](https://docs.ros.org/en/humble/Releases.html)
+    - [The list of the versioned set of package in ROS2 Humble distribution](https://github.com/ros2/ros2/blob/humble/ros2.repos)
 
 
 ## ROS Programming Languages
@@ -157,11 +158,16 @@ Source code for ROS 2 stack:
     - [ROS Client Library for C++](https://github.com/ros2/rclcpp)
     - [ROS Client Library for Python](https://github.com/ros2/rclpy)
 - [ROS client library (rcl)](https://github.com/ros2/rcl)
-- [ROS middleware (rmw)](https://github.com/ros2/rmw)
-- DDS vendors:
-    - [Fast DDS by eProsima](https://github.com/ros2/rmw_fastrtps)
-    - [Eclipse Cyclone DDS](https://github.com/ros2/rmw_cyclonedds)
-    - [Connext DDS by RTI](https://github.com/ros2/rmw_connextdds)
+- [ROS middleware (rmw)](https://github.com/ros2/rmw) rmw is designed with the mindset of being agnostic, so it supports multiple transports:
+    - DDS vendors:
+        - [Fast DDS by eProsima](https://github.com/ros2/rmw_fastrtps)
+        - [Eclipse Cyclone DDS](https://github.com/ros2/rmw_cyclonedds)
+        - [Connext DDS by RTI](https://github.com/ros2/rmw_connextdds)
+        - [GurumDDS by GurumNetworks](https://github.com/ros2/rmw_gurumdds)
+    - RTPS vendors::
+        - [Fast RTPS by eProsima](https://github.com/ros2/rmw_fastrtps)
+    - Zenoh vendors:
+        - [Zenoh by Eclipse zenoh and Zetta Scale](https://github.com/ros2/rmw_zenoh)
 
 
 ## ROS Resources
