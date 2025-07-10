@@ -1,0 +1,146 @@
+---
+title: Swarm Robotics
+---
+
+## Introduction to Swarm Robotics
+
+<Definition
+    term="Swarm Robotics"
+    definition="Swarm robotics is the study of how to make robots collaborate to collectively solve a task, that would otherwise be impossible to solve by a single individual of these robots."
+/>
+
+Source: @hamannSwarmRoboticsFormal2018
+
+Size:
+
+<Equation
+    formula="10^{2} < \textrm{N} \ll 10^{23} "
+    description="Plausible range for a swarm system."
+/>
+
+<Definition
+    term="Swarm Robotics"
+    definition="Is the study of how a large number of 'relatively simple' physically embodied agents can be designed such that a desited collective behavior emerges."
+/>
+
+Section 1.1.3 @hamannSwarmRoboticsFormal2018
+
+Properties of a swarm robotic system:
+- decentralized control
+- lack of synchronicity
+- simple (quasi) identical members, or quasi-homogeneous members which are mass produced.
+
+(Harley note) I like this: *"A robust system is a reliable system and a reliable system can be created based on unreliable parts via redundancy."* from section 1.1.4 @hamannSwarmRoboticsFormal2018 with original source @baranReliableDigitalCommunications1960
+
+How density affect performance: see @lermanMathematicalModelForaging2002
+
+### Swarm Performance
+
+<Equation
+    formula="\Pi(N) = \frac{N}{e^{N}}"
+    description="Swarm performance"
+/>
+
+Where:
+- $N$: is the number of robots and is defined by $N=pA$, $p$ density (robots per area) and $A$ area.
+
+See Equation (1.1) @hamannSwarmRoboticsFormal2018
+
+### Universal Scalability Law
+
+@guntherSimpleCapacityModel1993
+
+### Communication
+
+types:
+- Explicit
+- Implicit (cue-based communication)
+    - Stigmergy
+
+### Two levels
+
+- micro: individual agent local view, limited knowledge
+- macro: swarm level, global view, all knowledge, full overview
+
+Challenges:
+- task defined on macro-level
+- implementation/programming on micro-level
+
+### self-Organization
+
+Self-organization is based on four components: positive feedback, negative feedback, multiple interactions, and balance of exploitation and exploration
+
+## Short Journey Through Nearly Everything
+
+
+
+## Questionar
+
+What is aggregation? is the act of a swarm to position themselves close to each other on one spot.
+- specified spot: each robot has to find that position and stop there
+- unspecified spot: robot swarm self-organizes to find a consensus position
+
+aggregation global task: minimization of distances between robots
+
+aggregation local task: position yourself close to as many robots as possible
+
+Common algo for aggregation: BEECLUST, potentail fields is a simple method
+
+What is dispersion? is the oppositve to aggregation. robots position themselves as far as possible but while staying in contact.
+
+Types of dispersion:
+- uniform
+- random
+- clustered
+
+Voronoi gaussian distributed resources and uniform resource distribution
+
+What is clustering: robots position objects close to each other by clustering them in one spot. Minimization of distance between objects.
+
+What is sorting? multiple types of object that need to be clustered
+
+Cooperative construction: a model that operates like a cellular automaton. a local perception of the current contruction side defines the next construction step
+
+Cooperative transport: aggregation + synchronization and collective motion
+
+Flocking: the task is stay together, move in the same direction and avoid collisions
+
+Rules of flocking:
+- alignment: adapt direction to that of neighbors
+- cohesion: stay close to neighbors
+- separation: if too close increase distance to avoid collisions.
+- (extra) ignore flockmates in the back
+
+Foraging: task is collect items. with the following subtask:
+- exploration: when to explore, risk management
+- navigation: GPS, light beacon, pheromones, landmarks
+- recruitment: attract other robots to rich food sources
+- (collective) transport: pushing only, grasping, caging
+
+-- Division of labor and task partitioning --
+
+What is division of labor: work is organized, not everyone is doing the same task and consequently the work need to be usefully distributed among the workers.
+- task partitioning: is the problem of defining smaller pieces of work
+
+What is task allocation? is the problem of assigning tasks to the robots, hopefully in an efficient way.
+- if the task allocation is dynamic, then the strategy for task switching is required:
+    - monitor current supply and demand
+    - determine if task switch would be efficient
+    - if so, do it
+
+
+Taxonomy in multi-robot task allocation
+
+- single-task robots (ST): each robot is capable of executing at most one task at a time
+- multi-task robots (MT): some robots can execute multiple tasks simultaneously
+
+- single-robot tasks (SR): each task requires exactly one robot to achieve it
+- multi-robot task (MR): some tasks can require multiple robots
+
+- instantaneous assignment (IA): instantaneous allocation of task to robots with o planning for future allocations
+- time-extended assignment (TA): information is available such as the set of all tasks that will need to be assigned, or model of how task are expected to arrive over time.
+
+## Local Sampling
+
+
+## References
