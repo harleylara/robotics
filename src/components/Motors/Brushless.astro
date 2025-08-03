@@ -1,0 +1,271 @@
+---
+import Canvas from "../Figures/Canvas.astro"
+const { description } = Astro.props;
+---
+
+<Canvas description={description}>
+  <div id="container">
+    <canvas id="viewport" class="flex justify-center w-96"></canvas>
+  </div>
+</Canvas>
+
+<script>
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+
+
+const viewport = {
+  width: 500,
+  height: 300
+};
+
+const canvas = document.getElementById('viewport');
+const scene = new THREE.Scene();
+
+function updateTube(){
+
+}
+
+const params = {
+  thickness: 0.05,
+  magnetCount: 14,
+  statorRadius: 2
+};
+const gui = new GUI();
+gui.add(params, 'thickness', 0.01, 0.15, 0.01).name('Thickness').onChange(updateTube);
+gui.add(params, 'magnetCount', 4, 16, 2).name('Magnet count').onChange(updateStator);
+gui.add(params, 'statorRadius', 0, 2, 0.01).name('Stator radius').onChange(updateStator);
+const container = document.getElementById('container');
+const guiDom = gui.domElement;
+container.appendChild(guiDom);
+guiDom.style.position = 'relative';
+guiDom.style.top = '0';
+guiDom.style.right = '0';
+guiDom.style.zIndex = '10';
+
+
+const camera = new THREE.PerspectiveCamera(75, viewport.width / viewport.height);
+camera.position.set(5, 5, 5);
+
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+  alpha: true,
+});
+renderer.setSize(viewport.width, viewport.height);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.update();
+
+// Lighting
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5, 10, 7.5);
+scene.add(light);
+
+// Grid helper
+const gridHelper = new THREE.GridHelper(10, 10);
+scene.add(gridHelper);
+
+// === Create Magnet Geometry === //
+
+// --- Rounded Rectangle Path Generator ---
+function createRoundedRectPath(width, height, radius) {
+  const shape = new THREE.CurvePath();
+
+  const hw = width / 2 - radius;
+  const hh = height / 2 - radius;
+
+  // Corner centers
+  const corners = [
+    new THREE.Vector3(-hw,  hh, 0), // Top Left
+    new THREE.Vector3( hw,  hh, 0), // Top Right
+    new THREE.Vector3( hw, -hh, 0), // Bottom Right
+    new THREE.Vector3(-hw, -hh, 0)  // Bottom Left
+  ];
+
+  // Arcs and lines between corners
+  shape.add(new THREE.LineCurve3(
+    new THREE.Vector3(-hw, hh + radius, 0),
+    new THREE.Vector3(hw, hh + radius, 0)
+  ));
+  shape.add(new THREE.QuadraticBezierCurve3(
+
+    new THREE.Vector3(hw, hh + radius, 0),
+    new THREE.Vector3(hw + radius, hh + radius, 0),
+    new THREE.Vector3(hw + radius, hh, 0)
+  ));
+
+  shape.add(new THREE.LineCurve3(
+    new THREE.Vector3(hw + radius, hh, 0),
+    new THREE.Vector3(hw + radius, -hh, 0)
+  ));
+  shape.add(new THREE.QuadraticBezierCurve3(
+
+    new THREE.Vector3(hw + radius, -hh, 0),
+    new THREE.Vector3(hw + radius, -hh - radius, 0),
+    new THREE.Vector3(hw, -hh - radius, 0)
+
+  ));
+
+  shape.add(new THREE.LineCurve3(
+    new THREE.Vector3(hw, -hh - radius, 0),
+    new THREE.Vector3(-hw, -hh - radius, 0)
+  ));
+  shape.add(new THREE.QuadraticBezierCurve3(
+    new THREE.Vector3(-hw, -hh - radius, 0),
+    new THREE.Vector3(-hw - radius, -hh - radius, 0),
+
+    new THREE.Vector3(-hw - radius, -hh, 0)
+  ));
+
+  shape.add(new THREE.LineCurve3(
+
+    new THREE.Vector3(-hw - radius, -hh, 0),
+    new THREE.Vector3(-hw - radius, hh, 0)
+  ));
+
+  shape.add(new THREE.QuadraticBezierCurve3(
+    new THREE.Vector3(-hw - radius, hh, 0),
+    new THREE.Vector3(-hw - radius, hh + radius, 0),
+    new THREE.Vector3(-hw, hh + radius, 0)
+  ));
+
+  return shape;
+}
+
+const thickness = 0.08;
+
+function createTubeMesh() {
+  // --- Create Tube Geometry ---
+  const roundedPath = createRoundedRectPath(0.4, 0.5, 0.1); // width, height, corner radius
+
+  const tubeGeometry = new THREE.TubeGeometry(roundedPath, 100, thickness, 5, true); // small radius for wire feel
+  const tubeMaterial = new THREE.MeshStandardMaterial({
+    color: 0xb87333,        // Copper color (hex)
+    metalness: 0.8,         // High metalness for metallic appearance
+    roughness: 0.3          // Medium roughness for soft reflection
+  });
+  const mesh = new THREE.Mesh(tubeGeometry, tubeMaterial);
+  return mesh;
+}
+
+function createCoil() {
+  const coil = new THREE.Group();
+
+  for (let i = 0; i <8; i++) {
+    const tubemesh = createTubeMesh();
+    tubemesh.translateZ(i*thickness);
+    coil.add(tubemesh)
+  }
+  return coil;
+}
+const coil = createCoil();
+coil.translateZ(1);
+const rotor = new THREE.Group();
+const coilCount = 12;
+for (let i = 0; i < coilCount; i++) {
+  const angle = (i / coilCount) * Math.PI * 2;
+
+  const coil = createCoil();
+
+
+  // Position magnet on the circle
+  const x = Math.cos(angle) * 1.6;
+  const z = Math.sin(angle) * 1.6;
+  coil.position.set(x, 0, z);
+
+
+  // Rotate to face the center (so flat face points inward)
+  coil.lookAt(0, 0, 0);
+
+  // Flip direction by rotating 180° around X axis
+
+  rotor.add(coil);
+
+}
+scene.add(rotor);
+
+function createMagnet() {
+  const magnet = new THREE.Group();
+  const w = 0.05
+  const h = 0.4
+  const d = 0.8
+
+  const boxGeo = new THREE.BoxGeometry(h, d, w);
+
+  const redMat = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+  const blueMat = new THREE.MeshStandardMaterial({ color: 0x0000ff });
+
+  const northPole = new THREE.Mesh(boxGeo, redMat);
+  const southPole = new THREE.Mesh(boxGeo, blueMat);
+
+  northPole.position.set(0, 0, w/2);
+  southPole.position.set(0, 0, -w/2);
+
+  magnet.add(northPole);
+  magnet.add(southPole);
+
+  return magnet;
+}
+
+function createStator(magnetCount, radius) {
+  const magnetsGroup = new THREE.Group();
+
+  for (let i = 0; i < magnetCount; i++) {
+
+    const angle = (i / magnetCount) * Math.PI * 2;
+    const flip = i % 2 === 1;
+
+
+    const magnet = createMagnet();
+
+
+    // Position magnet on the circle
+    const x = Math.cos(angle) * radius;
+    const z = Math.sin(angle) * radius;
+    magnet.position.set(x, 0, z);
+
+
+    // Rotate to face the center (so flat face points inward)
+    magnet.lookAt(0, 0, 0);
+
+    // Flip direction by rotating 180° around X axis
+
+    if (flip) {
+      magnet.rotateX(Math.PI);  // Inverts polarity direction vertically
+    }
+
+    magnetsGroup.add(magnet);
+  }
+
+  return magnetsGroup;
+}
+
+let stator = createStator(params.magnetCount, params.statorRadius);
+
+scene.add(stator);
+
+function updateStator() {
+  if (stator) {
+    scene.remove(stator);
+  }
+  stator = createStator(params.magnetCount, params.statorRadius);
+  scene.add(stator);
+}
+
+// === Animate === //
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+// === Handle Resize === //
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+</script>

@@ -1,0 +1,50 @@
+---
+title: Electronic motors
+description: With a focus on drone and robots
+---
+
+import Brushless from "../../../components/Motors/Brushless.astro"
+
+
+- Coreless motors -> H bridge control
+- Servo motors
+- Brushless motors -> Electronic Speed controller (ESC)
+    - [ESC](./drones-esc)
+    - Motor KV
+    - RPM
+
+## Winding
+
+- oxygen free copper
+- tight air gap
+
+## Stator core
+
+- laminated silicon steel (for core)
+- low carbon steel (for flux ring)
+
+## Magnets
+
+Neodymium Magnets (NdFeB)
+- Grade: N35, N42, N52, etc.
+- Samarium-Cobalt (SmCo)
+- Ferrite (Ceramic) Magnets
+
+- strong magnets and tighter air gap decrease KV
+
+- lower KV motors are more efficient: only due to practical manufacturing contraints
+
+## KV
+
+<Equation
+    formula="\textrm{KV} = \frac{\textrm{RPM}_{\textrm{no load}}}{V_{\textrm{BEMF}}}"
+    description="Motor KV definition"
+/>
+
+<Brushless/>
+
+## External Resources
+
+- [These drone motors can carry a car!](https://www.youtube.com/watch?v=TQ9eZPoWJkI), amazing inside of drone motor factory by [Strange Parts](https://www.youtube.com/@StrangeParts) and [Freerchobby](https://freerchobby.cc/).
+- [Electric motor](https://en.wikipedia.org/wiki/Electric_motor)
+
