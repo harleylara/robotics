@@ -1,0 +1,100 @@
+---
+title: Flying Principles
+describe: Kinematics and Dynamics Modelling
+---
+
+## Outline
+
+Reference chapter 16 of the handbook
+
+- How to generate lift
+- The propulsion system (as system components)
+    - Motors
+    - Propeller
+    - Electronic Speed Controller
+    - Battery
+- The goal: you learn how a drone works, how is able to flight and how to model the system
+
+---
+<Think
+    note="How is a drone able to fly?"
+/>
+
+Well, in order to analyze how a drone is able to fly, we would first have to identify the element or elements that make this possible. Under that logic, if we understand how those elements work, we can explain how a drone is able to fly. But to help us think and carry out the analysis, pause for a moment and think about the following:
+
+<Think
+    note="What does it mean to fly or, at best, hover? What keeps us “stuck to the ground”? And why do we fall back down when we jump?"
+/>
+
+A natural answer is **gravity**. so if we manage to counteract the effect of gravity in sufficient amount, we would be able to move in the opposite direction to it. Going back to drones, the drone would need to generate a force that's opposite to gravity to fly.
+
+The effect of gravity on a drone (or any system with mass) can be modeled by the famous equation:
+
+<Equation
+    formula="F_g = m g"
+    description="Effect of gravity in a system."
+/>
+Where:
+- $F$: is the force experienced by a system (in Nm)
+- $m$: mass of the system (drone) (in kg)
+- $g$: gravity (in m/s^2)
+
+At this point, we still don't know how to generate this force opposite to gravity, or where it comes from, but with our current mental framework, we can derived the following cases:
+1. If the gravitational force $F_g$ experienced by the drone is greater than the drone's opposite force $F_d$ -- that is, $F_g > F_d$ -- then the drone remains stuck to the ground.
+2. In the case where both forces are equal (i.e., equilibrium) -- $Fg = Fd$  -- nothing moves; the system is in balance.
+3. If the drone’s upward force is greater than the gravitational force it experiences -- $Fd > Fg$ -- the drone lifts off!
+
+Let's officially call this force produced by the drone **thrust**.
+
+<Drawio
+    file="drones-principles.drawio"
+    page="1"
+    description=""
+/>
+
+## Momentum theory
+
+Also called Actuator Disk Theory (ADT)
+
+Assumptions:
+- the rotor is modeled as a **infinitely thin disk**
+- the disk imparts a **uniform pressure jump** to the air flow
+- the flow is inviscid (no viscosity), steady and incompressible
+- Axisymmetric flow
+- parallel airspeed uptream and downstream
+
+
+<Equation
+    formula="\dot{m}=p A V"
+    description="Air flow rate"
+/>
+
+where:
+- $\dot{m}$: air flow rate ($\frac{kg}{s}$)
+- $p$: density of the medium ($\frac{kg}{m^3}$).
+- $A$: cross-sectional area the fluid flows through ($m^2$)
+- $V$: velocity of the fluid perpendicular to the area ($m/s$)
+
+## How to Generate Lift
+
+<Equation
+    formula="F_{T} = k_{F} w^2"
+    description="Thrust force (lifting force)"
+/>
+
+where:
+- $F_{T}$: thrust force produced by the rotor (N)
+- $k_{F}$: Thrust coefficient
+- $w$: angular speed of the rotor (rad/s)
+
+<Equation
+    formula="\tau = k_{M} w^2"
+    description="Torque"
+/>
+
+where:
+- $\tau$: torque (or moment) about the rotor axis
+- $k_{M}$: moment (torque) coefficient
+- $w$: is the rotor speed (rad/s)
+
+The constants kM and kF can be determined by experimentation with fixed rotors or by matching the performance of a simulation to the performance of the real system.
