@@ -1,0 +1,197 @@
+---
+import Canvas from "../Figures/Canvas.astro";
+const { description } = Astro.props;
+---
+
+<Canvas description={description}>
+    <canvas id="viewport" class="flex justify-center w-96"></canvas>
+</Canvas>
+
+<script>
+
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const viewport = {
+    width: 500,
+    height: 300
+}
+
+const canvas = document.getElementById('viewport');
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(75, viewport.width/viewport.height);
+camera.position.z = 1;
+
+const targetPlaneSize = { width: 2, height: 2};
+
+const projection_camera = new THREE.PerspectiveCamera(75, viewport.width/viewport.height);
+projection_camera.position.z = 1;
+
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    alpha: true,
+});
+
+
+renderer.setSize(viewport.width, viewport.height);
+renderer.setAnimationLoop(animate);
+
+// Pinhole (camera center)
+const pinholeGeometry = new THREE.SphereGeometry(0.1, 16, 16);
+const pinholeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const pinhole = new THREE.Mesh(pinholeGeometry, pinholeMaterial);
+pinhole.position.set(0, 0, 0);
+scene.add(pinhole);
+
+// Image plane
+const planeWidth = 4;
+const planeHeight = 3;
+const imagePlaneGeometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
+const imagePlaneMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff, opacity: 0.3, transparent: true, side: THREE.DoubleSide });
+const imagePlane = new THREE.Mesh(imagePlaneGeometry, imagePlaneMaterial);
+imagePlane.position.set(0, 0, -5);
+scene.add(imagePlane);
+
+// Rays and projections
+  const rayMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+  const projectionMaterial = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+
+  function createRayWithProjection(scenePoint, pinholePos, plane) {
+    // Compute intersection with plane
+    const direction = new THREE.Vector3().subVectors(pinholePos, scenePoint).normalize();
+    const ray = new THREE.Ray(scenePoint, direction);
+
+    const planeNormal = new THREE.Vector3(0, 0, 1);
+    const planePoint = plane.position.clone();
+
+    const denominator = planeNormal.dot(ray.direction);
+    if (Math.abs(denominator) > 1e-6) {
+      const t = (planeNormal.dot(planePoint.clone().sub(ray.origin))) / denominator;
+      if (t >= 0) {
+        const intersection = ray.origin.clone().add(ray.direction.clone().multiplyScalar(t));
+        const projectionSphere = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), projectionMaterial);
+        projectionSphere.position.copy(intersection);
+        scene.add(projectionSphere);
+
+        const points = [scenePoint, pinholePos, intersection];
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        const line = new THREE.Line(geometry, rayMaterial);
+        scene.add(line);
+      }
+    }
+}
+
+  // Scene points
+  const scenePoints = [
+    new THREE.Vector3(-2, 1, 5),
+    new THREE.Vector3(1, 2, 6),
+    new THREE.Vector3(2, -1, 7)
+  ];
+
+  scenePoints.forEach(p => {
+    const geometry = new THREE.SphereGeometry(0.1, 8, 8);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const sphere = new THREE.Mesh(geometry, material);
+    sphere.position.copy(p);
+    scene.add(sphere);
+
+    createRayWithProjection(p, pinhole.position, imagePlane);
+});
+
+function createCameraObscuraBox(width, height, depth, holeRadius = 0.05, holeSide = 'front') {
+  const group = new THREE.Group();
+
+  // Semi-transparent material for box sides
+  const material = new THREE.MeshBasicMaterial({ color: 0xcccccc, side: THREE.DoubleSide, transparent: true, opacity: 0.5 });
+
+  // Helper to create a plane mesh
+  function createPlane(w, h) {
+    return new THREE.Mesh(new THREE.PlaneGeometry(w, h), material);
+  }
+
+  // Positions and rotations for each side:
+  // front (+Z), back (-Z), left (-X), right (+X), top (+Y), bottom (-Y)
+  const sides = {
+    front: { pos: [0, 0, depth / 2], rot: [0, 0, 0] },
+    back: { pos: [0, 0, -depth / 2], rot: [0, Math.PI, 0] },
+    left: { pos: [-width / 2, 0, 0], rot: [0, Math.PI / 2, 0] },
+    right: { pos: [width / 2, 0, 0], rot: [0, -Math.PI / 2, 0] },
+    top: { pos: [0, height / 2, 0], rot: [-Math.PI / 2, 0, 0] },
+    bottom: { pos: [0, -height / 2, 0], rot: [Math.PI / 2, 0, 0] },
+  };
+
+  // Create 5 simple sides, excluding the holeSide
+  for (const sideName in sides) {
+    if (sideName === holeSide) continue;
+    const side = createPlane(width, height);
+    side.position.set(...sides[sideName].pos);
+    side.rotation.set(...sides[sideName].rot);
+    group.add(side);
+  }
+
+  // Create the side with the hole as a shape geometry
+  const shape = new THREE.Shape();
+  shape.moveTo(-width / 2, -height / 2);
+  shape.lineTo(width / 2, -height / 2);
+  shape.lineTo(width / 2, height / 2);
+  shape.lineTo(-width / 2, height / 2);
+  shape.lineTo(-width / 2, -height / 2);
+
+  const holePath = new THREE.Path();
+  holePath.absellipse(0, 0, holeRadius, holeRadius, 0, Math.PI * 2, false);
+  shape.holes.push(holePath);
+
+  const geometry = new THREE.ShapeGeometry(shape);
+  const holeSideMesh = new THREE.Mesh(geometry, material);
+
+  // Position and rotation
+  holeSideMesh.position.set(...sides[holeSide].pos);
+  holeSideMesh.rotation.set(...sides[holeSide].rot);
+
+  group.add(holeSideMesh);
+
+  // Create outline around the hole
+  const points = holePath.getPoints(64);
+  const geometryOutline = new THREE.BufferGeometry().setFromPoints(points);
+
+  // Close the loop (optional for strict closure)
+  geometryOutline.setIndex([...Array(points.length).keys(), 0]);
+
+  const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 });
+  const outline = new THREE.LineLoop(geometryOutline, lineMaterial);
+
+  // Position & rotate outline same as hole side
+  outline.position.set(...sides[holeSide].pos);
+  outline.rotation.set(...sides[holeSide].rot);
+
+  group.add(outline);
+
+  return group;
+}
+
+
+
+const box = createCameraObscuraBox(2, 1.5, 1, 0.05, 'front');
+scene.add(box);
+
+
+
+const size = 10;
+const divisions = 10;
+
+const gridHelper = new THREE.GridHelper( size, divisions );
+scene.add( gridHelper );
+
+
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.update();
+
+function animate(){
+
+    controls.update();
+
+    renderer.render(scene, camera);
+}
+</script>

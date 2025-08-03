@@ -1,0 +1,65 @@
+---
+title: Cameras
+description: An interesting sensor
+---
+
+import Pinhole from "../../../components/Cameras/Pinhole.astro"
+import LightRays from "../../../components/Cameras/LightRays.astro"
+
+## Intro
+
+- `pixel` defined ("picture elements")
+- camera mesures light intensity
+
+## Optics
+
+<LightRays/>
+
+### Pinhole
+
+<Pinhole/>
+
+- geometry of optics for images
+- Image formation
+    - Pinhole model (camera obscura)
+
+## Sensors
+
+- [Image sensor format - Wikipedia](https://en.wikipedia.org/wiki/Image_sensor_format)
+
+- [Three-CCD camera - Wikipedia](https://en.wikipedia.org/wiki/Three-CCD_camera)
+
+- [Color filter array - Wikipedia](https://en.wikipedia.org/wiki/Color_filter_array)
+
+## Shutter
+
+- Rolling Shutter
+- Global Shutter
+
+
+## Physical Interfaces
+
+Universal Serial Bus (USB)
+- USB 2.0 480 Mbps
+- USB 3.0 5Gbps
+
+| Feature            | USB 3.0   | GMSL           | MIPI CSI-2     |
+|--------------------|-----------|----------------|----------------|
+| Bandwidth          | 5 Gbps    | 6 Gbps         | 5 Gbps         |
+| Cable length       | < 5 m     | 15 m           | < 30 cm        |
+| Space requirements | High      | High           | Low            |
+| Plug-and-play      | Supported | Not supported  | Not supported  |
+| Develipment cost   | Low       | Medium to high | Medium to high |
+
+UVC (USB video class)
+
+Generic USB (required custom vendor driver)
+- Just physical connection and the transport protocol
+
+`libcamera`
+
+
+## External Resources
+
+- [What is a UVC camera? What are the different types of UVC cameras?](https://www.e-consystems.com/blog/camera/technology/what-is-a-uvc-camera-what-are-the-different-types-of-uvc-cameras/)
+- [Camera Basics and Propagation of Light (Cyrill Stachniss, 2021)](https://www.youtube.com/watch?v=2KR-b2Fmjxk)

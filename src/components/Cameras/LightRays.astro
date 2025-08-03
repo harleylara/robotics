@@ -1,0 +1,143 @@
+---
+import Canvas from "../Figures/Canvas.astro";
+const { description } = Astro.props;
+---
+
+<Canvas description={description}>
+    <canvas id="light-rays" class="flex justify-center w-96"></canvas>
+</Canvas>
+
+<script>
+
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const viewport = {
+    width: 500,
+    height: 300
+}
+
+const canvas = document.getElementById('light-rays');
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(75, viewport.width/viewport.height);
+camera.position.z = 1;
+
+const projection_camera = new THREE.PerspectiveCamera(75, viewport.width/viewport.height);
+projection_camera.position.z = 1;
+
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    alpha: true,
+});
+
+
+renderer.setSize(viewport.width, viewport.height);
+renderer.setAnimationLoop(animate);
+
+// ================================
+
+// Sun Light (Directional Light)
+const sunDirection = new THREE.Vector3(-1, -0.2, -1).normalize();
+const sunLight = new THREE.DirectionalLight(0xffffff, 1.0);
+sunLight.position.copy(sunDirection.clone().multiplyScalar(10));
+scene.add(sunLight);
+
+// Visual helper for sun position
+const sunHelper = new THREE.PointLightHelper(sunLight, 0.3, 0xffdd00);
+scene.add(sunHelper);
+
+// Sphere Object (the object hit by rays)
+const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+const sphereMaterial = new THREE.MeshPhongMaterial({color: 0x2266ff, shininess: 100});
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+sphere.position.set(0, 0, 0);
+scene.add(sphere);
+
+// Image Plane behind the sphere
+const planeGeometry = new THREE.PlaneGeometry(8, 6);
+const planeMaterial = new THREE.MeshBasicMaterial({color: 0xaaaaaa, side: THREE.DoubleSide, opacity: 0.6, transparent:true});
+const imagePlane = new THREE.Mesh(planeGeometry, planeMaterial);
+imagePlane.position.set(0, 0, -5);
+scene.add(imagePlane);
+
+// Function to draw rays as lines
+function createRayLine(start, end, color = 0xffaa00) {
+  const geometry = new THREE.BufferGeometry().setFromPoints([start, end]);
+  const material = new THREE.LineBasicMaterial({color});
+  return new THREE.Line(geometry, material);
+}
+
+// Generate 2D grid of rays
+const raysGroup = new THREE.Group();
+const gridSize = 5; // 5x5 grid
+const spacing = 0.5;
+
+for (let ix = -2; ix <= 2; ix++) {
+  for (let iy = -2; iy <= 2; iy++) {
+    // Ray origin far along sun direction with grid offset
+    const rayOrigin = sunDirection.clone().multiplyScalar(10).add(new THREE.Vector3(ix * spacing, iy * spacing, 0));
+
+    // Direction: towards the sphere center (0,0,0)
+    const toSphere = new THREE.Vector3(0, 0, 0).sub(rayOrigin).normalize();
+
+    // Ray-sphere intersection
+    const oc = rayOrigin.clone();
+    const a = toSphere.dot(toSphere);
+    const b = 2 * oc.dot(toSphere);
+    const c = oc.dot(oc) - 1;
+    const discriminant = b * b - 4 * a * c;
+
+    if (discriminant >= 0) {
+      const t = (-b - Math.sqrt(discriminant)) / (2 * a);
+      if (t > 0) {
+        const hitPoint = rayOrigin.clone().add(toSphere.clone().multiplyScalar(t));
+        raysGroup.add(createRayLine(rayOrigin, hitPoint, 0xffaa00)); // incident ray
+
+        // Normal at hit point
+        const normal = hitPoint.clone().normalize();
+
+        // Reflection direction
+        const reflectDir = toSphere.clone().sub(normal.clone().multiplyScalar(2 * toSphere.dot(normal))).normalize();
+
+        // Intersection with image plane z = -5
+        const t_plane = (-5 - hitPoint.z) / reflectDir.z;
+        if (t_plane > 0) {
+          const reflectHitPoint = hitPoint.clone().add(reflectDir.clone().multiplyScalar(t_plane));
+          raysGroup.add(createRayLine(hitPoint, reflectHitPoint, 0x00aaff)); // reflected ray
+        }
+      }
+    }
+  }
+}
+
+scene.add(raysGroup);
+
+
+// Ambient light
+scene.add(new THREE.AmbientLight(0x404040));
+
+// ================================
+
+
+
+
+
+const size = 10;
+const divisions = 10;
+
+const gridHelper = new THREE.GridHelper( size, divisions );
+scene.add( gridHelper );
+
+
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.update();
+
+function animate(){
+
+    controls.update();
+
+    renderer.render(scene, camera);
+}
+</script>
