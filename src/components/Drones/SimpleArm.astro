@@ -1,0 +1,140 @@
+---
+import Canvas from "../Figures/Canvas.astro"
+const { description } = Astro.props;
+---
+
+<Canvas description={description}>
+    <canvas id="viewport" class="flex justify-center w-96"></canvas>
+</Canvas>
+
+<script>
+// import tello from '../3d/hero.js'
+
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
+
+const viewport = {
+    width: 500,
+    height: 300
+}
+
+const canvas = document.getElementById('viewport');
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(75, viewport.width/viewport.height);
+camera.position.set(5, 5, 5);
+
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    alpha: true,
+});
+renderer.setSize(viewport.width, viewport.height);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.update();
+
+// Lighting
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5, 10, 7.5);
+scene.add(light);
+
+// Grid helper for ground reference
+const gridHelper = new THREE.GridHelper(10, 10);
+scene.add(gridHelper);
+
+// === Create Drone Arm Group === //
+const droneGroup = new THREE.Group();
+scene.add(droneGroup);
+
+// Arm (simple box)
+const armGeometry = new THREE.BoxGeometry(4, 0.2, 0.2);
+const armMaterial = new THREE.MeshStandardMaterial({color: 0x3333ff});
+const arm = new THREE.Mesh(armGeometry, armMaterial);
+droneGroup.add(arm);
+
+// Motor (cylinder)
+const motorGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.4, 32);
+const motorMaterial = new THREE.MeshStandardMaterial({color: 0x555555});
+const motor = new THREE.Mesh(motorGeometry, motorMaterial);
+motor.rotation.x = Math.PI / 2;
+motor.position.set(2, 0, 0);
+droneGroup.add(motor);
+
+// Propeller (flat box)
+const propellerGeometry = new THREE.BoxGeometry(1.5, 0.05, 0.15);
+const propellerMaterial = new THREE.MeshStandardMaterial({color: 0x00aa00});
+const propeller = new THREE.Mesh(propellerGeometry, propellerMaterial);
+propeller.position.set(2, 0.25, 0);
+droneGroup.add(propeller);
+
+// === Arrows for Forces === //
+const thrustArrow = new THREE.ArrowHelper(
+  new THREE.Vector3(0, 1, 0),
+  new THREE.Vector3(2, 0.25, 0),
+  2,
+  0xff0000
+);
+droneGroup.add(thrustArrow);
+
+const torqueArrow = new THREE.ArrowHelper(
+  new THREE.Vector3(0, 0, 1),
+  new THREE.Vector3(2, 0.25, 0),
+  1,
+  0x0000ff
+);
+droneGroup.add(torqueArrow);
+
+// === Control rotation speed with GUI === //
+const settings = {
+  rotationSpeed: 0.2
+};
+
+const gui = new GUI();
+gui.add(settings, 'rotationSpeed', 0, 2, 0.01).name('Propeller Speed');
+
+// === Physics variables === //
+let angularVelocity = 0;
+let armRotation = 0;
+const armMass = 1; // simple mass
+const armLength = 2; // from center to motor
+const momentOfInertia = armMass * armLength * armLength; // I = m * l^2
+
+// === Animate propeller and physics === //
+function animate() {
+  requestAnimationFrame(animate);
+
+  propeller.rotation.y += settings.rotationSpeed;
+
+  // Calculate thrust proportional to n^2
+  const thrust = settings.rotationSpeed * settings.rotationSpeed * 5; // visual scale
+
+  // Update thrust arrow
+  thrustArrow.setLength(thrust, 0.2, 0.2);
+
+  // Apply torque (force * lever arm length)
+  const torque = thrust * armLength;
+
+  // Angular acceleration = torque / moment of inertia
+  const angularAcceleration = torque / momentOfInertia;
+
+  // Update angular velocity and rotation
+  angularVelocity += angularAcceleration * 0.01; // small timestep
+  armRotation += angularVelocity * 0.01;
+
+  // Apply rotation to the drone arm group
+  droneGroup.rotation.z = -armRotation; // Rotate around z-axis
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+// Responsive resize
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>

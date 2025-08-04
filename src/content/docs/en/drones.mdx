@@ -1,0 +1,68 @@
+---
+title: Drones
+description: behind drones
+---
+
+import SimpleArm from "../../../components/Drones/SimpleArm.astro"
+
+
+## Prerequisites for Diving
+
+- linear algebra
+- calculus
+- programming
+
+
+## Module 1 - Operator Level
+
+Part 1: Introduction
+- [General about drones](./drones-intro)
+- [Development Landscape](./drones-landscape)
+
+Part 2: Mathematical foundations
+- [Flying principles](./drones-principles)
+
+Part 3: The Propulsion System
+- [Motors](./motors) (this is a general topic)
+- [Propellers](./drones-props)
+- [Electronic Speed Controller](./drones-esc) (for brushless motors)
+- [Batteries](./battery) (this is a general topic)
+
+Part 4: Sensors:
+- [Core and common sensors in a drone](./drones-core-sensors)
+- [External positioning sensors](./drones-external-sensors)
+
+Part 5: Communication
+- [Data links and telemetry]()
+    - WiFi
+    - 2.4 Ghz
+    - 4G/LTE
+    - [Mavlink](https://mavlink.io/)
+- Radio Controller:
+    - Receiver (RX) and Transmitter (TX)
+    - [Communication](https://docs.px4.io/main/en/getting_started/rc_transmitter_receiver.html#compatible_receivers)
+        - ExpressLRS
+        - ...
+    - Firmwares
+
+Part 6: Operations
+- Flight modes
+- [Flight Readiness Status](https://docs.px4.io/main/en/flying/pre_flight_checks.html#flight-readiness-status)
+    - LED Meanings
+    - [Sound Meanings](https://docs.px4.io/main/en/getting_started/tunes.html)
+- Safety, regulations and mission planning
+    - Safety and Failsafes
+    - European regulations for drones
+    - [Campaign Planning considerations](https://drones.eolab.de/common-operational-manual/planning-campaign.html)
+    - Post-flight analysis
+
+## Module 2 - Autonomy Developer
+
+- Advanced payload
+- Companion computers. As reference [The complete companion computer integration guide](https://www.ascendengineer.com/white-paper)
+Playloads and Companion computers. This works as a bridge for integration development
+
+## External Resources
+
+- [Autonomous Navigation for Flying Robots - TUM](https://cvg.cit.tum.de/teaching/ss2015/autonavx)
+- Valavanis, K. P., & Vachtsevanos, G. J. (Eds.). (2015). Handbook of Unmanned Aerial Vehicles. Springer Netherlands. https://doi.org/10.1007/978-90-481-9707-1
