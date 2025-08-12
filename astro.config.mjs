@@ -67,6 +67,9 @@ export default defineConfig({
       [rehypeExternalLinks, {
         rel: ['nofollow'],
         target: '_blank',
+        contentProperties: { 
+          className: ['link-icon'],
+        },
         content: { type: 'text', value: ' ↗' }
       }],
       [rehypeCitation, {

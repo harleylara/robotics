@@ -40,6 +40,11 @@ span.icon-link::before {
   margin-left: 5px;
   opacity: 0.4;
 }
+
+.link-icon {
+  @apply align-super text-xs border-b-8 border-b-primary-dark;
+}
+
 </style>
 
-<a {...props} class="border-b border-white hover:border-b-2"><slot/></a>
+<a {...props} class="border-b border-dark-200 hover:border-white"><slot/></a>
