@@ -30,10 +30,13 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
             {`${data.title} - ${SITE.title}`}
         </title>
 
-        <!-- this is required to properly render math went using katex -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/temml@0.11.10/dist/Temml-Local.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/temml@0.11.10/dist/temmlPostProcess.js" crossorigin="anonymous"></script>
+
+        <!-- the KaTeX element are only use for JSXGraph equation -->
         <link 
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css"
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css"
         />
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.js" integrity="sha384-tsPOhveNsi36uhglzMBNOAA2xd7LlEqQuQHFKi4DwP+6UKrrLGub1MD77Zx18F8e" crossorigin="anonymous"></script>
     </head>
@@ -54,3 +57,9 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
         <Footer path={currentFile} />
     </body>
 </html>
+
+<script is:inline>
+document.addEventListener("DOMContentLoaded", function(){
+  temml.postProcess(document.body)
+});
+</script>

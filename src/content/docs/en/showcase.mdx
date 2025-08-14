@@ -13,10 +13,6 @@ import MeasurementError from '../../../components/AutoMobile/MeasurementError.as
 
 Support for [CommonMark](https://commonmark.org/) and [GFM (GitHub Flavored Markdown)](https://github.github.com/gfm/).
 
-## Markdown Extension
-
-- [`remark-capitalize-headings`](https://github.com/Xunnamius/unified-utils/tree/main/packages/remark-capitalize-headings): Header are automaticaly adjusted to adheres to [The Chicago Manual of Style](https://en.wikipedia.org/wiki/The_Chicago_Manual_of_Style).
-
 ## Code Blocks
 
 Standard markdown code block use triple ` ``` `, you can pass arguments:
@@ -75,15 +71,63 @@ Using `Image` component I'm obliged to add a description xD:
 
 ## Mathematical Notation
 
-This is one of my favorite parts of the notes. There is support for LaTeX including a set of global macros for consistency in the notation. For exmaple if you want to write a vector you could do: $\mathbf{v}$ (`\mathbf{v}`), or $\vec{v}$ (`\vec{v}`), or $\tilde{v}$ (`\tilde{v}`), or $\overline{v}$ (`\overline{v}`).
+It is well known that if you want to create math-heavy content, it is best to use LaTeX. So one of the problem of writing LaTeX with markdown is that [Commonmark Spec](https://spec.commonmark.org/0.31.2/) (the Markdown specification) does not support it, but thankfully most Markdown processors such as [remark](https://github.com/remarkjs/remark), specifically with [remark-math](https://github.com/remarkjs/remark-math), allow you to process symbols such as `$` for inline math and `$$` for math blocks, which can then be processed by a LaTeX parser such as [Katex](https://katex.org/) with [`rehype-katex`](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex) or [MathJax](https://www.mathjax.org/) using [`rehype-mathjax`](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-mathjax). These notes make use of `rehype-katex` to render equations.
 
-To simplify things I have a set the **global macros** (across all notes) that are intended to make the job of writing equations easier and help maintain notational consistency; in the vector case there are many macros that in dependence on the vector, I can do $\vv$ (`\vv`) or if it is the vector $\va$ (`\va`).
+### Problem: Consistency
+
+One of my main concerns about the equations in the notes was the consistency of the notation. For exmaple if you want to write a vector you could do: $\mathbf{v}$ (`\mathbf{v}`), or $\vec{v}$ (`\vec{v}`), or $\tilde{v}$ (`\tilde{v}`), or $\overline{v}$ (`\overline{v}`). This seems very risky to me, because it opens up the possibility of inconsistency when writing equations, so to simplify things I have a set the **global macros** (across all notes) that are intended to make the job of writing equations more consistent and less verbose; for example in the vector case there are many macros that in dependence on the vector, I can do $\vv$ (`\vv`) or if it is the vector $\va$ (`\va`).
+
+Just as historical note: At some point, I considered using `\v{a}` as the macro definition, but I realized that it introduces more visual noise compared to `\va`.
 
 Some of the custom macros (see `CONST.ts` for all):
 - Scalar: $a$ (integer or real) (`a`)
 - Vector: $\va$ (`\va`)
 - Matrix: $\mA$ (`\mA`)
 - Tensor $\tA$ (`\tA`)
+
+### Problem: Cross-references
+
+Let's assume that I write this equation:
+
+$$
+e^{i\pi} + 1 = 0
+$$
+
+Now, if I want to add a reference to the equation number, I would have to write the following:
+
+```plain
+\begin{equation}
+e^{i\pi} + 1 = 0
+\end{equation}
+```
+
+which renders as:
+
+$$
+\begin{equation}
+e^{i\pi} + 1 = 0
+\label{demoequation}
+\end{equation}
+$$
+
+Look at that nice looking equation number. You can use `\begin{equation}` or `\begin{align}` to get the equation number.
+
+Something to note is that cross-referencing to the equation number is not functional out-of-the-box. Historically, theses notes used `Katex`, but currently we use `Temml`, which is similar in API but with `\label{...}`, `\ref{...}` and `\eqref{...}` implemented. These commands have not been implemented in Katex for years. See the open discussion on it:
+- [Support \eqref and \label - Github](https://github.com/KaTeX/KaTeX/issues/2003).
+- [Equation numbering - Github](https://github.com/KaTeX/KaTeX/issues/350)
+- [Yet another request for equation reference - Github](https://github.com/KaTeX/KaTeX/issues/2798)
+
+With [`Temml`](https://temml.org/), you can cross-reference an equation: $\eqref{demoequation}$, using standard latex command `\eqref{...}`.
+
+Project with working solutions for this are:
+- ✅ [MyST](https://mystmd.org/guide/math#one-liner): I like the way how you can hover on the cross-reference and it would display the equation as a pop-up.
+    - They have a spec: [MyST Specification](https://mystmd.org/spec/)
+- ✅ [quarto](https://quarto.org/docs/authoring/cross-references.html#equations): It also offers the same capabilities as MyST.
+    - built on top of [Pandoc](https://pandoc.org/), get `.qmd` -> compile -> `<output format>`, it can be `HTML`, `PDF` or others.
+
+Please note that I have not conducted an exhaustive search on this topic. I am familiar with these projects, and they have been a great inspiration for the way these notes are presented.
+
+### Equation Component
 
 `Equation` component:
 ```jsx

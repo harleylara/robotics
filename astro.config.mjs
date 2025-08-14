@@ -11,12 +11,17 @@ import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
 // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeKatex from 'rehype-katex';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeCitation from 'rehype-citation';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
+import rehypeMathML from '@daiji256/rehype-mathml';
 import { NOTATION } from './src/consts';
+
+// custom plugins
+import remarkMathEquations from './src/plugins/math-equations.mjs';
+import remarkMathLabel from './src/plugins/math-label.mjs';
+import rehypeMathLinks from './src/plugins/math-link.mjs';
 
 export default defineConfig({
   output: 'server',
@@ -44,6 +49,7 @@ export default defineConfig({
         './src/components/Globals/Important.astro',
         './src/components/Globals/Terminal.astro',
         './src/components/Globals/Think.astro',
+        './src/components/Globals/Demo.astro',
         './src/components/Presentations/Presentation.astro',
         './src/components/Presentations/Slide.astro',
         './src/components/Presentations/OnlyOnSlide.astro']
@@ -54,16 +60,19 @@ export default defineConfig({
   site: `https://robotics.harleylara.com`,
   markdown: {
     // Applied to .md and .mdx files
-    remarkPlugins: [remarkMath, remarkGfm],
+    remarkPlugins: [
+      remarkMath,
+      remarkGfm],
     rehypePlugins: [
       rehypeSlug,
       [rehypeAutolinkHeadings, {
         behavior: 'append'
       }],
-      [rehypeKatex, {
+      [rehypeMathML, {
         macros: NOTATION,
         strict: "ignore"
       }],
+      // rehypeMathLinks,
       [rehypeExternalLinks, {
         rel: ['nofollow'],
         target: '_blank',
