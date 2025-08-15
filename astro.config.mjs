@@ -74,7 +74,7 @@ export default defineConfig({
       }],
       // rehypeMathLinks,
       [rehypeExternalLinks, {
-        rel: ['nofollow'],
+        rel: ['nofollow', 'noopener', 'noreferrer'],
         target: '_blank',
         contentProperties: { 
           className: ['link-icon'],
