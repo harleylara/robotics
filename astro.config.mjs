@@ -44,7 +44,6 @@ export default defineConfig({
         './src/components/Globals/Important.astro',
         './src/components/Globals/Terminal.astro',
         './src/components/Globals/Think.astro',
-        './src/components/Globals/Demo.astro',
         './src/components/Presentations/Presentation.astro',
         './src/components/Presentations/Slide.astro',
         './src/components/Presentations/OnlyOnSlide.astro']
