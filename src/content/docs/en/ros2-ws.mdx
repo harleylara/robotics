@@ -26,12 +26,11 @@ External resources:
 
 The concept of workspace is *ROS VERSION independent*, with this I mean that it doesn't matter if you are using ROS 1 or ROS 2, both use the workspace concept.
 
-<Definition
-    term="ROS workspace"
-    definition="A workspace is a directory containing **ROS packages**."
-    source="Creating a workspace | Official documentation"
-    link="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html"
-/>
+<Definition term="ROS workspace">
+A workspace is a directory containing **ROS packages**.
+
+Source: [Creating a workspace | Official documentation](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html)
+</Definition>
 
 But, what is a ROS package?... more about it later (see [ROS Packages](ros2-pkgs)), for now just think about a box/package with some code, configs and more in it, trust me.
 
@@ -47,12 +46,11 @@ The workspace contains:
 
 ### Underlay
 
-<Definition
-    term="Underlay workspace"
-    definition="It contains the necessary dependencies of all the packages required by the 'overlay'."
-    source="Configuring environment | Official documentation"
-    link="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html"
-/>
+<Definition term="Underlay workspace">
+It contains the necessary dependencies of all the packages required by the 'overlay'.
+
+Source: [Configuring environment | Official documentation](https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html)
+</Definition>
 
 <Drawio
     file="ros.drawio"
@@ -68,12 +66,11 @@ Let's explore our underlay workspace: `/opt/ros/humble/`
 
 ### Overlay
 
-<Definition
-    term="Overlay workspace"
-    definition="Extends the underlay. (You will normally work here)."
-    source="Configuring environment | Official documentation"
-    link="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html"
-/>
+<Definition term="Overlay workspace">
+Extends the underlay. (You will normally work here).
+
+Source: [Configuring environment | Official documentation](https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html)
+</Definition>
 
 Note, that for some reason unknown to me, the terms "underlay" and "overlay" are not frequently used in the ROS community. The vast majority of people when they refer to workspace it is usually the overlay workspace.
 

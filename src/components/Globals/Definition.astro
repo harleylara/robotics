@@ -1,28 +1,22 @@
 ---
-import { markToHtml } from "../../tools/helper.parser";
-const {term, definition, source, link} = Astro.props;
+const {term} = Astro.props;
 
 export interface Props {
     term: string,
-    definition: string,
-    source?: string,
-    link?: string
 }
 
-const hasSource = typeof source === "string" && source.trim() !== "";
+let html: string =  ""
+
+if (Astro.slots.has("default")) {
+  html = await Astro.slots.render("default")
+}
 ---
 
 <div class="text-gray-900 dark:text-white pl-4 py-2 border-l-8 border-l-green-900 mt-6">
     <div class="mb-4">
-        <p class="font-bold text-lg">{term}</p>
+      <p class="text-lg">Definition: <dfn>{term}</dfn></p>
     </div>
     <div class="text-justify text-gray-300">
-        <p set:html={markToHtml(definition)}></p>
+        <p set:html={html}></p>
   </div>
-  {hasSource && (
-    <div class="mt-4 ml-4 text-gray-300">
-      <span>- </span>
-      <a href={link} target="_blank" rel="noopener noreferrer" class="border-b hover:border-b-2">{source}</a>
-    </div>
-  )}
 </div>

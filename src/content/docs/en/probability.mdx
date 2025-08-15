@@ -28,11 +28,11 @@ Equivalent terms: Event, experiment, process
     description="Types of processes and outcomes."
 />
 
-<Definition
-    term="Random Event"
-    definition="A random event is the complement of a deterministic event in the sense that if a deterministic event is one whose outcome is completely predictable, by complementarity the outcome of a random event is not fully predictable."
-    source="Introduction to Bayesian Scientific Computing: Ten Lectures on Subjective Computing (2007), section 1.1"
-/>
+<Definition term="Random Event">
+A random event is the complement of a deterministic event in the sense that if a deterministic event is one whose outcome is completely predictable, by complementarity the outcome of a random event is not fully predictable.
+
+Source: Introduction to Bayesian Scientific Computing: Ten Lectures on Subjective Computing (2007), section 1.1
+</Definition>
 
 I took the following excerpt from the from [Introduction to Bayesian Scientific Computing](https://link.springer.com/book/10.1007/978-0-387-73394-4) and decided to copy it as it is written because I think it is very well put:
 
@@ -96,10 +96,9 @@ In this way, the concept of "space" becomes a structure that can be as concrete 
 
 With this intuition in place we can define:
 
-<Definition
-    term="Sample space"
-    definition="Denoted $\Omega$, also known as state space, can be any finite or infinite set, meaning that the sample space is a set of **ALL** possible outcomes of an experiment."
-/>
+<Definition term="Sample space">
+Denoted $\Omega$, also known as state space, can be any finite or infinite set, meaning that the sample space is a set of **ALL** possible outcomes of an experiment.
+</Definition>
 
 For example if you throw a die with 6 faces all the possible outcomes can be represented as:
 
@@ -171,12 +170,11 @@ From these two simple but powerful properties of Algebras we can derive more pro
 - If $\sE_1, \dots, \sE_{n} \in \ssE$ then $\bigcup_{j=1}^{n} \sE_j \in \ssE$. Property (ii) by itself: Closed under **finite** unions.
 - If $\sE_1, \dots, \sE_{n} \in \ssE$ then $\bigcap_{j=1}^{n} \sE_j \in \ssE$. Closed under **finite** intersections. This property may not be obvious at first sight, but it is simply a consequence of (i) and (ii).
 
-<Definition
-    term="Finite set"
-    definition="In mathematics, particularly set theory, a finite set is a set that has a finite number of elements.. Example the set of all outcomes of throwing a dice ${1,2,3,4,5,6}$."
-    source="Finite set - Wikipedia"
-    link="https://en.wikipedia.org/wiki/Finite_set"
-/>
+<Definition term="Finite set">
+In mathematics, particularly set theory, a finite set is a set that has a finite number of elements.. Example the set of all outcomes of throwing a dice ${1,2,3,4,5,6}$.
+
+Source: [Finite set - Wikipedia](https://en.wikipedia.org/wiki/Finite_set)
+</Definition>
 
 Derivation of **closed under finite intersections**:
 
@@ -232,12 +230,11 @@ In simple mathematical words:
 
 Note: The word "closed" is like a safety belt, which ensures that we can do operations such as complements, unions or interceptions without leaving our space (our set). Why? consistency... But why?  this is out of the scope of probability and these notes so I recommend you to see; @taoIntroductionMeasureTheory2011 and @follandRealAnalysisModern1999.
 
-<Definition
-    term='Countable set'
-    definition="In mathematics, a set is countable if either it is finite or it can be made in one to one correspondence with the set of natural numbers ([A bijection, bijective function, or one-to-one correspondence](https://en.wikipedia.org/wiki/Bijection))."
-    source="Countable set - wikipedia"
-    link="https://en.wikipedia.org/wiki/Countable_set"
-/>
+<Definition term='Countable set'>
+In mathematics, a set is countable if either it is finite or it can be made in one to one correspondence with the set of natural numbers ([A bijection, bijective function, or one-to-one correspondence](https://en.wikipedia.org/wiki/Bijection)).
+
+Source: [Countable set - Wikipedia](https://en.wikipedia.org/wiki/Countable_set)
+</Definition>
 
 So,
 - the smallest Sigma-algebra ( @taoIntroductionMeasureTheory2011 calls it the *trivial algebra*) is: $\{\emptyset, \sX\}$, also denoted as $\sigma(\sX)$
@@ -255,12 +252,11 @@ Side track to the rabbit hole:
 
 As promised, here we are, the **event space**, the punchline is that the **event space** is just a $\sigma$-algebra, therefore the definition of $\sigma$-algebra is the definition of event space. 🤯
 
-<Definition
-    term='Event Space'
-    definition="The event space is a $\sigma$-algebra that contains ALL possible events for a given experiment."
-    source="Event Space Probability - Statistics How To"
-    link="https://www.statisticshowto.com/event-space-probability/"
-/>
+<Definition term='Event Space'>
+The event space is a $\sigma$-algebra that contains ALL possible events for a given experiment.
+
+Source: [Event Space Probability - Statistics How To](https://www.statisticshowto.com/event-space-probability/)
+</Definition>
 
 Here are some concrete examples:
 
