@@ -18,11 +18,6 @@ import remarkGfm from 'remark-gfm';
 import rehypeMathML from '@daiji256/rehype-mathml';
 import { NOTATION } from './src/consts';
 
-// custom plugins
-import remarkMathEquations from './src/plugins/math-equations.mjs';
-import remarkMathLabel from './src/plugins/math-label.mjs';
-import rehypeMathLinks from './src/plugins/math-link.mjs';
-
 export default defineConfig({
   output: 'server',
   adapter: vercel(),
