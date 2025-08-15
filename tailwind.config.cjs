@@ -6,7 +6,8 @@ module.exports = {
              fontFamily: {
                 roboto: ['Roboto', 'sans-serif'],
                 mono: ['Roboto Mono', 'sans-serif'],
-                outfit: ['Outfit', 'sans-serif'],
+                pt: ['PT Serif', 'serif'],
+                cormorant: ['Cormorant Garamond', 'serif'], /* I'm leaving cormorant due to the elegancy, but is not in use yet */
             },
             colors: {
                 'primary-dark': '#101010',
