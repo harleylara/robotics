@@ -262,7 +262,7 @@ export const NOTATION: any = {
 
     // ----------------------------------------------------------------------
     // Probability
-    "\\E": "\\mathbb{E}(#1)", // Expectation
+    "\\E": "\\mathbb{E}\\left[#1\\right]", // Expectation
     "\\Var": "\\mathrm{Var}\\left(#1\\right)", //Variance
     "\\Prob": "\\Pr\\left(#1\\right)", // Probability
 
