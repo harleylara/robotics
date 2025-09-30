@@ -260,6 +260,12 @@ export const NOTATION: any = {
     "\\Q": "\\mbb{Q}", // rationals
     "\\C": "\\mbb{C}", //complex numbers
 
+    // ----------------------------------------------------------------------
+    // Probability
+    "\\E": "\\mathbb{E}(#1)", // Expectation
+    "\\Var": "\\mathrm{Var}\\left(#1\\right)", //Variance
+    "\\Prob": "\\Pr\\left(#1\\right)", // Probability
+
     // Sets
     "\\sA": "\\mc{A}",
     "\\sB": "\\mc{B}",
@@ -401,6 +407,9 @@ export const NOTATION: any = {
     "\\rvecX": "\\bm{X}",
     "\\rvecY": "\\bm{Y}",
     "\\rvecZ": "\\bm{Z}",
+
+
+    // ----------------------------------------------------------------------
 
     // Tensor
     // general tensor definition
