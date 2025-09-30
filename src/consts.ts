@@ -258,12 +258,14 @@ export const NOTATION: any = {
     "\\Z": "\\mbb{Z}", // integers
     "\\N": "\\mbb{N}", // natural numbers
     "\\Q": "\\mbb{Q}", // rationals
-    "\\C": "\\mbb{C}", //complex numbers
+    "\\C": "\\mbb{C}", // complex numbers
+    "\\B": "\\mbb{B}", // boolean
 
     // ----------------------------------------------------------------------
     // Probability
     "\\E": "\\mathbb{E}\\left[#1\\right]", // Expectation
     "\\Var": "\\mathrm{Var}\\left(#1\\right)", //Variance
+    "\\Cov": "\\mathrm{Cov}\\left(#1\\right)", //Variance
     "\\Prob": "\\Pr\\left(#1\\right)", // Probability
 
     // Sets
