@@ -4,41 +4,58 @@ title: "Notation"
 
 ## Numbers and Arrays
 
-| Description | Representation | Command |
-| --- | --- | --- |
-| Scalar | $a$ | `a` |
-| Vector | $\vx$ | `\va` |
-| Unit vector | $\uvx$ | `\uvx` |
-| Matrix | $\mA$ | `\mA` |
-| Tensor | $\tA$ | `\tA` |
+| Description             | Representation       | Command              |
+|-------------------------|----------------------|----------------------|
+| Scalar                  | $a$                  | `a`                  |
+| Vector                  | $\vx$                | `\va`                |
+| Unit vector             | $\uvx$               | `\uvx`               |
+| Matrix                  | $\mA$                | `\mA`                |
+| Tensor                  | $\tA$                | `\tA`                |
 | Standard number systems | $\R, \Z, \Q, \C, \N$ | `\R, \Z, \Q, \C, \N` |
 
 ## Set and Graphs
 
-| Description | Representation | Command |
-| --- | --- | --- |
-| Set | $\sA$ | `\sA` |
-| Set complement | $\scA$ | `\scA` |
-| Family of sets | $\ssA$ | `\ssA` |
-| Set containing $0$ and $1$ | $\{0, 1\}$ | `\{0, 1\}` |
-| Set of all integers between $0$ and $n$ | $\{0, 1, \dots, n\}$ | `\{0, 1, \dots, n\}` |
-| Real interval including $a$ and $b$ | $[a, b]$ | [a, b] |
-| Real interval excluding $a$ but including $b$ | $(a, b]$ | (a, b] |
+| Description                                   | Representation       | Command              |
+|-----------------------------------------------|----------------------|----------------------|
+| Set                                           | $\sA$                | `\sA`                |
+| Set complement                                | $\scA$               | `\scA`               |
+| Family of sets                                | $\ssA$               | `\ssA`               |
+| Set containing $0$ and $1$                    | $\{0, 1\}$           | `\{0, 1\}`           |
+| Set of all integers between $0$ and $n$       | $\{0, 1, \dots, n\}$ | `\{0, 1, \dots, n\}` |
+| Real interval including $a$ and $b$           | $[a, b]$             | [a, b]               |
+| Real interval excluding $a$ but including $b$ | $(a, b]$             | (a, b]               |
+
+Set operations:
+
+| Description          | Representation       | Command              |
+|----------------------|----------------------|----------------------|
+| Element of           | $x \in \sA$          | `x \in \sA`          |
+| Not element of       | $x \notin \sA$       | `x \notin \sA`       |
+| Subset               | $\sA \subseteq \sB$  | `\sA \subseteq \sB`  |
+| Proper subset        | $\sA \subset \sB$    | `\sA \subseteq \sB`  |
+| Not subset           | $\sA \nsubseteq \sB$ | `\sA \nsubseteq \sB` |
+| Union                | $\sA \cup \sB        | `\sA \cup \sB`       |
+| Intersection         | $\sA \cap \sB$       | `\sA \cap \sB`       |
+| Set difference       | $\sA \setminus \sB$  | `\sA \setminus \sB`  |
+| Symmetric difference | $\sA \triangle \sB$  | `\sA \triangle \sB`  |
+| Cartesian product    | $\sA \times \sB$     | `\sA \times \sB`     |
+| Concatenation        | $\sA \circ \sB$      | `\sA \circ \sB`      |
+| Empty set            | $\emptyset$          | `\emptyset`          |
 
 ## Probability
 
-| Description | Representation | Command |
-| --- | --- | --- |
-| Random Variable | $\rvA$ | `\rvA` |
-| Random Vector | $\rvecA$ | `\rvecA` |
-| Distribution | |
-| Expectation | $\E{\rvX}$ | `\E{\rvX}` |
-| Variance | $\Var{\rvX}$ | `\Var{\rvX}` |
-| Cov | $\Cov{\rvX}$ | `\Cov{\rvX}` |
-| Probability | $\Prob{\rvX}$ | `\Prob{\rvX}` |
+| Description     | Representation | Command       |
+|-----------------|----------------|---------------|
+| Random Variable | $\rvA$         | `\rvA`        |
+| Random Vector   | $\rvecA$       | `\rvecA`      |
+| Distribution    |                |
+| Expectation     | $\E{\rvX}$     | `\E{\rvX}`    |
+| Variance        | $\Var{\rvX}$   | `\Var{\rvX}`  |
+| Cov             | $\Cov{\rvX}$   | `\Cov{\rvX}`  |
+| Probability     | $\Prob{\rvX}$  | `\Prob{\rvX}` |
 
 ## Geometry
 
-| Description | Representation | Command |
-| --- | --- | --- |
-| Reference frame | $\fA$ | `\fA` |
+| Description     | Representation | Command |
+|-----------------|----------------|---------|
+| Reference frame | $\fA$          | `\fA`   |
