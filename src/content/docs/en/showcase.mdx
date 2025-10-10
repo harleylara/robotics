@@ -142,12 +142,41 @@ Please note that I have not conducted an exhaustive search on this topic. I am f
     description="Just a description with markdown and $\LaTeX$ support."
 />
 
+## Useful Component
+
+One veryuseful component is the `<Description>` component. It allows to create a definition block:
+
+```plain
+<Definition term="A term">
+This a free space for the whole block. Sure you can do, **markdown** and $LaTeX$ in here.
+</Definition>
+```
+
+That renders as:
+
+<Definition term="A term">
+    This a free space for the whole block. Sure you can do, **markdown** and $\LaTeX$ in here.
+</Definition>
+
+
+<Demo>
+    Hey what if i can just writ markdown here. "hey" 'hey'
+
+    list:
+    - skajdl
+    - slakjda
+
+    Equations:
+
+    $$
+    e^{i\pi} -1 = 0
+    $$
+
+</Demo>
 
 ## Embedding Diagrams
 
-To create diagram I like to use [Drawio](https://www.draw.io/). The problem I have always faced is having to export the diagram everytime  after making changes and making sure to use the same name and put it in the same folder to overwrite the previus one, and I know, it sounds simple but it gets tedious, for that reason I created the `Drawio` component for embedding the diagram `file` directly into the notes (no more annoying export).
-
-The problem I have always faced is that if I want to change something in the diagram or I'm constantly doing modifications, I always have to export the diagram in some format like `jpg`,`png` or `svg` and during the process I have to make sure to use the same name and format of the previous file to overwrite it with the new one, and I know, it sounds simple but it becomes tedious, for that reason I created the `Drawio` component to embed the diagram file directly in the notes (no more annoying exports), plus you get a online interactive version of it.
+To create diagram I like to use [Drawio](https://www.draw.io/). The problem I have always faced is that if I want to change something in the diagram or I'm constantly doing modifications, I always have to export the diagram in some format like `jpg`,`png` or `svg` and during the process I have to make sure to use the same name and format of the previous file to overwrite it with the new one, and I know, it sounds simple but it becomes tedious, for that reason I created the `Drawio` component to embed the diagram file directly in the notes (no more annoying exports), plus you get a online interactive version of it.
 
 When many diagrams are produced the way I always organize them in a Drawio file `.drawio` containing "pages" in it, and each page is a different diagram.
 
@@ -171,3 +200,7 @@ IMPORTANT: All diagrams should be placed in the `resources` folder inside `src/r
     file="test.drawio"
     page="2"
 />
+
+## Things that I do not Like
+
+- Footnotes: In short, they are simply not as good as they seem. For a more detailed explanation, see [Give footnotes the boot by Jake Archibald](https://jakearchibald.com/2025/give-footnotes-the-boot/), I completely share his vision and I also "I hate footnotes".
