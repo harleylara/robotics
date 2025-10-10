@@ -1,0 +1,12 @@
+---
+const { content } = Astro.props;
+
+let html: string =  ""
+
+if (Astro.slots.has("default")) {
+  html = await Astro.slots.render("default")
+}
+---
+
+
+<div set:html={html} class="bg-red-500"></div>
