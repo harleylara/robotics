@@ -1,0 +1,193 @@
+---
+title: Flying Principles
+describe: Kinematics and Dynamics Modelling
+---
+
+## Outline
+
+Reference chapter 16 of the handbook
+
+- How to generate lift
+- The propulsion system (as system components)
+    - Motors
+    - Propeller
+    - Electronic Speed Controller
+    - Battery
+- The goal: you learn how a drone works, how is able to flight and how to model the system
+
+---
+<Think>
+How is a drone able to *fly?*
+</Think>
+
+Well, in order to analyze how a drone is able to fly, we would first have to identify the element or elements that make this possible. Under that logic, if we understand how those elements work, we can explain how a drone is able to fly. But to help us think and carry out the analysis, pause for a moment and think about the following:
+
+<Think>
+    note="What does it mean to fly or, at best, hover? What keeps us “stuck to the ground”? And why do we fall back down when we jump?"
+</Think>
+
+A natural answer is **gravity**. so if we manage to counteract the effect of gravity in sufficient amount, we would be able to move in the opposite direction to it. Going back to drones, the drone would need to generate a force that's opposite to gravity to fly.
+
+The effect of gravity on a drone (or any system with mass) can be modeled by the famous equation (Netwon's second law):
+
+<Equation
+    formula="F_g = m \vg"
+    description="Effect of gravity in a system."
+/>
+Where:
+- $F$: is the force experienced by a system (in Nm)
+- $m$: mass of the system (drone) (in kg)
+- $\vg$: gravity (in m/s^2)
+
+At this point, we still don't know how to generate this force opposite to gravity, or where it comes from, but with our current mental framework, we can derived the following cases:
+1. If the gravitational force $F_g$ experienced by the drone is greater than the drone's opposite force $F_d$ -- that is, $F_g > F_d$ -- then the drone remains stuck to the ground.
+2. In the case where both forces are equal (i.e., equilibrium) -- $Fg = Fd$  -- nothing moves; the system is in balance.
+3. If the drone’s upward force is greater than the gravitational force it experiences -- $Fd > Fg$ -- the drone lifts off!
+
+Let's officially call this force produced by the drone **thrust**.
+
+<Drawio
+    file="drones-principles.drawio"
+    page="0"
+    description=""
+/>
+
+Now that we are clear about what needs to be done for a drone to fly, the question is how? Or with what?
+
+<Drawio
+    file="drones-principles.drawio"
+    page="1"
+    description="Source of thrust in a drone"
+/>
+
+It seems we have found the components responsible for generating thrust in a drone: motor + propeller. But the main question still remains, and is how? 
+
+But don't worry, in the next section we will dissect all the details of how these components work together to generate thrust.
+
+## Momentum as the Core Idea
+
+During my university and high school studies, I was often exposed to the concept of [momentum](https://en.wikipedia.org/wiki/Momentum) as simply an equation to memorize and know how to apply to solve textbook problems, but I have to confess that until the moment of writing this note and gathering information and ideas to explain propulsion, I reflected on the meaning and depth of it, which left me stunned and amazed by its profound insight. Therefore, the following sections of this note is an attempt to convey the same feeling of rediscovery of the theory by distilling its core ideas. In Lex Fridman's Podcast #47 with Sean Carroll, [Fridman: "What to you is the most beautiful idea in physics?"](https://youtu.be/iNqqOLscOBY?t=748), Sean Carroll: *"conservation of momentum"*.
+
+The concept of momentum is not new, but it has been given different names over the years, see [History of the concept - Momentum Wikipedia](https://en.wikipedia.org/wiki/Momentum#History_of_the_concept).
+
+Momentum is just the prelude to unlock the ability to understand and analyze how a drone produces thrust. Over the years, many models have been proposed to describe this phenomenon, but everything starts with this simple-looking, yet profound equation: Newton’s second law:
+
+$$
+F = m\va
+$$
+
+In fact, this is the **modern form** of expressing Newton’s second law. Newton himself never wrote this formula explicitly. For historical reasons -- which we will not discuss here -- many ideas at the time were not published as explicit equations, but rather expressed in sentences.
+
+What Newton did write regarding the second law of motion in original Latin was:
+
+> "Mutationem motus proportionalem esse vi motrici impressae, & fieri secundum lineam rectam qua vis illa impri"
+
+see **Philosophiæ Naturalis Principia Mathematica** in section [Axiomata Sive Leges Motus](https://cudl.lib.cam.ac.uk/view/PR-ADV-B-00039-00001/46), that translate to english as:
+
+> "The alteration of motion is ever proportional to the motive force impressed; and is made in the direction of the right line in which that force is impressed."
+
+for Reference see  Andrew Motte's translation [@newtonNewtonsPrincipiaMathematical1846, p. 83].
+
+
+$$
+\textrm{alteration of motion} \propto F
+$$
+
+This concept of *"alteration of motion"* is what in modern literature is refer as **momentum**, as reference see [Momentum - History of the concept Wikipedia](https://en.wikipedia.org/wiki/Momentum#History_of_the_concept). I like the video [Newton's Laws in Words](https://www.youtube.com/watch?v=Nn7kcrww-1U) by Prof. [Peter Coles](https://en.wikipedia.org/wiki/Peter_Coles)
+, and his blog [Newton’s Laws in Translation](https://telescoper.blog/2019/11/13/newtons-laws-in-translation/).
+
+
+In differential form using modern notation we can write Netwon's second law as:
+
+$$
+\begin{align}
+F = \frac{d\vp}{dt}
+\label{eq-second-law}
+\end{align}
+$$
+
+Under the assumption of constant mass $m$:
+
+$$
+F = \frac{d}{dt}(m\vv) = m \frac{d\vv}{dt}
+$$
+
+where $\frac{d\vv}{dt}$ is nothing other than the acceleration. We get the modern form:
+
+$$
+F = m \frac{d\vv}{dt} = m a
+$$
+
+
+
+
+Relevant papers:
+- @mahonyAdaptiveCompensationAerodynamic2001 shows the approximation for helicopter
+- @hamelDynamicModellingConfiguration2002 applied to drones
+    -  @mckerrowModellingDraganflyerFourrotor2004
+- Explicit use of the equation: @poundsDesignConstructionControl2007
+
+## Momentum Theory
+
+How to connect thrust to the flow of fluid?
+
+$$
+\begin{equation}
+F = m \frac{d\vv}{dt}
+\label{eq-m-velocity}
+\end{equation}
+$$
+
+The momentum theory for propellers.
+
+- For a modern literature review see @rosenNovelApproachAxisymmetric2008 section 1 Introduction
+- for a "general momentum model" see @glauertAirplanePropellers1935 chapter 3 "The general momentum theory"
+
+Also called Actuator Disk Theory (ADT)
+
+Assumptions:
+- the rotor is modeled as a **infinitely thin disk**
+- the disk imparts a **uniform pressure jump** to the air flow
+- the flow is inviscid (no viscosity), steady and incompressible
+- Axisymmetric flow
+- parallel airspeed uptream and downstream
+
+
+<Equation
+    formula="\dot{m}=\rho A \vv"
+    description="Mass flow rate (kg/s)"
+/>
+
+where:
+- $\dot{m}$: air flow rate ($kg/s$)
+- $\rho$: density of the medium ($kg/m^3$).
+- $A$: cross-sectional area the fluid flows through ($m^2$)
+- $\vv$: velocity of the fluid perpendicular to the area ($m/s$)
+
+## How to Generate Lift
+
+<Equation
+    formula="F_{T} = k_{F} w^2"
+    description="Thrust force (lifting force)"
+/>
+
+where:
+- $F_{T}$: thrust force produced by the rotor (N)
+- $k_{F}$: Thrust coefficient
+- $w$: angular speed of the rotor (rad/s)
+
+<Equation
+    formula="\tau = k_{M} w^2"
+    description="Torque"
+/>
+
+where:
+- $\tau$: torque (or moment) about the rotor axis
+- $k_{M}$: moment (torque) coefficient
+- $w$: is the rotor speed (rad/s)
+
+The constants kM and kF can be determined by experimentation with fixed rotors or by matching the performance of a simulation to the performance of the real system.
+
+[the equation of love](#love)
+
+## References

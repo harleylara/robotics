@@ -1,0 +1,62 @@
+---
+title: Development Landscape
+description: Overview of the current (2025) and the pass of the drone ecosystem
+---
+
+## Outline
+
+- motivation of standarization. why ?
+    - open-hardware standards
+    - pros and cons of open-standards
+        - [pixhawk](https://pixhawk.org/) (only hardware standarization)
+        - [paparazzi](https://wiki.paparazziuav.org/wiki/main_page) hardware and software standarization (legacy)
+        - [slugs](https://slugsuav.soe.ucsc.edu/) hardware and software standarization (legacy)
+    - historical notes on hardware projects (no standards)
+        - the ardupilot (initially hardware project) and the apm [(ardupilot mega)](https://www.ardupilot.co.uk/)
+        - in 2013 autopilot (now just software project) change to pixhawk. see [ardupilot](https://ardupilot.org/copter/docs/common-history-of-ardupilot.html)
+    - brief review on common hardware interfaces on a pixhawk based flight controller
+- autopilots firmwares (for pixhawk-based flight controllers)
+    - [px4](https://px4.io/). px4 is hosted by [dronecode foundation](https://dronecode.org/), a [linux foundation](https://www.linuxfoundation.org/) non-profit.
+    - [ardupilot](https://ardupilot.org/). community-driven project, fuel by volunteer and [corporate partners](https://ardupilot.org/ardupilot/docs/common-partners.html)
+    - example of both in the wild
+        - px4 companies:
+            - [auterion](https://auterion.com/)
+            - [freefly systems](https://freeflysystems.com/)
+            - watts innovations (shutdown in q3 2024) . signed with waltmart, see [walmart drone delivery, powered by watts innovations’ drone](https://www.thedroneu.com/blog/walmart-drone-delivery-powered-by-watts-innovations-drone/).
+            - [easy aerial](https://www.easyaerial.com/)
+            - [commercial systems](https://px4.io/ecosystem/commercial-systems/)
+        - ardupilot:
+            - [flyby robotics](https://www.flybyrobotics.com/#specs)
+            - [usa military](https://x.com/usarmy/status/1918999091456934238), [project convergence capstone 5 (pc-c5)](https://archive.ph/txdll): ardupilot based drones.
+            - [ukraine bombers](https://x.com/bayraktar_1love/status/1930265730525585521)
+        - non-open standard
+            - [skydio](https://www.skydio.com/) usa-based. [skydio x10](https://www.skydio.com/x10). base-price [15k usd](https://youtu.be/saolljrvdz0?t=872) to +23k usd
+            - [acsl](https://acsl-usa.com/) made-in-japan
+            - [inspired flight](https://www.inspiredflight.com/)
+- ground control station (gcs)
+    - what is ground control station
+    - communication flight controller to gcs (brief on mavlink)
+    - ground control station software (mavlink-based systems)
+        - [mission planner](https://ardupilot.org/planner/)
+        - [qgroundcontrol](https://qgroundcontrol.com/)
+
+## open-hardware vs open-standards
+
+you've probably heard the term **open-source software** (oss), but have you heard of **open-hardware**?, also referred to as **open-source hardware** (osh), what about **open-standard**?
+
+[the open source definition](https://opensource.org/osd) see a list of [osi approved licenses](https://opensource.org/licenses). extra see the annotated version of the [the open source definition](https://opensource.org/definition-annotated)
+
+some reports:
+- [study about the impact of open source software and hardware on technological independence, competitiveness and innovation in the eu economy](https://digital-strategy.ec.europa.eu/en/library/study-about-impact-open-source-software-and-hardware-technological-independence-competitiveness-and)
+- [open source maturity in europe](https://www.linuxfoundation.org/research/world-of-open-source-eu-2024?hslang=en)
+
+- [open standards vs. open source: a basic explanation](https://www.ibm.com/think/topics/open-standards-vs-open-source-explanation)
+
+open-hardware:
+- [open source hardware definition](https://oshwa.org/resources/open-source-hardware-definition/)
+
+open-standards:
+- [the importance of open standards](https://us.profinet.com/importance-open-standards/)
+- [open standards, proprietary standards, and in between](https://us.profinet.com/open-standards-proprietary-standards/)
+- [open standard - wikipedia](https://en.wikipedia.org/wiki/open_standard)
+- [risc-v - wikipedia](https://en.wikipedia.org/wiki/risc-v)
