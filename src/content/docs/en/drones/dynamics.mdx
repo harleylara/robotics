@@ -1,0 +1,134 @@
+---
+title: Multicopter Dynamics
+description: System modeling and identification
+---
+
+## Outline
+
+- Frames
+    - inertial frame (global frame fixed to the "world")
+    - body frame: center of mass and local reference for sensors and actuators
+- Rigid body motion
+    - Rotations
+    - translation
+- Modeling
+- Scaling laws. @kumarOpportunitiesChallengesAutonomous2017
+
+Some references for simulation generals:
+- @muraleedharanModellingSimulationUAV2020
+
+## 3D Space and Frames
+
+<Think>
+    How would you represent a 3D space? What are the properties of it?
+</Think>
+
+The representation of space has been a field of study for a very long time, this concepts lays the lays the foundations for rigurous analysis in multiples fields of siences. Note that the term "space" refers to an **abstract concept** that structures the relationships among the elements that form the given space. Under the general concept of space, we could model spaces with different properties and rules; to mention a few: Euclidean spaces or probability spaces. However, we will not go in that direction, since it is the entire field of study in mathematics, see [Space (mathematics) - Wikipedia](https://en.wikipedia.org/wiki/Space_(mathematics)).
+
+Going back to the initial question, "how can we model the physical space we live in?". It turns out that the Greek mathematician [Euclid](https://en.wikipedia.org/wiki/Euclid) systematized and formally formulated a space; that space is known in modern times as [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space), and the structure of the space is defined by a set of [five axioms](https://en.wikipedia.org/wiki/Euclidean_geometry#Axioms) (the fifth of which generated much controversy), which do not restrict its number of dimensions. Conveniently, we live in what we could call a **three-dimensional Euclidean space** denoted by the notation $\Euclid^{3}$.
+
+We can say that an Euclidean space: is a set whose elements satisfy the five axioms of Euclid.
+
+<Definition term="Vector in Euclidean Space">
+
+    In Euclidean space, a vector $\vv$ is determined by a pair of points $p, q \in \Euclid^{3} $ and is defined as a direct arrow connecting $p$ to $q$, denoted $\vv = p q$.
+
+    The point $p$ is usually called the base point of the vector $\vv$. In Cartesian coordinates, the vector $\vv$ is represented by the triplet $[v_1, v_2 , v_3]^{\transpose} \in \R^{3}$, where each coordinate is the difference between the corresponding coordinates of the two points: if $p$ has coordinates $\pX$ and $q$ has coordinates $\pY$, then $\vv$ has coordinates
+
+    $$
+    \vv = \pY - \pX \in \R^{3}
+    $$
+
+    Under this definition we say that this is as a **bound vector**.
+
+    Source: Definition 2.1 from @maInvitation3DVision2004
+
+</Definition>
+
+<Definition term="(free) Vector in Euclidean Space">
+
+    A free vector does not depend on its base point. If we have two pairs of points $(p, q)$ and $(p', q')$ with coordinates satisfying:
+
+    $$
+    \pX - \pY = \pX' - \pY'
+    $$
+
+    The intuition is that this allow a vector to move in the $\Euclid^{3}$ space without the loss of generality: magnitud and direction.
+
+</Definition>
+
+
+<Drawio
+    file="linear-algebra-vector.drawio"
+    page="1"
+    description="Visual representation of a free vector"
+/>
+
+<Definition term="Linear vector space">
+    Also called simply vector space, a set $\sV$ over the field $\R$ if it closed under addition and multiplication:
+
+    Closed under addition:
+    $$
+    + : \sV \times \sV \rightarrow \sV
+    $$
+
+    Closed under multiplication:
+    $$
+    \cdot : \R \times \sV  \rightarrow  \sV
+    $$
+
+
+</Definition>
+
+
+<Definition term="Reference frame">
+Let a Cartesian coordinate frame $\fH \in \Euclid^{3}$ be a ordered pair:
+
+    $$
+    \fH = (o, (e_1, e_2, e_3))
+    $$
+
+    Where:
+    - $o \in \Euclid^{3}$ is an origin point
+    - $(\ve_1, \ve_2, \ve_3)$ oriented orthonormal basis vectors defining $\fH$
+</Definition>
+
+## Rigid Body Motion SE(3)
+
+
+From the definition of Reference frame lets define: inertial frame
+
+
+### Orientation Representation
+
+The orientation of the body frame with respect to the inertial frame is defined by the matrix $\mR$
+
+$$
+\mR : \fB \rightarrow \fI \quad \mR \in \SO(3)
+$$
+
+Velocity vector $\vv \in \fI$, with notation as $\prescript{}{\fI}{\vv}$: linear velocity in the inertial frame
+
+$\Omega \in \fB$ is the angular velocity of the airframe expressed in body fixed frame
+
+mass
+
+inertial matrxix $\mI \in \R^{3 \times 3}$ around the center of mass: $\prescript{}{\fB}{\mI}$
+
+## Modeling
+
+based on: @hamelDynamicModellingConfiguration2002
+
+- set the inertial frame
+- position vector of the center of mass in the inertial frame
+
+$$
+\xi  = [\xi_1, \xi_2, \xi_3] \in \fI
+$$
+
+- set "body fixed frame" $\fB$
+- rotation from inertial frame to fix body frame $\mR : \fB \rightarrow \fI \quad \mR \in \SO(3)$
+
+
+
+## References

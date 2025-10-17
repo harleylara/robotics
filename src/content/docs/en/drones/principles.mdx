@@ -129,6 +129,17 @@ Relevant papers:
 
 ## Momentum Theory
 
+The [Momentum Theory](https://en.wikipedia.org/wiki/Momentum_theory) was initially develop by @rankineMechanicalPrincipalsAction1865 (see appendix II. eq. 1)
+
+Assumptions:
+- the rotor is modeled as a **infinitely thin disk**
+- the disk imparts a **uniform pressure jump** to the air flow
+- the flow is inviscid (no viscosity), steady and incompressible (law of continuity)
+- Axisymmetric flow
+- parallel airspeed uptream and downstream
+- Closed-system
+- annular stream tube control volumen
+
 How to connect thrust to the flow of fluid?
 
 $$
@@ -145,12 +156,6 @@ The momentum theory for propellers.
 
 Also called Actuator Disk Theory (ADT)
 
-Assumptions:
-- the rotor is modeled as a **infinitely thin disk**
-- the disk imparts a **uniform pressure jump** to the air flow
-- the flow is inviscid (no viscosity), steady and incompressible
-- Axisymmetric flow
-- parallel airspeed uptream and downstream
 
 
 <Equation
@@ -164,7 +169,18 @@ where:
 - $A$: cross-sectional area the fluid flows through ($m^2$)
 - $\vv$: velocity of the fluid perpendicular to the area ($m/s$)
 
-## How to Generate Lift
+## Blade element theory (BET)
+
+The [Blade element theory (BET)](https://en.wikipedia.org/wiki/Blade_element_theory), originally designed by William Froude (1878)
+
+## Blade Element Momentum Theory (BEMT)
+
+Lift generation.
+
+- [Analysis of the blade element momentum theory](https://hal.science/hal-02550763v2/document)
+- [Blade element momentum theory](https://en.wikipedia.org/wiki/Blade_element_momentum_theory)
+
+## Quadratic Thrust Model
 
 <Equation
     formula="F_{T} = k_{F} w^2"
@@ -173,7 +189,7 @@ where:
 
 where:
 - $F_{T}$: thrust force produced by the rotor (N)
-- $k_{F}$: Thrust coefficient
+- $k_{F}$: Thrust coefficient. A Nondimensional coefficient.
 - $w$: angular speed of the rotor (rad/s)
 
 <Equation
@@ -188,6 +204,8 @@ where:
 
 The constants kM and kF can be determined by experimentation with fixed rotors or by matching the performance of a simulation to the performance of the real system.
 
-[the equation of love](#love)
+Check source-code:
+- [`MulticopterPositionControl.cpp`](https://github.com/PX4/PX4-Autopilot/blob/main/src/modules/mc_pos_control/MulticopterPositionControl.cpp)
+- [`PositionControl.cpp`](https://github.com/PX4/PX4-Autopilot/blob/main/src/modules/mc_pos_control/PositionControl/PositionControl.cpp)
 
 ## References
