@@ -117,6 +117,7 @@ export const NOTATION: any = {
     "\\bm": "\\mathbf{#1}",
     "\\mc": "\\mathcal{#1}",
     "\\mbb": "\\mathbb{#1}",
+    "\\msf": "\\mathsf{#1}",
 
     // Transpose
     "\\transpose": "\\mathsf{T}",
@@ -260,6 +261,10 @@ export const NOTATION: any = {
     "\\Q": "\\mbb{Q}", // rationals
     "\\C": "\\mbb{C}", // complex numbers
     "\\B": "\\mbb{B}", // boolean
+
+    // Spaces
+    "\\Euclid": "\\mbb{E}",
+    "\\SO": "\\textrm{SO}",
 
     // ----------------------------------------------------------------------
     // Probability
@@ -563,7 +568,7 @@ export const NOTATION: any = {
     "\\hcz": "\\hc{z}",
 
     // Reference frames
-    "\\frame": "\\{#1\\}",
+    "\\frame": "\\mc{#1}",
     "\\fA": "\\frame{A}",
     "\\fB": "\\frame{B}",
     "\\fC": "\\frame{C}",
