@@ -47,7 +47,7 @@ This set of *devices/components/elements* could be **sensors** and **actuators**
 
 
 <Definition term="System (formal)">
-An systen is model by function $\Sigma$ that maps from the input space into the output space.
+A systen is model by function $\Sigma$ that maps from the input space into the output space.
 
     $$
     \Sigma : \sU \rightarrow \sY, \quad y = \Sigma(u)
@@ -78,8 +78,15 @@ A plant may be a piece of equipment, perhaps just a set of machine parts functio
 Source: Modern Control Engineering 5th edition by Katsuhiko Ogata
 </Definition>
 
+@niseControlSystemsEngineering2015 does not draw a distinction between plant and process (though he predominantly uses plant). As he writes *"A generic open-loop system is shown in Figure 1.5(a). [...].  The controller drives a process or a plant."*, the terms are used synonymously, with plant referring to the system being acted on by the controller.
 
-Ogata refers to "process" as any operation to be controlled.
+@franklinFeedbackControlDynamic2020 distinguish "process" as a **subset** of the "plant", where $\textrm{plant = process + actuator}$ (see Fig. 1.2: *"The combination of process and actuator is called the plant [...]"*). Despite this structural distinction, the Chapter 1 summary also states *"A simple feedback system consists of the process (or plant) whose output is to be controlled [...]"*, implying some equivalence; throughout the book, plant is the predominant term.
+
+@astromFeedbackSystemsIntroduction2021 use "process" for what @franklinFeedbackControlDynamic2020 would call the "plant". In their control-loop descriptions (i.e. Figure 1.4), the label plant is not used as part of the pipeline; process is the preferred term.
+
+@ogataModernControlEngineering2010 in chapter 1 explicitly defines both "process" and "plant", but then uses plant almost exclusively in the text. In Ogata’s definition, the actuator is not part of the plant (see Fig. 2.6), which makes his notion of plant effectively equivalent to @franklinFeedbackControlDynamic2020 's definition of process.
+
+@dorfModernControlSystems2017 treat the terms interchangeably: "plant" is cross-referenced as "See Process" and Process is defined as "The device, plant, or system under control." The book uses both terms as synonyms in practice.
 
 <Drawio
     file="control-001.drawio"
@@ -107,7 +114,7 @@ Source: Handbook of modern sensors: physics, designs, and applications by Jacob 
 
 
 <Definition term="Sensor">
-A sensor is a device that receives a physical, chemical, or biological stimulus and responds with a quantification of this stimulus in the form of a signal that can be interpreted, transmitted and/or stored.
+A sensor is a device that receives a physical, chemical, or biological stimulus and responds with a quantification of this stimulus in the form of a signal that can be interpreted, transmitted and/or stored. The device that performs this quantization is called a transducer.
 
 Source: Own definition influenced by Chapter 1, Data Acquisition Handbook of modern sensors.
 </Definition>
@@ -119,18 +126,51 @@ Sensor: quantifying physical properties
 <Definition term="Actuator">
 An actuator is a device that converts energy (typically electrical, hydraulic, or pneumatic)
 
-Own definition influenced by Chapter 1, Data Acquisition Handbook of modern sensors."
+Source: Own definition influenced by Chapter 1, Data Acquisition Handbook of modern sensors."
 </Definition>
 
 ## System Cofigurations
 
+Interconnections.
+
+### Serial
+
+<Drawio
+    file="control-001.drawio"
+    page="13"
+    description="Serial Interconnection of systems."
+/>
+
+### Parallel
+
+<Drawio
+    file="control-001.drawio"
+    page="14"
+    description="Parallel Interconnection of systems."
+/>
+
+### Negative Feedback
+
+<Drawio
+    file="control-001.drawio"
+    page="15"
+    description="Negative Feedback of systems."
+/>
+
 ### Open-Loop Systems
+
+Also known as Feed-Forward systems.
 
 <Drawio
     file="control-001.drawio"
     page="2"
     description="Open-Loop system representation."
 />
+
+assumption:
+- the plant is a static system (the dynamics of the plant does not change over time)
+- the definition of the system plant can be subject to modelling errors.
+- contraint that the inverse can be computed
 
 ### Closed-Loop Systems
 
@@ -139,6 +179,21 @@ Own definition influenced by Chapter 1, Data Acquisition Handbook of modern sens
     page="3"
     description="Closed-Loop system representation."
 />
+
+### Causality
+
+### System State
+
+### System Dimension
+
+
+@franklinFeedbackControlDynamic2020:
+- Stability. The system must be stable at all times. This is an absolute requirement.
+- Tracking. The system output must track the command reference signal as closely as possible.
+- Disturbance rejection. The system output must be as insensitive as possible to disturbance inputs.
+- Robustness. The aforementioned goals must be met even if the model used in the design is not completely accurate or if the dynamics of the physical system change over time.
+
+
 
 ## Examples of Control Systems
 
@@ -166,7 +221,7 @@ Own definition influenced by Chapter 1, Data Acquisition Handbook of modern sens
     description="Antenna azimuth position control system (minimal representation)."
 />
 
-## Design Process (Part 2)
+## Design Process (Part 2) based on Dorf 1.5
 
 <Drawio
     file="control-001.drawio"
