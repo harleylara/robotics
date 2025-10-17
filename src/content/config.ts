@@ -8,6 +8,7 @@ const docs = defineCollection({
         description: z.string().default(SITE.description),
         lang: z.literal('en-us').default(SITE.defaultLanguage),
         dir: z.union([z.literal('ltr'), z.literal('rtl')]).default('ltr'),
+        toc: z.boolean().default(true),
         image: z.object({
             src: z.string(),
             alt: z.string(),
