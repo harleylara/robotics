@@ -2,8 +2,8 @@
 // import JXG from 'https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.mjs';
 
 // USING a patch version of jsxgraph to support katex macros
-// import JXG from './jsxgraphcore.mjs';
-import JXG from "jsxgraph"
+import JXG from './jsxgraphcore.mjs';
+// import JXG from "jsxgraph"
 import { NOTATION } from '../consts.ts';
 
 // colors definitions
@@ -18,8 +18,8 @@ let white = "#ffffff";
 let highlightColor = dark600;
 let baseColor = white;
 
-JXG.Options.text.useKatex = true;
-JXG.Options.text.katexMacros = NOTATION;
+JXG.Options.text.useTemml = true;
+JXG.Options.text.temmlMacros = NOTATION;
 
 JXG.Options.axis.strokeColor = baseColor;
 JXG.Options.axis.ticks.strokeColor = baseColor;
