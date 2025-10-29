@@ -5,7 +5,7 @@ draft: true
 
 ## Variables
 
-Types groups:
+Types groups, from [Variables and types - Fundamental data types](https://cplusplus.com/doc/tutorial/variables/#fundamental):
 - character types
 - integer types (signed and unsigned)
 - floating-point types
@@ -23,16 +23,41 @@ More about [initialization](https://en.cppreference.com/w/cpp/language/initializ
 
 [variables demo](https://github.com/harleylara/cpp-intro/blob/master/002-basics/var.cpp)
 
-{/*
-<CodeBlock
-filename="var.cpp" 
-code="" 
-lang="cpp"
-remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/var.cpp"
-/>
-*/}
+```cpp filename="var.cpp" remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/var.cpp"
+```
 
 More details on variables check [Variables and types - Fundamental data types](https://cplusplus.com/doc/tutorial/variables/#fundamental)
+
+Harley's note: Is this a good moment to insert the concept of `const` and `constexpr`?
+
+## Operators
+
+Topics:
+- assignment
+- Arithmetic
+- Increment and decrement
+- "Compose" assignment (Note: Compose is a makeup by me (harley))
+- Comparison
+- Logical
+- member access
+- [Operator precedence](https://en.cppreference.com/w/cpp/language/operator_precedence.html)
+
+More details on [Operator](https://en.cppreference.com/w/cpp/language/expressions.html)
+
+## Name Visibility
+
+Topics:
+- Scopes
+- Namespaces
+- `using`
+- Namespaces aliasing
+- The std namespace
+- Storage classes
+
+```cpp filename="visibility.cpp" remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/visibility.cpp"
+```
+
+More on [Name visibility](https://cplusplus.com/doc/tutorial/namespaces/).
 
 ## Conditions
 
@@ -42,14 +67,8 @@ More details on variables check [Variables and types - Fundamental data types](h
 - else if
 - switch
 
-{/*
-<CodeBlock
-filename="conditions.cpp" 
-code="" 
-lang="cpp"
-remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/conditions.cpp"
-/>
-*/}
+```cpp filename="conditions.cpp" remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/conditions.cpp"
+```
 
 More details on conditions and flow check [Statements and flow control](https://cplusplus.com/doc/tutorial/control/)
 
@@ -62,14 +81,8 @@ More details on conditions and flow check [Statements and flow control](https://
 - for-each (with type deduction)
 - break
 
-{/*
-<CodeBlock
-filename="conditions.cpp"
-code="" 
-lang="cpp"
-remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/loops.cpp"
-/>
-*/}
+```cpp filename="loops.cpp" remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/loops.cpp"
+```
 
 ## Functions
 
@@ -80,7 +93,7 @@ Topics:
 - functions with type returned.
 - parameters:
     - by value
-    - by reference
+    - by reference (`&` as **alias** operator -- not address operator --)
     - `const`
 - return values
 - functions overload
@@ -89,28 +102,27 @@ Topics:
 
 [functions demo](https://github.com/harleylara/cpp-intro/blob/master/002-basics/functions.cpp)
 
-{/*
-<CodeBlock
-filename="functions.cpp"
-code="" 
-lang="cpp"
-remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/functions.cpp"
-/>
-*/}
+```cpp filename="functions.cpp" remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/functions.cpp"
+```
 
 More details on [Functions](https://cplusplus.com/doc/tutorial/functions2/).
 
-## Name Visibility
+## Misc Data Types
 
 Topics:
-- Scopes
-- Namespaces
-- `using`
-- Namespaces aliasing
-- The std namespace
-- Storage classes
+- type aliases (`typedef` and `using`)
+- emuns
+- unions
 
-More on [Name visibility](https://cplusplus.com/doc/tutorial/namespaces/).
+```cpp filename="misc-types.cpp" remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/misc-types.cpp"
+```
+
+<Drawio
+    file="cpp.drawio"
+    page="2"
+    description="memory layout of a union."
+/>
+
 
 ## Structs
 
@@ -127,31 +139,10 @@ Topics:
 
 [structs demo](https://github.com/harleylara/cpp-intro/blob/master/002-basics/structs.cpp)
 
-{/*
-<CodeBlock
-filename="structs.cpp"
-code="" 
-lang="cpp"
-remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/structs.cpp"
-/>
-*/}
+```cpp filename="structs.cpp" remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/master/002-basics/structs.cpp"
+```
 
 More on [Data structures](https://cplusplus.com/doc/tutorial/structures/).
-
-## Others Data Types
-
-Topics:
-- type aliases (`typedef` and `using`)
-- emuns
-- unions
-
-[other types demo](https://github.com/harleylara/cpp-intro/blob/master/002-basics/others.cpp)
-
-<Drawio
-    file="cpp.drawio"
-    page="2"
-    description="memory layout of a union."
-/>
 
 
 ## Classes
@@ -167,6 +158,14 @@ Topics:
     - overload
     - hidden
     - uniform initialization
+- [Special members](https://cplusplus.com/doc/tutorial/classes2/)
+    - Default constructor
+    - Destructor
+    - Copy constructor
+    - Copy assignment
+    - Move constructor
+    - Move assignment
+    - [The Rule of Three](https://en.wikipedia.org/wiki/Rule_of_three_(C%2B%2B_programming))
 - overloading operators (not this time)
 - the keyword `this` (not this time)
 - static members (not this time)
@@ -175,10 +174,6 @@ Topics:
 - template specialization (not this time)
 
 More about classes in [Classes I](https://cplusplus.com/doc/tutorial/classes/) and [Classes II](https://cplusplus.com/doc/tutorial/templates/)
-
-## Special Members
-
-(not this time)
 
 ## Inheritance
 
@@ -202,6 +197,27 @@ Topics:
 - void pointers
 - invalid pointers and null pointers
 - pointers to functions
+
+
+declaring pointers:
+```cpp
+int num;
+int *ptr;
+
+// The following declarations are  all equivalent:
+// int* ptr;
+// int * ptr;
+// int *ptr;
+// int*ptr;
+```
+
+address-of operators:
+```cpp
+int num = 4;
+int *ptr = &num;
+
+// pi = num; // address <--x--> value
+```
 
 Example of good taste in code: [Linked lists, pointer tricks and good taste](https://github.com/mkirchner/linked-list-good-taste)
 
