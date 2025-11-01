@@ -42,8 +42,3 @@
 [data-tooltip]:hover::before {
   @apply visible opacity-100;
 }
-
-math {
-  /* same as the p element */
-  @apply mt-6;
-}
