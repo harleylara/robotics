@@ -64,7 +64,6 @@ export default defineConfig({
       }],
       [rehypeMathML, {
         macros: NOTATION,
-        strict: "ignore"
       }],
       // rehypeMathLinks,
       [rehypeExternalLinks, {

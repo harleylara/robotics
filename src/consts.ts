@@ -261,6 +261,7 @@ export const NOTATION: any = {
     "\\Q": "\\mbb{Q}", // rationals
     "\\C": "\\mbb{C}", // complex numbers
     "\\B": "\\mbb{B}", // boolean
+    "\\F": "\\mbb{F}", // boolean
 
     // Spaces
     "\\Euclid": "\\mbb{E}",
