@@ -1,0 +1,37 @@
+---
+title: "Quality of Service (QoS)"
+---
+
+You combine QoS **policies** to make QoS **profile**
+
+- History
+    - Keep last: only store up to N samples, configurable via the queue depth option.
+    - Keep all: store all samples, subject to the configured resource limits of the underlying middleware.
+- Depth
+    - Queue size: only honored if the “history” policy was set to “keep last”.
+- Reliability
+    - Best effort: attempt to deliver samples, but may lose them if the network is not robust.
+    - Reliable: guarantee that samples are delivered, may retry multiple times.
+- Durability
+    - Transient local: the publisher becomes responsible for persisting samples for “late-joining” subscriptions.
+    - Volatile: no attempt is made to persist samples.
+- Deadline
+    - Duration: the expected maximum amount of time between subsequent messages being published to a topic
+- Lifespan
+    - Duration: the maximum amount of time between the publishing and the reception of a message without the message being considered stale or expired (expired messages are silently dropped and are effectively never received).
+- Liveliness
+    - Automatic: the system will consider all of the node’s publishers to be alive for another “lease duration” when any one of its publishers has published a message.
+    - Manual by topic: the system will consider the publisher to be alive for another “lease duration” if it manually asserts that it is still alive (via a call to the publisher API).
+- Lease Duration
+    - Duration: the maximum period of time a publisher has to indicate that it is alive before the system considers it to have lost liveliness (losing liveliness could be an indication of a failure).
+
+## Pre-defined QoS Profiles
+
+## Compatibilities
+
+## QoS Events
+
+## External Resources
+
+- [About Quality of Service Settings](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Quality-of-Service-Settings.html)
+- [ROS 2 Quality of Service policies - ROS2 Design](https://design.ros2.org/articles/qos.html)

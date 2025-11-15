@@ -98,6 +98,12 @@ The `--symlink-install` directive tells colcon not to perform a hard-copy (defau
 
 The symlink concept is not exclusive for nodes, but also applies to any type of shared resource such as launch files, configurations, urdfs etc. ~Just keep in mind that currently (January 2024) there are no mechanisms to create symlinks for the resources specified in the `setup.py` section `data_files` of your `ament_python`~. Since [`colcon-core`](https://github.com/colcon/colcon-core) version [`0.16.0`](https://github.com/colcon/colcon-core/milestone/66?closed=1) [`PR #592`](https://github.com/colcon/colcon-core/pull/592), you can symlink files declared in the `data_files` section of your `setup.py` in packages of type `ament_python`.
 
+Update Oct. 2025: [--symlink-install breaks for setuptools >= 80.0.0 #696](https://github.com/colcon/colcon-core/issues/696) and [Declare incompatibility with setuptools >= 80 #699](https://github.com/colcon/colcon-core/pull/699). For a quick-fix use:
+
+```plain
+pip install --upgrade "setuptools<78"
+```
+
 ## Coding a Minimum Logger
 
 coding a logger (`logger.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/logger.py)
