@@ -2,8 +2,9 @@
 title: "Factorization into A = LU"
 ---
 
-<Equation
-    formula="\mE_{2,1} \mA  = 
+<Definition>
+    $$
+    \mE_{2,1} \mA  = 
     \begin{bmatrix}
     1 & 0 \\
     -4 & 1
@@ -15,14 +16,17 @@ title: "Factorization into A = LU"
     \begin{bmatrix}
     2 & 1 \\
     0 & 3
-    \end{bmatrix} = \mU"
-    description="LU example."
-/>
+    \end{bmatrix} = \mU
+    $$
+
+    LU example.
+</Definition>
 
 This is elimination without row exchanges. The upper triangular $\mU$ has the pivots on its diagonal. The lower triangular $\mL$ has all l's on its diagonal. The multipliers $l_{ij}$ are below the diagonal of $\mL$.
 
-<Equation
-    formula="\mA = \mL \mU \\
+<Definition>
+    $$
+    \mA = \mL \mU \\
     \begin{bmatrix}
     2 & 1 \\
     8 & 7
@@ -34,12 +38,13 @@ This is elimination without row exchanges. The upper triangular $\mU$ has the pi
     \begin{bmatrix}
     2 & 1 \\
     0 & 3
-    \end{bmatrix}"
-    description="LU continuation."
-/>
+    \end{bmatrix}
+    $$
+    LU continuation.
+</Definition>
 
-<Equation
-    formula="\mA = \mL \mU"
-    description="LU decomposition."
-/>
+<Definition>
+    $\mA = \mL \mU$
+    LU decomposition.
+</Definition>
 

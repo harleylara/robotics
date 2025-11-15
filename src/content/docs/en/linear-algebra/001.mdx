@@ -1,0 +1,78 @@
+---
+title: "The geometry of linear equations"
+---
+
+import LinearSystem from "../../../../components/LinearAlgebra/LinearSystem.astro";
+import LinearCombination from "../../../../components/LinearAlgebra/LinearCombination.astro";
+
+## Motivation - Real World Problems
+
+One can also present the first Chinese example, from chapter 8 of the Nine Chapters:
+
+There are three classes of corn, of which three bundles of the first class, two of the second, and one of the third make 39 measures. Two of the first, three of the second, and one of the third make 34 measures. And one of the first, two of the second, and three of the third make 26 measures. How many measures of grain are contained in one bundle of each class? [20, p. 80]
+
+This problem can be translated into a system of 3 equations in 3 unknowns:
+
+$$
+\begin{align*}
+3x + 2y + z &= 39
+2x + 3y + z &= 34
+x + 2y + 3z &= 26
+\end{align*}
+$$
+
+
+Nice case: `n` linear equations, `n` unknowns
+
+- Row picture
+- Column picture
+- Matrix form
+
+Example of a system of linear equations:
+
+$$
+\begin{cases}2x - y = 0 \newline -x + 2y = 3\end{cases}
+$$
+
+## Row Picture
+
+This can be represented as a matrix operation:
+
+$$
+\begin{bmatrix}
+2 & -1 \\ 
+-1 & 2
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+    y
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+    0 \\
+      3
+      \end{bmatrix}
+      $$
+
+In a simplified form:
+
+$$
+\mA \vx = \vb
+$$
+
+To solve this system of linear equation we need to find a value for $x$ and $y$ that satisfies the right hand side (rhs) in every equation.
+
+<LinearSystem/>
+
+## Column Picture
+
+$$
+x\begin{bmatrix}2 \\ -1\end{bmatrix} + y\begin{bmatrix}-1 \\ 2\end{bmatrix} = \begin{bmatrix}0 \\ 3\end{bmatrix}
+$$
+
+This is called `Linear combination` and is amazing!.
+
+<LinearCombination
+    description="Linear combination."
+/>
+

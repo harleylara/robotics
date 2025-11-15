@@ -1,12 +1,12 @@
 ---
-title: "Recap Linear Algebra"
+title: Introduction
 ---
 
-import ScalarMult from "../../../components/LinearAlgebra/ScalarMult.astro";
-import AddVector from "../../../components/LinearAlgebra/AddVector.astro";
-import VectorLength from "../../../components/LinearAlgebra/VectorLength.astro"
-import UnitVector from "../../../components/LinearAlgebra/UnitVector.astro"
-import DotProduct from "../../../components/LinearAlgebra/DotProduct.astro"
+import ScalarMult from "../../../../components/LinearAlgebra/ScalarMult.astro";
+import AddVector from "../../../../components/LinearAlgebra/AddVector.astro";
+import VectorLength from "../../../../components/LinearAlgebra/VectorLength.astro"
+import UnitVector from "../../../../components/LinearAlgebra/UnitVector.astro"
+import DotProduct from "../../../../components/LinearAlgebra/DotProduct.astro"
 
 ## Scalar
 
@@ -14,25 +14,20 @@ import DotProduct from "../../../components/LinearAlgebra/DotProduct.astro"
 A scalar is a one-component quantity that is invariant under rotations of the coordinate system.
 
 Source: [Scalar - Mathworld Wolfram](https://mathworld.wolfram.com/Scalar.html)
-</Definition>
 
-<Equation
-    formula="a"
-    description="Scalar representation."
-/>
+Scalar representation: $a$
+</Definition>
 
 ## Vector
 
 <Definition term="vector">
 In mathematics, physics, and engineering, a Euclidean vector or simply a vector (sometimes called a geometric vector or spatial vector) is a geometric object that has magnitude (or length) and direction.
 
-source: [Euclidean vector  - Wikipedia](https://en.wikipedia.org/wiki/Euclidean_vector)
-</Definition>
+Vector representation: $\vx = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}$
 
-<Equation
-    formula="\vx = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}"
-    description="Vector representation."
-/>
+source: [Euclidean vector  - Wikipedia](https://en.wikipedia.org/wiki/Euclidean_vector)
+
+</Definition>
 
 Operations on vectors:
 - Scalar multiplication
@@ -44,10 +39,10 @@ Operations on vectors:
 
 ### Scalar Multiplication
 
-<Equation
-    formula="a \cdot \vv"
-    description="Scalar **bold** multiplication. The scalar $a$ multiply the vector $\vv$"
-/>
+<Definition>
+    $a \cdot \vv$
+    Scalar **bold** multiplication. The scalar $a$ multiply the vector $\vv$
+</Definition>
 
 <ScalarMult
     description="original vector"
@@ -55,10 +50,10 @@ Operations on vectors:
 
 ### Addition and Subtraction
 
-<Equation
-    formula="\vc + \vd"
-    description="Addition and Subtraction of vectors."
-/>
+<Definition>
+    $\vc + \vd$
+    Addition and Subtraction of vectors.
+</Definition>
 
 <AddVector
     description="Interaction between vectors addition"
@@ -68,10 +63,10 @@ Operations on vectors:
 
 #### The norm of a vector
 
-<Equation
-    formula="\Vert \vx \Vert_2 = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}"
-    description="On the n-dimensional Euclidean space $\sR^n$ the intuitive notion of length of the vector $\vx = (x_1, x_2, \cdots , x_n)$ is captured by this formula"
-/>
+<Definition>
+    $\Vert \vx \Vert_2 = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}$
+    On the n-dimensional Euclidean space $\sR^n$ the intuitive notion of length of the vector $\vx = (x_1, x_2, \cdots , x_n)$ is captured by this formula
+</Definition>
 
 The Euclidean norm is also called the $L^{2}$ norm, $\ell^{2}$ norm, 2-norm, or square norm; see $L^{p}$ space.
 
@@ -83,24 +78,25 @@ The Euclidean norm is also called the $L^{2}$ norm, $\ell^{2}$ norm, 2-norm, or 
 
 Just to recap, the triangle inequality says:
 
-<Equation
-    formula="\Vert \vx + \vy \Vert \leq \Vert \vx \Vert \Vert \vy \Vert"
-    description="Triangle inequality."
-/>
+<Definition>
+    $\Vert \vx + \vy \Vert \leq \Vert \vx \Vert \Vert \vy \Vert$
+    Triangle inequality.
+</Definition>
 
 This also applies to matrices:
 
-<Equation
-    formula="\Vert \mA + \mB \Vert \leq \Vert \mA \Vert \Vert \mB \Vert"
-    description="Triangle inequality applied to matrices."
-/>
+<Definition>
+    $\Vert \mA + \mB \Vert \leq \Vert \mA \Vert \Vert \mB \Vert$
+    Triangle inequality applied to matrices.
+</Definition>
 
 ### Normalized Vector
 
-<Equation
-    formula="\uvx = \frac{\vx}{\Vert \vx \Vert_2}"
-    description="The term *normalized vector* is sometimes used as a synonym for *unit vector*."
-/>
+<Definition>
+    $\uvx = \frac{\vx}{\Vert \vx \Vert_2}$
+
+    The term *normalized vector* is sometimes used as a synonym for *unit vector*.
+</Definition>
 
 <UnitVector
     description="Unit vector representation"
@@ -108,15 +104,15 @@ This also applies to matrices:
 
 ### Dot Product
 
-<Equation
-    formula="\va \cdot \vb = \sum_{i=1}^{n} a_{i} b_{i}"
-    description="Coordinate definition of the dot product."
-/>
+<Definition>
+    $\va \cdot \vb = \sum_{i=1}^{n} a_{i} b_{i}$
+    Coordinate definition of the dot product.
+</Definition>
 
-<Equation
-    formula="\va \cdot \vb = \Vert \va \Vert \cdot \Vert \vb \Vert cos\theta"
-    description="Geometric definition of the dot product. Where $\Vert \va \Vert$ and $\Vert \vb \Vert$ are the euclidean norm and $\theta$ is the angle between the vectors"
-/>
+<Definition>
+    $\va \cdot \vb = \Vert \va \Vert \cdot \Vert \vb \Vert cos\theta$
+    Geometric definition of the dot product. Where $\Vert \va \Vert$ and $\Vert \vb \Vert$ are the euclidean norm and $\theta$ is the angle between the vectors
+</Definition>
 
 $$
 \vx \cdot \vy = \begin{Vmatrix} \vx \end{Vmatrix} \begin{Vmatrix} \vy \end{Vmatrix} \cos{\theta}
@@ -132,10 +128,10 @@ $$
 
 ### Cross Product
 
-<Equation
-    formula="\va \times \vb = \Vert \va \Vert \Vert \vb \Vert sin(\theta) \uvn"
-    description="where: - $\theta$ is the angle between $\va$ and $\vb$ in the plane containing them $\Vert \va \Vert$ and $\Vert \vb \Vert$ are the magnitudes of vectors $\va$ and $\vb$ and $\uvn$ is a unit vector perpendicular to the plane containing $\va$ and $\vb$, with direction such that the ordered set ($\va$, $\vb$, $\uvn$) is positively-oriented."
-/>
+<Definition>
+    $\va \times \vb = \Vert \va \Vert \Vert \vb \Vert sin(\theta) \uvn$
+    where: - $\theta$ is the angle between $\va$ and $\vb$ in the plane containing them $\Vert \va \Vert$ and $\Vert \vb \Vert$ are the magnitudes of vectors $\va$ and $\vb$ and $\uvn$ is a unit vector perpendicular to the plane containing $\va$ and $\vb$, with direction such that the ordered set ($\va$, $\vb$, $\uvn$) is positively-oriented.
+</Definition>
 
 ## Matrices
 
