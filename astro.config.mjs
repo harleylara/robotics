@@ -41,7 +41,7 @@ export default defineConfig({
         './src/components/Globals/Drawio.astro',
         './src/components/Globals/Definition.astro',
         './src/components/Globals/Important.astro',
-        './src/components/Globals/Terminal.astro',
+        './src/components/Globals/Terminal.astro', 
         './src/components/Globals/Think.astro',
         // './src/components/Globals/Math/MathDefinition.astro',
         './src/components/Presentations/Presentation.astro',
@@ -64,6 +64,7 @@ export default defineConfig({
       }],
       [rehypeMathML, {
         macros: NOTATION,
+        wrap: "none",
       }],
       // rehypeMathLinks,
       [rehypeExternalLinks, {
