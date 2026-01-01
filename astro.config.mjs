@@ -71,9 +71,9 @@ export default defineConfig({
         rel: ['nofollow', 'noopener', 'noreferrer'],
         target: '_blank',
         contentProperties: { 
-          className: ['link-icon'],
+          className: ['external-link'],
         },
-        content: { type: 'text', value: ' ↗' }
+        content: { type: 'text', value: '↗' }
       }],
       [rehypeCitation, {
         bibliography: "references.bib",
