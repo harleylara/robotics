@@ -42,3 +42,7 @@
 [data-tooltip]:hover::before {
   @apply visible opacity-100;
 }
+
+math {
+  @apply mt-6; /* match spacing between paragraphs */
+}
