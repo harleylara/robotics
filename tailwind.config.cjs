@@ -13,7 +13,8 @@ module.exports = {
                 'primary-dark': '#101010',
                 'dark-50': '#181818',
                 'dark-100': '#333333',
-                'dark-200': '#494949'
+                'dark-200': '#494949',
+                'primary-white': '#d1d5db'
             }
         },
     },
