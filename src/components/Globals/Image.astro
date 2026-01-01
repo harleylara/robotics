@@ -2,15 +2,20 @@
 import { markToHtml } from "../../tools/helper.parser";
 import BaseContainer from "./BaseContainer.astro";
 
+let html: string = "";
+
 const {
     src, 
-    description="Please **insert** the description of this image"
 } = Astro.props;
+
+if (Astro.slots.has("default")) {
+  html = await Astro.slots.render("default")
+}
 ---
 
 <BaseContainer>
     <div id="figure" class="flex flex-col items-center">
-        <img src={src} alt={description}>
-        <em set:html={markToHtml(description)} class="py-4"></em>
+        <img src={src} alt={html}>
+        <span set:html={html} class="py-4"></span>
     </div>
 </BaseContainer>
