@@ -1,30 +1,343 @@
 ---
 const props = Astro.props;
 import BaseContainer from "./BaseContainer.astro";
+
 ---
 
 <style is:global>
-thead {
-  @apply bg-dark-50
+
+/* =========================================================
+
+   GLOBAL: one consistent cap for ALL tables using this component
+   ========================================================= */
+:root {
+  --table-col-cap: 12rem;
 }
 
-thead tr th {
-  @apply p-2 border border-dark-100
+/* Lock background scroll while expanded */
+html.tv-locked { overflow: hidden; }
+
+/* Keep global table padding/bg but DO NOT set borders here (avoid double borders) */
+table[data-app-table] thead { @apply bg-dark-100; }
+table[data-app-table] th,
+table[data-app-table] td { @apply p-2; }
+</style>
+
+<style>
+/* Scoped component styles */
+
+.tv {
+  --tv-inset: clamp(12px, 2vw, 24px);
+  --tv-border: rgb(0 0 0 / 0.12);
+  --tv-grid: theme(colors.dark-100);
+  position: relative;
 }
 
-tbody tr {
-  @apply border-b border-dark-100
+.tv__bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+  margin-bottom: .5rem;
 }
 
-tbody tr td {
-  @apply p-2 border border-dark-100
+.tv__btn {
+  padding: .375rem .75rem;
+  border-radius: .5rem;
+  border: 1px solid var(--tv-border);
 }
+
+.tv__scroller {
+  overflow: auto;
+  max-height: 70vh;
+
+  /* helps sticky z-index/borders behave inside an overflow scroller */
+  position: relative;
+  isolation: isolate;
+}
+
+
+/* ✅ TABLE LAYOUT + SHRINK-TO-FIT BASE (applies in BOTH modes) */
+.tv :global(table[data-app-table]) {
+  table-layout: fixed;
+
+  /* shrink-to-fit so columns follow colgroup widths */
+  width: max-content;
+  display: inline-table;
+
+  /* ✅ 1px grid without doubled borders */
+  border-collapse: separate;
+  border-spacing: 0;
+
+
+  border: 1px solid var(--tv-grid);
+}
+
+/* ✅ 1px GRID: draw only right/bottom borders per cell (prevents 2px lines) */
+.tv :global(table[data-app-table] th),
+.tv :global(table[data-app-table] td) {
+  border: 0;
+  border-right: 1px solid var(--tv-grid);
+  border-bottom: 1px solid var(--tv-grid);
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  vertical-align: top;
+}
+
+/* remove inner border on last column/row (outer border handles edges) */
+.tv :global(table[data-app-table] tr > :last-child) { border-right: 0; }
+.tv :global(table[data-app-table] tbody tr:last-child > td) { border-bottom: 0; }
+
+
+/* ✅ Sticky header */
+.tv :global(table[data-app-table] thead th) {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  @apply bg-dark-50;
+
+
+  background-clip: padding-box;
+  box-shadow: inset 0 -1px 0 var(--tv-grid);
+}
+
+/* ✅ IMPORTANT CHANGE:
+   Removed the collapsed-mode "width: 100%" rule so the auto col widths are honored.
+   (No collapsed override needed anymore.) */
+
+/* ✅ Expanded mode: table stays shrink-to-fit */
+.tv[data-expanded="true"] :global(table[data-app-table]) {
+  width: max-content;
+  min-width: max-content;
+  display: inline-table;
+}
+
+/* ✅ Expanded mode: fixed panel that hugs table width */
+.tv[data-expanded="true"] {
+  position: fixed;
+  top: var(--tv-inset);
+  bottom: var(--tv-inset);
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 60;
+
+  display: flex;
+  flex-direction: column;
+
+  @apply bg-dark-50;
+  border: 1px solid var(--tv-border);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.18);
+  padding: 12px;
+
+
+  /* panel hugs content, but clamps to viewport */
+  width: max-content;
+  max-width: calc(100vw - (2 * var(--tv-inset)));
+
+  overflow: hidden;
+}
+
+.tv[data-expanded="true"] .tv__scroller {
+  max-height: none;
+  flex: 1;
+  overflow: auto;
+  min-width: 0;
+}
+
+/* OPTIONAL: backdrop dim
+.tv[data-expanded="true"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 0.45);
+  z-index: -1;
+}
+*/
 </style>
 
 <BaseContainer>
-  <div class="overflow-x-auto">
-    <table {...props} class="table-auto min-w-full w-max">
-      <slot/>
-    </table>
+  <div class="tv" data-tv data-expanded="false" tabindex="-1">
+    <div class="tv__bar">
+      <button class="tv__btn" type="button" data-tv-toggle aria-expanded="false">
+        Full view
+      </button>
+    </div>
+
+
+    <div class="tv__scroller">
+      <table data-app-table {...props}>
+
+        <slot />
+      </table>
+
+    </div>
   </div>
+
+  <script is:inline>
+    function cssLengthToPx(value) {
+      const el = document.createElement("div");
+      el.style.position = "absolute";
+      el.style.visibility = "hidden";
+
+      el.style.width = value;
+
+      document.body.appendChild(el);
+      const px = el.getBoundingClientRect().width;
+      el.remove();
+      return px;
+    }
+
+    function measureCellNaturalWidth(cell) {
+      const prevWhiteSpace = cell.style.whiteSpace;
+
+      const prevOverflowWrap = cell.style.overflowWrap;
+      const prevWordBreak = cell.style.wordBreak;
+
+      cell.style.whiteSpace = "nowrap";
+      cell.style.overflowWrap = "normal";
+      cell.style.wordBreak = "normal";
+
+      const w = cell.scrollWidth;
+
+      cell.style.whiteSpace = prevWhiteSpace;
+      cell.style.overflowWrap = prevOverflowWrap;
+      cell.style.wordBreak = prevWordBreak;
+
+
+      return w;
+    }
+
+    function buildColumnMap(table) {
+      const rows = Array.from(table.querySelectorAll("tr"));
+      const colCells = [];
+
+      let maxCols = 0;
+
+      for (const row of rows) {
+        const cells = Array.from(row.cells || []);
+        let colIndex = 0;
+
+        for (const cell of cells) {
+          const span = cell.colSpan || 1;
+
+          for (let i = 0; i < span; i++) {
+            const idx = colIndex + i;
+            if (!colCells[idx]) colCells[idx] = [];
+            colCells[idx].push(cell);
+          }
+
+          colIndex += span;
+        }
+
+        if (colIndex > maxCols) maxCols = colIndex;
+      }
+
+      for (let i = 0; i < maxCols; i++) {
+        if (!colCells[i]) colCells[i] = [];
+      }
+
+
+      return colCells;
+    }
+
+    function applyAutoColumnWidths(table) {
+      if (!table) return;
+
+      const old = table.querySelector('colgroup[data-auto-cols="true"]');
+
+      if (old) old.remove();
+
+      const rootStyles = getComputedStyle(document.documentElement);
+      const capRaw = rootStyles.getPropertyValue("--table-col-cap").trim() || "12rem";
+      const capPx = cssLengthToPx(capRaw);
+
+      const colCells = buildColumnMap(table);
+      if (!colCells.length) return;
+
+
+      const colgroup = document.createElement("colgroup");
+      colgroup.dataset.autoCols = "true";
+
+      for (let c = 0; c < colCells.length; c++) {
+        let maxW = 0;
+
+        for (const cell of colCells[c]) {
+          const span = cell.colSpan || 1;
+          const w = measureCellNaturalWidth(cell) / span;
+          if (w > maxW) maxW = w;
+        }
+
+        const desired = Math.ceil(Math.min(maxW || 0, capPx));
+        const col = document.createElement("col");
+        if (desired > 0) col.style.width = `${desired}px`;
+        colgroup.appendChild(col);
+      }
+
+      table.prepend(colgroup);
+
+    }
+
+    function initViewportTables() {
+      document.querySelectorAll("[data-tv]").forEach((root) => {
+        if (root.dataset.initialized === "true") return;
+        root.dataset.initialized = "true";
+
+        const btn = root.querySelector("[data-tv-toggle]");
+        const table = root.querySelector("table[data-app-table]");
+        if (!btn || !table) return;
+
+
+        const syncLock = () => {
+          const anyOpen = !!document.querySelector('[data-tv][data-expanded="true"]');
+          document.documentElement.classList.toggle("tv-locked", anyOpen);
+        };
+
+        const setExpanded = (next) => {
+
+          root.dataset.expanded = String(next);
+          btn.setAttribute("aria-expanded", String(next));
+          btn.textContent = next ? "Collapse" : "Full view";
+          syncLock();
+          if (next) btn.focus();
+
+          requestAnimationFrame(() => applyAutoColumnWidths(table));
+        };
+
+
+        requestAnimationFrame(() => applyAutoColumnWidths(table));
+
+        btn.addEventListener("click", () => {
+          const expanded = root.dataset.expanded === "true";
+          setExpanded(!expanded);
+        });
+
+        root.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && root.dataset.expanded === "true") {
+            setExpanded(false);
+          }
+        });
+
+        let t;
+        window.addEventListener(
+          "resize",
+          () => {
+            clearTimeout(t);
+            t = setTimeout(() => applyAutoColumnWidths(table), 100);
+          },
+          { passive: true }
+        );
+
+        syncLock();
+      });
+
+    }
+
+    initViewportTables();
+    document.addEventListener("astro:page-load", initViewportTables);
+    document.addEventListener("astro:after-swap", initViewportTables);
+  </script>
 </BaseContainer>
+
