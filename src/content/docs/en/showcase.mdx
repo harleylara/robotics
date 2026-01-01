@@ -58,16 +58,14 @@ or:
 Using `Image` component I'm obliged to add a description xD:
 
 ```jsx
-<Image
-    src="/banner.png"
-    description="Image description here"
-/>
+<Image src="/banner.png">
+    Just a description with markdown and $\LaTeX$ support.
+</Image>
 ```
 
-<Image
-    src="/banner.png"
-    description="Just a description with markdown and $\LaTeX$ support."
-/>
+<Image src="/banner.png">
+    Just a description with markdown and $\LaTeX$ support.
+</Image>
 
 ## Mathematical Notation
 
@@ -131,16 +129,16 @@ Please note that I have not conducted an exhaustive search on this topic. I am f
 
 `Equation` component:
 ```jsx
-<Equation 
-    formula="f(x) = \sqrt{x^2 + y^2}" 
-    description="Just a description"
-/>
+<Definition> 
+    $f(x) = \sqrt{x^2 + y^2}$
+    Just a description, with **mark**_down_ or $LaTeX$.
+</Definition>
 ```
 
-<Equation 
-    formula="f(x) = \sqrt{x^2 + y^2} + \evh" 
-    description="Just a description with markdown and $\LaTeX$ support."
-/>
+<Definition> 
+    $f(x) = \sqrt{x^2 + y^2}$
+    Just a description, with **mark**_down_ or $LaTeX$.
+</Definition>
 
 ## Useful Component
 
@@ -157,22 +155,6 @@ That renders as:
 <Definition term="A term">
     This a free space for the whole block. Sure you can do, **markdown** and $\LaTeX$ in here.
 </Definition>
-
-
-<Demo>
-    Hey what if i can just writ markdown here. "hey" 'hey'
-
-    list:
-    - skajdl
-    - slakjda
-
-    Equations:
-
-    $$
-    e^{i\pi} -1 = 0
-    $$
-
-</Demo>
 
 ## Embedding Diagrams
 
