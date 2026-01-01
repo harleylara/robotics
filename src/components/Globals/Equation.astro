@@ -1,28 +1,13 @@
 ---
-import katex from 'katex';
-import {NOTATION} from '../../consts';
-import { markToHtml, latexToHtml } from '../../tools/helper.parser.js'
-import BaseContainer from "./BaseContainer.astro";
+let html: string =  ""
 
-export interface Props {
-    formula: string, // EXPECT ONLY LaTeX
-    description: string // ALLOWS markdown with `inline` LaTeX
+if (Astro.slots.has("default")) {
+  html = await Astro.slots.render("default")
 }
-
-const {
-    formula, 
-    description="This **description** support *markdown* and `inline` $LaTeX$"
-} = Astro.props;
-
-const html = latexToHtml(formula);
-const caption = markToHtml(description);
 ---
 
-<BaseContainer>
-    <div data-latex={formula} id="math" class="math relative flex flex-col items-center">
-        <p set:html={html} class="pt-4"></p>
-        <div set:html={caption} class="py-4 px-4"></div>
-        <!-- The button is disable because most of the latex are custom commands -->
-        <button id="test-latex" class="hidden absolute top-2 right-2">Copy LaTeX</button>
-    </div>
-</BaseContainer>
+<aside class="text-gray-900 dark:text-white pl-4 py-2 border-l-8 border-l-green-900 mt-6">
+    <div class="text-justify text-gray-300">
+        <p set:html={html}></p>
+  </div>
+</aside>
