@@ -23,80 +23,12 @@ Some references for simulation generals:
     How would you represent a 3D space? What are the properties of it?
 </Think>
 
-The representation of space has been a field of study for a very long time, this concepts lays the lays the foundations for rigurous analysis in multiples fields of siences. Note that the term "space" refers to an **abstract concept** that structures the relationships among the elements that form the given space. Under the general concept of space, we could model spaces with different properties and rules; to mention a few: Euclidean spaces or probability spaces. However, we will not go in that direction, since it is the entire field of study in mathematics, see [Space (mathematics) - Wikipedia](https://en.wikipedia.org/wiki/Space_(mathematics)).
-
-Going back to the initial question, "how can we model the physical space we live in?". It turns out that the Greek mathematician [Euclid](https://en.wikipedia.org/wiki/Euclid) systematized and formally formulated a space; that space is known in modern times as [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space), and the structure of the space is defined by a set of [five axioms](https://en.wikipedia.org/wiki/Euclidean_geometry#Axioms) (the fifth of which generated much controversy), which do not restrict its number of dimensions. Conveniently, we live in what we could call a **three-dimensional Euclidean space** denoted by the notation $\Euclid^{3}$.
-
-We can say that an Euclidean space: is a set whose elements satisfy the five axioms of Euclid.
-
-<Definition term="Vector in Euclidean Space">
-
-    In Euclidean space, a vector $\vv$ is determined by a pair of points $p, q \in \Euclid^{3} $ and is defined as a direct arrow connecting $p$ to $q$, denoted $\vv = p q$.
-
-    The point $p$ is usually called the base point of the vector $\vv$. In Cartesian coordinates, the vector $\vv$ is represented by the triplet $[v_1, v_2 , v_3]^{\transpose} \in \R^{3}$, where each coordinate is the difference between the corresponding coordinates of the two points: if $p$ has coordinates $\pX$ and $q$ has coordinates $\pY$, then $\vv$ has coordinates
-
-    $$
-    \vv = \pY - \pX \in \R^{3}
-    $$
-
-    Under this definition we say that this is as a **bound vector**.
-
-    Source: Definition 2.1 from @maInvitation3DVision2004
-
-</Definition>
-
-<Definition term="(free) Vector in Euclidean Space">
-
-    A free vector does not depend on its base point. If we have two pairs of points $(p, q)$ and $(p', q')$ with coordinates satisfying:
-
-    $$
-    \pX - \pY = \pX' - \pY'
-    $$
-
-    The intuition is that this allow a vector to move in the $\Euclid^{3}$ space without the loss of generality: magnitud and direction.
-
-</Definition>
-
-
-<Drawio
-    file="linear-algebra-vector.drawio"
-    page="1"
-    description="Visual representation of a free vector"
-/>
-
-<Definition term="Linear vector space">
-    Also called simply vector space, a set $\sV$ over the field $\R$ if it closed under addition and multiplication:
-
-    Closed under addition:
-    $$
-    + : \sV \times \sV \rightarrow \sV
-    $$
-
-    Closed under multiplication:
-    $$
-    \cdot : \R \times \sV  \rightarrow  \sV
-    $$
-
-
-</Definition>
-
-
-<Definition term="Reference frame">
-Let a Cartesian coordinate frame $\fH \in \Euclid^{3}$ be a ordered pair:
-
-    $$
-    \fH = (o, (e_1, e_2, e_3))
-    $$
-
-    Where:
-    - $o \in \Euclid^{3}$ is an origin point
-    - $(\ve_1, \ve_2, \ve_3)$ oriented orthonormal basis vectors defining $\fH$
-</Definition>
+See the note in [Euclidean Space](geometry/euclidean)
 
 ## Rigid Body Motion SE(3)
 
 
-From the definition of Reference frame lets define: inertial frame
+Some resources like Wikipedia define **rigid body motion** as a mapping $g_t(\vx) = \mR \vx + \vt$. But this section would provide more details that leads to the derivation of this transformation in terms of linear algebra.
 
 
 ### Orientation Representation
@@ -129,6 +61,65 @@ $$
 - set "body fixed frame" $\fB$
 - rotation from inertial frame to fix body frame $\mR : \fB \rightarrow \fI \quad \mR \in \SO(3)$
 
+## Allocation
+
+Let rotor $i$ sit at body-frame position $\vr_i = (x_i, y_i, z_i)$ and push along the unit vector $\vn_i$ (usually $(0, 0, 1)$) if rotors are vertical. Let its thrust be:
+
+$$
+t_i = k_{T,i} \Omega^{2}_{i}
+$$
+
+and its reaction (drag) torque magnitude be
+
+$$
+q_i = k_{Q,i} \Omega^{2}_{i}
+$$
+
+acting along $\vn_i$ with sign $\sigma_i \in {+1, -1}$ depending in spin direction (choose $\sigma_i = +1$ for positive yaw torque by the right-hand rule, $-1$ otherwise).
+
+Each rotor contributes force $\vf_i = T_i \vn_i$ and moment:
+
+$$
+\v{\tau}_i = \vr_i \times (t_i \vn_i) + \sigma_i q_i \vn_i
+$$
+
+The body control vector:
+
+$$
+\vw = 
+\underbrace{
+\begin{bmatrix}
+k_{T,1}\,\vn_1 & \cdots & k_{T,n}\,\vn_n \\
+k_{T,1}\!\left(\vr_1 \times \vn_1\right) + \sigma_1\,k_{Q,1}\,\vn_1
+& \cdots &
+k_{T,n}\!\left(\vr_n \times \vn_n\right) + \sigma_n\,k_{Q,n}\,\vn_n
+\end{bmatrix}
+}_{\mA_{6 \times n}}
+
+\,\Omega^{2}\, .
+
+$$
+
+## Core Idea
+
+1. Controllers output a desired thrust and body torques
+2. Geometric relation
+
+$$
+\vw = \mA \mT
+$$
+
+3. Solve for $\mT$ using pseudoinverse or a constrained solver)
+
+$$
+\mT = \mA^{\dagger} \vw
+$$
+
+See [Control Allocation (Mixing) - PX4 Docs](https://docs.px4.io/main/en/concept/control_allocation). Related to parameter [`CA_METHOD`](https://docs.px4.io/main/en/advanced_config/parameter_reference#CA_METHOD)
+
+4. Map thrust to PWM/DShot via thrust curve
+
+5. Saturation handling & priorities
 
 
 ## References

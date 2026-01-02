@@ -23,21 +23,23 @@ How is a drone able to *fly?*
 Well, in order to analyze how a drone is able to fly, we would first have to identify the element or elements that make this possible. Under that logic, if we understand how those elements work, we can explain how a drone is able to fly. But to help us think and carry out the analysis, pause for a moment and think about the following:
 
 <Think>
-    note="What does it mean to fly or, at best, hover? What keeps us “stuck to the ground”? And why do we fall back down when we jump?"
+  What does it mean to fly or, at best, hover? What keeps us “stuck to the ground”? And why do we fall back down when we jump?
 </Think>
 
-A natural answer is **gravity**. so if we manage to counteract the effect of gravity in sufficient amount, we would be able to move in the opposite direction to it. Going back to drones, the drone would need to generate a force that's opposite to gravity to fly.
+A natural answer is **gravity**. so if we manage to counteract the effect of gravity in sufficient amount, we would be able to move in the opposite direction to it. Going back to drones, the drone would need to generate a force that's opposite to gravity in order to fly.
 
 The effect of gravity on a drone (or any system with mass) can be modeled by the famous equation (Netwon's second law):
 
-<Equation
-    formula="F_g = m \vg"
-    description="Effect of gravity in a system."
-/>
-Where:
-- $F$: is the force experienced by a system (in Nm)
-- $m$: mass of the system (drone) (in kg)
-- $\vg$: gravity (in m/s^2)
+<Definition term="Netwon's second law" >
+    $F_g = m \vg$
+
+    Effect of gravity in a system.
+
+    Where:
+    - $F$: is the force experienced by a system (in Nm)
+    - $m$: mass of the system (drone) (in kg)
+    - $\vg$: gravity vector (in $m/s^2$)
+</Definition>
 
 At this point, we still don't know how to generate this force opposite to gravity, or where it comes from, but with our current mental framework, we can derived the following cases:
 1. If the gravitational force $F_g$ experienced by the drone is greater than the drone's opposite force $F_d$ -- that is, $F_g > F_d$ -- then the drone remains stuck to the ground.
@@ -127,6 +129,8 @@ Relevant papers:
     -  @mckerrowModellingDraganflyerFourrotor2004
 - Explicit use of the equation: @poundsDesignConstructionControl2007
 
+Think this with me for a second, to produce $F$ a.k.a. thrust with can play with $m$ (mass) and $\va$ (acceleration), but we can assume the drone with a constant mass, so this left us with the only phenomenon that we can use to generate thrust is acceleration. but How acceleration lead to thrust? and from a control perspective how do we manipulate acceleration to get the desired thrust?
+
 ## Momentum Theory
 
 The [Momentum Theory](https://en.wikipedia.org/wiki/Momentum_theory) was initially develop by @rankineMechanicalPrincipalsAction1865 (see appendix II. eq. 1)
@@ -158,16 +162,18 @@ Also called Actuator Disk Theory (ADT)
 
 
 
-<Equation
-    formula="\dot{m}=\rho A \vv"
-    description="Mass flow rate (kg/s)"
-/>
+<Definition>
+    $\dot{m}=\rho A \vv$
 
-where:
-- $\dot{m}$: air flow rate ($kg/s$)
-- $\rho$: density of the medium ($kg/m^3$).
-- $A$: cross-sectional area the fluid flows through ($m^2$)
-- $\vv$: velocity of the fluid perpendicular to the area ($m/s$)
+    Mass flow rate (kg/s).
+
+    where:
+    - $\dot{m}$: air flow rate ($kg/s$)
+    - $\rho$: density of the medium ($kg/m^3$).
+    - $A$: cross-sectional area the fluid flows through ($m^2$)
+    - $\vv$: velocity of the fluid perpendicular to the area ($m/s$)
+</Definition>
+
 
 ## Blade element theory (BET)
 
@@ -182,25 +188,27 @@ Lift generation.
 
 ## Quadratic Thrust Model
 
-<Equation
-    formula="F_{T} = k_{F} w^2"
-    description="Thrust force (lifting force)"
-/>
+<Definition>
+    $F_{T} = k_{F} w^2$
 
-where:
-- $F_{T}$: thrust force produced by the rotor (N)
-- $k_{F}$: Thrust coefficient. A Nondimensional coefficient.
-- $w$: angular speed of the rotor (rad/s)
+    Thrust force (lifting force).
 
-<Equation
-    formula="\tau = k_{M} w^2"
-    description="Torque"
-/>
+    where:
+    - $F_{T}$: thrust force produced by the rotor (N)
+    - $k_{F}$: Thrust coefficient. A Nondimensional coefficient.
+    - $w$: angular speed of the rotor (rad/s)
+</Definition>
 
-where:
-- $\tau$: torque (or moment) about the rotor axis
-- $k_{M}$: moment (torque) coefficient
-- $w$: is the rotor speed (rad/s)
+
+<Definition>
+    $\tau = k_{M} w^2$
+
+    Torque, where:
+    - $\tau$: torque (or moment) about the rotor axis
+    - $k_{M}$: moment (torque) coefficient
+    - $w$: is the rotor speed (rad/s)
+</Definition>
+
 
 The constants kM and kF can be determined by experimentation with fixed rotors or by matching the performance of a simulation to the performance of the real system.
 

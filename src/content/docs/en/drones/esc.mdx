@@ -2,17 +2,128 @@
 title: Electronic Speed Controller
 ---
 
+## Control Methods
 
-- ESC control
-    - back-EMF control
-    - Direct torque control (DTC)
-    - Field-Oriented Control
-    - Sinusoidal control
-    - Six-step (trapezoidal) control
-- ESCs firmwares
-    - ...
-- ESCs communication options
-    - PWM
-    - Dshot
-    - Oneshot
-    - DroneCAN
+Types of applications:
+- torque
+- position
+- speed
+
+- Commutation methods (ESC control)
+  - Trapezoidal (also known as six-step control)
+    - trapezoidal 120 deg
+    - trapezoidal 150 deg
+    - trapezoidal 180 deg
+    - Note: Hall sensors or sensorless back-EMF zero-crossing
+  - Sinusoidal
+    - allow smoth start in RC-cars
+  - Field-Oriented Control (FOC)
+  - Direct Torque Control (DTC)
+
+sensored control:
+- hall-effect sensor, allow,
+  - torque
+  - position
+  - speed
+
+sensorless control:
+- back-EMF zero-crossing
+  - used mainly in speed control
+
+Series of videos: [Precision labs series: Brushless-DC motors - Texas Instruments](https://www.ti.com/video/series/precision-labs/ti-precision-labs-brushless-dc-motors.html)
+- [Comparison of commutation methods](https://www.youtube.com/watch?v=InzXA7mWBWE)
+- [Sensored vs. sensorless control](https://www.youtube.com/watch?v=teeMdFaykPE)
+- [Trapezoidal commutation](https://www.youtube.com/watch?v=xIORHY8Ii90)
+- [Sinusoidal control](https://www.youtube.com/watch?v=-By_vt27Xhs)
+- [Field-Oriented Control](https://www.youtube.com/watch?v=_6-_jvZe7iA)
+
+Guides:
+- [Brushless-DC Motor Driver Considerations and Selection Guide](https://www.ti.com/lit/an/slvaes1a/slvaes1a.pdf)
+
+## Driving Protocols (Drone Context)
+
+| Protocols                                 | Description                                                                                            | Latency         | PX4 support | Ardupilot support |
+|-------------------------------------------|--------------------------------------------------------------------------------------------------------|-----------------|-------------|-------------------|
+| "Regular" PWM                             |                                                                                                        | 1000us – 2000us | yes         | yes               |
+| Oneshot	Same as PWM with a fix frame rate |                                                                                                        |                 |             | yes (legacy)      |
+| Oneshot 125                               | From ardupilot docs "similar to regular PWM except that the pulse widths are divided by a factor of 8" | 125us – 250us   | yes         | yes               |
+| Oneshot 42                                |                                                                                                        | 42us – 84us     | no          | no                |
+| Multishot                                 |                                                                                                        | 5us – 25us      | no          | no                |
+| DShot150                                  |                                                                                                        | 106.8us         | yes         | yes               |
+| DShot300                                  |                                                                                                        | 53.4us          |             |                   |
+| DShot600                                  |                                                                                                        | 26.7us          |             |                   |
+| DShot1200                                 |                                                                                                        | 13.4us          |             |                   |
+| DShot2400                                 |                                                                                                        |                 | no          | no                |
+| ProShot                                   |                                                                                                        |                 | no          | no                |
+| DroneCAN                                  |                                                                                                        |                 | yes         |                   |
+
+Who maintain the protocol spec ?
+
+
+## ESC Firmwares
+
+| Firmware                                                                                      | Avaiability                                                                                                                   | Initial Release                                                             | Protocol Support                                               | MUC Support                                                                                                       |
+|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| BLHeli                                                                                        |                                                                                                                               | 2013                                                                        | N/A                                                            | Silabs 8-bit MUCs                                                                                                 |
+| [BLHeli_S](https://github.com/bitdump/BLHeli)                                                 |                                                                                                                               | 2016                                                                        | Oneshot125, Oneshot42, Multishot, DShot150, DShot300, DShot600 | Silabs 8-bit MUCs (like the [EFM8BB2](https://www.silabs.com/documents/public/data-sheets/efm8bb2-datasheet.pdf)) |
+| [BLHeli_32](https://github.com/bitdump/BLHeli)                                                | [Shuted down due to the war in Ukrain (2024)](https://www.dronetrest.com/t/important-update-blheli-32-is-shutting-down/10509) | 2017                                                                        | Oneshot125, Oneshot42, Multishot, DShot150, DShot300, DShot600 | 32-bit MUCs                                                                                                       |
+| [AM32](https://github.com/am32-firmware/AM32), [Wiki](https://wiki.am32.ca/general/docs.html) | Open source                                                                                                                   | 2020                                                                        | DShot300 and DShot600                                          | STM32-based 32-bit MUCs                                                                                           |
+| [Bluejay](https://github.com/mathiasvr/bluejay)                                               | Open source (Not active since March 2022)                                                                                     | [Oct 2020 v0.1.0](https://github.com/mathiasvr/bluejay/releases/tag/v0.1.0) | DShot150, DShot300 and DShot600                                | Based on BLHeli_S revision 16.7                                                                                   |
+| [SimonK](https://github.com/sim-/tgy)                                                         | Open source                                                                                                                   | 2011                                                                        | PWM                                                            | ATmega-based                                                                                                      |
+| KISS                                                                                          | Closed-source                                                                                                                 | 2014                                                                        |                                                                |                                                                                                                   |
+| KissUltra                                                                                     | Closed-source                                                                                                                 | 2021                                                                        |                                                                |                                                                                                                   |
+ 
+
+## Design ESC
+
+A Pixhawk-based autopilot can interacti with multi....
+
+
+Pick an open-source firmware and build around it. why ? because building a firmware for your ESC is more demanding than building the hardware itself.
+- STM32F051: the just enough for a ESC, common in the market and set as the de-facto standard because was the main MCU in BLHeli_32
+- STM32G071: modern alternative to F051
+
+
+### Specs and Block Diagram
+
+- Input voltage: 2S-6S is very common and flexible for a wide range of builds
+- Continous Amps per channel: ? depends on your drone
+- espected pick current with duration defined
+
+### BLDC Motor Drivers
+
+[Brushless DC (BLDC) motor drivers - Texas Instruments Overview](https://www.ti.com/product-category/motor-drivers/brushless-dc/overview.html)
+
+
+### MOSFET
+
+Consideration to pick a MOSFET:
+1. Pick BVDSS comfortably above battery max
+  - 2–4S: 30–40 V parts can work, but 40 V is safer.
+  - 6S (25.2 V max): 40 V is common, 60 V is safer if your layout/wiring is rough.
+2. TBD
+3. Conduction loss: Rds(on) at high temperature
+
+
+Voltage spikes are the worst enemy and your Vds in the MOSFET need to handle them
+
+"you want enough Vds margin for spikes, but not so high that you waste power and heat in the ESC"
+
+
+## Reference ESCs
+
+| ESC                                                                                                                                                                                                                                                                                                                                                                  | Voltage       | Max. Current (continuous) | MCU                | MOSFET                                                                                            | Driver                                                                                                                                  |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|---------------------------|--------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| [VOXL 4-in-1 ESC Datasheet](https://docs.modalai.com/voxl-esc-datasheet/)                                                                                                                                                                                                                                                                                            | 2-4S and 2-6S | 10A+ per channel          | STM32F051K86       | [AON7528](https://www.aosmd.com/res/datasheets/AON7528.pdf)                                       | [MP6530](https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP6530/)   |
+| [VOXL Mini 4-in-1 ESC Datasheet](https://docs.modalai.com/voxl-mini-esc-datasheet/)                                                                                                                                                                                                                                                                                  |               | ??                        | STM32F051K86       | CSD17575Q3                                                                                        | [MP6531A](https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP6531A/) |
+| [VOXL FPV Racing 4-in-1 ESC Datasheet](https://docs.modalai.com/voxl-fpv-esc-datasheet/)                                                                                                                                                                                                                                                                             | 2-6S          | 40A per channel           | STM32F051K86       |                                                                                                   | [MP6531](https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP6531A/)  |
+| [ARK 4IN1 ESC](https://arkelectron.com/product/ark-4in1-esc/)                                                                                                                                                                                                                                                                                                        | 3-8S          | 50A per channel           | STM32F051K86       | [IAUCN08S7N013](https://www.infineon.com/part/IAUCN08S7N013)                                      | [DRV8328ARUYR](https://www.ti.com/product/DRV8328/part-details/DRV8328ARUYR)                                                            |
+| [SpeedyBee BLS 35A Mini V2 20x20 4-in-1 ESC](https://www.speedybee.com/speedybee-f405-mini-bls-35a-20x20-stack/)                                                                                                                                                                                                                                                     | 3-6S          | 35A per channel           | EFM8BB21F16G-QFN20 | [TPN2R203NC](https://www.mouser.com/datasheet/2/408/TPN2R203NC_datasheet_en_20191030-1915945.pdf) | SA6288                                                                                                                                  |
+| [Discovery kit with STM32G431CB MCU](https://www.st.com/en/evaluation-tools/b-g431b-esc1.html), [UM2516 - User Manual](https://www.st.com/resource/en/user_manual/um2516-electronic-speed-controller-discovery-kit-for-drones-with-stm32g431cb-stmicroelectronics.pdf), [Schematic](https://www.st.com/resource/en/schematic_pack/mb1419-g431cbu6-c01_schematic.pdf) | 3?-6S         | ???                       | STM32G431CB        | [STL180N6F7](https://www.st.com/resource/en/datasheet/stl180n6f7.pdf)                             | [L6387](https://www.st.com/resource/en/datasheet/cd00002423.pdf)                                                                        |
+
+
+## External Reference Designs
+
+- [32-bit 4-1 MK 1.1 (English translation)](https://oshwlab.com/hawaii0707/32wei-si-ge-yi-dian-diao-mk1.1-1) by [Yihao6767](https://oshwhub.com/lyh6767/works), [original post](https://oshwhub.com/lyh6767/32-bit-four-in-one-esc-4in1-esc)
+- [2-bit brushless Electromechanical Modulation (ESC) based on AM32 firmware and G071 (English translation)](https://oshwlab.com/hawaii0707/32-bit-brushless-electromechanic) by [mtbsk8](https://oshwhub.com/mtbsk8), [original post](https://oshwhub.com/mtbsk8/ji-yu-am32-gu-jian-he-g071-de-32-wei-wu-shua-dian-ji-dian-diao-esc)
+- [Vimdrones ESC Development Board](https://dev.vimdrones.com/products/vimdrones_esc_dev/) by Vimdrones
