@@ -5,7 +5,7 @@ import JSXGraph from "../Figures/JSXGraph.astro";
 let html: string = ""
 
 if (Astro.slots.has("default")) {
-html = await Astro.slots.render("default");
+  html = await Astro.slots.render("default");
 }
 ---
 
