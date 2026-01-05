@@ -1,0 +1,279 @@
+---
+import CodeBlock from "./CodeBlock.astro";
+
+const {
+  remoteFSH, // remote Fragment Shader
+  remoteVSH = "", // (optional) remote Vector Shader
+  height = 420,
+  showCode = true,
+  class: className = "",
+} = Astro.props;
+
+if (!remoteFSH) {
+  throw new Error("Shaders/BaseContainer.astro: missing remote fragment shader `remoteFSH`");
+}
+
+const id = `shader-${Math.random().toString(36).slice(2)}`;
+---
+
+<div id={id} class={`shader-wrap ${className}`}>
+  {showCode && (
+    <CodeBlock lang="glsl" remoteURL={remoteFSH} />
+  )}
+
+  <div class="shader-root" style={`--h:${height}px`}>
+    <canvas class="shader-canvas"></canvas>
+    <pre class="shader-error" hidden></pre>
+  </div>
+
+  <script
+    type="module"
+    define:vars={{ id, remoteVSH, remoteFSH }}
+  >
+    import * as THREE from "https://cdn.skypack.dev/three@0.136";
+
+    const DEFAULT_VERTEX = `
+    varying vec2 vUvs;
+void main() {
+  vec4 localPosition = vec4(position, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * localPosition;
+  vUvs = uv;
+}
+    `.trim();
+
+
+    const ensurePrecision = (src) => {
+      const hasPrecision = /precision\s+(lowp|mediump|highp)\s+float\s*;/.test(src);
+      return hasPrecision ? src : `precision highp float;\n${src}`;
+    };
+
+
+    const isNonEmpty = (s) => typeof s === "string" && s.trim().length > 0;
+
+    const makeContext = (canvas) => {
+      const attrs = {
+        alpha: true,
+        antialias: true,
+        depth: false,
+        stencil: false,
+        premultipliedAlpha: true,
+        preserveDrawingBuffer: false,
+        powerPreference: "high-performance",
+        failIfMajorPerformanceCaveat: false,
+      };
+
+      return (
+        canvas.getContext("webgl2", attrs) ||
+        canvas.getContext("webgl", attrs) ||
+        canvas.getContext("experimental-webgl", attrs)
+      );
+    };
+
+
+    class RemoteGLSLPlaneApp {
+      constructor(rootEl, canvas, errorEl, vertURL, fragURL) {
+        this.rootEl_ = rootEl;     // entire component wrapper
+        this.canvas_ = canvas;
+        this.errorEl_ = errorEl;
+        this.vertURL_ = vertURL;
+        this.fragURL_ = fragURL;
+
+        this.renderer_ = null;
+        this.scene_ = null;
+        this.camera_ = null;
+        this.mesh_ = null;
+        this.material_ = null;
+
+        this.rafId_ = 0;
+        this.start_ = 0;
+
+        this.ro_ = null;
+      }
+
+      async initialize() {
+        const ctx = makeContext(this.canvas_);
+        if (!ctx) {
+          throw new Error(
+            "Error creating WebGL context. WebGL may be disabled or unavailable (hardware acceleration/GPU policy)."
+          );
+        }
+
+        this.renderer_ = new THREE.WebGLRenderer({
+          canvas: this.canvas_,
+          context: ctx,
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance",
+        });
+        this.renderer_.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+        this.scene_ = new THREE.Scene();
+
+        this.camera_ = new THREE.OrthographicCamera(0, 1, 1, 0, 0.1, 1000);
+        this.camera_.position.set(0, 0, 1);
+
+        await this.setupProject_();
+
+        this.onResize_();
+        this.ro_ = new ResizeObserver(() => this.onResize_());
+        // observe the shader container (not the whole page)
+        this.ro_.observe(this.canvas_.parentElement);
+
+        this.start_ = performance.now();
+
+        this.raf_();
+
+        const cleanup = () => this.dispose_();
+
+        // prevents WebGL context leaks during Astro navigation / HMR
+        document.addEventListener("astro:before-swap", cleanup, { once: true });
+        window.addEventListener("beforeunload", cleanup, { once: true });
+        if (import.meta.hot) import.meta.hot.dispose(cleanup);
+      }
+
+
+      async fetchText_(url) {
+        const res = await fetch(url, { mode: "cors" });
+        if (!res.ok) throw new Error(`Fetch failed (${res.status}) for ${url}`);
+        return await res.text();
+      }
+
+      async setupProject_() {
+        let vertexShader = DEFAULT_VERTEX;
+        if (isNonEmpty(this.vertURL_)) {
+          vertexShader = await this.fetchText_(this.vertURL_);
+        }
+
+        const fragmentShader = await this.fetchText_(this.fragURL_);
+
+        const uniforms = {
+          uTime: { value: 0 },
+          uResolution: { value: new THREE.Vector2(1, 1) },
+        };
+
+        this.material_ = new THREE.ShaderMaterial({
+          uniforms,
+          vertexShader: ensurePrecision(vertexShader),
+          fragmentShader: ensurePrecision(fragmentShader),
+        });
+
+        const geometry = new THREE.PlaneGeometry(1, 1);
+        this.mesh_ = new THREE.Mesh(geometry, this.material_);
+        this.mesh_?.position?.set(0.5, 0.5, 0);
+        this.scene_.add(this.mesh_);
+      }
+
+      onResize_() {
+        const parent = this.canvas_.parentElement;
+        const r = parent.getBoundingClientRect();
+        const w = Math.max(1, Math.floor(r.width));
+        const h = Math.max(1, Math.floor(r.height));
+
+        this.renderer_.setSize(w, h, false);
+
+        if (this.material_?.uniforms?.uResolution) {
+          this.material_.uniforms.uResolution.value.set(w, h);
+        }
+      }
+
+      raf_() {
+        this.rafId_ = requestAnimationFrame(() => {
+          const t = (performance.now() - this.start_) / 1000;
+
+          if (this.material_?.uniforms?.uTime) {
+            this.material_.uniforms.uTime.value = t;
+          }
+
+          this.renderer_.render(this.scene_, this.camera_);
+          this.raf_();
+        });
+      }
+
+
+      dispose_() {
+        cancelAnimationFrame(this.rafId_);
+        this.ro_?.disconnect();
+
+        if (this.mesh_) this.mesh_.geometry?.dispose?.();
+        this.material_?.dispose?.();
+        this.renderer_?.dispose?.();
+
+        this.mesh_ = null;
+        this.material_ = null;
+        this.renderer_ = null;
+      }
+    }
+
+
+    (async () => {
+      const wrapper = document.getElementById(id);
+      const canvas = wrapper?.querySelector("canvas.shader-canvas");
+      const errorEl = wrapper?.querySelector("pre.shader-error");
+
+      if (!wrapper || !canvas || !errorEl) {
+        console.warn("[RemoteShaderPlane] Missing DOM nodes for", id);
+        return;
+      }
+
+      const showError = (msg) => {
+        errorEl.hidden = false;
+        errorEl.textContent = msg;
+      };
+
+
+      try {
+        const app = new RemoteGLSLPlaneApp(
+          wrapper,
+          canvas,
+          errorEl,
+          remoteVSH,
+          remoteFSH
+        );
+        await app.initialize();
+      } catch (e) {
+        console.error(e);
+        showError(
+          `[RemoteShaderPlane] Failed to load/compile shaders.\n\n` +
+          `${e?.message || String(e)}\n\n` +
+          `Notes:\n- Shader URLs must allow CORS.\n- Must compile under WebGL1/Three ShaderMaterial.\n` +
+          `- Uniforms: uTime, uResolution.`
+        );
+
+      }
+    })();
+  </script>
+</div>
+
+<style>
+  .shader-wrap {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .shader-root {
+    height: var(--h);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+
+  }
+
+  .shader-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .shader-error {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffb4b4;
+    font-size: 12px;
+    line-height: 1.35;
+    white-space: pre-wrap;
+    overflow: auto;
+  }
+</style>

@@ -43,6 +43,7 @@ export default defineConfig({
         './src/components/Globals/Important.astro',
         './src/components/Globals/Terminal.astro', 
         './src/components/Globals/Think.astro',
+        './src/components/Globals/Shader.astro',
         // './src/components/Globals/Math/MathDefinition.astro',
         './src/components/Presentations/Presentation.astro',
         './src/components/Presentations/Slide.astro',
