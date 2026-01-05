@@ -3,8 +3,192 @@ title: Introduction to Neural Networks
 describe: Let's see inside a NN
 ---
 
+## Outline of Content
 
-## Introduction
+- The primitive form of what today are Neural Networks
+- The brain as a complex beautiful system
+
+## The Big Picture
+
+As [Prof. Thomas A. Garrity](https://math.williams.edu/thomas-garrity/) perfectly emphasizes in the video [On Mathematical Maturity (1)](https://youtu.be/zHU1xH6Ogs4?t=57), *"Functions describe the world!"*, the challenge is knowing which function, or combination of functions, (best) describes -- in a formal language like mathematics -- a particular phenomenon. I'm also exploring the concept of function itself, under the note [On Functions](./functions).
+
+The use of math to describe things has been around virtually forever, but since this note is about Neural Networks (NN), the purpose of this section (The Big Picture) is to distill how such a general idea as *"Functions to describe the world"* ends up connecting with the field of Neural Networks.
+
+AI PART FOR NOW
+
+A useful way to connect the idea that “functions describe the world” to Neural Networks (NN) is to view function approximation as a unifying problem across disciplines. Whether the goal is to compress a known physical law into a simpler surrogate or to infer an unknown relationship from observations, we are always trying to select (and tune) a function that maps inputs to outputs with acceptable fidelity.
+
+Despite their diversity, most approaches follow the same three-stage loop:
+- **Modeling** (Hypothesis class). Propose a family of functions that could plausibly generate or approximate the phenomenon (e.g., polynomials, kernels, neural networks).
+- **Evaluation** (Objective). Define a criterion that measures “correctness” or fit—losses, errors, likelihoods, divergences, or task-specific metrics.
+- Optimization (Learning or calibration). Adjust model or parameters to minimize (or maximize) the criterion, often with constraints or regularization to control complexity and promote generalization.
+
+This model -> evaluation -> optimization template appears in classical approximation, statistics, control, numerics, and machine learning alike.
+
+
+Different fields instantiate the same loop with different choices for 
+models, and optimization methods:
+- Classical methods. Polynomial/Fourier approximation, splines, interpolation; analytic error bounds; linear or least-squares calibration.
+- Statistical methods. Linear and generalized linear models, additive models; likelihood-based evaluation; convex optimization with regularization (e.g., ridge, LASSO).
+- Probabilistic methods. Gaussian Processes and Bayesian regression; evaluation via posterior predictive fit; optimization via inference (MAP, MCMC, variational methods).
+- Numerical methods. Projection and collocation schemes, reduced-order models, surrogate modeling for PDEs; error estimators and adaptive refinement.
+
+
+Most problems fall into one of two broad paradigms:
+- Non-data-driven (model-first). The governing function is known or derived from first principles, but we seek a simpler or cheaper approximation—for analysis, simulation, or control. Examples: polynomial surrogates to a known formula; reduced-order models for a PDE; perturbation approximations.
+- Data-driven (model-from-data). The governing function is unknown. We observe input–output pairs and estimate a function consistent with the data and our inductive biases. Examples: regression (least squares, GLMs), Gaussian Processes, and Neural Networks.
+
+In both paradigms, evaluation quantifies mismatch (e.g., squared error, negative log-likelihood), and optimization adapts parameters to reduce that mismatch. What changes is the source of structure: physics and theory supply it in non-data-driven settings; inductive bias (choice of hypothesis class, regularization, architecture) supplies it in data-driven settings.
+
+Why Neural Networks fit here?
+
+Neural Networks are powerful data-driven approximators. By selecting an architecture (depth, width, activation functions) and a loss tailored to the task, we place NNs squarely inside the same loop.
+
+From this point on, set your mind to approximating functions using data. We will adopt the data-driven perspective, use the model–evaluation–optimization loop as our organizing scaffold, and study Neural Networks as flexible hypothesis classes for learning unknown functions from observations.
+
+END OF AI PART FOR NOW
+
+## Linear Regression
+
+Predict the position of celestial bodies like plates or dwarf 
+- Adrien-Marie Legendre (1805): [Nouvelles méthodes pour la détermination des orbites des comètes, avec un supplément contenant divers perfectionnemens de ces méthodes et leur application aux deux comètes](https://babel.hathitrust.org/cgi/pt?id=ien.35556013850029&seq=1)
+- Gauss
+
+In the modern era, we call this regression analysis. 
+
+<Definition term="Regression analysis">
+    Regression analysis is a statistical technique for investigating and modeling the relationship between variables. Applications of regression are numerous and occur in almost every field, including engineering, the physical and chemical sciences, economics, management, life and biological sciences, and the social sciences. In fact, regression analysis may be the most widely used statistical technique.
+
+    Source: @montgomeryIntroductionLinearRegression2013 
+</Definition>
+
+The keywords in the definition are; **relationship between variables**, but this relationship can be in a mathematical linear or nonlinear, but one common assumption is a **linear relationship between variables**, why? well, is easy to analysis and it can be a quite sensible and natural assumption, for example bigger the house higher the price. We can formalize this in the following way:
+
+<Definition term="Linear Regression Model">
+$$
+\begin{align}
+y_i = \beta_0 + \beta_1 x_{1i} + \cdots + \beta_k x_{ki} + \epsilon_i
+\label{eq:linearmodel}
+\end{align}
+$$
+
+Where:
+- $\beta_0, \beta_1, \cdots, \beta_k \in \R$ are called coefficients or parameters
+- $x_1, \cdots, x_k$ are the independent variables, also called predictor or regressor
+- $y_i$ is the **target**, response or dependent variable
+
+the subscript $i = 1,2,\dots,n$ indexes the observations. (i.e., model $\eqref{eq:linearmodel}$ is specified for each data point). And the subscript $j = 1, 2, \cdots, k$ is the number of regressor variables, we would see later that this is also refer as features.
+
+We can write this compactly using matrix notation:
+
+$$
+\begin{align}
+\vy = \mX \mathbf{\beta} + \mathbf{\epsilon} \quad \textrm{where} \quad \vy \in \R^{n}, \mX \in \R^{n \times (k+1)}, \mathbf{\beta} \in \R^{k+1}, \mathbf{\epsilon} \in \R^{n}
+\end{align}
+$$
+</Definition>
+
+An important clarification is that the term **linear** is employed to indicate that the model is linear in the parameters $\beta_0, \cdots, \beta_k$, and does not imply that $y$ is a linear function of the $x$'s regressor variables. In other words, what defines a linear regression model is the fact that the parameters (the $\beta$'s) enter the model linearly. The functional form of the predictors (regressors) can still involve transformations, such as powers, logarithms, or interactions. For example, in the following model, although $x_2$ is squared, the parameter $\beta_2$ multiplies it in a linear fashion; for that reason, the model is still considered a linear regression model.
+
+$$
+y_i = \beta_0 + \beta_1 x_1 + \beta_2 x_2^2 + \epsilon_i
+$$
+
+> "The term 'regression' was coined by Francis Galton in the 19th century to describe a biological phenomenon. The phenomenon was that the heights of descendants of tall ancestors tend to regress down towards a normal average (a phenomenon also known as regression toward the mean)." (source: [Regression Analysis - Wikipedia](https://en.wikipedia.org/wiki/Regression_analysis))
+
+There as "several different models that are reasonable representations of reality."
+
+ypically, a regression analysis is used for one (or more) of three purposes:  i. modeling the relationship between x and y;  2. prediction of the target variable (forecasting);  3. and testing of hypotheses.
+
+## Least Squares
+
+Our estimation model:
+$$
+\hat{\vy} = \mX \hat{\v{\beta}}
+$$
+
+The idea is that:
+
+$$
+\vy \approx \hat{\vy}
+$$
+
+expanding:
+
+$$
+\vy \approx \mX \hat{\v{\beta}} + \v{\epsilon}
+$$
+
+To measure the difference using a loss:
+
+
+$$
+L(\v{\beta}) = \| \vy - \mX \v{\beta} \|_{2}^{2}
+$$
+
+The **optimization objective** is (minimize the sum of squared residuals):
+
+$$
+\hat{\v{\beta}} = \arg \min_{\v{\beta}} \| \vy - \mX\v{\beta} \|_{2}^{2} = (\vy - \mX \v{\beta})^\transpose (\vy - \mX \v{\beta})
+$$
+
+Expanding:
+
+$$
+\begin{align*}
+L(\v{\beta}) = \vy^{\transpose}\vy - \vy^{\transpose}(\mX \v{\beta}) - (\mX \v{\beta})^{\transpose} \vy + (\mX \v{\beta})^{\transpose} (\mX \v{\beta})
+\end{align*}
+$$
+
+Expanding the transpose
+$$
+\begin{align*}
+L(\v{\beta}) = \vy^{\transpose}\vy - \vy^{\transpose}(\mX \v{\beta}) -  \v{\beta}^{\transpose}\mX^{\transpose} \vy + \v{\beta}^{\transpose} \mX^{\transpose} \mX \v{\beta}
+\end{align*}
+$$
+
+by working out $\vy^{\transpose} (\mX \v{\beta})$ we get:
+
+$$
+\vy^{\transpose} (\mX \v{\beta}) = (\vy^{\transpose} (\mX \v{\beta}))^{\transpose} = (\mX \v{\beta})^{\transpose} \vy = \v{\beta}^{\transpose} \mX^{\transpose} \vy
+$$
+
+by replacing into the previous equation we get:
+
+$$
+\begin{align*}
+L(\v{\beta}) = \vy^{\transpose}\vy - \v{\beta}^{\transpose} \mX^{\transpose} \vy -  \v{\beta}^{\transpose}\mX^{\transpose} \vy + \v{\beta}^{\transpose} \mX^{\transpose} \mX \v{\beta}
+\end{align*}
+$$
+
+Common terms:
+
+$$
+\begin{align*}
+L(\v{\beta}) = \vy^{\transpose}\vy - 2 \v{\beta}^{\transpose} \mX^{\transpose} \vy + \v{\beta}^{\transpose} \mX^{\transpose} \mX \v{\beta}
+\end{align*}
+$$
+
+
+
+
+
+
+## Under the Lens of Statistics (Legendre)
+
+Regression.
+
+References:
+- @montgomeryIntroductionLinearRegression2013
+- @chatterjeeHandbookRegressionAnalysis2013 
+
+## Under the Lens of Probability (Gauss)
+
+
+
+
+
+## The Brain as Inspiration
 
 
 The premise from @haykinNeuralNetworksLearning2009 (Chapter 1):
@@ -53,55 +237,57 @@ Harley pauses to think for a moment: It's ~1900, did microscopes already exist t
 
 ## Rosenblatt’s perceptron (the 1960s)
 
-<Important
-    note="The perceptron is the simplest form of a neural network used for the classification of patterns said to be **linearly separable** (i.e., patterns that lie on opposite sides of a hyperplane)"
-/>
+<Important>
+    The perceptron is the simplest form of a neural network used for the classification of patterns said to be **linearly separable** (i.e., patterns that lie on opposite sides of a hyperplane).
+</Important>
 
-<Drawio
-    file="nn-intro.drawio"
-    page="1"
-    description="Linear and non-linear separability"
-/>
+<Drawio file="nn-intro.drawio" page="1">
+    Linear and non-linear separability.
+</Drawio>
 
-<Important
-    note="the classes have to be linearly separable for the perceptron to work properly"
-/>
+<Important>
+  The classes have to be linearly separable for the perceptron to work properly.
+</Important>
 
-<Drawio
-    file="nn-intro.drawio"
-    page="2"
-    description="Perceptron model"
-/>
+<Drawio file="nn-intro.drawio" page="2">
+    Perceptron model.
+</Drawio>
 
-<Equation
-    formula="u^{(k)} = \sum_{i = 1}^{m} w^{(k)}_{i} x^{(k)}_{i} + b^{(k)} \\ \\
-    y^{(k)} = \varphi(u^{(k)})"
-    description="perceptron"
-/>
+<Equation>
+    $$
+    u^{(k)} = \sum_{i = 1}^{m} w^{(k)}_{i} x^{(k)}_{i} + b^{(k)} \\ \\
+    y^{(k)} = \varphi(u^{(k)})
+    $$
+    Perceptron.
+</Equation>
 
 ### Perceptron Convergence Theorem
 
-<Drawio
-    file="nn-intro.drawio"
-    page="3"
-    description="Perceptron - The bais term as part of the weights vector"
-/>
+<Drawio file="nn-intro.drawio" page="3">
+    Perceptron - The bais term as part of the weights vector.
+</Drawio>
 
-<Equation
-    formula="\vx^{(k)} = [+1, x^{(k)}_{1}, x^{(k)}_{2}, x^{(k)}_{3}, \dots, x^{(k)}_{m}]^\transpose"
-    description="input vector"
-/>
+<Equation>
+    $$
+    \vx^{(k)} = [+1, x^{(k)}_{1}, x^{(k)}_{2}, x^{(k)}_{3}, \dots, x^{(k)}_{m}]^\transpose
+    $$
+    Input vector.
+</Equation>
 
-<Equation
-    formula="\vw^{(k)} = [b^{(k)}, w^{(k)}_{1}, w^{(k)}_{2}, w^{(k)}_{3}, \dots, w^{(k)}_{m}]^\transpose"
-    description="weights vector"
-/>
+<Equation>
+    $$
+    \vw^{(k)} = [b^{(k)}, w^{(k)}_{1}, w^{(k)}_{2}, w^{(k)}_{3}, \dots, w^{(k)}_{m}]^\transpose
+    $$
+    Weights vector.
+</Equation>
 
-<Equation
-    formula="u^{(k)} = \sum_{i = 0}^{m} w^{(k)}_{i} x^{(k)}_{i} \\
-    u^{(k)} = \vw^{\transpose (k)} \vx^{(k)}"
-    description="Compact form of the linear combiner"
-/>
+<Equation>
+    $$
+    u^{(k)} = \sum_{i = 0}^{m} w^{(k)}_{i} x^{(k)}_{i} \\
+    u^{(k)} = \vw^{\transpose (k)} \vx^{(k)}
+    $$
+    Compact form of the linear combiner.
+</Equation>
 
 ## Knowledge Representation
 

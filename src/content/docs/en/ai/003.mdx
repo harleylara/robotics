@@ -60,17 +60,13 @@ State spaces:
 - Acyclic state space
 - Cyclic state space
 
-<Drawio 
-    file="aima-03.drawio"
-    page="1"
-    description="Acyclic and Cyclic graphs."
-/>
+<Drawio file="aima-03.drawio" page="1">
+    Acyclic and Cyclic graphs.
+</Drawio>
 
-<Drawio 
-    file="aima-03.drawio"
-    page="2"
-    description="Finite and Infinite graphs"
-/>
+<Drawio file="aima-03.drawio" page="2">
+    Finite and Infinite graphs.
+</Drawio>
 
 ## Uniformed Search
 
@@ -91,28 +87,26 @@ The root node is expanded first, then all the successors of the root node are ex
 
 The evaluation function for BFS is $f(n) = d$ where $d$ is the node depth assuming a $cost=1$ per step.
 
-<Drawio 
-    file="aima-03.drawio"
-    page="6"
-    description="Breadth-first search example."
-/>
+<Drawio file="aima-03.drawio" page="6">
+   Breadth-first search example.
+</Drawio>
 
 ### Dijkstra's algorithm and Uniformed Search
 
-<Drawio
-    file="aima-03.drawio"
-    page="5"
-    description="Dijkstra's algorithm"
-/>
+<Drawio file="aima-03.drawio" page="5">
+    Dijkstra's algorithm.
+</Drawio>
 
 ## Informed (Heuristic) Search
 
 Informed search: One that uses *domain-specific hints* about the location of goals and can find solutions more efficiently than an uninformed strategy.
 
-<Equation
-    formula="h(n)"
-    description="**Heuristic function**: estimated cost of the **cheapest path** from the state at node `n` to a goal state."
-/>
+<Equation>
+    $$
+    h(n)
+    $$
+    **Heuristic function**: estimated cost of the **cheapest path** from the state at node `n` to a goal state.
+</Equation>
 
 
 Informed search strategies:
@@ -128,11 +122,9 @@ Informed search strategies:
 
 *"A form of best-first search that expands first the node with lowest $h(n)$ value (the node that appears to be closest to the goal) on the grounds that this is likely to lead to a solution quickly. So the evaluation function $f (n) = h(n)$."* from section 3.5.1 of AIMA Book
 
-<Drawio 
-    file="aima-03.drawio"
-    page="2"
-    description="Greedy search example."
-/>
+<Drawio file="aima-03.drawio" page="2">
+    Greedy search example.
+</Drawio>
 
 ### A*
 
@@ -147,11 +139,10 @@ $$
 - $h(n)$ is the **actual** cost of an optimal path from $n$ to a preferred goal node of $n$.
 
 So we have $f(n)$ = estimated cost of the best path that continues from n to a goal.
-<Drawio
-    file="aima-03.drawio"
-    page="3"
-    description="A* search example"
-/>
+
+<Drawio file="aima-03.drawio" page="3">
+    A* search example.
+</Drawio>
 
 Side node: A* was develop for [Shakey](https://www.computerhistory.org/revolution/artificial-intelligence-robotics/13/289), consider "the first mobile robot with the ability to perceive and reason about its surroundings." (source [Shakey the Robot - SRI](https://www.sri.com/hoi/shakey-the-robot/)). For full details, [Shakey the robot - Technical Note 323](https://ai.stanford.edu/~nilsson/OnlinePubs-Nils/shakey-the-robot.pdf)
 

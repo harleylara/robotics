@@ -10,8 +10,9 @@ Section 2.4 Introduction to linear algebra G. Strang.
 
 Matrices can be added **IF** their shapes are the same:
 
-<Equation
-    formula="\begin{bmatrix}
+<Equation>
+    $$
+    \begin{bmatrix}
     1 & 2 \\
     3 & 4 \\
     0 & 0
@@ -25,16 +26,18 @@ Matrices can be added **IF** their shapes are the same:
     3 & 4 \\
     7 & 8 \\
     9 & 9
-    \end{bmatrix}"
-    description="Matrices sum example."
-/>
+    \end{bmatrix}
+    $$
+    Matrices sum example.
+</Equation>
 
 ### Matrix-scalar Multiplication
 
 A matrix can be multiply by any scalar $c$:
 
-<Equation
-    formula="2 \begin{bmatrix}
+<Equation>
+    $$
+    \begin{bmatrix}
     1 & 2 \\
     3 & 4 \\
     0 & 0
@@ -43,31 +46,35 @@ A matrix can be multiply by any scalar $c$:
     2 & 4 \\
     6 & 8 \\
     0 & 0
-    \end{bmatrix}"
-    description="Matrix-scalar multiplication example."
-/>
+    \end{bmatrix}
+    $$
+    Matrix-scalar multiplication example.
+</Equation>
 
 ### Way 1 Matrix Multiplication: Dot product
 
-<Equation
-formula="(\mA \mB)\mC = \mA (\mB \mC)"
-description="Fundamental Law of Matrix Multiplication"
-/>
+<Equation>
+    $$
+    (\mA \mB)\mC = \mA (\mB \mC)
+    $$
+    Fundamental Law of Matrix Multiplication.
+</Equation>
 
 1. Matrices $\mA$ with $n$ **columns** multiply matrices $\mB$ with $n$ **rows**
 
-<Equation
-formula="\mA_{m \times n} \mB_{n \times p} = \mC_{m \times p}"
-/>
-<Important
-    note="To multiply $\mA \mB$: if $\mA$ has $n$ **columns**, $\mB$ MUST have $n$ **rows**"
-/>
+<Equation>
+  $$
+  \mA_{m \times n} \mB_{n \times p} = \mC_{m \times p}
+  $$
+</Equation>
 
-<Drawio 
-    file="linear-algebra-003.drawio"
-    page="1"
-    description="Matrix multiplication as a set of dot product operations."
-/>
+<Important>
+    To multiply $\mA \mB$: if $\mA$ has $n$ **columns**, $\mB$ MUST have $n$ **rows**
+</Important>
+
+<Drawio file="linear-algebra-003.drawio" page="1">
+    Matrix multiplication as a set of dot product operations.
+</Drawio>
 
 From [wikipedia](https://en.wikipedia.org/wiki/Dot_product): In mathematics, the dot product or scalar product is an algebraic operation that takes two equal-length sequences of numbers (usually coordinate vectors), and returns a single number.
 
@@ -79,8 +86,9 @@ From [wikipedia](https://en.wikipedia.org/wiki/Dot_product): In mathematics, the
 
 2. Each entry in $\mA \mB  = \mC$ is a **dot product**: $\mC_{ij}=(\textrm{row} i \textrm{of} \mA) \dot (\textrm{column} j \textrm{of} \mB)$
 
-<Equation
-    formula="\begin{bmatrix}
+<Equation>
+    $$
+    \begin{bmatrix}
     0 \\
     1 \\
     2
@@ -92,50 +100,56 @@ From [wikipedia](https://en.wikipedia.org/wiki/Dot_product): In mathematics, the
     0 & 0 & 0 \\
     1 & 2 & 3 \\
     2 & 4 & 6
-    \end{bmatrix}"
-    description="A row times a column is an *'inner'* product-that is another name for dot product. A column times a row is an *'outer'* product."
-/>
+    \end{bmatrix}
+    $$
+    A row times a column is an *'inner'* product-that is another name for dot product. A column times a row is an *'outer'* product.
+</Equation>
 
-<Important
-    note="It is not usually true that $\mA \mB = \mB \mA$. In most cases $\mA$ doesn't commute with $\mB$."
-/>
+<Important>
+    It is not usually true that $\mA \mB = \mB \mA$. In most cases $\mA$ doesn't commute with $\mB$.
+</Important>
 
 ### Way 2 and 3 Matrix Multiplication: Rows and Columns
 
 2. Matrix $\mA$ times ever column of $\mB$
 
-<Equation
-    formula="\mA [\vb_1 \cdots \vb_p] = [\mA \vb_1 \cdots \mA \vb_p]"
-    description="where $\vb_i$ is a column vector."
-/>
+<Equation>
+    $$
+    \mA [\vb_1 \cdots \vb_p] = [\mA \vb_1 \cdots \mA \vb_p]
+    $$
+    where $\vb_i$ is a column vector.
+</Equation>
 
 3. Every row of $\mA$ times matrix $\mB$
 
-<Equation
-    formula="[\textrm{row } i \textrm{ of } \mA] \mB = [\textrm{row } i \textrm{ of } \mA \mB]"
-    description=""
-/>
+<Equation>
+    $$
+    [\textrm{row } i \textrm{ of } \mA] \mB = [\textrm{row } i \textrm{ of } \mA \mB]
+    $$
+</Equation>
 
 ### Way 4 Matrix Multiplication: Columns Multiply Rows
 
 4. Multiply columns 1 ton of A times rows 1 ton of B. Add those matrices.
 
-<Equation
-    formula="\mA \mB = \begin{bmatrix}
+<Equation>
+    $$
+    \mA \mB = \begin{bmatrix}
     a & b \\
     c & d
     \end{bmatrix}
     \begin{bmatrix}
     E & F \\
     G & H
-    \end{bmatrix}"
-    description=""
-/>
+    \end{bmatrix}
+    $$
+</Equation>
 
 This can be re-written as follow:
 
-<Equation
-    formula="\mA \mB = \begin{bmatrix}
+<Equation>
+    $$
+    \mA \mB = \begin{bmatrix}
     a \\
     c
     \end{bmatrix}
@@ -152,52 +166,66 @@ This can be re-written as follow:
     \begin{bmatrix}
     aE + bG & aF + bH \\
     cE + dG & cF + dH
-    \end{bmatrix}"
-    description=""
-/>
+    \end{bmatrix}
+    $$
+</Equation>
 
 ## The Laws for Matrix Operations
 
 Commutative law:
 
-<Equation
-    formula="\mA + \mB = B + A"
-    description="Matrix addition is commutative."
-/>
+<Equation>
+    $$
+    \mA + \mB = B + A
+    $$
+    Matrix addition is commutative.
+</Equation>
 
 Distributive law:
 
-<Equation
-    formula="c(\mA + \mB) = c \mA + c \mB"
-    description="Distributive law."
-/>
+<Equation>
+    $$
+    c(\mA + \mB) = c \mA + c \mB
+    $$
+    Distributive law.
+</Equation>
 
 Assosiative law:
 
-<Equation
-    formula="\mA + (\mB + \mC) = (\mA + \mB) + \mC"
-    description="Assosiative law."
-/>
+<Equation>
+    $$
+    \mA + (\mB + \mC) = (\mA + \mB) + \mC
+    $$
+    Assosiative law.
+</Equation>
 
-<Equation
-    formula="\mA \mB \neq \mB \mA"
-    description="Commutative 'law' is usually broken"
-/>
+<Equation>
+    $$
+    \mA \mB \neq \mB \mA
+    $$
+    Commutative 'law' is usually broken.
+</Equation>
 
-<Equation
-    formula="\mA (\mB + \mC) = \mA \mB + \mA \mC"
-    description="Distributive law from the left."
-/>
+<Equation>
+    $$
+    \mA (\mB + \mC) = \mA \mB + \mA \mC
+    $$
+    Distributive law from the left.
+</Equation>
 
-<Equation
-    formula="(\mA + \mB)\mC = \mA \mC + \mB \mC"
-    description="Distributive law from the right."
-/>
+<Equation>
+    $$
+    (\mA + \mB)\mC = \mA \mC + \mB \mC
+    $$
+    Distributive law from the right.
+</Equation>
 
-<Equation
-    formula="\mA(\mB \mC) = (\mA \mB)\mC"
-    description="Distributive law from the right."
-/>
+<Equation>
+    $$
+    \mA(\mB \mC) = (\mA \mB)\mC
+    $$
+    Distributive law from the right.
+</Equation>
 
 
 Some mentions:
@@ -212,10 +240,12 @@ Let's take a square matrix $\mA$.
 
 1. **IF** the square matrix $\mA$ has an inverse:
 
-<Equation
-    formula="\mA^{-1} \mA = I \\ \mA \mA^{-1} = I"
-    description="associative law for $\mA \mB \mC$"
-/>
+<Equation>
+    $$
+    \mA^{-1} \mA = I \\ \mA \mA^{-1} = I
+    $$
+    Associative law for $\mA \mB \mC$.
+</Equation>
 
 These cool matrices are:
 - Invertible
@@ -223,12 +253,14 @@ These cool matrices are:
 
 ### Singular Case
 
-<Equation
-    formula="\mA = \begin{bmatrix}
+<Equation>
+    $$
+    \mA = \begin{bmatrix}
     1 & 3 \\
     2 & 6
-    \end{bmatrix}"
-/>
+    \end{bmatrix}
+    $$
+</Equation>
 
 Can we find a matrix $\mD$ that when multiplied with $\mA$ will give us the identity matrix?
 
@@ -236,34 +268,39 @@ Can we find a matrix $\mD$ that when multiplied with $\mA$ will give us the iden
 
 If $\mA$ and $\mB$ are invertible then so is $\mA \mB$. The inverse of a product $\mA \mB$ is:
 
-<Equation
-    formula="(\mA \mB)^{-1}= \mB^{-1} \mA^{-1}"
-    description="Inverse of a product"
-/>
+<Equation>
+    $$
+    (\mA \mB)^{-1}= \mB^{-1} \mA^{-1}
+    $$
+    Inverse of a product.
+</Equation>
 
 Yeap, is in reverse here is why.
 
 We assume that:
 
-<Equation
-    formula="(\mA \mB) = (\mB^{-1} \mA^{-1})"
-    description=""
-/>
+<Equation>
+    $$
+    (\mA \mB) = (\mB^{-1} \mA^{-1})
+    $$
+</Equation>
 
 So if we move the inverses to the left hand side (lhs) this should be equal to the identity matrix:
 
-<Equation
-    formula="(\mA \mB) (\mB^{-1} \mA^{-1}) = \mI
-    \mA \mB \mB^{-1} \mA^{-1} = \mA \mI \mA^{-1} = \mA \mA^{-1} = \mI"
-    description=""
-/>
+<Equation>
+    $$
+    (\mA \mB) (\mB^{-1} \mA^{-1}) = \mI
+    \mA \mB \mB^{-1} \mA^{-1} = \mA \mI \mA^{-1} = \mA \mA^{-1} = \mI
+    $$
+</Equation>
 
 Keep in mind:
 
-<Equation
-    formula="(\mA \mB \mC)^{-1} = \mC^{-1} \mB^{-1} \mA^{-1}"
-    description=""
-/>
+<Equation>
+    $$
+    (\mA \mB \mC)^{-1} = \mC^{-1} \mB^{-1} \mA^{-1}
+    $$
+</Equation>
 
 ## Gauss-Jordan Elimination
 

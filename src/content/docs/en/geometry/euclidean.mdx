@@ -1,0 +1,316 @@
+---
+title: Euclidean Spaces
+---
+
+
+The representation of space has been a field of study for a very long time, this concepts lays the lays the foundations for rigurous analysis in multiples fields of siences. Note that the term "space" refers to an **abstract concept** that structures the relationships among the elements that form the given space. Under the general concept of space, we could model spaces with different properties and rules; to mention a few: Euclidean spaces or probability spaces. However, we will not go in that direction, since it is the entire field of study in mathematics, see [Space (mathematics) - Wikipedia](https://en.wikipedia.org/wiki/Space_(mathematics)).
+
+## Vector Space
+
+<Definition term="Vector Space">
+A vector space $\sV$ is a non-empty set over a **field** $\F$ with a **binary operation** and **binary function**, $(\sV, +, \cdot)$ that satisfy the following list of axioms.
+- **binary operation**, vector addition: $ + \colon \sV \times \sV \to \sV $
+- **binary function**, scalar multiplication: $\cdot \colon \sV \times \R \to \sV$
+
+
+Axioms:
+1. Associativity (vector addition): $\vu + (\vv + \vw) = (\vu + \vv) + \vw$ for all $\vv, \vu, \vw \in \sV$
+2. Commutativity (vector addition): $\vu + \vv = \vv + \vu$ for all $\vu, \vv \in \sV$
+3. Identity element (vector addition): $\forall \vv \in \sV : \exist \vzero \in \sV, \vv + \vzero = \vv$
+4. Inverse elements (vector addition): $\forall \vv \in \sV \colon \exist (-\vv) \in \sV, \vv + (-\vv) = \vzero$
+5. Compatibility of scalar multiplication with field multiplication: $a (b \vv) = (a b)\vv$ for all $a, b \in \F$
+6. Identity element of scalar multiplication: $1 \vv = \vv$ for $1 \in \F$
+7. Distributivity of scalar multiplication with respect to vector addition: $a (\vu + \vv) = a \vu + a\vv$
+8. Distributivity of scalar multiplication with respect to field addition: $(a + b) \vv = a \vv + b \vv$
+
+</Definition>
+
+Due to the scalar multiplication, a vector space depends on a **field** $\F$, therefore we say:
+- A vector space over $\R$ is called a **real vector space**.
+- A vector space over $\C$ is called a **complex vector space**.
+
+## Vector Subspace
+
+<Definition term="Vector Subspace">
+A subset $\sU$ is called a subspace of $\sV$ (using the same addition and scalar multiplication as on $\sV$ ) if and only if $\sU$ satisfies the following three conditions:
+1. additive identity:  $0 \in \sU$, this is equivalent to say that $\sU$ is non-empty.
+2. closed under addition: $\vu, \vw \in \sU$ implies $\vu + \vw \in \sU$
+3. closed under scalar multiplication: $a \in \F$ and $\vu \in \sU$ implies $a\vu \in \sU$.
+
+Source: Definition 1.32 from @axlerLinearAlgebraDone2015
+</Definition>
+
+## Linear Form
+
+Linear map, and a linear transformation.
+
+<Definition term="Linear form">
+A linear form on a vector space $\sV$ over a field $\F$ is a map
+
+$$
+f \colon \sV \to \F
+$$
+
+such that for all $\vu, \vu \in \sV$ and $\alpha \in \F$:
+
+$$
+f(\vu + \vv) = f(\vu) + f(\vv), \quad f(\alpha \vv) = \alpha f(\vv)
+$$
+</Definition>
+
+Think of a map as a operation that takes an element of a vector space and output a single number. Can you think of one? they can be a variety of maps that turns elements into a single value. We use the term "map" to generalize the definition so we dont need to stick to one map.
+
+## Span
+
+Allow to "span" across the entire vector space as a linear combination of vectors. But the span by definition does not force us to use the minimal set of vector for that.
+
+If we take the $\textrm{span}(\sS) = \sV$, we can reach any vector in the space using linear combinations, but we also have a lot of redundancy.
+
+## Linear Independence
+
+
+
+## Basis
+
+if we recall the concept of span allow us to reach any vector within the vector space but is not necesarly the minimal set of vector to span the whole space, so span is not enough SO the concept of linear Independence is a safe-gard that take the span and check if all the vector with in are linear-independent we get a minimal set of indenpendt vectors that we can use to reach any other vector in the vector space 😎.
+
+These are called basis vectors.
+
+
+A canonical (natural) selection of basis for vector space over $\R^n$:
+
+$$
+\ve_i = (0, 0, \dots, \underset{\text{i-th}}{1}, \dots, 0)^{\transpose}
+$$
+
+In $\R^2$ this is:
+
+$$
+\ve_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad \ve_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}
+$$
+
+## Linear Form
+
+- [Linear form](https://en.wikipedia.org/wiki/Linear_form)
+
+## Bilinear Form
+
+... As a more powerfull framework. Linear form can be seen as a especial case of bilinear form went one of the arguments if fixed.
+
+But the bilinear form is at the core of other importants topics:
+- Fourier series (Sesquilinear form, an special case of bilinear forms)
+- quaternions
+
+<Definition term="Bilinear Form">
+A bilinear for is a map
+
+$$
+B \colon \sV \times \sV \to \F
+$$
+
+is a bilinear form if for $\forall \vu, \vv, \vw \in \sV$ and $\forall \alpha, \beta \in \F$ the following two linearity properties hold:
+1. Linearity in the first slot
+
+$$
+B(\alpha \vu + \beta \vv,  \vw)  =  \alpha B(\vu, \vw) + \beta B(\vv, \vw)
+$$
+
+in the same way, Linearity in the second slot.
+</Definition>
+
+That is the axiomatic definition; now we prove that the standard matrix construction satisfies these axioms and that every bilinear form corresponds to a matrix in a chosen basis.
+
+## Extending Bilinear to support complex field
+
+### Bilinear Form as Matrix
+
+Let $\sV = \F^n$  (column vectors) and fix a $n \times n$ matrix $\mA$ with entries in $\F$. Define:
+
+$$
+B(\vx, \vy) := \vx^{\transpose} \mA \vy \quad (\vx, \vy \in \F^n)
+$$
+
+Proof of linearity in the first slot.
+
+Take $\vx, \vx' \in \F^n$, scalars $\alpha, \beta$ and $\vy \in \F^n$. Then
+
+$$
+\begin{align*}
+B(\alpha \vx + \beta \vx', \vy) &= (\alpha \vx + \beta \vx' )^{\transpose} \mA \vy \\
+&= \alpha \vx^{\transpose} \mA \vy + \beta \vx'^{\transpose} \mA \vy \\
+&= \alpha B(\vx, \vy) + \beta B(\vx', \vy)
+\end{align*}
+$$
+
+The second equality used distributivity and the bilinearity of ordinary matrix multiplication and transpose; the last line is the definition of $B$. So linearity in the first slot holds.
+
+The same process to proof linearity in the second slot.
+
+### Bilinear Form Basis
+
+Let $\sV$ have a basis $\sE = (\ve_1, \cdots, \ve_n)$. Given a bilinear form $B: \sV \times \sV \to \F$, define the matrix $\mA = (a_{ij}$ by:
+
+$$
+a_{ij} := B(\ve_i, \ve_j) \quad (i \le i,j \le n)
+$$
+
+Now take arbitrary vectors
+
+$$
+\vx = \sum_{i=1}^{n} x_i \ve_i \quad \quad \vy = \sum_{j=1}^{n} y_j \ve_j
+$$
+
+with coordinates $\vx = (x_i, \cdot, x_n)^{\transpose}$ and $\vy = (y_1, \cdots, y_n)^{\transpose}$. By linearity:
+
+$$
+\begin{align*}
+B(\vx, \vy) &= B(\sum_{i} x_i \ve_i , \sum_{j} y_j \ve_j)
+&= \sum_i \sum_j x_i y_j B(\ve_i, \ve_j)
+&= \sum_i \sum_j x_i y_j a_{ij}
+\end{align*}
+$$
+
+But $\sum_{ij} x_i y_j a_{ij} = \vx^{\transpose} \mA \vy$. Hence in coordinates relative to $\sE$,
+
+$$
+B(\vx, \vy) = \vx^{\transpose} \mA \vy
+$$
+
+So every bilinear form corresponds to a unique matrix $A$ once a basis is fixed.
+
+## Sesquilinear Forms
+
+
+
+## Quadratic form
+
+Quadratic form expres as Bilinear Form
+
+## Innner Product Space
+
+<Definition term="Bilinear form">
+A bilinear form is bilinear map $\langle \cdot, \cdot \rangle : \sV \times \sV \to \F$ on a vector space $\sV$ over a field $\F$. We say that this function is linear in each arguments (first and second slot) reparately.
+</Definition>
+
+<Definition term="Inner product">
+
+1. Bilinear form in first and second slot
+2. symmetry / conjugate symmetry: $\langle \vu, \vv \rangle = \langle \vv, \vu \rangle$ for all $\vv, \vu \in \sV$
+3. positive-definiteness: $\langle \vv, \vv \rangle \ge 0 \quad \forall \vv \in \sV$
+</Definition>
+
+
+
+## Affine Space
+
+<Definition term="Affine Space">
+
+An **affine space** is either the degenerate space reduced to the empty set, or a triple $(\sA, \sV, \oplus)$ consisting of:
+- $\sA$: a nonempty set of points
+- $\sV$: a vector space of translations or free vectors
+- $\oplus$: an **action** that maps $\oplus: \sA \times \sV \to \sA$. remark: some references use the $+$ symbol as overloading operator the represented a action, DOES NOT means addition in this context.
+
+This affine space must satisfy the following conditions:
+1. **Right identity**: $\forall p \in \sA, p + \vzero = a$ where $\vzero$ is the zero vector in $\sV$.
+2. **Associativity**: $\forall \vv, \vw \in \sV, \quad \forall p \in \sA, \quad (p + \vv) + \vw = p + (\vv + \vw)$.
+3. **Free and transitive action**: $\forall p \in \sA$, the mapping $\sV \to \sA : \vv \rightarrow p + \vv$ is a **bijection** (one-to-one correspondence).
+4. TODO
+5. A equivalent form that follow from 3 is the **Subtraction**: $\forall p, q \in \sA$ there exist a unique $\vv in \sV$, denoted $q - p$ such that $q = p + \vv$
+
+
+Source: Definition 2.1 from @gallierGeometricMethodsApplications2011
+</Definition>
+
+<Drawio file="geometry-euclidean.drawio" page="1">
+  Example for properties of Affine Spaces.
+</Drawio>
+
+## Euclidean Affine Space
+
+A Euclidean space is an affine space over the reals such that the associated vector space is a Euclidean vector space. form [Technical definition - Wikipedia](https://en.wikipedia.org/wiki/Euclidean_space#Technical_definition)
+
+There is a lot of power of working in a space without frames. Gallier writes:
+
+> "Use coordinate systems only when needed!"
+> Section 2.1 @gallierGeometricMethodsApplications2011
+
+
+But Descartes saw the power of reducing geometric problem to algebraic form, so intead of solving with ruler and compass he proposed to use algebra, creating a system described in @descartesGeometrie1664 that introduces the notion of what we call today "Cartesian frame" named after him.
+
+Going back to the initial question, "how can we model the physical space we live in?". It turns out that the Greek mathematician [Euclid](https://en.wikipedia.org/wiki/Euclid) systematized and formally formulated a space; that space is known in modern times as [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space), and the structure of the space is defined by a set of [five axioms](https://en.wikipedia.org/wiki/Euclidean_geometry#Axioms) (the fifth of which generated much controversy), which do not restrict its number of dimensions. Conveniently, we live in what we could call a **three-dimensional Euclidean space** denoted by the notation $\Euclid^{3}$.
+
+We can say that an Euclidean space: *"is a set whose elements satisfy the five axioms of Euclid"* @maInvitation3DVision2004.
+
+## Euclidean Vector Space
+
+<Definition term="Vector in Euclidean Space">
+
+    In Euclidean space, a vector $\vv$ is determined by a pair of points $p, q \in \Euclid^{3} $ and is defined as a direct arrow connecting $p$ to $q$, denoted $\vv = p q$.
+
+    The point $p$ is usually called the base point of the vector $\vv$. In Cartesian coordinates, the vector $\vv$ is represented by the triplet $[v_1, v_2 , v_3]^{\transpose} \in \R^{3}$, where each coordinate is the difference between the corresponding coordinates of the two points: if $p$ has coordinates $\pX$ and $q$ has coordinates $\pY$, then $\vv$ has coordinates
+
+    $$
+    \vv = \pY - \pX \in \R^{3}
+    $$
+
+    Under this definition we say that this is as a **bound vector**.
+
+    Source: Definition 2.1 from @maInvitation3DVision2004
+
+</Definition>
+
+@descartesGeometrie1664 in "La géométrie / de René Descartes" introduces the Cartesian coordinates system.
+
+<Definition term="(free) Vector in Euclidean Space">
+
+    A free vector does not depend on its base point. If we have two pairs of points $(p, q)$ and $(p', q')$ with coordinates satisfying:
+
+    $$
+    \pX - \pY = \pX' - \pY'
+    $$
+
+    The intuition is that this allow a vector to move in the $\Euclid^{3}$ space without the loss of generality: magnitud and direction.
+
+</Definition>
+
+
+<Drawio file="linear-algebra-vector.drawio" page="1">
+    Visual representation of a free vector.
+</Drawio>
+
+<Definition term="Linear vector space">
+    Also called simply vector space, a set $\sV$ over the field $\R$ if it closed under addition and multiplication:
+
+    Closed under addition:
+    $$
+    + \colon \sV \times \sV \to \sV
+    $$
+
+    Closed under multiplication:
+    $$
+    \cdot \colon \R \times \sV  \to  \sV
+    $$
+
+
+</Definition>
+
+Remark:
+- point with this notation, $p$ are defined in an affine space (no frame of reference)
+- in other hands, $\pP$ are point with coordinates in a given reference frame (cartesian reference frame for example)
+
+<Definition term="Reference frame">
+Let a Cartesian coordinate frame $\fH \in \Euclid^{3}$ be a ordered pair:
+
+    $$
+    \fH = (\pO, (\ve_1, \ve_2, \ve_3))
+    $$
+
+    Where:
+    - $\pO \in \Euclid^{3}$ is an origin point
+    - $(\ve_1, \ve_2, \ve_3)$ oriented orthonormal basis vectors defining $\fH$. Given that:
+      - $\ve_1 = (1, 0, 0)$
+      - $\ve_2 = (0, 1, 0)$
+      - $\ve_3 = (0, 0, 1)$
+</Definition>
+
+## References

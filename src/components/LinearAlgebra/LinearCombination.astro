@@ -2,12 +2,15 @@
 // IMPORTANT: import the JSXGraph wrapper component
 import JSXGraph from "../Figures/JSXGraph.astro";
 
-const {description="Please insert the description of this figure"} = Astro.props;
+let html: string = "";
+
+if (Astro.slots.has("default")) {
+  html = await Astro.slots.render("default");
+}
 ---
 
-<JSXGraph description={description}>
-    <div id="linear-combination" class="jsxbox" style="width: 100%; height: 480px;">
-    </div>
+<JSXGraph id="linear-combination">
+  <div set:html={html} class="pb-4"></div>
 </JSXGraph>
 
 <script>

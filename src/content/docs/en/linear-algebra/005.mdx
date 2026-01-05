@@ -9,54 +9,66 @@ Section 2.7 and 3.1 Introduction to Linear Algebra by Gilbert Strang.
 
 Remember:
 
-<Equation
-    formula="\begin{bmatrix}
+<Equation>
+    $$
+    \begin{bmatrix}
     \mA = \mL \mU
-    \end{bmatrix}"
-    description="LU decomposition."
-/>
+    \end{bmatrix}
+    $$
+    LU decomposition.
+</Equation>
 
 ## Transpose
 
-<Equation
-    formula="\textrm{If} \quad \mA = \begin{bmatrix}
+<Equation>
+    $$
+    \textrm{If} \quad \mA = \begin{bmatrix}
     1 & 2 & 3 \\
     0 & 0 & 4
     \end{bmatrix} \quad \textrm{then} \quad \mA^{T} = \begin{bmatrix}
     1 & 0 \\
     2 & 0 \\
     3 & 4
-    \end{bmatrix}"
-    description="Transpose"
-/>
+    \end{bmatrix}
+    $$
+    Transpose.
+</Equation>
 
 General formula:
 
-<Equation
-    formula="(\mA^T)_{ij} = \mA_{ji}"
-    description="General formula for transpose."
-/>
+<Equation>
+    $$
+    (\mA^T)_{ij} = \mA_{ji}
+    $$
+    General formula for transpose.
+</Equation>
 
-<Equation
-    formula="\mA^T = \mA"
-    description="Symetric matrix."
-/>
+<Equation>
+    $$
+    \mA^T = \mA
+    $$
+    Symetric matrix.
+</Equation>
 
-<Important
-    note="Transpose do not effect symetric matrices."
-/>
+<Important>
+    Transpose do not effect symetric matrices.
+</Important>
 
 A matrix multiplied by the transpose produce a symetric matrix.
 
-<Equation
-    formula="\mR^{T} \mR \textrm{ is always symetric}"
-/>
+<Equation>
+    $$
+    \mR^{T} \mR \textrm{ is always symetric}
+    $$
+</Equation>
 
 Rule to transpose:
 
-<Equation
-    formula="(\mR^{T} \mR)^{T} = \mR^{T} \mR^{TT} = \mR^{T} \mR"
-/>
+<Equation>
+    $$
+    (\mR^{T} \mR)^{T} = \mR^{T} \mR^{TT} = \mR^{T} \mR
+    $$
+</Equation>
 
 ## Vector Spaces
 
@@ -71,19 +83,19 @@ Example:
 - $\sR^{2}$: all posible 2-dim **real** column vectors. Represent a plane.
 - $\sR^{n}$: all posible n-dim **real** column vectors.
 
-<Important
-    note="Definition: The space $\sR^n$ consists of all column vectors $\vv$ with $n$ components (the components are real numbers)."
-/>
+<Important>
+    Definition: The space $\sR^n$ consists of all column vectors $\vv$ with $n$ components (the components are real numbers).
+</Important>
 
-<VectorSpace2D
-    description="$\sR^{2}$ vector space."
-/>
+<VectorSpace2D>
+    $\sR^{2}$ vector space.
+</VectorSpace2D>
 
 Subspaces of $\sR^{2}$
 - all of $\sR^{2}$
 - any line through $[0, 0]$
 - the zero vector
 
-<SubSpaceL2D
-    description="any LINE through $[0,0]$ is a sub-space of the vector space $\sR^{2}$"
-/>
+<SubSpaceL2D>
+    Any LINE through $[0,0]$ is a sub-space of the vector space $\sR^{2}$.
+</SubSpaceL2D>

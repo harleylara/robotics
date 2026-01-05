@@ -1,21 +1,16 @@
-
 ---
 // IMPORTANT: import the JSXGraph wrapper component
 import JSXGraph from "../Figures/JSXGraph.astro";
-
-const {description="Please insert the description of this figure"} = Astro.props;
 ---
 
-<JSXGraph description={description}>
-    <div id="dot" class="jsxbox" style="width: 100%; height: 480px;">
-    </div>
+<JSXGraph id="jsx-dot-product">
 </JSXGraph>
 
 <script>
 // IMPORTANT: import JSXGraph
 import JXG from '../../tools/jsxgraph.init.js'
 
-let board = JXG.JSXGraph.initBoard('dot', {
+let board = JXG.JSXGraph.initBoard('jsx-dot-product', {
     boundingbox:[-5,5,5,-5],
     axis:true, 
     showNavigation:true, 

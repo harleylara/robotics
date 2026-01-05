@@ -7,6 +7,7 @@ import AddVector from "../../../../components/LinearAlgebra/AddVector.astro";
 import VectorLength from "../../../../components/LinearAlgebra/VectorLength.astro"
 import UnitVector from "../../../../components/LinearAlgebra/UnitVector.astro"
 import DotProduct from "../../../../components/LinearAlgebra/DotProduct.astro"
+import CrossProduct from "../../../../components/LinearAlgebra/CrossProduct.astro"
 
 ## Scalar
 
@@ -44,9 +45,9 @@ Operations on vectors:
     Scalar **bold** multiplication. The scalar $a$ multiply the vector $\vv$
 </Definition>
 
-<ScalarMult
-    description="original vector"
-/>
+<ScalarMult>
+    Original vector.
+</ScalarMult>
 
 ### Addition and Subtraction
 
@@ -55,9 +56,9 @@ Operations on vectors:
     Addition and Subtraction of vectors.
 </Definition>
 
-<AddVector
-    description="Interaction between vectors addition"
-/>
+<AddVector>
+    Interaction between vectors addition.
+</AddVector>
 
 ### Length
 
@@ -70,9 +71,9 @@ Operations on vectors:
 
 The Euclidean norm is also called the $L^{2}$ norm, $\ell^{2}$ norm, 2-norm, or square norm; see $L^{p}$ space.
 
-<VectorLength
-    description="Representation of Euclidean norm"
-/>
+<VectorLength>
+    Representation of Euclidean norm.
+</VectorLength>
 
 #### The Norm of a Matrix
 
@@ -98,9 +99,9 @@ This also applies to matrices:
     The term *normalized vector* is sometimes used as a synonym for *unit vector*.
 </Definition>
 
-<UnitVector
-    description="Unit vector representation"
-/>
+<UnitVector>
+    Unit vector representation.
+</UnitVector>
 
 ### Dot Product
 
@@ -132,6 +133,8 @@ $$
     $\va \times \vb = \Vert \va \Vert \Vert \vb \Vert sin(\theta) \uvn$
     where: - $\theta$ is the angle between $\va$ and $\vb$ in the plane containing them $\Vert \va \Vert$ and $\Vert \vb \Vert$ are the magnitudes of vectors $\va$ and $\vb$ and $\uvn$ is a unit vector perpendicular to the plane containing $\va$ and $\vb$, with direction such that the ordered set ($\va$, $\vb$, $\uvn$) is positively-oriented.
 </Definition>
+
+<CrossProduct/>
 
 ## Matrices
 

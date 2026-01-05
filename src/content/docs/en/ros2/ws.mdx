@@ -11,11 +11,9 @@ Names can be:
 - privately (begins with `~`): `~private/name`
 - namespace: namespace prefix to apply to entities associated with the node (node name, topics, etc). `/namespace/name`, this is very useful to group nodes and topics by *"groups”* in this case the *“group”* is the prefix namespace.
 
-<Drawio
-    file="ros.drawio"
-    page="1"
-    description="Names in ROS"
-/>
+<Drawio file="ros.drawio" page="1">
+    Names in ROS.
+</Drawio>
 
 External resources:
 - [ROS 1 Names](http://wiki.ros.org/Names)
@@ -52,17 +50,15 @@ It contains the necessary dependencies of all the packages required by the 'over
 Source: [Configuring environment | Official documentation](https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html)
 </Definition>
 
-<Drawio
-    file="ros.drawio"
-    page="2"
-    description="Underlay workspace."
-/>
+<Drawio file="ros.drawio" page="2">
+    Underlay workspace.
+</Drawio>
 
 Let's explore our underlay workspace: `/opt/ros/humble/`
 
-<Important
-    note="Keep in mind that an underlay does not necessarily have to be the main ROS 2 installation."
-/>
+<Important>
+    Keep in mind that an underlay does not necessarily have to be the main ROS 2 installation.
+</Important>
 
 ### Overlay
 
@@ -74,11 +70,9 @@ Source: [Configuring environment | Official documentation](https://docs.ros.org/
 
 Note, that for some reason unknown to me, the terms "underlay" and "overlay" are not frequently used in the ROS community. The vast majority of people when they refer to workspace it is usually the overlay workspace.
 
-<Drawio
-    file="ros.drawio"
-    page="3"
-    description="Overlay workspace."
-/>
+<Drawio file="ros.drawio" page="3">
+    Overlay workspace.
+</Drawio>
 
 ## Create a Workspace
 
@@ -111,9 +105,9 @@ This will create a three folders:
 - `install`
 - `log`
 
-<Important
-    note="You should always run the build command from the ROOT of the workspace"
-/>
+<Important>
+    You should always run the build command from the ROOT of the workspace.
+</Important>
 
 External resources:
 - [A universal build tool](https://design.ros3.org/articles/build_tool.html)
@@ -142,9 +136,9 @@ What is the diference on `setup.bash` in the underlay an `local_setup.bash` in t
 - `local_setup.bash` in the overlay under (usually) `~/<YOUR WORKSPACE>/install/local_setup.bash` enables the ONLY the current workspace.
 - `setup.bash` in the overlay under `~/<YOUR WORKSPACE>/install/setup.bash` enables the current workspace as well as the underlay it was created in.
 
-<Important
-    note="You may need to re-source the workspace after adding new packages"
-/>
+<Important>
+    You may need to re-source the workspace after adding new packages.
+</Important>
 
 ## Sourcing Tips
 

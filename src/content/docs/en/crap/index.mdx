@@ -1,0 +1,64 @@
+---
+title: CRAP
+description: Complexity, Randomization, Approximation and PAC-learning
+---
+
+The reality is that I haven’t been much of a fan of acronyms, I personally find them confusing and ambiguous and extremely context-dependent, but this time is different, this acronym "CRAP" I think does justice to the topic, since it can be an expression of frustration when you’re learning it (at least in my case) or an exclamation of amazement when you see what you can achieve with these techniques.
+
+The following note is a condensed version of my notes in the course "Complexity, Randomization, Approximation and PAC-Learning" with [Prof. Dr. Alexander Asteroth](https://www.h-brs.de/de/inf/prof-dr-alexander-asteroth) at [Hochschule Bonn-Rhein-Sieg (HBRS)](https://www.h-brs.de/de).
+
+While making this note, I had to fill in my knowledge gaps in theoretical computer science, which resulted in another set of notes dedicated specifically to that topic. The notes can be found at [Introduction to Theoretical *Computational Science](cs/).
+
+Ah, PAC-learning stand for: [Probably Approximately Correct Learning](https://en.wikipedia.org/wiki/Probably_approximately_correct_learning)
+
+## Computability
+
+## Randomization
+
+
+
+$$
+RP* \subset BPP* = PP
+$$
+
+$L \in RP*$ we have algo $A$ and $\epsilon < 1$ (probability of false negatives) and $p(n)$ polynomial.
+
+Define:
+$$
+q = \frac{2^{p(n)} + 1}{2^{p(n) + 1}} > \frac{2^{p(n)}}{2^{p(n)+1}} = \frac{1}{2}
+$$
+
+define:
+
+
+$$
+A'(x) = \left\{ \begin{array}{lcr}
+A(x) \quad \textrm{with prob. } q \\``
+E(x) \quad \textrm{otherwise, where } E(x) = 1
+\end{array}\right.
+$$
+
+Let $W_{A}$ be an indicator $RV$ that is 1 if $A'$ chose $A$.
+
+$$
+P(W_{A} = 1) = q \quad P(W_{A} = 0) = 1 - q
+$$
+
+given $x \notin L$:
+
+$$
+\Prob{A'(x) = 0} = \Prob{A'(x) = 0 | W_{A} = 1} \cdot \Prob{W_{A} = 1} + \Prob{A'(x) = 1 | E(x) = 0, W_{A} = 0} \cdot \Prob{W_{A} = 0}
+$$
+
+$$
+\begin{align*}
+1 - q &= 1 - \frac{2^p(n) + 1}{2^{p(n) + 1}} \\
+&= \frac{2^{p(n) + 1} -2^{p(n)} - 1}{2^{p(n) + 1}} \\
+&= \frac{2^{p(n)} -1}{2^{p(n) + 1}} \\
+&< \frac{2^{p(n)}}{x^{p(n) + 1}} = \frac{1}{2}
+\end{align*}
+$$
+
+### Monte Carlo
+
+

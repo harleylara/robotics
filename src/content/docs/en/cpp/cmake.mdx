@@ -1,0 +1,26 @@
+---
+title: CMake
+description: Some things I wish I had understood earlier about CMake
+---
+
+The key concept on CMake is: `target`
+
+
+> A CMake-based buildsystem is organized as a set of high-level logical targets. Each target corresponds to an executable or library, or is a custom target containing custom commands. Dependencies between the targets are expressed in the buildsystem to determine the build order and the rules for regeneration in response to change.
+>
+> [CMake Docs - cmake-buildsystem(7) Introduction](https://cmake.org/cmake/help/v4.2/manual/cmake-buildsystem.7.html#introduction)
+
+It kickoff stating what cmake is, and mention the core concept of `targets`. I was suprising for search the whole the CMake documentation and not be able to find what CMake Defined as a target (to the best of my knowled at the time of writing Nov. 2025), it mention the type of targets but what is a target itself ?
+
+We can say that: A target is a named node in CMake’s build graph that carries properties (sources, compile options/defs, link libs, usage requirements) and dependency edges.
+
+> Targets names created with `add_executable()`, `add_library()`, or `add_custom_target()` are logical build target names. Logical target names must be globally unique.
+
+## The command `add_*`
+
+In the conceptual model of cmake as a graph (in practice is simular with some extra structures), a target is a **node** in the graph and the command `add_executable()` for example is a way to **add** a note (type executable hence binary target)
+
+## External Resources
+
+- [CMake Tutorial](https://cmake.org/cmake/help/latest/guide/tutorial/index.html)
+- [An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/README.html)

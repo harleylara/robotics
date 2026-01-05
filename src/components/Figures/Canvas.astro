@@ -1,11 +1,6 @@
 ---
-// This component is a wrapper for the HTML canvas
-import { markToHtml } from "../../tools/helper.parser";
-const {description="Please insert the description of this figure"} = Astro.props;
 ---
+
 <div id="figure" class="flex flex-col items-center border-[0.3px] border-dark-100 my-4">
     <slot/>
-    <div class="py-4">
-        <p set:html={markToHtml(description)}></p>
-    </div>
 </div>

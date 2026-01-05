@@ -1,0 +1,36 @@
+---
+title: Buffers
+---
+
+[Hardware] Display -> Window Manager ->
+
+[Direct Rendering Manager (DRM)](https://en.wikipedia.org/wiki/Direct_Rendering_Manager) is the kernel's GPU/display subsystem. [Kernel Model Setting - KMS](https://en.wikipedia.org/wiki/Mode_setting) pixels into electrons into light.
+
+## Window System
+
+Resume: multiplex the system display/input devices between one or more clients.
+
+Wayland is just a protocol. the implementation depends on "vendors".
+
+Compositor:
+- Weston
+- Mutter
+
+DMA-Buf -> wl_buffer -> wayland -> Display
+
+
+## GPUs: OpenGL and Vulkan
+
+OpenGL and Vulkan are just APIs.
+
+Bridge rendering to display:
+- EGL: OpenGL ES
+- Vulkan WSI
+
+Graphics Execution Manager (GEM)
+
+
+## External Resources
+
+- [Graphics: A Frame's Journey - Daniel Stone, Collabora](https://www.youtube.com/watch?v=nau2dgdXWOk)
+- [A Current Overview of the DRM KMS Driver-Side APIs - Paul Kocialkowski, Bootlin](https://www.youtube.com/watch?v=nNY7NjUIJRA)

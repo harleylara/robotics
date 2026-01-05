@@ -16,10 +16,9 @@ Considers this note as a summary guide that re-organizes the sequence of topics 
 | Empty-byte payload truncation             | x          | yes        |
 | Compatibility Flags/Incompatibility Flags | x          | yes        |
 
-<Drawio
-    file="mavlink.drawio"
-    description="Conceptual overview of the different parts of MAVLink as a project and not just as a protocol."
-/>
+<Drawio file="mavlink.drawio">
+    Conceptual overview of the different parts of MAVLink as a project and not just as a protocol.
+</Drawio>
 
 ## Concepts
 
@@ -27,21 +26,17 @@ Concepts:
 - System: Is a collection of one or more components that together represent a device in MAVLink communication. It can be anything, from a boat, airplane to a Ground Control Software, generally a drone.
 - Component: Represent an element within a system that has its own MAVLink identity and performs a specific function (e.g., autopilot, camera, gimbal). See [Component ID Assignment](https://mavlink.io/en/messages/common.html#MAV_COMPONENT) to help categorize the types of components. *"Component IDs should be manually assigned by the system integrator."*  from [Component ID Assignment](https://mavlink.io/en/services/mavlink_id_assignment.html#component-id-assignment)
 
-<Drawio
-    file="mavlink.drawio"
-    page="3"
-    description="General concept in MAVLink Networks."
-/>
+<Drawio file="mavlink.drawio" page="3">
+    General concept in MAVLink Networks.
+</Drawio>
 
 ## Package Format (over-the-wire)
 
 (in-memory representation might differ)
 
-<Drawio
-    file="mavlink.drawio"
-    page="2"
-    description="MAVLink packet frame structure and comparison."
-/>
+<Drawio file="mavlink.drawio" page="2">
+    MAVLink packet frame structure and comparison.
+</Drawio>
 
 source: [MAVLink 2 Package Format](https://mavlink.io/en/guide/serialization.html#mavlink2_packet_format)
 

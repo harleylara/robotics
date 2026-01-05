@@ -9,27 +9,31 @@ title: "Elimination with Matrices"
 - Elimination Matrices
 - Matrix Multiplication
 
-<Equation
-    formula="\begin{cases}
+<Equation>
+    $$
+    \begin{cases}
     \begin{aligned}
     x + 2y + z &= 2 \\
     3x+ 8y + z &= 12 \\
     4y + z &= 2
     \end{aligned}
-    \end{cases}"
-    description="Example of a system of linear equations."
-/>
+    \end{cases}
+    $$
+    Example of a system of linear equations.
+</Equation>
 
 In a matrix form:
 
-<Equation
-    formula="\mA = \begin{bmatrix}
+<Equation>
+    $$
+    \mA = \begin{bmatrix}
     1 & 2 & 1 \\
     3 & 8 & 1 \\
     0 & 4 & 1
-    \end{bmatrix}"
-    description="Matrix form of the previous example."
-/>
+    \end{bmatrix}
+    $$
+    Matrix form of the previous example.
+</Equation>
 
 ## Elimination
 
@@ -37,79 +41,91 @@ To be able to to forward elimination we need a pivot, to begin the pivot is $\mA
 
 In this example the multiplier is the number $3$.
 
-<Equation
-    formula="\begin{bmatrix}
+<Equation>
+    $$
+    \begin{bmatrix}
     1 & 2 & 1 \\
     0 & 2 & -2 \\
     0 & 4 & 1
-    \end{bmatrix}"
-    description="Forward elimination step 1."
-/>
+    \end{bmatrix}
+    $$
+    Forward elimination step 1.
+</Equation>
 
 For the pivot $\mA_{2,2}$ we use the multiplier $2$.
 
-<Equation
-    formula="\mU = \begin{bmatrix}
+<Equation>
+    $$
+    \mU = \begin{bmatrix}
     1 & 2 & 1 \\
     0 & 2 & -2 \\
     0 & 0 & 5
-    \end{bmatrix}"
-    description="Forward elimination step 2."
-/>
+    \end{bmatrix}
+    $$
+    Forward elimination step 2.
+</Equation>
 
 The resulting matrix is usually refers as \mU$ for upper triangular.
 
-<Important
-    note="Pivots **CAN NOT** be zero."
-/>
+<Important>
+    Pivots **CAN NOT** be zero.
+</Important>
 
 WAIT a second, these are equations what happen with the right hand side (rhs)?... We also need to apply the same operations in the same order to the vector $\vb$ (rhs).
 
-<Equation
-    formula="\vb = \begin{bmatrix}
+<Equation>
+    $$
+    \vb = \begin{bmatrix}
     2 \\
     12 \\
     2
-    \end{bmatrix}"
-    description="Right hand side of the system of linear equations."
-/>
+    \end{bmatrix}
+    $$
+    Right hand side of the system of linear equations.
+</Equation>
 
 After applying the same operations to $\vb$, the following vector is obtained:
 
-<Equation
-    formula="\vc = \begin{bmatrix}
+<Equation>
+    $$
+    \vc = \begin{bmatrix}
     2 \\
     6 \\
     -10
-    \end{bmatrix}"
-    description="Right hand side of the system of linear equations after applying same operations in $\mA$."
-/>
+    \end{bmatrix}
+    $$
+    Right hand side of the system of linear equations after applying same operations in $\mA$.
+</Equation>
 
 ## Back-Substitution
 
 So now with $\mU$ and $\vc$ let's rewrite the system of linear equations:
 
-<Equation
-    formula="\begin{cases}
+<Equation>
+    $$
+    \begin{cases}
     \begin{aligned}
     x + 2y + z &= 2 \\
     2y -2z &= 6 \\
     5z &= -10
     \end{aligned}
-    \end{cases}"
-    description="System of linear equations after elimination."
-/>
+    \end{cases}
+    $$
+    System of linear equations after elimination.
+</Equation>
 
 How do we solve this for $x, y, z$ ?... simple right ?
 
-<Equation
-    formula="\begin{aligned}
+<Equation>
+    $$
+    \begin{aligned}
     x &= 2 \\
     y &= 1 \\
     z &= -2
-    \end{aligned}"
-    description="Solution for our system of linear equations."
-/>
+    \end{aligned}
+    $$
+    Solution for our system of linear equations.
+</Equation>
 
 This process id called **back-substitution**.
 
@@ -117,8 +133,9 @@ This process id called **back-substitution**.
 
 Wouldn't it be cool if we could put the manual operations we did earlier into a matrix ?
 
-<Equation
-    formula="\begin{bmatrix}
+<Equation>
+    $$
+    \begin{bmatrix}
     1 & 0 & 0 \\
     -3 & 1 & 0 \\
     0 & 0 & 1
@@ -132,22 +149,26 @@ Wouldn't it be cool if we could put the manual operations we did earlier into a 
     1 & 2 & 1 \\
     0 & 2 & -2 \\
     0 & 4 & 1
-    \end{bmatrix}"
-    description="Step 1 of the forward elimination using elimination matrices."
-/>
+    \end{bmatrix}
+    $$
+    Step 1 of the forward elimination using elimination matrices.
+</Equation>
 
 Let's call this elimination/elementary matrix $\mE_{2,1}$.
-<Equation
-    formula="\mE_{2,1} = \begin{bmatrix}
+<Equation>
+    $$
+    \mE_{2,1} = \begin{bmatrix}
     1 & 0 & 0 \\
     -3 & 1 & 0 \\
     0 & 0 & 1
-    \end{bmatrix}"
-    description="Elimination matrix $\mE_{2,1}$"
-/>
+    \end{bmatrix}
+    $$
+    Elimination matrix $\mE_{2,1}$.
+</Equation>
 
-<Equation
-    formula="\begin{bmatrix}
+<Equation>
+    $$
+    \begin{bmatrix}
     1 & 0 & 0 \\
     0 & 1 & 0 \\
     0 & -2 & 1
@@ -161,54 +182,64 @@ Let's call this elimination/elementary matrix $\mE_{2,1}$.
     1 & 2 & 1 \\
     0 & 2 & -2 \\
     0 & 0 & 5
-    \end{bmatrix}"
-    description="Step 2 of the forward elimination."
-/>
+    \end{bmatrix}
+    $$
+    Step 2 of the forward elimination.
+</Equation>
 
-<Equation
-    formula="\mE_{3,2} = \begin{bmatrix}
+<Equation>
+    $$
+    \mE_{3,2} = \begin{bmatrix}
     1 & 0 & 0 \\
     0 & 1 & 0 \\
     0 & -2 & 1
-    \end{bmatrix}"
-    description="Elimination matrix $\mE_{3,2}$"
-/>
+    \end{bmatrix}
+    $$
+    Elimination matrix $\mE_{3,2}$.
+</Equation>
 
 Means that we can write the operations as follows:
 
-<Equation
-    formula="\mE_{3,2} (\mE_{2,1} \mA) = \mU"
-    description="Using matrix operations for matrices elimination."
-/>
+<Equation>
+    $$
+    \mE_{3,2} (\mE_{2,1} \mA) = \mU
+    $$
+    Using matrix operations for matrices elimination.
+</Equation>
 
 We can change the paranthesis:
 
-<Equation
-    formula="(\mE_{3,2} \mE_{2,1}) \mA = \mU"
-    description="By the associative law of matrices."
-/>
+<Equation>
+    $$
+    (\mE_{3,2} \mE_{2,1}) \mA = \mU
+    $$
+    By the associative law of matrices.
+</Equation>
 
 
-<Important
-    note="You **CANT NOT** change the order."
-/>
+<Important>
+    You **CANT NOT** change the order.
+</Important>
 
 ## Permutation Matrices
 
 If we have the matrix:
 
-<Equation
-    formula="\begin{bmatrix}
+<Equation>
+    $$
+    \begin{bmatrix}
     a & b \\
     c & d
-    \end{bmatrix}"
-    description="Example matrix for permutation."
-/>
+    \end{bmatrix}
+    $$
+    Example matrix for permutation.
+</Equation>
 
 What matrix can we use to exchange **row 1** with **row 2**?
 
-<Equation
-    formula="\begin{bmatrix}
+<Equation>
+    $$
+    \begin{bmatrix}
     0 & 1 \\
     1 & 0
     \end{bmatrix}
@@ -219,14 +250,15 @@ What matrix can we use to exchange **row 1** with **row 2**?
     \begin{bmatrix}
     c & d \\
     a & b
-    \end{bmatrix}"
-    description="Example of permutation operation."
-/>
+    \end{bmatrix}
+    $$
+    Example of permutation operation.
+</Equation>
 
 Suppose we want to do columns instead... How can we do that?
 
-<Equation
-    formula="
+<Equation>
+    $$
     \begin{bmatrix}
     a & b \\
     c & d
@@ -238,9 +270,10 @@ Suppose we want to do columns instead... How can we do that?
     \begin{bmatrix}
     b & a \\
     d & c
-    \end{bmatrix}"
-    description="Example of permutation operation."
-/>
+    \end{bmatrix}
+    $$
+    Example of permutation operation.
+</Equation>
 
 Can you notice a pattern ?... Yep.
 - For **row** operations the matrix goes to the **left**. 

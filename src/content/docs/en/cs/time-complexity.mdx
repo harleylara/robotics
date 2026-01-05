@@ -1,0 +1,56 @@
+---
+title: Time Complexity
+---
+
+decidable -> computationally solvable -> does not translate to practice, it may require an inordinate amount of time or memory.
+
+
+There are multiples parameters that determine the number of steps to run an algo, if the input is a graph:
+- number of nodes
+- number of edges
+- maximun degree of the graph
+- or some combination and/or other factors
+
+<Definition term="Time Complexity">
+    Let $M$ be a deterministic Turing machine that halts on all inputs. The **running time** or **time complexity** of $M$ is the function:
+
+    $$
+    f : \N \rightarrow \N
+    $$
+
+    where $f(n)$ is the maximun number of steps that $M$ uses on any input of length $n$.
+</Definition>
+
+
+Commonly the exact run time of an algorithm is a complex expresion (long, convolute not using complex variables or any of that) 
+
+To overcome the problem is common to use **asymptotic analysis** (an estimation)
+
+<Definition term="Big-O notation">
+    Let $f$ and $g$ be functions that $f, g : \N \rightarrow \R^{+}$. We say that $f(n) = O(g(n))$ if positive integers $c$ and $n_0$ exist such that for every integer $n \geq n_0$,
+
+    $$
+    f(n) \leq c g(n)
+    $$
+
+    When $f(n) = O(g(n))$, we say that $g(n)$ is an **upper bound** for $f(n)$, or more precisely, that $g(n)$ is an **asymptotic upper bound** for $f(n)$, to emphasize that we are suppressing constant factors.
+
+    Source: Definition 7.2  @sipserIntroductionTheoryComputation2013
+</Definition>
+
+see this as a "rate of change" therefor the contast factor $c$ does not change the rate
+
+<Definition term="small-o notation">
+    Let $f$ and $g$ be functions $f, g : \N \rightarrow \R^{+}$. Say that $f (n) = o(g(n))$ if
+
+    $$
+    \lim_{n \rightarrow \infty } \frac{f(n)}{g(n)} = 0
+    $$
+
+    In other words, $f(n) = o(g(n))$ means that for any real number $c > 0$, a number $n_0$ exists, where $f(n) < c g(n)$ for all $n \geq n_0$.
+
+    Source: Definition 7.5  @sipserIntroductionTheoryComputation2013
+
+</Definition>
+
+

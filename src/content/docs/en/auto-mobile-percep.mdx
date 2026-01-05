@@ -9,35 +9,35 @@ import LeastSquareError from "../../../components/AutoMobile/LeastSquareError.as
 
 ## Feature Extraction Based on Range Data (Laser, Ultrasonic)
 
-<LineProblem
-    description="Estimating a line in the least-squares sense. The model parameters $r$ (length of the perpendicular) and $\alpha$ (its angle to the abscissa) uniquely describe a line."
-/>
+<LineProblem>
+    Estimating a line in the least-squares sense. The model parameters $r$ (length of the perpendicular) and $\alpha$ (its angle to the abscissa) uniquely describe a line.
+</LineProblem>
 
 <LaserData/>
 
-<Equation
-    formula="x = \rho \cos(\theta) \> \textrm{and} \> y = \rho \sin(\theta)"
-    description="Laser scan data to Euclidian coordinates"
-/>
+<Definition>
+    $x = \rho \cos(\theta) \> \textrm{and} \> y = \rho \sin(\theta)$
+    Laser scan data to Euclidian coordinates
+</Definition>
 
-<MeasurementError
-    description="Orthogonal distance $d_i$ between $(\rho_i, \theta_i)$ and the line"
-/>
+<MeasurementError>
+    Orthogonal distance $d_i$ between $(\rho_i, \theta_i)$ and the line.
+</MeasurementError>
 
-<LeastSquareError
-    description="Least Square Error"
-/>
+<LeastSquareError>
+Least Square Error.
+</LeastSquareError>
 
 If we consider each measurement to be equally uncertain, we can sum the square of all errors together, for all measurement points, to quantify an overall fit between the line and all of the measurements:
 
-<Equation
-    formula="S = \underset{i}{\sum} d_i^2"
-    description="Overall error"
-/>
+<Definition>
+    $S = \underset{i}{\sum} d_i^2$
+    Overall error.
+</Definition>
 
 Our goal is to minimize $S$ when selecting the line parameters $(\alpha, r)$. We can do so by solving the nonlinear equation system:
 
-<Equation
-    formula="\frac{\partial S}{\partial \alpha} = 0 \> \> \frac{\partial S}{\partial r} = 0"
-    description="Minimize error"
-/>
+<Definition>
+    $\frac{\partial S}{\partial \alpha} = 0 \> \> \frac{\partial S}{\partial r} = 0$
+    Minimize error.
+</Definition>

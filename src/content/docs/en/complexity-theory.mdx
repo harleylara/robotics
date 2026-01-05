@@ -25,21 +25,23 @@ When $f(n) = O(g(n))$ we way that $g(n)$ is an **upper bound** for $f(n)$, or mo
 
 At first it was a bit difficult for me to understand the formal definition, so if you allow me to paraphrase it in a different way this is my re-interpretation: 
 
-<Important
-    note="Can we find an integer $c$ and $n_0$ so that when evaluating the functions $f(n)$ and $g(n)$ for a $n \geq n_0$ they satisfy the expression (Inequality) $f(n) \leq c\,g(n)$?"
-/>
+<Important>
+    Can we find an integer $c$ and $n_0$ so that when evaluating the functions $f(n)$ and $g(n)$ for a $n \geq n_0$ they satisfy the expression (Inequality) $f(n) \leq c\,g(n)$?.
+</Important>
 
 For example consider the function $f(n)=2n^3 + 10n$ and $g(n) = n^3$
 
-<Equation
-    formula="\begin{aligned}
+<Equation>
+    $$
+\begin{aligned}
 f(n) &\leq c\, g(n)\\
 2n^3 + 10n &\leq c\, n^3\\
 \frac{2n^3}{n^3} + \frac{10n}{n^3} &\leq c \\
 2 + \frac{10}{n^2} &\leq c \\
-\end{aligned}"
-    description="Example for big-O."
-/>
+\end{aligned}
+$$
+    Example for big-O.
+</Equation>
 
 For the previus inequality, lets explore:
 1. What happens if we select $n_0=1$ and $c=1$? $12 \leq 1 \text{(This inequality is false)}$

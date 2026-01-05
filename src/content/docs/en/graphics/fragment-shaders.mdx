@@ -1,0 +1,60 @@
+---
+title: Exploring Shaders
+---
+
+GLSL [OpenGL Shader Language](https://en.wikipedia.org/wiki/OpenGL_Shading_Language)
+
+[OpenGL](https://en.wikipedia.org/wiki/OpenGL)
+
+## GLSL
+
+GLSL view a programming language is very similar to `C`
+
+Types:
+- `int`
+- `float`
+- `bool`
+
+Including:
+- `vec2`, `vec3`, `vec4`
+- `mat2`, `mat3`, `mat4`
+
+## Transformation Pipeline
+
+- `Local space` is your own frame of reference
+- `World space`
+- `View space`
+- `clip space`, from here OpenGL take care of everthing `clip space` -> [`NDC` (normalized device coordinate)](https://learnopengl.com/Getting-started/Coordinate-Systems) -> `screen space`
+
+
+Notes:
+- `uniform` is the same in the vertex Shader and the fragment shader, this is like a global parameter.
+- `attributes` defined in each vertex. Usefull for per-vertex parameters
+- `varyings` like a communication pipe
+
+
+## Uniforms
+
+<Shader
+remoteFSH="https://raw.githubusercontent.com/harleylara/shaders/refs/heads/main/02.01-time/frag.glsl"
+>
+</Shader>
+
+<Shader
+remoteFSH="https://raw.githubusercontent.com/harleylara/shaders/refs/heads/main/02.02-gradient/frag.glsl"
+>
+</Shader>
+
+<Shader
+remoteFSH="https://raw.githubusercontent.com/harleylara/shaders/refs/heads/main/02.03-uv-coord/frag.glsl"
+>
+</Shader>
+
+## External References
+
+- [Learn OpenGL](https://learnopengl.com/)
+- [The Book of Shaders by Patricio Gonzalez Vivo & Jen Lowe](https://thebookofshaders.com/)
+- [GLSL Shaders from Scratch](https://simondev.teachable.com/p/glsl-shaders-from-scratch) by [SimonDev](https://simondev.io/about)
+- [OpenGL Introduction](https://open.gl/)
+- [OpenGL Book](https://openglbook.com/) (old and legacy but with a historical notes)
+- [ofBook](https://openframeworks.cc/ofBook/chapters/foreword.html) by [Zach Lieberman](http://zach.li/) and a lot of amazing people. This Book is more in line with openFrameworks but with a chapter in shaders.

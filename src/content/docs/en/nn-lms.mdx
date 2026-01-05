@@ -8,9 +8,9 @@ description: LMS in a way that you may not have seen it before.
 
 - [Adaptative Switching Circuits](https://www-isl.stanford.edu/~widrow/papers/c1960adaptiveswitching.pdf) by Bernard Widrow and Marcian E. Hoff
 
-<Important
-    note="not to be confused with Mean Square Error (MSE)"
-/>
+<Important>
+    Not to be confused with Mean Square Error (MSE).
+</Important>
 
 ## Whats Makes LMS Cool?
 
@@ -22,21 +22,24 @@ description: LMS in a way that you may not have seen it before.
 
 Let's Explore a Dynamic Linear System:
 
-<Drawio
-    file="lms.drawio"
-    page="1"
-    description="A simple dynamic linear system"
-/>
+<Drawio file="lms.drawio" page="1">
+    A simple dynamic linear system.
+</Drawio>
 
-<Equation
-    formula="\mathcal{T} = \{\vx(t), d(t) ; i = 1,2,\dots, n\}"
-    description="Data set for the simple dynamic linear system"
-/>
+<Equation>
+    $$
+    \mathcal{T} = \{\vx(t), d(t) ; i = 1,2,\dots, n\}
+    $$
+    Data set for the simple dynamic linear system.
+</Equation>
 
-<Equation
-    formula="\vx(t) = x_{1}(t), x_{2}(t), \dots, x_{M}(t)"
-    description="Input vector $\vx$ at a given time $t$ also called **stimulus vector**"
-/>
+<Equation>
+    $$
+    \vx(t) = x_{1}(t), x_{2}(t), \dots, x_{M}(t)
+    $$
+
+    Input vector $\vx$ at a given time $t$ also called **stimulus vector**.
+</Equation>
 
 Harley: Ok wait a second, Does the stimulus vector represents all the **current**/**present** input values at a given time $t$ or it also include **pass** input values?
 
@@ -47,36 +50,46 @@ In fact there are two way to represent the **stimulus vector**:
 
 TBD: discuss about adaptive filter and the relationship with LMS
 
-<Equation
-    formula="y(t) = v(t) = \sum_{k=1}^{M}w_{k}(t)x_{k}(t)"
-    description="The output value of a linear neuron"
-/>
+<Equation>
+  $$
+  y(t) = v(t) = \sum_{k=1}^{M}w_{k}(t)x_{k}(t)
+  $$
+
+  The output value of a linear neuron.
+</Equation>
 
 This can be represented as the **inner product**
 
 
-<Equation
-    formula="y(t) = v(t) = \vx^{\transpose}(t)\vw(t)"
-    description="The output value of a linear neuron"
-/>
+<Equation>
+    $$
+    y(t) = v(t) = \vx^{\transpose}(t)\vw(t)
+    $$
+    The output value of a linear neuron.
+</Equation>
 
 Where:
 
-<Equation
-    formula="\vw(t) = [w_{1}(t), w_{2}(t), \dots, w_{3}(t)]^{\transpose}"
-    description="synaptic weight vector $\vw$ at time $t$ for a single neuron"
-/>
+<Equation>
+    $$
+    \vw(t) = [w_{1}(t), w_{2}(t), \dots, w_{3}(t)]^{\transpose}
+    $$
+    Synaptic weight vector $\vw$ at time $t$ for a single neuron.
+</Equation>
 
 Don't forget:
 
-<Equation
-    formula="e(t) = d(t) - y(t)"
-    description="error signal"
-/>
+<Equation>
+    $$
+    e(t) = d(t) - y(t)
+    $$
 
-<Important
-    note="The manner in which the error signal e(i) is used to control the adjustments to the neuron’s synaptic weights is determined by the cost function used to derive the adaptivefiltering algorithm of interest."
-/>
+    Error signal.
+</Equation>
+
+<Important>
+    The manner in which the error signal e(i) is used to control the adjustments to the neuron’s synaptic weights is determined by the cost function used to derive the adaptivefiltering algorithm of interest.
+</Important>
 
 ## Unconstrained Optimization: a review
 
@@ -89,54 +102,63 @@ Consider a cost function (also called loss function) $\mathcal{L}(\vw)$ that is 
 
 More information about [differentiable functions](https://en.wikipedia.org/wiki/Differentiable_function).
 
-<Equation
-    formula="\mathcal{L}(\vw^{*}) \leq \mathcal{L}(\vw)"
-    description=""
-/>
+<Equation>
+    $$
+    \mathcal{L}(\vw^{*}) \leq \mathcal{L}(\vw)
+    $$
+</Equation>
 
-<Important
-    note="Minimize the cost function $\mathcal{L}$ with respect to the weight vector $\vw$"
-/>
+<Important>
+    Minimize the cost function $\mathcal{L}$ with respect to the weight vector $\vw$.
+</Important>
 
 The necessary condition for optimality is:
 
-<Equation
-    formula="\nabla\mathcal{L}(\vw^{*}) = \mathbf{0}"
-    description="Condition for optimality."
-/>
+<Equation>
+    $$
+    \nabla\mathcal{L}(\vw^{*}) = \mathbf{0}
+    $$
+    Condition for optimality.
+</Equation>
 
 Where $\nabla$ is the **gradient operator**,
 
-<Equation
-    formula="\nabla = \begin{bmatrix}
+<Equation>
+    $$
+    \nabla = \begin{bmatrix}
     \frac{\partial}{\partial w_{1}}, \frac{\partial}{\partial w_{2}}, \dots, \frac{\partial}{\partial w_{M}}
-\end{bmatrix}^{\transpose}"
-    description="Gradient operator."
-/>
+\end{bmatrix}^{\transpose}
+    $$
+    Gradient operator.
+</Equation>
 
 and $\nabla \mathcal{L}(\vw)$ is the **gradient vector** of the cost function:
 
-<Equation
-    formula="\nabla \mathcal{L}(\vw) = \begin{bmatrix}
+<Equation>
+    $$
+    \nabla \mathcal{L}(\vw) = \begin{bmatrix}
     \frac{\partial \mathcal{L}}{\partial w_{1}},
     \frac{\partial \mathcal{L}}{\partial w_{2}}, 
     \dots, 
     \frac{\partial \mathcal{L}}{\partial w_{M}}
-    \end{bmatrix}^{\transpose}"
-    description="Gradient operator."
-/>
+    \end{bmatrix}^{\transpose}
+    $$
+    Gradient operator.
+</Equation>
 
 Starting with an initial guess denoted by $\vw(0)$, generate a sequence of weight vectors $\vw(1)$, $\vw(2)$, $...$, such that the cost function $\mathcal{L}(\vw)$ is reduced at each iteration of the algorithm, as shown by:
 
-<Equation
-    formula="\mathcal{L}(\vw(i + 1)) < \mathcal{L}(\vw(i))"
-/>
+<Equation>
+    $$
+    \mathcal{L}(\vw(i + 1)) < \mathcal{L}(\vw(i))
+    $$
+</Equation>
 
 where $\vw(i)$ is the old value of the weight vector and $\vw(i + 1)$ is its updated value.
 
-<Important
-    note="We **hope** that the algorithm will eventually converge onto the optimal solution $\vw^{*}$."
-/>
+<Important>
+    We **hope** that the algorithm will eventually converge onto the optimal solution $\vw^{*}$.
+</Important>
 
 The term *"hope"* is due to the possibility that the algorithm will diverge
 
@@ -150,21 +172,27 @@ Some references:
 
 For convenience representation:
 
-<Equation
-    formula="\vg = \nabla \mathcal{L}(\vw)"
-    description="Gradient of the weight vector $\vw$"
-/>
+<Equation>
+    $$
+    \vg = \nabla \mathcal{L}(\vw)
+    $$
+    Gradient of the weight vector $\vw$.
+</Equation>
 
-<Equation
-    formula="\vw(i + 1) = \vw(i) + \eta \nabla \mathcal{L}(\vw)"
-    description="Formal defintion of the gradient descent. Where $\eta$ is a positive constant called the *stepsize*, or *learning-rate*"
-/>
+<Equation>
+    $$
+    \vw(i + 1) = \vw(i) + \eta \nabla \mathcal{L}(\vw)
+    $$
+    Formal defintion of the gradient descent. Where $\eta$ is a positive constant called the *stepsize*, or *learning-rate*.
+</Equation>
 
 using the convenient representation shown above
 
-<Equation
-    formula="\vw(i + 1) = \vw(i) + \eta \vg(i)"
-/>
+<Equation>
+    $$
+    \vw(i + 1) = \vw(i) + \eta \vg(i)
+    $$
+</Equation>
 
 the learning-rate parameter  has a profound influence on its convergence behavior:the learning-rate parameter  has a profound influence on its convergence behavior:
 

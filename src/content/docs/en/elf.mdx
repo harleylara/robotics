@@ -3,7 +3,7 @@ title: "Executable and Linking Format"
 description: Exploring the ELF
 ---
 
-```python filename="hello.c" remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/refs/heads/master/elf/hello.c"
+```c filename="hello.c" remoteURL="https://raw.githubusercontent.com/harleylara/cpp-intro/refs/heads/master/elf/hello.c"
 ```
 
 ```plain
@@ -31,11 +31,9 @@ ELF Header:
   Section header string table index: 30
 ```
 
-<Drawio
-    file="elf.drawio"
-    page="1"
-    description="Object File Format, source: Figure 1.1 Specification."
-/>
+<Drawio file="elf.drawio" page="1">
+    Object File Format, source: Figure 1.1 Specification.
+</Drawio>
 
 ## Structure
 
@@ -49,12 +47,16 @@ ELF Header:
 - **Relocation Information**: This section comes into play when your program is loaded into memory. It contains instructions for the linker to adjust memory addresses within the code, ensuring that references to functions, variables, and data structures point to the correct locations.
 - **Debugging Information**: If you compile your program with debugging symbols (using the -g flag with gcc), the executable file will also include debug information. This information allows debuggers like gdb to correlate machine instructions back to your original C code, making it possible to step through your program line by line and inspect variables during execution.
 
+## ABI
+
 ## External Resources
 
 - [Tool Interface Standard (TIS), Executable and Linking Format (ELF) Specification](https://refspecs.linuxfoundation.org/elf/elf.pdf)
 - [Under the Hood of Executables](https://mohitmishra786.github.io/underTheHoodOfExecutables/)
 - [Shared Libraries: Understanding Dynamic Loading](https://amir.rachum.com/shared-libraries/)
+- [Itanium C++ ABI](https://itanium-cxx-abi.github.io/cxx-abi/abi.html)
 
 Videos:
 - [In-depth: ELF - The Extensible & Linkable Format](https://www.youtube.com/watch?v=nC1U1LJQL8o)
 - [ELF File Format Explained](https://www.youtube.com/watch?v=9uWMr3wdadM)
+

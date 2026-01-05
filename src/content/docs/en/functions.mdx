@@ -6,9 +6,9 @@ import FunctionMappingSimple from "../../../components/Math/FunctionMappingSimpl
 import FunctionMappingExample from "../../../components/Math/FunctionMappingExample.astro"
 import FunctionExample from "../../../components/Math/FunctionExample.astro"
 
-<Think
-    note="What is a function?"
-/>
+<Think>
+What is a function?
+</Think>
 
 Even if you have many years of study, a bachelor's, master's or even a PhD, we usually don't stop to think about the concept of a function, we just accept them and go on with our lives (at least that was my situation for a long time). Of course, this scenario is not always representative for people who study areas very close to mathematics or who directly study mathematics (like [Mathematical analysis](https://en.wikipedia.org/wiki/Mathematical_analysis)). But the purpose of this note is to explore the concept of function, and to discover or re-discover its -- **functionality** --.
 
@@ -20,9 +20,9 @@ Even if you have many years of study, a bachelor's, master's or even a PhD, we u
 
 But again:
 
-<Think
-    note="What is a function?"
-/>
+<Think>
+What is a function?
+</Think>
 
 @brendanw.sullivanEverythingYouAlways2013 in section 7.2 Definition and Examples, invites us to reflect on how we at the personal level interpret functions. Some terms that are used in conjunction with the concept of functions are: mapping, relation or rule.
 
@@ -30,27 +30,27 @@ Informal conceptualization of a function: Think of the function as a mathematica
 
 Formal definition:
 
-<Equation
-    formula="\forall x \in \sX, \quad \exist ! y \in \sY \quad \textrm{such that } (x,y) \in f"
-    description="Let $\sX$, $\sY$ be sets. Let $f$ be a relation between $\sX$ and $\sY$, so $f ⊆ \sX \times \sY$"
-/>
+<Equation>
+    $$
+    \forall x \in \sX, \quad \exist ! y \in \sY \quad \textrm{such that } (x,y) \in f
+    $$
+    Let $\sX$, $\sY$ be sets. Let $f$ be a relation between $\sX$ and $\sY$, so $f ⊆ \sX \times \sY$.
+</Equation>
 
 This means:
 - For every element $x$ in set $\sX$ (called **domain**),
 - There exists a unique element $y$ in the set $\sY$ (refer as **codomain**),
 - Such that the ordered pair $(x,y)$ is in the function $f$.
 
-<Drawio
-    file="functions.drawio"
-    page="1"
-    description="Visual intuition of a function."
-/>
+<Drawio file="functions.drawio" page="1">
+    Visual intuition of a function.
+</Drawio>
 
 Given this perspective, the terms we used before; mapping, relation or rule, probably make more sense. Let's play we this visual mapping:
 
-<FunctionMappingSimple
-    description="Mapping/relation from domain to codomain with a relation described as $x^2$"
-/>
+<FunctionMappingSimple>
+    Mapping/relation from domain to codomain with a relation described as $x^2$.
+</FunctionMappingSimple>
 
 in the case of $x^2$:
 - The domain: set of real numbers $\sR$
@@ -60,35 +60,32 @@ Note: **non-negative** is important to include zero, if we say positive we are e
 
 Notation has not yet been introduced but it allows to represent this mapping/relationship as:
 
-<Equation
-    formula="f: \sR \rightarrow \sR_{\ge 0}, \quad f(x) = x^2"
-    description=""
-/>
+<Equation>
+    $$
+    f: \sR \rightarrow \sR_{\ge 0}, \quad f(x) = x^2
+    $$
+</Equation>
 
-<FunctionMappingExample
-description=""
-/>
+<FunctionMappingExample/>
 
 As you can see this representation is a bit difficult to interpret, so it is common to represent the horizontal axis as the domain and the vertial axis the codomain.
 
-<FunctionExample
-description=""
-/>
+<FunctionExample/>
 
 If we say that a function is a mapping from a space (domain) to another space (codomain):
 
-<Equation
-    formula="f: \sX \rightarrow \sY"
-    description="A function is just a mapping"
-/>
+<Equation>
+    $$
+    f: \sX \rightarrow \sY
+    $$
+    A function is just a mapping.
+</Equation>
 
 We can generalize this idea to sets.
 
-<Drawio
-    file="functions.drawio"
-    page="1"
-    description="Visual intuition of a function on sets."
-/>
+<Drawio file="functions.drawio" page="1">
+    Visual intuition of a function on sets.
+</Drawio>
 
 
 ## Notation
@@ -104,11 +101,9 @@ We can generalize this idea to sets.
 
 The **preimage** or also called **inverse image**.
 
-<Drawio
-    file="functions.drawio"
-    page="2"
-    description="Visual intuition of a function applied in reverse mapping."
-/>
+<Drawio file="functions.drawio" page="2">
+    Visual intuition of a function applied in reverse mapping.
+</Drawio>
 
 
 ## External Resources

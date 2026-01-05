@@ -1,0 +1,71 @@
+---
+const pages = await Astro.glob("../content/docs/en/**/*.mdx"); // <- change "docs" to your folder
+
+// IMPORTANT: update this to match the folder you're globbing inside src/pages
+const BASE_FS = "en/";
+
+// normalize Windows paths
+const norm = (p) => p.replaceAll("\\", "/");
+
+// file path relative to BASE_FS (e.g. "guides/intro.mdx")
+const relFromBase = (file) => {
+  const f = norm(file);
+  const i = f.lastIndexOf(BASE_FS);
+  return i >= 0 ? f.slice(i + BASE_FS.length) : f.split("/").pop() ?? f;
+};
+
+const folderOf = (relFile) => {
+  const parts = relFile.split("/");
+  return parts.length > 1 ? parts.slice(0, -1).join("/") : ""; // "" = root
+};
+
+// Turn "guides/intro.mdx" -> "./guides/intro"
+// Turn "guides/index.mdx" -> "./guides/"
+// Turn "index.mdx" -> "./"
+const hrefFromRelFile = (relFile) => {
+  const noExt = relFile.replace(/\.mdx$/, "");
+  if (noExt === "index") return "./";
+  if (noExt.endsWith("/index")) return `./${noExt.slice(0, -"/index".length)}/`;
+  return `./${noExt}`;
+};
+
+const items = pages
+  // optional: don’t list the catalog itself (if it’s inside docs/)
+  .filter((p) => !norm(p.file).endsWith("/catalog.mdx"))
+  // optional: don’t list docs root index if you don’t want it
+  .filter((p) => relFromBase(p.file) !== "index.mdx")
+  .map((p) => {
+    const relFile = relFromBase(p.file);
+    return {
+      folder: folderOf(relFile),
+      href: hrefFromRelFile(relFile),
+      title:
+        p.frontmatter?.title ??
+        relFile.split("/").pop()?.replace(/\.mdx$/, "") ??
+        relFile,
+    };
+  });
+
+// group by folder
+const grouped = new Map();
+for (const it of items) {
+  if (!grouped.has(it.folder)) grouped.set(it.folder, []);
+  grouped.get(it.folder).push(it);
+}
+
+// sort
+const folders = [...grouped.keys()].sort((a, b) => a.localeCompare(b));
+for (const f of folders) grouped.get(f).sort((a, b) => a.title.localeCompare(b.title));
+---
+
+{folders.map((f) => (
+  <section style="margin-block: 1.25rem;">
+    <h2>{f === "" ? "Root" : f}</h2>
+    <ul>
+      {grouped.get(f).map((p) => (
+        <li><a href={p.href}>{p.title}</a></li>
+      ))}
+    </ul>
+  </section>
+))}
+

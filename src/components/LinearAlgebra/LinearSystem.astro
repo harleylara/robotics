@@ -1,13 +1,9 @@
 ---
 // IMPORTANT: import the JSXGraph wrapper component
 import JSXGraph from "../Figures/JSXGraph.astro";
-
-const {description="Please insert the description of this figure"} = Astro.props;
 ---
 
-<JSXGraph description={description}>
-    <div id="linear-system" class="jsxbox" style="width: 100%; height: 480px;">
-    </div>
+<JSXGraph id="linear-system">
 </JSXGraph>
 
 <script>
