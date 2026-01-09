@@ -2,9 +2,8 @@
 import Canvas from "../Figures/Canvas.astro"
 ---
 
-<Canvas>
+<Canvas id="bushless-motor">
   <div id="container">
-    <canvas id="viewport" class="flex justify-center w-96"></canvas>
   </div>
 </Canvas>
 
@@ -19,7 +18,7 @@ const viewport = {
   height: 300
 };
 
-const canvas = document.getElementById('viewport');
+const canvas = document.getElementById('bushless-motor');
 const scene = new THREE.Scene();
 
 function updateTube(){

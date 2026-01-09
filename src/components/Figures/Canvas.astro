@@ -1,6 +1,24 @@
 ---
+export type Props = {
+  id: string;
+  canvasClass?: string; /** Tailwind classes for the <canvas> (optional override) */
+  containerClass?: string; /** Tailwind classes for the outer container (optional override) */
+};
+
+const {
+  id,
+  canvasClass = "absolute inset-0 block w-full h-full",
+  containerClass = "flex flex-col items-center border-[0.3px] border-dark-100 my-4",
+} = Astro.props;
+
+const canvasId = id;
 ---
 
-<div id="figure" class="flex flex-col items-center border-[0.3px] border-dark-100 my-4">
-    <slot/>
+<div id={`figure-${id}`} class={containerClass}>
+  <div class="relative w-full aspect-video">
+    <canvas id={canvasId} class={canvasClass}></canvas>
+    <slot>
+    </slot>
+  </div>
 </div>
+
