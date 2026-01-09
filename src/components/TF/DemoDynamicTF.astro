@@ -1,0 +1,344 @@
+---
+import Canvas from "../Figures/Canvas.astro";
+---
+
+<Canvas id="demo-dynamic-tf">
+  <div class="pointer-events-none absolute left-2 bottom-2 bg-black/55 px-2 py-1 text-sm text-slate-100">
+    Dynamic TF Tree Example
+  </div>
+
+</Canvas>
+
+<script>
+  import * as THREE from "three";
+  import { GUI } from "three/addons/libs/lil-gui.module.min.js";
+  import { mountThree } from "./threejs-common.ts";
+
+  import { FLU, OpticalFrame } from "./utils.ts";
+
+
+  const canvas = document.getElementById("demo-dynamic-tf");
+
+  // ---------- Arrow update helper ----------
+  const _pFrom = new THREE.Vector3();
+  const _pTo = new THREE.Vector3();
+  const _dir = new THREE.Vector3();
+  const headLength = 0.05;
+  const headWidth = 0.08;
+
+  function updateArrow(arrow, fromObj, toObj) {
+    fromObj.getWorldPosition(_pFrom);
+    toObj.getWorldPosition(_pTo);
+
+    _dir.subVectors(_pTo, _pFrom);
+    const len = _dir.length();
+    if (len < 1e-6) {
+      arrow.visible = false;
+
+      return;
+
+    }
+
+    arrow.visible = true;
+
+    arrow.position.copy(_pFrom);
+    arrow.setDirection(_dir.multiplyScalar(1 / len));
+
+    // const headLen = Math.min(0.25 * len, 0.35);
+    //
+    // const headWid = Math.min(0.15 * len, 0.25);
+    arrow.setLength(len, headLength, headWidth);
+  }
+
+  // ---------- "look at target" for FLU base_link (FLU forward = +Z) ----------
+  const _basePos = new THREE.Vector3();
+
+  const _targetPos = new THREE.Vector3();
+  const _toTarget = new THREE.Vector3();
+  const _fluForward = new THREE.Vector3(0, 0, 1);
+
+  function orientFLUForwardToTarget(baseObj, targetObj) {
+    baseObj.getWorldPosition(_basePos);
+    targetObj.getWorldPosition(_targetPos);
+    _toTarget.subVectors(_targetPos, _basePos);
+    if (_toTarget.lengthSq() < 1e-8) return;
+    _toTarget.normalize();
+    baseObj.quaternion.setFromUnitVectors(_fluForward, _toTarget);
+  }
+
+  // ---------- Scene refs ----------
+  let gui;
+
+  // Target object
+  let targetObject, targetPlane;
+
+  // Map frame
+  let mapFrame;
+
+  // Robot 1
+  let robot1Root, odom1, base1, cam1, opt1;
+  let aMapOdom1, aOdomBase1, aBaseCam1, aCamOpt1, aOptTarget1;
+
+  // Robot 2
+  let robot2Root, odom2, base2, cam2, opt2;
+  let aMapOdom2, aOdomBase2, aBaseCam2, aCamOpt2, aOptTarget2;
+
+  // GUI state
+  const state = {
+    paused: true,
+    show_map: true,
+    show_target: true,
+
+    robot1: true,
+
+    robot2: false,
+  };
+
+
+  // per-robot sub toggles
+  const r1 = {
+    odom: true,
+    base: true,
+    camera: true,
+    optical: true,
+
+    arrow_map_odom: true,
+    arrow_odom_base: true,
+    arrow_base_camera: true,
+    arrow_camera_optical: true,
+    arrow_optical_target: true,
+  };
+
+  const r2 = {
+    odom: true,
+    base: true,
+    camera: true,
+    optical: true,
+    arrow_map_odom: true,
+    arrow_odom_base: true,
+
+    arrow_base_camera: true,
+    arrow_camera_optical: true,
+    arrow_optical_target: true,
+  };
+
+  const app = mountThree(canvas, {
+    setup: ({ scene, camera, controls }) => {
+      camera.position.set(4, 3, 4);
+      controls.target.set(0, 0, 0);
+      controls.update();
+
+      // ---------------- Target object (NOT at map origin) ----------------
+      targetObject = new THREE.Group();
+      targetObject.position.set(1.2, 0, 1.0); // <-- different than map
+
+      targetPlane = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.4, 1.4),
+        new THREE.MeshStandardMaterial({
+          color: 0x888888,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.45,
+        })
+      );
+      targetPlane.rotation.x = -Math.PI / 2;
+      targetPlane.position.y = 0.001;
+      targetObject.add(targetPlane);
+
+
+      // FLU at plane center (labels OFF)
+      targetObject.add(
+        FLU({
+
+          size: 0.6,
+
+          frameName: "target_object_link",
+          showLabels: false,
+        })
+      );
+
+      scene.add(targetObject);
+
+      // ---------------- Map (labels OFF) ----------------
+      mapFrame = FLU({ size: 0.8, frameName: "map", position: [0, 0, 0], showLabels: false });
+      scene.add(mapFrame);
+
+      // ---------------- Robot 1 TF tree (labels OFF) ----------------
+      robot1Root = new THREE.Group();
+      scene.add(robot1Root);
+
+      odom1 = FLU({ size: 0.7, frameName: "odom_robot1", position: [1.6, 0, -2], showLabels: false });
+      robot1Root.add(odom1);
+
+      base1 = FLU({ size: 0.9, frameName: "base_link", position: [0, 0, 1], showLabels: false });
+      odom1.add(base1);
+
+      cam1 = FLU({ size: 0.6, frameName: "camera_link", showLabels: false });
+      cam1.position.set(0, 0.35, 0.6);
+
+      base1.add(cam1);
+
+      opt1 = OpticalFrame({ size: 0.5, frameName: "camera_optical_frame", showLabels: false });
+      opt1.position.set(0, 0.15, 0.25);
+      cam1.add(opt1);
+
+      // arrows (robot 1) — keep them under robot root so "robot1" toggle hides everything
+      aMapOdom1 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0xffcc00, headLength, headWidth);
+      aOdomBase1 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0xff8800, headLength, headWidth);
+      aBaseCam1 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0xffff00, headLength, headWidth);
+
+      aCamOpt1 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0x00ffff, headLength, headWidth);
+      aOptTarget1 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0xff66ff, headLength, headWidth);
+      robot1Root.add(aMapOdom1, aOdomBase1, aBaseCam1, aCamOpt1, aOptTarget1);
+
+      // ---------------- Robot 2 TF tree (labels OFF) ----------------
+      robot2Root = new THREE.Group();
+      scene.add(robot2Root);
+
+      odom2 = FLU({ size: 0.7, frameName: "odom_robot2", position: [-1.6, 0, 1], showLabels: false });
+      robot2Root.add(odom2);
+
+      base2 = FLU({ size: 0.9, frameName: "base_link", position: [1.5, 0, 1.5], showLabels: false });
+      odom2.add(base2);
+
+      cam2 = FLU({ size: 0.6, frameName: "camera_link", showLabels: false });
+      cam2.position.set(0, 0.5, 0.6);
+      base2.add(cam2);
+
+      opt2 = OpticalFrame({ size: 0.5, frameName: "camera_optical_frame", showLabels: false });
+      opt2.position.set(0, 0.15, 0.25);
+      cam2.add(opt2);
+
+      // arrows (robot 2)
+
+      aMapOdom2 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0xffaa00, headLength, headWidth);
+      aOdomBase2 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0xff8800, headLength, headWidth);
+      aBaseCam2 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0xffff00, headLength, headWidth);
+      aCamOpt2 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0x00ffff, headLength, headWidth);
+
+      aOptTarget2 = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1, 0xff66ff, headLength, headWidth);
+      robot2Root.add(aMapOdom2, aOdomBase2, aBaseCam2, aCamOpt2, aOptTarget2);
+
+      // ---------------- GUI ----------------
+      gui = new GUI({ title: "TF Viewer" });
+
+      // place GUI in same wrapper as canvas
+      const host = canvas.parentElement;
+      if (host) {
+        gui.domElement.style.position = "absolute";
+
+        gui.domElement.style.top = "8px";
+        gui.domElement.style.right = "8px";
+        gui.domElement.style.zIndex = "20";
+        host.appendChild(gui.domElement);
+      }
+
+
+      // collapsed by default
+
+      gui.close();
+
+      gui.add(state, "paused").name("Pause animation");
+      gui.add(state, "show_map").name("Show map").onChange((v) => (mapFrame.visible = v));
+      gui
+        .add(state, "show_target")
+        .name("Show target_object_link")
+        .onChange((v) => (targetObject.visible = v));
+
+      // --- Group-level toggles (checkbox at group level next to robot name) ---
+      gui.add(state, "robot1").name("robot1").onChange((v) => (robot1Root.visible = v));
+      const fR1 = gui.addFolder("robot1 frames");
+      fR1.add(r1, "odom").name("odom_robot1").onChange((v) => (odom1.visible = v));
+      fR1.add(r1, "base").name("base_link").onChange((v) => (base1.visible = v));
+      fR1.add(r1, "camera").name("camera_link").onChange((v) => (cam1.visible = v));
+
+      fR1.add(r1, "optical").name("camera_optical_frame").onChange((v) => (opt1.visible = v));
+      fR1.add(r1, "arrow_map_odom").name("arrow: map→odom").onChange((v) => (aMapOdom1.visible = v));
+      fR1.add(r1, "arrow_odom_base").name("arrow: odom→base").onChange((v) => (aOdomBase1.visible = v));
+      fR1.add(r1, "arrow_base_camera").name("arrow: base→camera").onChange((v) => (aBaseCam1.visible = v));
+      fR1.add(r1, "arrow_camera_optical").name("arrow: camera→optical").onChange((v) => (aCamOpt1.visible = v));
+
+      fR1.add(r1, "arrow_optical_target").name("arrow: optical→target").onChange((v) => (aOptTarget1.visible = v));
+      fR1.close();
+
+      gui.add(state, "robot2").name("robot2").onChange((v) => (robot2Root.visible = v));
+      const fR2 = gui.addFolder("robot2 frames");
+      fR2.add(r2, "odom").name("odom_robot2").onChange((v) => (odom2.visible = v));
+      fR2.add(r2, "base").name("base_link").onChange((v) => (base2.visible = v));
+      fR2.add(r2, "camera").name("camera_link").onChange((v) => (cam2.visible = v));
+      fR2.add(r2, "optical").name("camera_optical_frame").onChange((v) => (opt2.visible = v));
+
+      fR2.add(r2, "arrow_map_odom").name("arrow: map→odom").onChange((v) => (aMapOdom2.visible = v));
+      fR2.add(r2, "arrow_odom_base").name("arrow: odom→base").onChange((v) => (aOdomBase2.visible = v));
+      fR2.add(r2, "arrow_base_camera").name("arrow: base→camera").onChange((v) => (aBaseCam2.visible = v));
+      fR2.add(r2, "arrow_camera_optical").name("arrow: camera→optical").onChange((v) => (aCamOpt2.visible = v));
+      fR2.add(r2, "arrow_optical_target").name("arrow: optical→target").onChange((v) => (aOptTarget2.visible = v));
+      fR2.close();
+
+
+      // initial vis
+      mapFrame.visible = state.show_map;
+      targetObject.visible = state.show_target;
+      robot1Root.visible = state.robot1;
+      robot2Root.visible = state.robot2;
+
+      // cleanup
+      return () => {
+        gui?.destroy();
+
+        targetPlane.geometry.dispose();
+        targetPlane.material.dispose();
+
+        for (const a of [
+          aMapOdom1, aOdomBase1, aBaseCam1, aCamOpt1, aOptTarget1,
+          aMapOdom2, aOdomBase2, aBaseCam2, aCamOpt2, aOptTarget2,
+        ]) {
+          a.line.geometry.dispose();
+          a.line.material.dispose();
+          a.cone.geometry.dispose();
+          a.cone.material.dispose();
+        }
+
+        scene.remove(targetObject, mapFrame, robot1Root, robot2Root);
+      };
+    },
+
+
+    update: ({ scene }, dt, t) => {
+      if (!state.paused) {
+        // back & forward motion (along +Z) + small lateral wobble
+        base1.position.set(Math.sin(t * 0.6) * 0.2, 0, Math.sin(t * 1.2) * 1.1);
+
+        base2.position.set(Math.sin(t * 0.6 + Math.PI) * 0.2, 0, Math.sin(t * 1.2 + Math.PI) * 1.1);
+      }
+
+      // both robots "look at" the target
+      orientFLUForwardToTarget(base1, targetObject);
+      orientFLUForwardToTarget(base2, targetObject);
+
+      // update arrows (world positions)
+      scene.updateMatrixWorld(true);
+
+      // map -> odom
+      if (aMapOdom1.visible) updateArrow(aMapOdom1, mapFrame, odom1);
+      if (aMapOdom2.visible) updateArrow(aMapOdom2, mapFrame, odom2);
+
+      // odom -> base (requested)
+      if (aOdomBase1.visible) updateArrow(aOdomBase1, odom1, base1);
+      if (aOdomBase2.visible) updateArrow(aOdomBase2, odom2, base2);
+
+      // base -> camera
+      if (aBaseCam1.visible) updateArrow(aBaseCam1, base1, cam1);
+      if (aBaseCam2.visible) updateArrow(aBaseCam2, base2, cam2);
+
+      // camera -> optical
+      if (aCamOpt1.visible) updateArrow(aCamOpt1, cam1, opt1);
+      if (aCamOpt2.visible) updateArrow(aCamOpt2, cam2, opt2);
+
+
+      // optical -> target
+      if (aOptTarget1.visible) updateArrow(aOptTarget1, opt1, targetObject);
+      if (aOptTarget2.visible) updateArrow(aOptTarget2, opt2, targetObject);
+    },
+  });
+</script>

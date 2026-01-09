@@ -1,0 +1,48 @@
+---
+import Canvas from "../Figures/Canvas.astro";
+---
+
+<Canvas id="local-frame-ros">
+  <div class="pointer-events-none absolute left-2 bottom-2 bg-black/55 px-2 py-1 text-sm text-slate-100">
+    Local Frame (ROS convention - REP 103)
+  </div>
+</Canvas>
+
+<script>
+
+  import * as THREE from 'three';
+  import { mountThree } from './threejs-common';
+  import { FLU } from "./utils.ts"
+
+
+  const canvas = document.getElementById('local-frame-ros');
+
+
+  const app = mountThree(canvas, {
+    setup: ({ scene, camera }) => {
+
+      const LocalFrame = new THREE.Group();
+      camera.lookAt(LocalFrame.position);
+
+      const material = new THREE.MeshStandardMaterial({ color: 0x7dd3fc, metalness: 0.1, roughness: 0.6, opacity: 0.7 })
+      material.transparent = true;
+      const cube = new THREE.Mesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        material
+      );
+      cube.position.y = 1;
+      LocalFrame.add(cube);
+      scene.add(LocalFrame);
+      const frame = FLU({size: 1, position: cube.position});
+      LocalFrame.add(frame);
+      // cleanup
+      return () => {
+      };
+    },
+
+    update: ({ /* scene, camera, renderer, controls */ }, dt, t) => {
+      // per-frame updates if needed
+    },
+  });
+
+</script>

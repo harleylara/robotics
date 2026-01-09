@@ -1,0 +1,56 @@
+---
+title: Tranformation Tree
+---
+
+import LocalFrameROS from "../../../../components/TF/LocalFrameROS.astro"
+import OpticalFrame from "../../../../components/TF/OpticalFrame.astro"
+import DemoDynamicTF from "../../../../components/TF/DemoDynamicTF.astro"
+
+## Introduction
+
+Conventions, "conventions", "Conventions!"... this is like the wild west
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">here, have a coordinate system chart~ <a href="https://t.co/rHJiaV5pPm">pic.twitter.com/rHJiaV5pPm</a></p>&mdash; Freya Holmér (@FreyaHolmer) <a href="https://twitter.com/FreyaHolmer/status/1325556229410861056?ref_src=twsrc%5Etfw">November 8, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+this note is focus a practical conceptual understading of transformations, conventions and tools available in ROS ecosystem. For a more formal (general and generic) introduction with math-based examples please refer to [Geometry Notes](/en/geometry), section "TBA".
+
+## ROS Frame Conventions
+
+[REP 103 - Standard Units of Measure and Coordinate Conventions](https://www.ros.org/reps/rep-0103.html)
+
+<LocalFrameROS/>
+
+<OpticalFrame/>
+
+[REP 105 - Coordinate Frames for Mobile Platforms](https://www.ros.org/reps/rep-0105.html):
+- `base_link`
+- `odom`
+- `map`
+- `earth`
+
+## Static Tranformation
+
+
+## Dynamic Tranformation
+
+Detecting a markert object w.r.t. **camera optical frame** and create a "(dynamic) brodcaster".
+
+<DemoDynamicTF/>
+
+<Drawio file="ros-tf.drawio"/>
+
+## The Tranformation Library
+
+`tf` predecessor of `tf2`. @footeTfTransformLibrary2013
+
+[`tf2-ros`](https://index.ros.org/p/tf2_ros/) and [`tf2-tools`](https://index.ros.org/p/tf2_tools/), they form part of [geometry2](https://github.com/ros2/geometry2)
+
+```plain
+ros2 run tf2_ros tf2_echo [source_frame] [target_frame]
+```
+
+`static_transform_publisher`
+
+`robot_state_publisher`
+
+## References

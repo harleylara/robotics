@@ -1,0 +1,59 @@
+---
+import Canvas from "../Figures/Canvas.astro";
+---
+
+<Canvas id="optical-frame">
+  <div class="pointer-events-none absolute left-2 bottom-2 bg-black/55 px-2 py-1 text-sm text-slate-100">
+    Cameras Optical Frame (ROS convention - REP 103)
+  </div>
+</Canvas>
+
+<script>
+
+  import * as THREE from 'three';
+  import { mountThree } from './threejs-common';
+import { OpticalFrame } from "./utils.ts"
+
+  const canvas = document.getElementById('optical-frame');
+
+  const app = mountThree(canvas, {
+    setup: ({ scene, camera }) => {
+      const OpticalRefFrame = new THREE.Group();
+      camera.lookAt(OpticalRefFrame.position);
+
+      const position = new THREE.Vector3( 0, 1, 0);
+
+      const BodyMaterial = new THREE.MeshStandardMaterial({ color: 0x7dd3fc, metalness: 0.1, roughness: 0.6, opacity: 0.7 })
+      BodyMaterial.transparent = true;
+      const cube = new THREE.Mesh(
+        new THREE.BoxGeometry(0.8, 0.5, 0.1),
+        BodyMaterial
+      );
+      const cylinder = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.2, 0.2, 0.1, 12),
+        BodyMaterial
+      );
+      cube.position.y = position.y;
+      cylinder.position.y = position.y;
+      cylinder.position.z = 0.1;
+      cylinder.rotateX(Math.PI/2);
+      OpticalRefFrame.add(cube);
+      OpticalRefFrame.add(cylinder);
+      scene.add(OpticalRefFrame);
+
+      const opticalFrame = OpticalFrame({
+        size: 1,
+        position: position
+      });
+      OpticalRefFrame.add(opticalFrame);
+
+      return () => {
+      };
+    },
+
+    update: ({ /* scene, camera, renderer, controls */ }, dt, t) => {
+      // per-frame updates if needed
+    },
+  });
+
+</script>
