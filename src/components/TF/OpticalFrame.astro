@@ -19,6 +19,7 @@ import { OpticalFrame } from "./utils.ts"
   const app = mountThree(canvas, {
     setup: ({ scene, camera }) => {
       const OpticalRefFrame = new THREE.Group();
+      camera.position.set(2, 2, 2);
       camera.lookAt(OpticalRefFrame.position);
 
       const position = new THREE.Vector3( 0, 1, 0);
