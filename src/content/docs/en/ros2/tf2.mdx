@@ -8,49 +8,166 @@ import DemoDynamicTF from "../../../../components/TF/DemoDynamicTF.astro"
 
 ## Introduction
 
-Conventions, "conventions", "Conventions!"... this is like the wild west
+Conventions, conventions, conventions!... This is like the Wild West: if you don’t stick to the same convention, you can get shot. So frame transformations (the method), using `tf2` (the tool), is your protection in the wild world of coordinate systems (at least in the ROS ecosystem). And this isn't just robotics, this is a common situation in any software that works with coordinate systems. For example, look at this chart by [Freya Holmér](https://x.com/FreyaHolmer) about the conventions defined in some popular 3D software.
 
+<div class="flex justify-center mt-4">
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">here, have a coordinate system chart~ <a href="https://t.co/rHJiaV5pPm">pic.twitter.com/rHJiaV5pPm</a></p>&mdash; Freya Holmér (@FreyaHolmer) <a href="https://twitter.com/FreyaHolmer/status/1325556229410861056?ref_src=twsrc%5Etfw">November 8, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
 
 this note is focus a practical conceptual understading of transformations, conventions and tools available in ROS ecosystem. For a more formal (general and generic) introduction with math-based examples please refer to [Geometry Notes](/en/geometry), section "TBA".
 
+- Show the conventions in ros
+- Common names for some coordinate frames
+- Explain the concept of frame transformation (without math). Again, for math-based note check "TBA".
+
+## Frame Transformation (Conceptually)
+
+<Definition term="Frame">
+Is just a **named coordinate system** (e.g., `robot_base_frame`, `environment_origin`, `lidar_sensor_frame`).
+</Definition>
+
+<Definition term="Frame Tranformation">
+Describes how two **frames** (as defined above) relate each other in space at a given time.
+</Definition>
+
+Conceptually, a transform answers questions like:
+- "Where is the camera relative to the robot base?"
+- "Where is the robot base relative to the map?"
+- "If I detected an object (`object_frame`) with respect to the `camera_frame`, where is that object with respect to the `robot_base_frame`?"
+
+In ROS, transforms are not just abstract ideas — they're data being published and consumed:
+- Static transforms (fixed relationship, e.g. sensor bolted to the robot)
+- Dynamic transforms (changing relationship, e.g. robot moving through the world)
+
+And most importantly: transforms form a tree (actually a directed graph with constraints) so you can chain them:
+- if you know A → B and B → C, tf2 can compute A → C for you.
+
+[Harley] coordinate reference frame transformations as a graph datastructure.
+
+## Common Frame Names in ROS
+
+Common navigation frames defined by [REP 105 - Coordinate Frames](https://ros.org/reps/rep-0105.html#id13):
+- `base_link`: the robot body frame, used as the origin anchor point of everthing else **within** the robot, and is often near the center of the robot.
+- `odom`: a smooth, locally-consistent frame from odometry (drifts over time)
+- `map`: a globally-consistent frame from localization / SLAM (can "jump")
+- `earth`: a global geodetic reference (rare unless you fuse GPS/INS)
+
+<Drawio file="ros-tf.drawio" page="1"/>
+
+Typical relationships (conceptually):
+- `odom` -> `base_link` comes from wheel odometry / visual odometry / state estimation.
+- `map` -> `odom` comes from localization (AMCL / SLAM / GPS fusion).
+- `base_link` -> `<your_sensor>_link` comes from calibration / URDF.
+
+Not formal REP rules, but common patterns:
+- `base_footprint`: like `base_link` but projected to the ground plane (2D nav)
+- `camera_link`: camera body frame (mount frame)
+- `camera_optical_frame`: camera optical convention frame (for vision algorithms)
+- `laser`, `lidar`, `scan_link`: lidar frame.
+- `imu_link`: IMU frame.
+
+<Important>
+Keep in mind: these are **conventions**, not guarantees. ROS does not enforce them, so third-party packages and external tools may use different axis directions or frame naming.
+</Important>
+
 ## ROS Frame Conventions
 
-[REP 103 - Standard Units of Measure and Coordinate Conventions](https://www.ros.org/reps/rep-0103.html)
+Now that we have a general agreement on what to call certain common frames in robots, let’s establish some conventions for how the coordinate axes are laid out. This is stablish under [REP 103 - Standard Units of Measure and Coordinate Conventions](https://www.ros.org/reps/rep-0103.html).
 
 <LocalFrameROS/>
 
 <OpticalFrame/>
 
-[REP 105 - Coordinate Frames for Mobile Platforms](https://www.ros.org/reps/rep-0105.html):
-- `base_link`
-- `odom`
-- `map`
-- `earth`
 
-## Static Tranformation
-
-
-## Dynamic Tranformation
-
-Detecting a markert object w.r.t. **camera optical frame** and create a "(dynamic) brodcaster".
-
-<DemoDynamicTF/>
-
-<Drawio file="ros-tf.drawio"/>
 
 ## The Tranformation Library
 
 `tf` predecessor of `tf2`. @footeTfTransformLibrary2013
 
-[`tf2-ros`](https://index.ros.org/p/tf2_ros/) and [`tf2-tools`](https://index.ros.org/p/tf2_tools/), they form part of [geometry2](https://github.com/ros2/geometry2)
+The following is one of the core function of `tf` from @footeTfTransformLibrary2013
+*"It would be very powerful if the programmer could simply request from a library, what is the vector [the transformation is implicity] that I need to [transform a given frame, e.g. `gripper_link`] with respect to [a common/root frame like `base_link`] such that [it can reach the target frame, e.g. `target_object_link`]."*.
+
+<Drawio file="ros-tf.drawio" page="2"/>
+
+As long theres a valid chain of transformation, you get the valid vector.
+We dont have to know that `target_object_link` is detected by a camera, or a lidar, nor we do not have to know where the sensor is localled, again, all this is valid as long we a **valid chain of transformations**.
+
+
+`static_transform_publisher`
+
+`robot_state_publisher`
+
+## Static and Dynamic Transformations
+
+<Definition term="Static Transform">
+A transformation from a parent frame to a child frame that **does not change over time**.
+</Definition>
+
+A rigidly mounted sensor is a good example of a static transformation, and are typically published on `/tf_static` and are meant to be latched (nodes that join later still receive them).
+
+Ways to publish static transforms, from least to most convenient:
+- Write your own node that publishes the static transform.
+- Use `static_transform_publisher`. At this point you know how to run node either from the terminal or how to add them to a launch file.
+- Define a URDF file and run `robot_state_publisher` with it. We're going to skip this (for now) in this note, but you can find more about this approach in [Robot Description Formats](en/ros2/description).
+
+[Harley] TODO:
+- add code static (brodcaster, but we havent discuss the "brodcaster" name)
+- run from cli
+
+Detecting a markert object with respect to **camera optical frame** and create a "(dynamic) brodcaster".
+
+<Definition term="Dynamic Transform">
+Transformations between a parent frame and a child frame whose relationship **changes over time**.
+</Definition>
+
+<DemoDynamicTF/>
+
+<Drawio file="ros-tf.drawio" page="3"/>
+
+[Harley] TODO:
+- add code (dynamic brodcaster)
+
+There is no trivial way to define a dynamic transformation using the CLI like you can with `static_transform_publisher`, since it depends heavily on the computation required to keep the dynamic transform updated.
+
+At this point, you understand that there are two types of transformations. If you think about it, a system may produce these transformations (either dynamic or static), and other systems may consume them. This leads us to the next section: "Broadcasters" (transformation producers) and "Listeners" (transformation consumers).
+
+## Broadcaster and Listener.
+
+`tf2` has two standard modules, a `Broadcaster` and `Listener`.
+
+<Drawio file="ros-tf.drawio" page="4"/>
+
+A listener simply retrieves information about transformations, so it’s agnostic to whether they are static or dynamic. If the transform is static, it will effectively receive the same transform over and over; if it’s dynamic, it will get updated information, for example, an object moving closer to or farther from a frame so it can react accordingly.
+
+[Harley] TODO: add listener code
+
+[`tf2_ros`](https://index.ros.org/p/tf2_ros/)
+
+## Debuging Tools
+
+Other tools you’ll likely use (depending on your install):
+- `static_transform_publisher`: publish a fixed transform.
+- `robot_state_publisher`: publish TF from URDF (fixed + moving joints)
+- `view_frames` (from [`tf2_tools`](https://index.ros.org/p/tf2_tools/)): generate a TF tree snapshot for debugging.
+- `tf2_echo`: (from [`tf2_tools`](https://index.ros.org/p/tf2_tools/)): echo transformation between frame, help us to determine if there is a transformation happening at all.
+- RViz TF display — sanity check your tree visually
+
 
 ```plain
 ros2 run tf2_ros tf2_echo [source_frame] [target_frame]
 ```
 
-`static_transform_publisher`
+Mental model for using tf2:
+- Broadcasters publish transforms (/tf or /tf_static)
+- Listeners receive transforms into a Buffer
+- Your code asks the buffer: "Give me transform A ↔ B at time T"
 
-`robot_state_publisher`
+tf2 handles chaining, caching, and interpolation (when possible)
+
+## External Resources
+
+- [About tf2 - ROS Docs](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Tf2.html)
+- [tf2 - ROS series of tutorials](https://docs.ros.org/en/humble/Tutorials/Intermediate/Tf2/Tf2-Main.html)
 
 ## References
