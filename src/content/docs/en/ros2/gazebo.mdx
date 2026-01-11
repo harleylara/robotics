@@ -5,13 +5,44 @@ description: Notes, explanations and clarifications
 
 ## The Horrible Mess of Naming
 
-- Before XXXX: was just `gazebo`
-- In XXXX `Ignition Gazebo` was introduce: cohexistence of `gazebo` (the previous one) and `ignition`
-    - `2018.03.02`: first appearance of the word `ignition` in Gazebo Forums [https://community.gazebosim.org/t/about-the-general-category/169](https://community.gazebosim.org/t/about-the-general-category/169)
-- In XXXX `gazebo` -> `gazebo classic`
-    - `2019.07.31`: first appearance of the term `Gazebo Classic` in Gazebo Forums [Use case of multiple “worlds” in an SDF - Gazebo Community](https://community.gazebosim.org/t/use-case-of-multiple-worlds-in-an-sdf/375/2).
-`gazebo classic` EOL and 
-- In 2022.4.6 `ignition` -> (`gazebo` or in short `gz`). see [A new era for Gazebo](https://www.openrobotics.org/blog/2022/4/6/a-new-era-for-gazebo) *"we're taking the opportunity to simplify things, for us and for you."*. [A new era for Gazebo - Gazebo Community](https://community.gazebosim.org/t/a-new-era-for-gazebo/1356)
+Let's get things straight: simply looking for information, tutorials or documentation about Gazebo can be a challenging and frustrating task. There are so many names, so many API changes over the years, and no clear guide for navigating resources and filtering out what you actually need.
+
+Therefore, the following diagram serves as a tool to untangle the confusing world of Gazebo names over the years. 
+
+Therefore, the following diagram serves as a tool to untangle the confusing world of Gazebo names over the years. Keep in mind that this diagram reflects the naming system from an "official point of view" (how Gazebo is referred to in official release notes in Gazebo Forums or OSRF forums). So, it’s natural that with all this [mumbo jumbo](https://en.wikipedia.org/wiki/Mumbo_jumbo_(phrase)) of names, people use some of them interchangeably (which adds to the confusion), and most of the time you will either have to infer the "proper" name from context or ask for clarification.
+
+<Drawio file="ros-gazebo.drawio" page="1"/>
+
+See the [Annotated Timeline](#annotated-timeline) section for a more detailed walkthrough.
+
+**How of if this map to ROS ?**. From the ROS side:
+- Ubuntu 22.04: Humble uses `ign` (`Fortress`)
+- Ubuntu 24.04: from Jazzy Jalisco onward use `gz`
+  - Jazzy Jalisco uses `Harmonic`
+  - Kilted Kaiju uses `Ionic`
+
+See [Summary of Compatible ROS and Gazebo Combinations](https://gazebosim.org/docs/latest/ros_installation/#summary-of-compatible-ros-and-gazebo-combinations) for a more complete table.
+
+Gazebo is not the only robot simulator out there, but for better or worse, it is the most popular one in the ROS ecosystem. If you want to explore other options, check out the [Robotics Simulators](en/simulators), which focuses exclusively on simulators.
+
+## Annotated Timeline
+
+[Player Stage](https://playerstage.sourceforge.net/index.php?src=news) and Gazebo as a tool. See the ['History' section](https://classic.gazebosim.org/)
+
+With the first stable release on October 2012 it was just `Gazebo` under the OSRF.
+
+In `2019.03.XX` the [first major release of `Ignition (Gazebo)`](https://discourse.openrobotics.org/t/ignition-acropolis-released/48911) called `Ignition Acropolis`: cohexistence of `Gazebo` (the previous one) and `Ignition`
+  - `2018.03.02`: first appearance of the word `ignition` in Gazebo Forums [About the General category](https://gazebo.discourse.group/t/about-the-general-category/169)
+
+In `2018` `gazebo` -> `gazebo classic`
+  - `2019.07.31`: Louise Poubel `@chapulina` (in Gazebo Forums) uses the term `Gazebo Classic` in Gazebo Forums [Use case of multiple “worlds” in an SDF](https://gazebo.discourse.group/t/use-case-of-multiple-worlds-in-an-sdf/375).
+  - `2018.11.10`: Silvio Traversaro `@traversaro` (in Github) calls the old gazebo `Gazebo Classic`. [Investigate support for "Modern" Gazebo Sim](https://github.com/robotology/gazebo-yarp-plugins/issues/395)
+
+In `2022.4.6` `Ignition` changed name to just (`Gazebo` or in short `gz`), now the cohexistence is Gazebo and Gazebo Classic. see [A new era for Gazebo](https://www.openrobotics.org/blog/2022/4/6/a-new-era-for-gazebo) *"we're taking the opportunity to simplify things, for us and for you."*. [A new era for Gazebo - Gazebo Community](https://gazebo.discourse.group/t/a-new-era-for-gazebo/1356)
+
+In `2021.02`: planning to end-of-life (EOL) [Migration from Gazebo classic to Ignition Gazebo](https://discourse.openrobotics.org/t/migration-from-gazebo-classic-to-ignition-gazebo/48769)
+  - `2024.01`: [Migration from Gazebo classic to Ignition Gazebo](https://discourse.openrobotics.org/t/migration-from-gazebo-classic-to-ignition-gazebo/48769)
+  - `2024.02.21` `Gazebo Classic` (EOL) is announced: [Gazebo Classic End-of-Life](https://discourse.openrobotics.org/t/gazebo-classic-end-of-life/48748)
 
 ## External Resources
 
