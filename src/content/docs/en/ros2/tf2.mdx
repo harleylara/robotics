@@ -98,6 +98,21 @@ We dont have to know that `target_object_link` is detected by a camera, or a lid
 
 `robot_state_publisher`
 
+## Broadcaster and Listener
+
+`tf2` has two standard modules, a `Broadcaster` and `Listener`. A "Broadcasters" as a transformation producers that push transformation information into the `tf2` transformation graph, and "Listeners" is transformation consumers that pull information from `tf2`.
+
+<Drawio file="ros-tf.drawio" page="4"/>
+
+From here we can infer that a `Broadcaster` can produce transformation that do not change over time, we call them "static transformation", or it can also produce transformation that **do change over time** calling them "dynamic transformation".
+
+The following section explain the concepts of static and dynamic transformation.
+
+
+[Harley] TODO: add listener code
+
+[`tf2_ros`](https://index.ros.org/p/tf2_ros/)
+
 ## Static and Dynamic Transformations
 
 <Definition term="Static Transform">
@@ -111,9 +126,47 @@ Ways to publish static transforms, from least to most convenient:
 - Use `static_transform_publisher`. At this point you know how to run node either from the terminal or how to add them to a launch file.
 - Define a URDF file and run `robot_state_publisher` with it. We're going to skip this (for now) in this note, but you can find more about this approach in [Robot Description Formats](en/ros2/description).
 
+## Writing Static Broadcaster
+
+Let's start by making a package:
+
+```plain
+cd ~/ros2_ws/src # remember to run this command inside the your `src` folder of your workspace
+ros2 pkg create --build-type ament_python python_tf2
+cd python_tf2
+touch python_tf2/static_broadcaster.py # this makes a empty python script called `static_broadcaster.py`
+```
+
+```python remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/refs/heads/master/python_tf2/python_tf2/static_broadcaster.py"
+```
+
+Build the package:
+
+```plain
+cd ~/ros2_ws # from the root folder of the workspace
+colcon build --packages-select python_tf2
+source install/setup.bash
+```
+
+To run this static broadcaster:
+
+```plain
+ros2 run python_tf2 static_broadcaster --ros-args -p parent_frame:="base_link" -p child_frame:="camera_link"
+```
+
 [Harley] TODO:
 - add code static (brodcaster, but we havent discuss the "brodcaster" name)
 - run from cli
+
+## A More Convenient Static Broadcaster
+
+Use `static_transform_publisher` node that is part of the ros package [`tf2_ros`](https://index.ros.org/p/tf2_ros/).
+
+```plain
+ros2 run tf2_ros static_transform_publisher --x 0.5 --y 0 --z 1 --yaw 0 --pitch 0 --roll 0 --frame-id base_link --child-frame-id camera_link
+```
+
+## Writing Dynamic Broadcaster
 
 Detecting a markert object with respect to **camera optical frame** and create a "(dynamic) brodcaster".
 
@@ -130,19 +183,9 @@ Transformations between a parent frame and a child frame whose relationship **ch
 
 There is no trivial way to define a dynamic transformation using the CLI like you can with `static_transform_publisher`, since it depends heavily on the computation required to keep the dynamic transform updated.
 
-At this point, you understand that there are two types of transformations. If you think about it, a system may produce these transformations (either dynamic or static), and other systems may consume them. This leads us to the next section: "Broadcasters" (transformation producers) and "Listeners" (transformation consumers).
+## Writing Listener
 
-## Broadcaster and Listener.
-
-`tf2` has two standard modules, a `Broadcaster` and `Listener`.
-
-<Drawio file="ros-tf.drawio" page="4"/>
-
-A listener simply retrieves information about transformations, so it’s agnostic to whether they are static or dynamic. If the transform is static, it will effectively receive the same transform over and over; if it’s dynamic, it will get updated information, for example, an object moving closer to or farther from a frame so it can react accordingly.
-
-[Harley] TODO: add listener code
-
-[`tf2_ros`](https://index.ros.org/p/tf2_ros/)
+A listener simply retrieves information about transformations, so it’s agnostic to whether they are static or dynamic, If the transform is static, it will effectively receive the same transform over and over; if it’s dynamic, it will get updated information over time.
 
 ## Debuging Tools
 
