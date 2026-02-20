@@ -6,19 +6,24 @@ description: "Set of notes for reviewing ROS concepts"
 ## Prerequisites for Diving
 
 Knowledge required:
-- Familiarity with Ubuntu’s desktop environment. I recommend the book [Linux Command Line and Shell Scripting Bible 4th Edition](https://www.wiley.com/en-us/Linux+Command+Line+and+Shell+Scripting+Bible%2C+4th+Edition-p-9781119700937) chapter 1 section "The Linux Desktop Environment".
-- Proficiency with basic terminal commands (mainly bash). See chapter 3 and 4 of [Linux Command Line and Shell Scripting Bible 4th Edition](https://www.wiley.com/en-us/Linux+Command+Line+and+Shell+Scripting+Bible%2C+4th+Edition-p-9781119700937).
-- Understand GNU/Linux file system.  [Linux Command Line and Shell Scripting Bible](https://www.wiley.com/en-us/Linux+Command+Line+and+Shell+Scripting+Bible%2C+4th+Edition-p-9781119700937) chapter 7 and 8.
-- Python/C++ skills, including basic OOP concepts. For recap python check [Think Python 2nd Edition by Allen B. Downey](https://greenteapress.com/wp/think-python-2e/) for C++ check [Programming: Principles and Practice Using C++ 2nd Edition by Bjarne Stroustrup](https://jakevdp.github.io/PythonDataScienceHandbook/)
-- Basics of VCS (Version control system) with git. My personal recommendation is the [Pro Git 2nd Edition by Scott Chacon and Ben Straub](https://git-scm.com/book/en/v2) chapter 1, 2, and 3.
+- Familiarity with Ubuntu’s desktop environment. I recommend the book @blumLinuxCommandLine2025 (Edition 3rd/4th or 5th) chapter 1, section "The Linux Desktop Environment".
+- Proficiency with basic terminal commands (mainly bash). See chapter 3 and 4 of @blumLinuxCommandLine2025.
+- Understand GNU/Linux file system. @blumLinuxCommandLine2025 chapter 7 and 8.
+- Python/C++ skills, including basic OOP concepts. For recap python check [Think Python 3rd Edition by Allen B. Downey](https://greenteapress.com/wp/think-python-3rd-edition/) for C++ check @stroustrupProgrammingPrinciplesPractice2024
+- Basics of VCS (Version control system) with git. My personal recommendation is the [Pro Git 2nd Edition by Scott Chacon and Ben Straub](https://git-scm.com/book/en/v2) chapter 1, 2, and 3. [Git Cheat Sheet](https://git-scm.com/cheat-sheet).
 
 Software requirements:
 - OS: Ubuntu 22.04 Desktop. I personally recommend a native Ubuntu installation on your computers. Dual-boot also works but very impractical for daily use (in my opinion). If you want to use a virtual machine I recommend using VMware Workstation Pro it's free for personal non-commercial use (runs on GNU/Linux and Windows).
 - Install: ROS Humble, check the official documentation and follow [Ubuntu Debian packages (recommended)](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) to install it.
 
+Sometimes I get asked for resources on more general robotics topics or ROS-specific material—if that's what you're looking for, check my personal [Bookmarks – Robotics](https://bookmarks.harleylara.com/subjects/#robotics).
+
+**Disclaimer**: these notes aren’t meant to be a go-to resource for learning the Linux terminal, bash scripting, programming (Python or C++), Git, or general robotics topics like transformation matrices and similar. The resources mentioned above are significantly more complete and better suited than what I can cover here, so I highly recommend checking them (or any other resource you prefer) if you feel like you’re lacking in those areas or just want to reinforce your existing knowledge.
+
+**Expectation for these notes**: the main goal of these notes is understanding the mechanisms that make up ROS and the ecosystem around it, while building knowledge incrementally and in a logical progression of topics that would (hopefully) help you understand the concepts with ease.
+
 ## Module 1 - Basics
 
-Content Outline:
 - [ROS 2 Introduction](/en/ros2/intro)
 - [Workspace](/en/ros2/ws): Create and manage a ROS workspaces
 - [Packages](/en/ros2/pkgs): Structure and management
@@ -32,7 +37,7 @@ Content Outline:
 - [Launch System](/en/ros2/launch)
 
 
-## Module 2 - Intermediate
+## Module 2 - Intermediate (Tooling)
 
 Intermediate - Tooling
 - [Visualization tool, RVIZ2 and friends](/en/ros2/rviz)
@@ -50,7 +55,7 @@ Intermediate - Tooling
 - [Security](/en/ros2/security)
 - [Multi-agent](/en/ros2/multi-agent)
 
-## Friends
+## Module 4 - Friends
 
 Set of libraries and frameworks and toolkits (community effort) that enhance the ROS ecosystem.
 
@@ -64,3 +69,5 @@ Set of libraries and frameworks and toolkits (community effort) that enhance the
   - Image transport
 - PlanSys2 ?
 - BehaviorTree.CPP with ROS2 ?
+
+## Resources
