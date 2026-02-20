@@ -1,0 +1,196 @@
+---
+title: Linux Cheat Sheet
+description: This is by no means intended to be a comprehensive list
+---
+
+## Quality-of-life Shortcuts
+
+```plain
+Tab = autocomplete
+Ctrl + R = reverse search command history
+Ctrl + C = stop a running command
+Ctrl + A / Ctrl + E = start/end of line
+history = list past commands
+```
+
+## Help and Discovery
+
+```plain
+man <cmd>            # full manual (q to quit)
+<cmd> --help         # quick usage
+info <cmd>           # alternative docs (often more structured)
+which <cmd>          # where a command comes from
+type <cmd>           # alias/function/builtin or file?
+apropos <keyword>    # search manpages by keyword
+```
+
+## Navigation
+
+```plain
+pwd                 # where am I
+ls                  # list files
+ls -lah             # long + all + human sizes
+cd /path            # change dir
+cd ..               # up one
+cd -                # back to previous dir
+mkdir -p a/b/c      # create nested dirs
+tree -L 2           # directory tree (if installed)
+```
+
+## Files and Viewing
+
+```plain
+touch file.txt      # create/update timestamp
+cp src dst          # copy
+cp -r dir1 dir2     # copy directory
+mv old new          # move/rename
+rm file             # delete
+rm -r dir           # delete directory
+rm -rf dir          # force delete (danger)
+cat file            # print file
+less file           # view with paging (q quits, /search)
+head -n 20 file     # first 20 lines
+tail -n 20 file     # last 20 lines
+tail -f file.log    # follow log output
+stat file           # detailed metadata
+```
+
+## Searching (files + text)
+
+```plain
+find . -name "*.log"                 # find by name
+find . -type f -mtime -7             # files modified in last 7 days
+grep "needle" file                   # search text in file
+grep -R "needle" .                   # recursive search
+grep -RIn "needle" .                 # recursive + line numbers + ignore binary
+rg "needle"                          # ripgrep (faster, if installed)
+```
+
+## Symbolic Links (symlinks)
+
+```plain
+ln -s TARGET LINK              # create symlink
+ln -sfn TARGET LINK            # replace existing symlink safely
+
+ls -l LINK                     # show where it points
+readlink LINK                  # print target path
+readlink -f LINK               # resolve to final absolute path
+
+rm LINK                        # remove symlink (doesn't delete target)
+unlink LINK                    # same as rm for symlinks
+
+find . -type l                 # list symlinks
+find . -xtype l                # find broken symlinks
+
+cp -a SRC DST                  # copy while preserving symlinks
+cp -aL SRC DST                 # copy files symlinks point to (dereference)
+```
+
+## Pipes and Redirection (terminal superpowers)
+
+```plain
+cmd1 | cmd2          # pipe output into another command
+cmd > out.txt        # write (overwrite)
+cmd >> out.txt       # append
+cmd 2> err.txt       # stderr to file
+cmd > out.txt 2>&1   # stdout+stderr to same file
+cmd < in.txt         # read file as input
+tee out.txt          # write to file AND show on screen
+```
+
+## Permissions and Ownership
+
+```plain
+ls -l                      # see permissions
+chmod 644 file             # rw-r--r--
+chmod +x script.sh         # make executable
+chown user:group file      # change owner/group (sudo often needed)
+sudo <cmd>                 # run as admin
+```
+
+## Processes and Jobs
+
+```plain
+ps aux | less              # list processes
+top                        # live view (or htop if installed)
+pgrep -a nginx             # find process by name
+kill <pid>                 # ask process to stop
+kill -9 <pid>              # force kill (last resort)
+pkill -f "pattern"         # kill matching command line
+cmd &                      # run in background
+jobs                       # list background jobs
+fg %1                      # bring job 1 to foreground
+bg %1                      # resume job 1 in background
+nice -n 10 cmd             # lower priority
+```
+
+## Disk and Memory
+
+```plain
+df -h                      # disk usage by filesystem
+du -sh *                   # size of each item in current dir
+free -h                    # RAM usage
+lsblk                      # block devices (disks/partitions)
+mount | less               # mounted filesystems
+```
+
+## Archives and Compression
+
+```plain
+tar -czf archive.tgz dir/      # create .tgz
+tar -xzf archive.tgz           # extract .tgz
+zip -r archive.zip dir/        # zip folder
+unzip archive.zip              # unzip
+gzip file                      # file.gz
+gunzip file.gz                 # unzip gzip
+```
+
+## Networking (quick triage)
+
+```plain
+ip a                       # show IPs (modern)
+ip r                       # routes
+ping -c 4 8.8.8.8          # connectivity test
+curl -I https://example.com # fetch headers
+curl -L https://...        # follow redirects
+wget <url>                 # download (if installed)
+ss -tulpn                  # listening ports/services
+dig example.com             # DNS lookup (if installed)
+```
+
+## SSH and Remote Work
+
+```plain
+ssh user@host                  # remote shell
+ssh -i key.pem user@host       # with key
+scp file user@host:/path/      # copy file to remote
+rsync -avh dir/ user@host:/path/  # fast sync (great for backups)
+```
+
+## System Info and Logs
+
+```plain
+uname -a                    # kernel/system info
+hostnamectl                 # host details (systemd distros)
+uptime                      # how long running + load
+dmesg | less                # kernel messages
+journalctl -xe              # system logs (systemd)
+journalctl -u nginx --since "1 hour ago"
+```
+
+## Users and Environment
+
+```plain
+whoami                 # current user
+id                     # user/group IDs
+groups                 # groups you belong to
+echo $PATH             # env var
+export VAR=value       # set for current session
+source ~/.bashrc       # reload shell config
+“Every day” text tricks
+wc -l file             # count lines
+sort file | uniq -c    # count duplicates
+cut -d',' -f1 file.csv # first CSV column
+awk '{print $1}' file  # first whitespace-separated column
+sed -n '1,20p' file    # print lines 1-20
+```
