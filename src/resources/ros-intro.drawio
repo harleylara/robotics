@@ -281,7 +281,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="mgFaU864Cr5JNoEr6_kL" name="stack">
-    <mxGraphModel dx="1621" dy="1167" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="716" dy="516" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -291,7 +291,7 @@
         <mxCell id="-ZN2vl-T6jNQ6E7plnv1-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Hardware Layer" vertex="1">
           <mxGeometry height="40" width="260" x="200" y="650" as="geometry" />
         </mxCell>
-        <mxCell id="-ZN2vl-T6jNQ6E7plnv1-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Operating System (only Linux)" vertex="1">
+        <mxCell id="-ZN2vl-T6jNQ6E7plnv1-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Operating System (only GNU/Linux)" vertex="1">
           <mxGeometry height="40" width="260" x="200" y="600" as="geometry" />
         </mxCell>
         <mxCell id="-ZN2vl-T6jNQ6E7plnv1-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Transport Layer (Network, SM)" vertex="1">
@@ -396,7 +396,7 @@
         <mxCell id="NbDZqp8oY6u8ZVmr7tz7-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Hardware Layer" vertex="1">
           <mxGeometry height="40" width="380" x="530" y="650" as="geometry" />
         </mxCell>
-        <mxCell id="NbDZqp8oY6u8ZVmr7tz7-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Operating System (Linux, Windows, Mac)" vertex="1">
+        <mxCell id="NbDZqp8oY6u8ZVmr7tz7-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Operating System (GNU/Linux, Windows, Mac)" vertex="1">
           <mxGeometry height="40" width="380" x="530" y="600" as="geometry" />
         </mxCell>
         <mxCell id="NbDZqp8oY6u8ZVmr7tz7-3" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;rounded=0;dashPattern=8 8;fillColor=#f5f5f5;strokeColor=#666666;opacity=70;" value="">
