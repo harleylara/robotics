@@ -6,10 +6,14 @@ description: "What is ROS in a nutshell"
 <Presentation>
 
 <Slide>
-If you are wondering:
+
+Before we start, let's address the elephant in the room, or more precisely, the number in the title: "ROS 2" If this is your first time hearing about ROS, or if you want to understand what it's about, you're probably asking yourself: if the title is "ROS 2" that may imply there is a "ROS 1". And yes, you are correct but, to be precise, **there was a ROS 1**. It reached end-of-life (EOL) in May 31 2025, see [Noetic Ninjemys: The Last Official ROS 1 Release](https://www.openrobotics.org/blog/2020/5/23/noetic-ninjemys-the-last-official-ros-1-release).
+But without getting into too much detail, think of ROS 2 as the successor to ROS 1. Sadly, the application programming interfaces (APIs) or, in simpler terms, the libraries that let you program and interact with a ROS system are not compatible between ROS 1 and ROS 2. Fortunately, all the concepts are compatible. So, learning ROS 2 is essentially learning ROS 1 (conceptually); you just need to learn the APIs.
+
+But if you are wondering:
 
 <Important>
-    Do I need to learn to ROS 1 to be able to learn ROS 2 (or vice versa), the answer is NO. (what? you expected a more elaborated answer?... I'm too lazy to write it down).
+    Do I need to learn to ROS 1 to be able to learn ROS 2 (or vice versa), the answer is NO.
 </Important>
 
 <div class="flex justify-center mt-4">
@@ -18,7 +22,11 @@ If you are wondering:
 
 </Slide>
 
-## Why do we need ROS nowadays?
+If you’re a curious mind, at the end of this note we will discuss the architectural differences between ROS 1 and ROS 2. That will give you the big picture of those differences and what they imply.
+
+Harley: Insert some information about from now on the term "ROS" refers to the Ecosystem without distribution and ROS 1 and ROS 2.
+
+## Why Do We Weed ROS?
 
 <Slide>
 <Think>
@@ -35,7 +43,7 @@ The LiDAR sensor can be as cheap as the [RPLidar A1](https://www.slamtec.ai/prod
 <Slide centered>
 To motivate the example let's think about a **2D LiDAR** and the following pipeline:
 
-<Drawio file="ros.drawio" page="0">
+<Drawio file="ros-intro.drawio" page="0">
     A toy example.
 </Drawio>
 </Slide>
@@ -46,7 +54,11 @@ The first pieces of software that would later become ROS were being developed at
 
 Willow Garage began developing PR2 using ROS as runtime software. Soon after ROS was released (0.4 Mango Tango) followed by a paper showing RVIZ and the first article about ROS ([ROS: an open-source Robot Operating System](http://www.robotics.stanford.edu/~ang/papers/icraoss09-ROS.pdf)).
 
-In 2010 Willow Garage started the creation of Open Source Robotics Foundation (OSRF) and then in 2013 OSRF became the main maintainer of ROS as Willow Garage would be absorbed by its founders. Then Clearpath Robotics takes over the support responsibilities for PR2 in early 2014. Since then OSRF has taken over the primary development of ROS, releasing a new version every year.
+In 2010 Willow Garage started the creation of Open Source Robotics Foundation (OSRF) and then in 2013 OSRF became the main maintainer of ROS as Willow Garage would be absorbed by its founders. Then [Clearpath Robotics](https://clearpathrobotics.com/) takes over the support responsibilities for PR2 in early 2014, as described in [PR2 Support transferred to Clearpath Robotics](https://www.ros.org/news/2014/01/pr2-support-transferred-to-clearpath-robotics.html). Since then OSRF has taken over the primary development of ROS, releasing a new version every year.
+
+A key later restructuring step happened in December 2022, see [Intrinsic Acquires OSRC and OSRC-SG](https://www.openrobotics.org/blog/2022/12/15/intrinsic-acquires-osrc-and-osrc-sg), when Open Robotics (Brian Gerkey) announced that [Intrinsic](https://www.intrinsic.ai/) was acquiring assets from the for-profit subsidiaries "Open Source Robotics Corporation" (OSRC) and OSRC-SG (Singapore), not OSRF itself. In that same post, Gerkey explains the organizational background: OSRF was created in 2012 as the nonprofit steward; OSRC was created in 2016 as a for-profit subsidiary for commercial engagements; and OSRC-SG was created two years later to expand Asia-Pacific involvement, with Gerkey noting that its creation led directly to the release of Open-RMF.
+
+That 2022 transaction is explicitly connected to the next governance step in Open Robotics' March 18, 2024 [Announcing the Open Source Robotics Alliance](https://www.openrobotics.org/blog/2024/3/18/announcing-the-open-source-robotics-alliance-osra). Open Robotics states that the sale of OSRC was the first step in a broader restructuring vision, and that the launch of the [Open Source Robotics Alliance (OSRA)](https://osralliance.org/) was the next major step. Open Robotics describes OSRA as a new initiative from OSRF to improve long-term sustainability and health of its open-source robotics projects, using a mixed membership / meritocratic model and assigning OSRA responsibility for governance of ROS, Gazebo, Open-RMF, and supporting infrastructure, under OSRF board oversight via a TGC/PMC structure. [How it works - OSRA](https://osralliance.org/how-it-works/). On the same date (March 18, 2024), Intrinsic published its own statement supporting OSRA: [Supporting the Open Source Robotics Alliance (OSRA)](https://www.intrinsic.ai/blog/posts/supporting-the-open-source-robotics-alliance), saying it would join as one of the inaugural members and (for the first time) participate in governance via the Technical Governance Committee (TGC) and Project Management Committees (PMCs) under the chartered structure.
 
 Here an official blog about [Why ROS](https://www.ros.org/blog/why-ros/).
 
@@ -58,49 +70,90 @@ Is an open source *middleware* suit, and although ROS is not an operating system
 Source: [Official ROS website](https://www.ros.org)
 </Definition>
 
-More about *middleware* later.
+Although this is the official definition of ROS, in my experience interacting with people who know nothing about ROS, or who are new to robotics, the definition contains terms like "middleware (suite)", "operating system" and "framework" that often lead to the wrong mental model of what ROS is. Even the name "Robot Operating System" leads people to think it is something like Windows, macOS, or GNU/Linux. The reality is that ROS **is not** an operating system in the **traditional sense** of what most people think an operating system is. So, you may be wondering: why is it called a "Robot Operating System" if it is not an OS (as we normally know)? Well, the answer is embedded in the definition:
 
-ROS is a collection of "things":
-- Plumbing
-- Tools
-- Capabilities
-- Ecosystem
+> [...] it has hardware abstraction functions, low-level device control, inter-process communication, package management, network communication and a wide range of macros [...]
 
-### Plumbing
+This is the key to calling ROS an operating system: it provides functionalities that are inherently associated with what, from a technical point of view, an operating system is expected to do. For that reason, some definitions describe ROS as a meta-operating system (see [What is ROS? - ROS wiki](https://wiki.ros.org/ROS/Introduction#What_is_ROS.3F)). However, telling newcomers that ROS is a meta-operating system is often even more confusing than simply calling it an operating system.
 
-Execution models:
-    - Iterative execution
-    - Event-oriented execution
+<Definition term="Operating System">
+An operating system (OS) is system software that manages computer hardware and software resources, and provides common services for computer programs.
 
-Communication paradigms:
-    - Publication/Subscription (asynchronous)
-    - Services (synchronous)
-    - Actions (asynchronous)
+Source: [Operating system - Wikipedia](https://en.wikipedia.org/wiki/Operating_system)
+</Definition>
 
-Drivers availability.
+If you decide to lean into the wording of "middleware" or "middleware suite", a common question from newcomers and students who want to learn ROS is: what exactly is middleware? The problem is that there is no single, universal definition of middleware that everyone agrees on. Different communities and industries use the term in slightly different ways, which can make it harder for beginners to build a clear mental model of what ROS actually is.
+
+<Definition term="Middleware">
+Middleware is a (loosely defined) term for any software or service that enables the parts of a system to communicate and manage data. It is the software that handles communication between components and input/output, so developers can focus on the specific purpose of their application.
+
+Source: [Middleware - MDN Glossary](https://developer.mozilla.org/en-US/docs/Glossary/Middleware)
+</Definition>
+
+The word "framework" is also problematic, especially for people from other backgrounds, such as web development. In those contexts, a framework usually implies a specific way of structuring code, a defined development style, and a set of conventions you are expected to follow. ROS does provide tools, libraries, and conventions, but thinking of it as just another framework can still lead to an incomplete or misleading understanding of what it does in practice.
+
+As of today, ROS is all of those things and more, so it is hard to encompass it in a single term that defines it completely while still conveying its core idea. However, from my experience interacting with learners, I have found that the following simplified definition helps people build a clearer mental model of what ROS is:
+
+<Definition term="Robot Operating System (ROS) - The simple definition">
+It is an ecosystem of conventions and open-source libraries, drivers, and tools for communication, simulation, visualization, and robot development.
+</Definition>
+
+This simplified definition lays the foundation for a broader understanding of what ROS is, and it is by no means a replacement for the more complete official definition. On the contrary, it is designed to complement it, but with less technical verbosity.
+
+## ROS Ecosystem Conceptually
+
+<Drawio file="ros-intro.drawio" page="1">
+  ROS Ecosystem Conceptually.
+</Drawio>
+
+### Base (Host) Operating System
+
+### Middleware + Plumbing + Clients APIs
+
+The middleware layer of ROS serves as the backbone for client APIs (in multiple languages), allowing users to write code that interacts with a ROS system through a common communication infrastructure.
+
+Execution Models
+- Iterative execution
+- Event-oriented execution
+
+Communication Paradigms
+- Publish/Subscribe (asynchronous)
+- Services (synchronous)
+- Actions (asynchronous)
+
+### Conventions
+
+ROS also provides conventions that improve interoperability and collaboration, such as:
+- Reference frames
+- Message definitions for interoperability
+- Code and package organization conventions
 
 ### Tools
 
-- logging/plotting
-- (Communication) graph visualization
-- diagnostics
-- visualization
-- simulation
+ROS includes a rich set of tools for development and debugging, including:
+- Logging and plotting
+- Communication graph visualization
+- Diagnostics
+- Visualization
+- Simulation
 
 ### Capabilities
 
+On top of its core infrastructure, the ROS ecosystem enables higher-level robotics capabilities such as:
+- Control
 - Perception
 - Navigation
 - Manipulation
-- Path planning
-- more...
+- Planning System
+- And more
 
-### ROS Ecosystem: [map](http://metrorobots.com/rosmap.html)
+### Community
 
-- Schools
+ROS is also a large and active community that includes:
+- Schools and Universities
 - Company. See this amazing collection of companies using ros, [ROS Robotics Companies](https://github.com/vmayoral/ros-robotics-companies) by Víctor Mayoral Vilches.
 - Research Institute
-- More
+- Hobbies
 
 ## ROS Versions
 
@@ -108,7 +161,7 @@ If you are new to ROS you are probably a little frustrated trying to understand 
 - ROS 1 (End-of-life 2025-05-31). See [Upcoming ROS 1 End of Life - Migration Paths for ROS 1 Users](https://www.ros.org/blog/noetic-eol/)
 - ROS 2
 
-The truth is there are many technical details that are not necessary to cover at this time with respect to the difference, but if you are curious here it is: [Changes between ROS 1 and ROS 2](https://design.ros2.org/articles/changes.html).
+The truth is, there are many technical details about the differences that are not necessary to cover at this point, but if you are curious here it is: [Changes between ROS 1 and ROS 2](https://design.ros2.org/articles/changes.html).
 
 Is correctly spelled with a space: `ROS 2` or `ROS 1`, check the [Trademark Rules And Guidelines 2022](https://www.ros.org/imgs/TrademarkRulesAndGuidelines2022.pdf) section "ROS in text".
 
@@ -120,7 +173,13 @@ Is correctly spelled with a space: `ROS 2` or `ROS 1`, check the [Trademark Rule
     Source: [Distributions | Official documentation.](https://docs.ros.org/en/humble/Releases.html)
 </Definition>
 
-<Drawio file="ros.drawio" page="5">
+From this definition, let us, for now, refer to a "ROS package" simply as a "software package" since we have not yet discussed what a ROS package is. We will return to that concept later in a separate note dedicated to [ROS Packages](/en/ros2/pkgs).
+
+Each ROS distribution defines a coherent, tested target platform matrix, including the operating system version, architecture, middleware support, and key dependency versions. In other words, a ROS distribution is not just a version label, but a specific combination of ROS packages and system dependencies that has been validated to work together. In practice, this gives users more predictable binaries, clearer CI coverage, and more reliable packaging support (such as apt/deb packages and official archives).
+
+Seen from this perspective, the ROS distribution model makes practical sense: it pins a tested software stack to a specific Ubuntu generation, rather than attempting to support every platform combination equally. That constraint is what enables the ecosystem to provide stable binaries, reproducible builds, and dependable installation paths for users.
+
+<Drawio file="ros-intro.drawio" page="2">
     The concept of ROS Distributions.
 </Drawio>
 
@@ -129,6 +188,31 @@ Full list of ROS distributions:
 - [ROS 2 list of distributions](https://docs.ros.org/en/humble/Releases.html)
     - [The list of the versioned set of package in ROS2 Humble distribution](https://github.com/ros2/ros2/blob/humble/ros2.repos)
 
+## ROS Variants
+
+Each ROS distribution is distributed in predefined installation **variants**, each designed for a different level of functionality. These variants range from minimal core components to more complete development setups.
+
+The list of [ros2-variants](https://github.com/ros2/variants/tree/humble):
+- `desktop`
+- `desktop_full`
+- `perception`
+- `ros_base`
+- `ros_core`
+- `simulation`
+
+```plain
+sudo apt install ros-humble-desktop
+```
+
+the format is:
+```plain
+sudo apt install ros-<distro>-<variant>
+```
+
+In practice, these variants provide convenient starting points depending on whether you need a lightweight runtime, a general development environment, or additional tools for perception and simulation. Thus, the concept of a variant is best understood in relation to a ROS distribution, as illustrated in the following diagram.
+
+<Drawio file="ros-intro.drawio" page="3">
+</Drawio>
 
 ## ROS Programming Languages
 
@@ -136,31 +220,36 @@ Full list of ROS distributions:
     Nope, ROS is NOT a programming language.
 </Important>
 
-ROS can intermix programming languages:
-- Official support: C, C++, Python
+ROS is a ecosystem, not a language itself. You do not "code in ROS" the way you code in Python or C++, instead you write programs using ROS libraries and tools.
+
+One of ROS's strengths is that it can intermix programming languages within the same robotic system. This means you can write programs in different languages and still have them communicate through ROS's middleware layer. In practice, ROS provides official support for the main languages used in robotics development, including:
+- C
+- C++
+- Python
+
+This flexibility allows developers to choose the most suitable language for each part of the system, for example, using C++ for performance-critical components and Python for rapid prototyping or higher-level orchestration.
 
 ## Architecture ROS 2
 
-<Drawio file="ros.drawio" page="4">
+<Drawio file="ros-intro.drawio" page="4">
     Architecture ROS 1 vs. ROS 2.
 </Drawio>
 
-Source code for ROS 2 stack:
+Source code for ROS 2 base-stack:
 - Officially supported client libraries:
-    - [ROS Client Library for C++](https://github.com/ros2/rclcpp)
-    - [ROS Client Library for Python](https://github.com/ros2/rclpy)
+  - [ROS Client Library for C++](https://github.com/ros2/rclcpp)
+  - [ROS Client Library for Python](https://github.com/ros2/rclpy)
 - [ROS client library (rcl)](https://github.com/ros2/rcl)
 - [ROS middleware (rmw)](https://github.com/ros2/rmw) rmw is designed with the mindset of being agnostic, so it supports multiple transports:
-    - DDS vendors:
-        - [Fast DDS by eProsima](https://github.com/ros2/rmw_fastrtps)
-        - [Eclipse Cyclone DDS](https://github.com/ros2/rmw_cyclonedds)
-        - [Connext DDS by RTI](https://github.com/ros2/rmw_connextdds)
-        - [GurumDDS by GurumNetworks](https://github.com/ros2/rmw_gurumdds)
-    - RTPS vendors::
-        - [Fast RTPS by eProsima](https://github.com/ros2/rmw_fastrtps)
-    - Zenoh vendors:
-        - [Zenoh by Eclipse zenoh and Zetta Scale](https://github.com/ros2/rmw_zenoh)
-
+  - DDS vendors:
+    - [Fast DDS by eProsima](https://github.com/ros2/rmw_fastrtps)
+    - [Eclipse Cyclone DDS](https://github.com/ros2/rmw_cyclonedds)
+    - [Connext DDS by RTI](https://github.com/ros2/rmw_connextdds)
+    - [GurumDDS by GurumNetworks](https://github.com/ros2/rmw_gurumdds)
+  - RTPS vendors::
+    - [Fast RTPS by eProsima](https://github.com/ros2/rmw_fastrtps)
+  - Zenoh vendors:
+    - [Zenoh by Eclipse zenoh and Zetta Scale](https://github.com/ros2/rmw_zenoh)
 
 ## ROS Resources
 
