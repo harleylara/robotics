@@ -200,6 +200,7 @@ The list of [ros2-variants](https://github.com/ros2/variants/tree/humble):
 - `ros_core`
 - `simulation`
 
+Example how to install a ros2-variants. But in reallity you need to do more things as describe in the official documentation, e.g. [Ubuntu (deb packages)](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
 ```plain
 sudo apt install ros-humble-desktop
 ```
@@ -220,7 +221,7 @@ In practice, these variants provide convenient starting points depending on whet
     Nope, ROS is NOT a programming language.
 </Important>
 
-ROS is a ecosystem, not a language itself. You do not "code in ROS" the way you code in Python or C++, instead you write programs using ROS libraries and tools.
+ROS is a ecosystem, not a language itself. You do not "code in ROS" the way you code in Python or C++, instead you write programs using ROS client-libraries and tools for visualization, simulation or debugging.
 
 One of ROS's strengths is that it can intermix programming languages within the same robotic system. This means you can write programs in different languages and still have them communicate through ROS's middleware layer. In practice, ROS provides official support for the main languages used in robotics development, including:
 - C
