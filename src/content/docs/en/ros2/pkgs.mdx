@@ -11,6 +11,15 @@ A ROS package is an organizational unit for your code, configuration files and a
 Source: [Own definition inspired by Creating a package - ROS docs](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html)
 </Definition>
 
+- Packages contains:
+    - Executables
+    - Libraries
+    - Message definitions
+    - Config files and more
+- Meta-Packages (ROS 1 concept): a package containing other packages
+    - [Metapackages ROS 1](http://wiki.ros.org/Metapackages)
+    - In ROS 2 there is no **explicit** type of package know as "meta-package"
+
 <Think>
 Why do we need a so called 'ROS Package'?
 </Think>
@@ -135,3 +144,12 @@ colcon build --symlink-install
 ```plain
 source install/local_setup.bash
 ```
+
+## Installing Dependencies
+
+Managing dependencies:
+
+<Terminal
+    title="install dependencies with rosdep"
+    content="rosdep install -i --from-path src --rosdistro humble -y"
+/>
