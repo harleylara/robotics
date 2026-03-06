@@ -1,7 +1,13 @@
 ---
-title: Arguments, ROS Arguments and Parameters
+title: Arguments, ROS Arguments and Node Parameters
 describe: Showing the difference
 ---
+
+This note can be condense in:
+
+```plain
+ros2 run <package> <executable> <arguments> --ros-args <ros_arguments> -r <remap> -p <set parameter>
+```
 
 ## Arguments
 
@@ -10,16 +16,96 @@ describe: Showing the difference
 ## ROS Arguments
 
 `--ros-args`:
+- `--log-level LEVEL`: 
 - `--remap` or `-r`: name remapping. see [Remapping Names - ROS 2 Design](https://design.ros2.org/articles/static_remapping.html)
-    - `__ns`: changes the default namespace
-    - `__name` or `__node`: changes node name
+  - `__ns`: changes the default namespace
+  - `__name` or `__node`: changes node name
 - `--param` or `-p`: **single** parameter assignment.
     - `param_name:=param_value`
 - `--params-file path/to/file.yaml`
 
+## Functional Demo
+
+```python filename="parameters.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/parameters.py"
+```
+
 ## Parameters
 
+```python
+NOT_SET
+BOOL
+INTEGER
+DOUBLE
+STRING
+BYTE_ARRAY
+BOOL_ARRAY
+INTEGER_ARRAY
+DOUBLE_ARRAY
+STRING_ARRAY
+
+ParameterDescriptor
+ParameterType
+FloatingPointRange
+IntegerRange
+
+Parameter(name, type_=None, value=None)
+```
+
+## Application of Parameters
+
+TODO: add list of real-world examples of parameters
+
+## Declare, Get and Set Parameters
+
 **node parameters**
+
+```python
+declare_parameter(name, value=None, descriptor=None, ignore_override=False)
+declare_parameters(namespace, parameters)
+
+undeclare_parameter(name)
+has_parameter(name)
+
+get_parameter(name)
+get_parameters(names)
+get_parameters_by_prefix(prefix)
+get_parameter_type(name)
+
+describe_parameter(name)
+describe_parameters(name)
+
+set_parameters(parameter_list)
+set_parameters_atomically(parameter_list) -> List[SetParametersResult]
+```
+
+
+## Parameters Callbacks
+
+```python
+add_on_set_parameters_callback(callback)
+
+def callback(params: List[Parameters]) -> SetParametersResult:
+
+remove_on_set_parameters_callback(callback)
+```
+
+## Parameters Events
+
+## Parameter Client
+
+Get parameters from other nodes
+
+```
+AsyncParameterClient(node, remote_node_name)
+
+get_parameters(names)
+set_parameters(parameters)
+
+list_parameters(prefixes, depth)
+describe_parameters(names)
+delete_parameters(names)
+```
+
 
 
 ## External References
@@ -28,3 +114,4 @@ describe: Showing the difference
 - [Understanding parameters - ROS 2 Docs](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html)
 - [ROS Command Line Arguments - ROS 2 Design](https://design.ros2.org/articles/ros_command_line_arguments.html)
 - [Passing ROS arguments to nodes via the command-line](https://docs.ros.org/en/humble/How-To-Guides/Node-arguments.html)
+- [RCLPY - Node API](https://docs.ros.org/en/rolling/p/rclpy/api/node.html)

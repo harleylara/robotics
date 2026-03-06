@@ -3,6 +3,23 @@ title: "ROS Nodes"
 description: "Creating nodes"
 ---
 
+## Names in ROS 2
+
+Names can be:
+- absolute path (begins with `/`): `/global/name`
+- relative path: `relative/name`
+- privately (begins with `~`): `~private/name`
+- namespace: namespace prefix to apply to entities associated with the node (node name, topics, etc). `/namespace/name`, this is very useful to group nodes and topics by *"groups”* in this case the *“group”* is the prefix namespace.
+
+<Drawio file="ros.drawio" page="1">
+    Names in ROS.
+</Drawio>
+
+External resources:
+- [ROS 1 Names](http://wiki.ros.org/Names)
+- [ROS 2 Topic and Service name mapping to DDS](https://design.ros2.org/articles/topic_and_service_names.html)
+- [ROS conventions](http://wiki.ros.org/ROS/Patterns/Conventions)
+
 ## Motivation
 
 <Drawio file="ros.drawio" page="0">
@@ -41,7 +58,7 @@ Namespace: prefix to apply to entities associated with the node (node name, topi
 
 ## Creating a Bare Minimum Node
 
-A bare minimum node without any ROS entity.
+A bare minimum node.
 
 ```python filename="bare.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/bare.py"
 ```
@@ -88,7 +105,7 @@ erros?... here's a list of common mistakes you may be making:
 
 clearly not all possible error cases can be covered, so it is advisable to read the error message and try to understand it (I know, sometimes, just sometimes, error messages are not very useful).
 
-In case you haven't wondered yet. You: *"Wait!?, my node is python, why do I need to build my workspace if python is interpreted and does not require compiling.?"*. Let me tell you that is an excellent question, `colcon build` does not only compile code, it has the potential to do many more things that we will not mention here (but you can see [colcon docs](https://colcon.readthedocs.io/en/released/)), in the case of `ament_python` packages colcon does not compile the code, but instead copies it from your package to the `lib` directory inside the `install` folder of the workspace. However this copy alone is not enough, you must source the workspace in a way that lets ROS know that there are new files in the install folder.
+In case you haven't wondered yet. You: *"Wait!?, my node is python, why do I need to build my workspace if python is interpreted and does not require compilation.?"*. Let me tell you that is an excellent question, `colcon build` does not only compile code, it has the potential to do many more things that we will not mention here (but you can see [colcon docs](https://colcon.readthedocs.io/en/released/)), in the case of `ament_python` packages colcon does not compile the code, but instead copies it from your package to the `lib` directory inside the `install` folder of the workspace. However this copy alone is not enough, you must source the workspace in a way that lets ROS know that there are new files in the install folder.
 
 The `--symlink-install` directive tells colcon not to perform a hard-copy (default behavior) but to perform a symlink of the files, this option is extremely useful when you are developing with python as it allows you to make changes to your file and because it is just a symbolic link the changes are automatically reflected from the file perspective in the `install` folder, which means that if you use `--symlink-install` you don't have to do `colcon build` for every time you change the file (example `bare.py`), but you have to redo `colcon build --symlink-install` **once** every time there is a new file, this is for the purpose of creating the symlink of the new file. e.g. a new node called `new.py` and then you can just keep changing the file since the symlink already exist.
 
@@ -118,17 +135,17 @@ coding a logger using classes (`class.py`) in the package `python_basics`, code 
 
 Don't forget to add the entry point in the `setup.py`: `class = python_basics.class:main`
 
-## Capabilities
+## Entities
 
 The real power of nodes in ROS lies in their ability to contain various **ROS entities**:
 - Publisher: this entity allows a node to publish information.
 - Subscriber: allows a node to subscribe information.
 - Services
-    - service client: allows a node to **request** a service (from a service server).
-    - service server: allows a node to **response** to a request.
+  - service client: allows a node to **request** a service (from a service server).
+  - service server: allows a node to **response** to a request.
 - Actions
-    - action client: allows a node to **request** an ACTION service.
-    - action server: allows a node to **response** to an ACTION request.
+  - action client: allows a node to **request** an ACTION service.
+  - action server: allows a node to **response** to an ACTION request.
 - Configurable parameters (run-time)
 
 A ROS node can be composed of none, one or several ROS entities, each with their respective interfaces. We will discuss each ros entity and their respective interfaces later in this serie of notes.

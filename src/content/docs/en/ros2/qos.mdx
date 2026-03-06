@@ -2,6 +2,8 @@
 title: "Quality of Service (QoS)"
 ---
 
+QoS profiles can be specified for publishers, subscriptions, service servers, and clients.
+
 You combine QoS **policies** to make QoS **profile**
 
 - History
@@ -27,9 +29,33 @@ You combine QoS **policies** to make QoS **profile**
 
 ## Pre-defined QoS Profiles
 
+```python filename="qos/pub.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/qos/pub.py"
+```
+
+Subscriber QoS demo:
+
+```python filename="qos/sub.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/qos/sub.py"
+```
+
+## Transient Local
+
+```python filename="qos/latched_pub.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/qos/latched_pub.py"
+```
+
 ## Compatibilities
 
+Compatibility of reliability QoS policies:
+
+| Publisher   | Subscription | Compatible |
+|-------------|--------------|------------|
+| Best effort | Best effort  | Yes        |
+| Best effort | Reliable     | No         |
+| Reliable    | Best effort  | Yes        |
+| Reliable    | Reliable     | Yes        |
+
 ## QoS Events
+
+Keep this for deadline...
 
 ## External Resources
 
