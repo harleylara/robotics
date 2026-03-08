@@ -8,8 +8,8 @@
     position: sticky;
     top: 0;
     padding: 20px;
-    transition: background-color 0.3s ease, max-height 0.3s ease, padding 0.3s ease;
-    overflow: auto; /* Allows scrolling when content overflows */
+    transition: background-color 0.3s ease, max-height 0.3s ease, padding 0.3s ease, margin-bottom 0.3s ease;
+    overflow: hidden; /* Prevent content spilling while animating */
     z-index: 1000;
     overflow-anchor: none; /* Prevents browser scroll jumping during height transition */
 }
@@ -51,13 +51,11 @@
     <ul id="toc-list">
     </ul>
 </div>
-<div id="toc-spacer" style="display: none; height: 0px;"></div>
 
 <script>
 if (typeof window !== 'undefined') {
     const stickyElement = document.getElementById('sticky-element');
     const toggleButton = document.getElementById('toggle-button');
-    const tocSpacer = document.getElementById('toc-spacer');
 
     const headers = Array.from(document.querySelectorAll('h2')); // Select all <h2> elements as sections
 
@@ -97,21 +95,29 @@ if (typeof window !== 'undefined') {
                 }
 
                 // --- 2. WRITE PHASE (DOM mutations only) ---
-                if (!isManuallyToggled) {
-                    if (offset <= threshold && !stickyElement.classList.contains('stuck')) {
-                        stickyElement.classList.add('stuck');
-                        // When sticking/collapsing, we lost some height in the document flow. 
-                        // Show the spacer to compensate and prevent the document from shrinking.
-                        if (tocSpacer && fullExpandedHeight > 0) {
-                            tocSpacer.style.height = (fullExpandedHeight - collapsedMenuHeight) + "px";
-                            tocSpacer.style.display = "block";
-                        }
-                    } else if (offset > threshold && stickyElement.classList.contains('stuck')) {
+                if (offset > threshold) {
+                    // We are at the very top (un-stuck). We MUST always be expanded here.
+                    if (stickyElement.classList.contains('stuck')) {
                         stickyElement.classList.remove('stuck');
-                        // When un-sticking/expanding, the TOC regains its full height. 
-                        // Hide the spacer so we don't double the height.
-                        if (tocSpacer) {
-                            tocSpacer.style.display = "none";
+                        stickyElement.style.maxHeight = fullExpandedHeight > 0 ? (fullExpandedHeight + "px") : "none";
+                        stickyElement.style.marginBottom = "0px";
+                    }
+                    toggleButton.textContent = '▼'; // Reset button face to default
+                    
+                    // If the user manually collapsed it while scrolling, reset that state
+                    if (isManuallyToggled) {
+                        isManuallyToggled = false;
+                    }
+                } else {
+                    // We are stuck (scrolling down).
+                    // If the user hasn't manually overridden it, force it collapsed.
+                    if (!isManuallyToggled) {
+                        if (!stickyElement.classList.contains('stuck')) {
+                            stickyElement.classList.add('stuck');
+                            if (fullExpandedHeight > 0) {
+                                stickyElement.style.maxHeight = "35px";
+                                stickyElement.style.marginBottom = (fullExpandedHeight - 35) + "px";
+                            }
                         }
                     }
                 }
@@ -131,22 +137,19 @@ if (typeof window !== 'undefined') {
         isManuallyToggled = !isManuallyToggled;
 
         if (isManuallyToggled) {
-            stickyElement.style.maxHeight = stickyElement.scrollHeight + "px"; // Expand to the full content height
-            stickyElement.classList.add('stuck');
+            // User explicitly expands it while stuck
+            stickyElement.classList.remove('stuck');
+            stickyElement.style.maxHeight = fullExpandedHeight > 0 ? (fullExpandedHeight + "px") : "none";
+            stickyElement.style.marginBottom = "0px";
             toggleButton.textContent = '▲';
         } else {
-            // Adding a slight delay before collapsing to ensure smooth transition
-            setTimeout(() => {
-                stickyElement.style.maxHeight = '35px'; // Set collapsed height
-                toggleButton.textContent = '▼';
-            }, 0); 
-
-            // Ensure maxHeight is reset after the transition
-            stickyElement.addEventListener('transitionend', function onTransitionEnd() {
-                if (!isManuallyToggled) {
-                    stickyElement.removeEventListener('transitionend', onTransitionEnd);
-                }
-            });
+            // User explicitly collapses it while stuck
+            stickyElement.classList.add('stuck');
+            if (fullExpandedHeight > 0) {
+                stickyElement.style.maxHeight = "35px";
+                stickyElement.style.marginBottom = (fullExpandedHeight - 35) + "px";
+            }
+            toggleButton.textContent = '▼';
         }
     }
 
@@ -174,6 +177,8 @@ if (typeof window !== 'undefined') {
         setTimeout(() => {
             if (stickyElement) {
                 fullExpandedHeight = stickyElement.offsetHeight;
+                // Pre-lock the exact max-height so CSS transitions don't delay
+                stickyElement.style.maxHeight = fullExpandedHeight + "px";
             }
         }, 300);
     });
