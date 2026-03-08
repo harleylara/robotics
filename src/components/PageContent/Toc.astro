@@ -1,8 +1,5 @@
----
-// src/components/StickyComponent.astro
----
-
 <style>
+
 .sticky {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
@@ -15,38 +12,89 @@
 }
 
 
-.sticky.stuck {
-    /* background-color: #333; */
-
-    max-height: 35px; /* Adjust as needed for collapsed height */
-    padding: 5px; /* Adjust padding to make space for scrollbar if needed */
+/* Custom Scrollbar for TOC */
+.sticky:hover {
+    overflow-y: auto;
 }
+.sticky::-webkit-scrollbar {
+    width: 6px;
+}
+.sticky::-webkit-scrollbar-track {
+    background: transparent;
+}
+.sticky::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.sticky::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sticky.stuck {
+    max-height: 35px; /* Adjust as needed for collapsed height */
+    padding: 5px 20px; /* Slimmer padding on top/bottom, keep side padding */
+    overflow: hidden; /* No scrolling when collapsed */
+}
+
 
 
 .sticky ul {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .sticky li {
-    padding: 10px 0;
+    padding: 6px 0;
+    font-size: 0.95rem;
+    color: #a0aec0; /* Tailwind gray-400 */
+    transition: color 0.2s ease;
+}
+
+.sticky li a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+.sticky li:hover {
+    color: #ffffff;
+}
+
+/* Active header highlighting */
+.sticky li.active {
+    color: #60a5fa; /* Tailwind blue-400 */
+    font-weight: 500;
 }
 
 .toggle-button {
     position: sticky;
     top: 0px;
     float: inline-end;
-    padding: 0px 10px;
+    padding: 4px 8px;
+    margin-top: -4px;
     cursor: pointer;
-    color: white;
+    color: #a0aec0;
+    background: transparent;
+
     border: none;
-    border-radius: 3px;
-    font-size: 1rem;
+
+    font-size: 0.85rem;
     z-index: 1001;
+    display: none; /* Hidden in the fresh un-stuck state */
+    transition: color 0.2s ease, background-color 0.2s ease;
 }
+
+
+.toggle-button:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 </style>
 
 
-<div id="sticky-element" class="sticky bg-primary-dark font-roboto text-base leading-relaxed border-b border-dark-200 shadow-xl shadow-primary-dark ">
+
+<div id="sticky-element" class="sticky bg-primary-dark backdrop-blur-md font-roboto text-base leading-relaxed border border-dark-200/50 shadow-lg shadow-black/20 mb-8">
     <button id="toggle-button" class="toggle-button">▼</button>
     <ul id="toc-list">
     </ul>
@@ -54,6 +102,7 @@
 
 <script>
 if (typeof window !== 'undefined') {
+
     const stickyElement = document.getElementById('sticky-element');
     const toggleButton = document.getElementById('toggle-button');
 
@@ -75,6 +124,7 @@ if (typeof window !== 'undefined') {
                 // --- 1. READ PHASE (DOM queries only) ---
                 const offset = stickyElement.getBoundingClientRect().top;
 
+
                 // Find the active header (last one that passed the top of the screen)
                 let currentHeader = null;
                 for (let i = headers.length - 1; i >= 0; i--) {
@@ -95,13 +145,29 @@ if (typeof window !== 'undefined') {
                 }
 
                 // --- 2. WRITE PHASE (DOM mutations only) ---
+                // Handle Active Link Highlighting
+                const allLinks = stickyElement.querySelectorAll('li');
+                allLinks.forEach(li => li.classList.remove('active'));
+                
+                if (currentHeader) {
+                    const stickyContent = stickyElement.querySelector('ul');
+                    const targetLink = stickyContent.querySelector(`a[href='#${currentHeader.id}']`);
+                    if (targetLink && targetLink.parentElement) {
+                        targetLink.parentElement.classList.add('active');
+                    }
+                }
+
                 if (offset > threshold) {
                     // We are at the very top (un-stuck). We MUST always be expanded here.
                     if (stickyElement.classList.contains('stuck')) {
+
                         stickyElement.classList.remove('stuck');
                         stickyElement.style.maxHeight = fullExpandedHeight > 0 ? (fullExpandedHeight + "px") : "none";
+
                         stickyElement.style.marginBottom = "0px";
+
                     }
+                    toggleButton.style.display = 'none'; // Hide button on top
                     toggleButton.textContent = '▼'; // Reset button face to default
                     
                     // If the user manually collapsed it while scrolling, reset that state
@@ -110,8 +176,11 @@ if (typeof window !== 'undefined') {
                     }
                 } else {
                     // We are stuck (scrolling down).
+                    toggleButton.style.display = 'block'; // Show button when scrolling
+                    
                     // If the user hasn't manually overridden it, force it collapsed.
                     if (!isManuallyToggled) {
+
                         if (!stickyElement.classList.contains('stuck')) {
                             stickyElement.classList.add('stuck');
                             if (fullExpandedHeight > 0) {
@@ -124,19 +193,24 @@ if (typeof window !== 'undefined') {
 
                 if (targetScrollTop !== null) {
                     stickyElement.scrollTop = targetScrollTop;
+
                 }
+
 
                 ticking = false;
             });
 
             ticking = true;
+
         }
     }
 
     function onToggleButtonClick() {
         isManuallyToggled = !isManuallyToggled;
 
+
         if (isManuallyToggled) {
+
             // User explicitly expands it while stuck
             stickyElement.classList.remove('stuck');
             stickyElement.style.maxHeight = fullExpandedHeight > 0 ? (fullExpandedHeight + "px") : "none";
@@ -165,8 +239,10 @@ if (typeof window !== 'undefined') {
             const li = document.createElement('li');
             const a = document.createElement('a');
             if (header.tagName.toLowerCase() === 'h3') {
+
                 li.classList.add('pl-4');
             }
+
             a.textContent = header.textContent;
             a.href = '#' + header.id;
             li.appendChild(a);
@@ -174,6 +250,7 @@ if (typeof window !== 'undefined') {
         });
 
         // Calculate the full expanded height and save it 
+
         setTimeout(() => {
             if (stickyElement) {
                 fullExpandedHeight = stickyElement.offsetHeight;
@@ -185,5 +262,3 @@ if (typeof window !== 'undefined') {
 }
 
 </script>
-
-
