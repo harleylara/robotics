@@ -1,17 +1,22 @@
 ---
 import { Prism } from '@astrojs/prism';
-import { Code } from 'astro:components';
 import BaseContainer from "./BaseContainer.astro";
-import Hr from "./Hr.astro"
 
 const {
     lang = "plain",
     filename,
     remoteURL,
-    title,
+    title: rawTitle,
     prompt = "user@host",
     ...restProps
 } = Astro.props;
+
+// WORKAROUND for `astro-mdx-code-blocks` space truncation bug.
+// The library's regex parser drops anything after the first space in the markdown code fence meta string.
+// See issue: https://github.com/johnzanussi/astro-mdx-code-blocks/issues/14
+// To use spaces in titles, write them with underscores like `title="build_workspace"`
+// and this component will automatically convert them back to spaces.
+const title = rawTitle ? rawTitle.replace(/_/g, ' ') : undefined;
 
 let {
     code
