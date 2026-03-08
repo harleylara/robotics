@@ -8,6 +8,9 @@ const {
     lang = "plain",
     filename,
     remoteURL,
+    title,
+    prompt = "user@terminal",
+    ...restProps
 } = Astro.props;
 
 let {
@@ -21,7 +24,9 @@ const hasFileName = !!filename;
 
 const hasRemoteURL = !!remoteURL;
 
-const showHeader = hasLang || hasFileName;
+const hasTitle = !!title;
+
+const showHeader = hasLang || hasFileName || hasTitle;
 
 function isValidUrl(urlString) {
     try {
@@ -45,6 +50,13 @@ if (hasRemoteURL){
         code = `Failed to fetch remote code from ${remoteURL}`
     }
 }
+
+let displayLanguage = hasLang ? lang : "plain";
+
+const terminalLines = (lang === "terminal" && code) ? code.replace(/\n$/, '').split('\n') : [];
+if (lang === "terminal" && code) {
+    displayLanguage = "bash";
+}
 ---
 
 <BaseContainer>
@@ -61,6 +73,8 @@ if (hasRemoteURL){
                 <a href={remoteURL}><span class="filename text-dark-200">{filename}</span></a>
             ): hasFileName ? (
                 <span class="filename text-dark-200 select-none">{filename}</span>
+            ): hasTitle ? (
+                <span class="filename text-dark-200 select-none">{title}</span>
             ) : (
                 <!-- hacky way to fix went there is not filename -->
                 <span class="filename text-dark-200 select-none invisible">
@@ -70,11 +84,21 @@ if (hasRemoteURL){
             }
         </div>
 
-        <Prism
-            code={code}
-            lang={hasLang ? lang : "plain"}
-            class="bg-primary-dark py-4 w-full selection:bg-[#234879]"
-        />
+        <div class="code-wrapper relative flex w-full bg-primary-dark">
+            {lang === "terminal" && (
+                <div class="terminal-prompts flex-none select-none text-dark-200 text-right bg-primary-dark">
+                    <pre class="language-plain py-4 pl-4 pr-2" style="background: transparent; margin: 0; color: inherit; text-shadow: none;"><code>{terminalLines.map((line) => line.trim() === "" ? " " : (prompt ? `${prompt} $` : "$")).join('\n')}</code></pre>
+                </div>
+            )}
+            <div class={`flex-1 overflow-auto ${lang === "terminal" ? 'terminal-prism' : ''}`}>
+                <Prism
+                    code={code}
+                    lang={displayLanguage}
+                    class="bg-primary-dark py-4 pr-4 w-full selection:bg-[#234879]"
+                    style="margin: 0;"
+                />
+            </div>
+        </div>
     </figure>
 </BaseContainer>
 
@@ -223,5 +247,10 @@ pre[class*="language-"] > code[class*="language-"] {
 }
 .token.entity {
   cursor: help;
+}
+
+/* Terminal prompt styles */
+.terminal-prism pre[class*="language-"] {
+  padding-left: 0 !important;
 }
 </style>
