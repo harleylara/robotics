@@ -11,6 +11,7 @@
     transition: background-color 0.3s ease, max-height 0.3s ease, padding 0.3s ease;
     overflow: auto; /* Allows scrolling when content overflows */
     z-index: 1000;
+    overflow-anchor: none; /* Prevents browser scroll jumping during height transition */
 }
 
 
@@ -50,11 +51,13 @@
     <ul id="toc-list">
     </ul>
 </div>
+<div id="toc-spacer" style="display: none; height: 0px;"></div>
 
 <script>
 if (typeof window !== 'undefined') {
     const stickyElement = document.getElementById('sticky-element');
     const toggleButton = document.getElementById('toggle-button');
+    const tocSpacer = document.getElementById('toc-spacer');
 
     const headers = Array.from(document.querySelectorAll('h2')); // Select all <h2> elements as sections
 
@@ -62,6 +65,8 @@ if (typeof window !== 'undefined') {
     let lastKnownScrollPosition = 0;
 
     let ticking = false;
+    let fullExpandedHeight = 0;
+    const collapsedMenuHeight = 45; // 35px max-height + 10px padding
     const threshold = 10; // Adjust this threshold as needed
 
     function onScroll() {
@@ -69,31 +74,60 @@ if (typeof window !== 'undefined') {
 
         if (!ticking) {
             window.requestAnimationFrame(() => {
+                // --- 1. READ PHASE (DOM queries only) ---
                 const offset = stickyElement.getBoundingClientRect().top;
 
+                // Find the active header (last one that passed the top of the screen)
+                let currentHeader = null;
+                for (let i = headers.length - 1; i >= 0; i--) {
+                    if (headers[i].getBoundingClientRect().top <= 100) {
+                        currentHeader = headers[i];
+                        break;
+                    }
+                }
+
+                let targetScrollTop = null;
+                if (currentHeader) {
+                    const stickyContent = stickyElement.querySelector('ul');
+                    const targetLink = stickyContent.querySelector(`a[href='#${currentHeader.id}']`);
+                    if (targetLink && targetLink.parentElement) {
+                        const targetIndex = Array.from(stickyContent.querySelectorAll('li')).indexOf(targetLink.parentElement);
+                        targetScrollTop = targetIndex * targetLink.parentElement.offsetHeight;
+                    }
+                }
+
+                // --- 2. WRITE PHASE (DOM mutations only) ---
                 if (!isManuallyToggled) {
                     if (offset <= threshold && !stickyElement.classList.contains('stuck')) {
                         stickyElement.classList.add('stuck');
+                        // When sticking/collapsing, we lost some height in the document flow. 
+                        // Show the spacer to compensate and prevent the document from shrinking.
+                        if (tocSpacer && fullExpandedHeight > 0) {
+                            tocSpacer.style.height = (fullExpandedHeight - collapsedMenuHeight) + "px";
+                            tocSpacer.style.display = "block";
+                        }
                     } else if (offset > threshold && stickyElement.classList.contains('stuck')) {
                         stickyElement.classList.remove('stuck');
+                        // When un-sticking/expanding, the TOC regains its full height. 
+                        // Hide the spacer so we don't double the height.
+                        if (tocSpacer) {
+                            tocSpacer.style.display = "none";
+                        }
                     }
-
                 }
 
+                if (targetScrollTop !== null) {
+                    stickyElement.scrollTop = targetScrollTop;
+                }
 
                 ticking = false;
             });
 
             ticking = true;
         }
-
-
-        // Scroll the sticky component to ensure the current section is visible
-        scrollToCurrentHeader();
     }
 
     function onToggleButtonClick() {
-
         isManuallyToggled = !isManuallyToggled;
 
         if (isManuallyToggled) {
@@ -103,37 +137,16 @@ if (typeof window !== 'undefined') {
         } else {
             // Adding a slight delay before collapsing to ensure smooth transition
             setTimeout(() => {
-                stickyElement.style.maxHeight = '35px'; // Set collapsed height [CHECK CSS to MATCH values]
+                stickyElement.style.maxHeight = '35px'; // Set collapsed height
                 toggleButton.textContent = '▼';
-            }, 0); // Adjust the delay if needed
+            }, 0); 
 
-            // Ensure maxHeight is reset after the transition to avoid extra space
+            // Ensure maxHeight is reset after the transition
             stickyElement.addEventListener('transitionend', function onTransitionEnd() {
                 if (!isManuallyToggled) {
-                    // stickyElement.style.maxHeight = 'none';
                     stickyElement.removeEventListener('transitionend', onTransitionEnd);
                 }
             });
-        }
-    }
-
-    function scrollToCurrentHeader() {
-        const currentHeader = headers.find(header => {
-            const rect = header.getBoundingClientRect();
-            // Check if the header is exactly at the top of the viewport
-            return rect.top <= 0 && rect.bottom > 0;
-        });
-
-        if (currentHeader) {
-
-            const stickyContent = stickyElement.querySelector('ul');
-            const targetLink = stickyContent.querySelector(`a[href='#${currentHeader.id}']`);
-            if (targetLink) {
-
-                const targetIndex = Array.from(stickyContent.querySelectorAll('li')).indexOf(targetLink.parentElement);
-
-                stickyElement.scrollTop = targetIndex * targetLink.parentElement.offsetHeight;
-            }
         }
     }
 
@@ -141,6 +154,7 @@ if (typeof window !== 'undefined') {
     toggleButton.addEventListener('click', onToggleButtonClick);
 
     document.addEventListener('DOMContentLoaded', function() {
+        const tocWrapper = document.getElementById('toc-wrapper');
         const headers = document.querySelectorAll('h2, h3');
         const ul = document.getElementById('toc-list');
 
@@ -155,6 +169,13 @@ if (typeof window !== 'undefined') {
             li.appendChild(a);
             ul.appendChild(li);
         });
+
+        // Calculate the full expanded height and save it 
+        setTimeout(() => {
+            if (stickyElement) {
+                fullExpandedHeight = stickyElement.offsetHeight;
+            }
+        }, 300);
     });
 }
 
