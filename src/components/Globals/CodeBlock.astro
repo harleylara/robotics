@@ -9,7 +9,7 @@ const {
     filename,
     remoteURL,
     title,
-    prompt = "user@terminal",
+    prompt = "user@host",
     ...restProps
 } = Astro.props;
 
@@ -24,7 +24,12 @@ const hasFileName = !!filename;
 
 const hasRemoteURL = !!remoteURL;
 
-const hasTitle = !!title;
+let displayTitle = title;
+if (lang === "terminal" && !title && !filename) {
+    displayTitle = "Terminal";
+}
+
+const hasTitle = !!displayTitle;
 
 const showHeader = hasLang || hasFileName || hasTitle;
 
@@ -74,7 +79,7 @@ if (lang === "terminal" && code) {
             ): hasFileName ? (
                 <span class="filename text-dark-200 select-none">{filename}</span>
             ): hasTitle ? (
-                <span class="filename text-dark-200 select-none">{title}</span>
+                <span class="filename text-dark-200 select-none">{displayTitle}</span>
             ) : (
                 <!-- hacky way to fix went there is not filename -->
                 <span class="filename text-dark-200 select-none invisible">
