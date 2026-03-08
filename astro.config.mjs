@@ -41,7 +41,7 @@ export default defineConfig({
         './src/components/Globals/Drawio.astro',
         './src/components/Globals/Definition.astro',
         './src/components/Globals/Important.astro',
-        './src/components/Globals/Terminal.astro', 
+        './src/components/Globals/Terminal.astro',
         './src/components/Globals/Think.astro',
         './src/components/Globals/Shader.astro',
         './src/components/Presentations/Presentation.astro',
@@ -70,7 +70,7 @@ export default defineConfig({
       [rehypeExternalLinks, {
         rel: ['nofollow', 'noopener', 'noreferrer'],
         target: '_blank',
-        contentProperties: { 
+        contentProperties: {
           className: ['external-link'],
         },
         content: { type: 'text', value: '↗' }
