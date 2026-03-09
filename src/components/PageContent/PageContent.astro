@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from 'astro';
 import BaseContainer from '../Globals/BaseContainer.astro';
 import Toc from  '../PageContent/Toc.astro'
+import CitationInteractions from '../Globals/CitationInteractions.astro';
 
 type Props = {
   title: string;
@@ -34,4 +35,5 @@ const { title, headings, description, githubEditUrl, toc } = Astro.props;
 
     <slot />
   </section>
+  <CitationInteractions />
 </article>
