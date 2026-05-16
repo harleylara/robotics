@@ -1,0 +1,88 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.2.9 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.2.9">
+  <diagram name="Page-1" id="vMIQ3KRkZqHK3WjvlEPb">
+    <mxGraphModel dx="1036" dy="749" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LG54OR5l7lUQJj0wATlu-4" edge="1" parent="1" source="LG54OR5l7lUQJj0wATlu-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="LG54OR5l7lUQJj0wATlu-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-5" edge="1" parent="1" source="LG54OR5l7lUQJj0wATlu-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="LG54OR5l7lUQJj0wATlu-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fillStyle=auto;dashed=1;" value="Motion Type" vertex="1">
+          <mxGeometry height="20" width="246" x="267" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-12" edge="1" parent="1" source="LG54OR5l7lUQJj0wATlu-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="LG54OR5l7lUQJj0wATlu-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-13" edge="1" parent="1" source="LG54OR5l7lUQJj0wATlu-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="LG54OR5l7lUQJj0wATlu-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Linear" vertex="1">
+          <mxGeometry height="40" width="80" x="300" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Rotary" vertex="1">
+          <mxGeometry height="40" width="80" x="400" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-6" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint y="140" as="sourcePoint" />
+            <mxPoint x="680" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="torque" vertex="1">
+          <mxGeometry height="40" width="80" x="250" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="speed" vertex="1">
+          <mxGeometry height="40" width="80" x="350" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="position" vertex="1">
+          <mxGeometry height="40" width="80" x="450" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Leadscrew" vertex="1">
+          <mxGeometry height="40" width="80" x="120" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Rack-Pinion" vertex="1">
+          <mxGeometry height="40" width="80" x="220" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Chain-Sprocket" vertex="1">
+          <mxGeometry height="40" width="100" x="340" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Belt Drive" vertex="1">
+          <mxGeometry height="40" width="110" x="460" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Gear" vertex="1">
+          <mxGeometry height="40" width="110" x="590" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="All types of gear systems" vertex="1">
+          <mxGeometry height="40" width="110" x="750" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-18" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Direct Drive" vertex="1">
+          <mxGeometry height="40" width="90" x="715" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-19" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Reducer required" vertex="1">
+          <mxGeometry height="40" width="80" x="815" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-20" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=16;" value="Drive System" vertex="1">
+          <mxGeometry height="30" width="110" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-21" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=16;" value="Motor System" vertex="1">
+          <mxGeometry height="30" width="120" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-22" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint y="340" as="sourcePoint" />
+            <mxPoint x="680" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-23" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=16;" value="Control System" vertex="1">
+          <mxGeometry height="30" width="130" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="LG54OR5l7lUQJj0wATlu-26" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Electrical motor(s)" vertex="1">
+          <mxGeometry height="40" width="120" x="330" y="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
