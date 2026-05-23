@@ -64,6 +64,16 @@ if (hasRemoteURL){
 let displayLanguage = hasLang ? lang : "plain";
 
 const terminalLines = (lang === "terminal" && code) ? code.replace(/\n$/, '').split('\n') : [];
+
+const terminalRows = terminalLines.map((line) => {
+    const isCommand = line.startsWith('$ ');
+
+    return {
+        isCommand,
+        code: isCommand ? line.slice(2) : line,
+    };
+});
+
 if (lang === "terminal" && code) {
     displayLanguage = "bash";
 }
@@ -94,21 +104,38 @@ if (lang === "terminal" && code) {
             }
         </div>
 
-        <div class="code-wrapper relative flex w-full bg-primary-dark">
-            {lang === "terminal" && (
-                <div class="terminal-prompts flex-none select-none text-dark-200 text-right bg-primary-dark">
-                    <pre class="language-plain py-4 pl-4 pr-2" style="background: transparent; margin: 0; color: inherit; text-shadow: none;"><code>{terminalLines.map((line) => line.trim() === "" ? " " : (prompt ? `${prompt} $` : "$")).join('\n')}</code></pre>
+        <div class="code-wrapper relative w-full bg-primary-dark">
+    {lang === "terminal" ? (
+        <div class="terminal-transcript bg-primary-dark py-4 px-4 overflow-auto selection:bg-[#234879]">
+            {terminalRows.map((line) => (
+                <div class="terminal-line">
+                    {line.isCommand && (
+                        <span class="terminal-prompt select-none text-dark-200">
+                            {prompt ? `${prompt} $` : "$"}
+                        </span>
+                    )}
+
+                    <Prism
+                        code={line.code || " "}
+                        lang={line.isCommand ? displayLanguage : "plain"}
+                        class="terminal-line-code bg-primary-dark"
+                        style="margin: 0;"
+                    />
                 </div>
-            )}
-            <div class={`flex-1 overflow-auto ${lang === "terminal" ? 'terminal-prism' : ''}`}>
-                <Prism
-                    code={code}
-                    lang={displayLanguage}
-                    class="bg-primary-dark py-4 pr-4 w-full selection:bg-[#234879]"
-                    style="margin: 0;"
-                />
-            </div>
+            ))}
         </div>
+    ) : (
+        <div class="flex-1 overflow-auto">
+            <Prism
+                code={code}
+                lang={displayLanguage}
+                class="bg-primary-dark py-4 pr-4 w-full selection:bg-[#234879]"
+                style="margin: 0;"
+            />
+        </div>
+    )}
+</div>
+
     </figure>
 </BaseContainer>
 
@@ -260,7 +287,26 @@ pre[class*="language-"] > code[class*="language-"] {
 }
 
 /* Terminal prompt styles */
-.terminal-prism pre[class*="language-"] {
-  padding-left: 0 !important;
+.terminal-line {
+  display: flex;
+  align-items: baseline;
+  min-height: 1.5em;
+}
+
+.terminal-prompt {
+  flex: none;
+  margin-right: 0.5ch;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+.terminal-line pre[class*="language-"] {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent;
+  overflow: visible;
+}
+
+.terminal-line code[class*="language-"] {
+  background: transparent;
 }
 </style>
