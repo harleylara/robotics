@@ -1,0 +1,132 @@
+---
+title: Linking
+---
+
+In the first note of this series, [The Build Process](en/cpp/build), it motivated some concepts about the whole compilation pipeline.
+
+this note focuses on one step of that pipeline, specifically "Linking".
+
+Harley: I need to see how far I should push this note. Should it cover linker script? this is important for embedded programming.
+
+Harley: This note started as a preamble to the [pluginlib](en/ros2/pluginlib) note.
+
+1. build-time linker: gcc/ld finds the library file while building your executable.
+2. runtime dynamic loader: the dynamic loader finds the `.so` when you run the executable.
+
+<Drawio file="linking.drawio">
+</Drawio>
+
+## Build-time linker (the Realm of ld)
+
+Check the shared object dependencies of `ls`
+
+```terminal
+$ readelf -d "$(which ls)" | grep NEEDED
+0x0000000000000001 (NEEDED)             Shared library: [libselinux.so.1]
+0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+```
+
+This just tells you that `ls` was built against these two shared libraries.
+
+This "magic" software in most, if not all, GNU/Linux systems is [`ld` The GNU linker](https://man7.org/linux/man-pages/man1/ld.1.html).
+
+The marketplace for build-time linkers:
+- ld.bfd
+- [ld.lld / lld](https://lld.llvm.org/) : LLVM's linker
+- [mold](https://github.com/rui314/mold): 
+- gold / ld.gold
+- [wild](https://github.com/wild-linker/wild)
+
+
+## Runtime Dynamic Loader (the Realm of ld.so)
+
+Knowing that we depend on some shared libraries is not enough. Someone has to be responsible for **finding** and **loading** them every time you run your application.
+
+In this example, every time you run `ls`, this "magic" software looks through a set of directories, trying to find the `NEEDED` shared libraries. To be precise, the `ld-linux-x86-64.so.2` the dynamic loader.
+
+The dynamic loader finds shared libraries through three mechanisms:
+1. Shared libraries paths are directly baked/encoded into the shared library itself. This is not very portable.
+2. A set of predefined locations. This is what you see with the command `ld --verbose | grep SEARCH_DIR`. Note: this is actually the same thing as before just `ld` puts on some directories that are common conventions in most GNU/Linux systems for shared libraries.
+3. User-defined extra locations. Using `LD_LIBRARY_PATH`, you can inform the linker where to find shared libraries.
+
+The linker looks through a set of directories. You can see the directories with:
+
+```terminal
+$ ld --verbose | grep SEARCH_DIR
+SEARCH_DIR("=/usr/local/lib/x86_64-linux-gnu");
+SEARCH_DIR("=/lib/x86_64-linux-gnu");
+SEARCH_DIR("=/usr/lib/x86_64-linux-gnu");
+SEARCH_DIR("=/usr/lib/x86_64-linux-gnu64");
+SEARCH_DIR("=/usr/local/lib64");
+SEARCH_DIR("=/lib64");
+SEARCH_DIR("=/usr/lib64");
+SEARCH_DIR("=/usr/local/lib");
+SEARCH_DIR("=/lib");
+SEARCH_DIR("=/usr/lib");
+SEARCH_DIR("=/usr/x86_64-linux-gnu/lib64");
+SEARCH_DIR("=/usr/x86_64-linux-gnu/lib");
+```
+
+
+```terminal
+$ LD_TRACE_LOADED_OBJECTS=1 /bin/ls
+    linux-vdso.so.1 (0x00007ffe342e6000)
+    libselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x0000733c66148000)
+    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000733c65e00000)
+    libpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0 (0x0000733c660b1000)
+    /lib64/ld-linux-x86-64.so.2 (0x0000733c661a6000)
+
+$ ldd /bin/ls
+    linux-vdso.so.1 (0x00007ffd8d8e7000)
+    libselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x0000739466e4d000)
+    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000739466c00000)
+    libpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0 (0x0000739466b69000)
+    /lib64/ld-linux-x86-64.so.2 (0x0000739466ecf000)
+
+$ /lib64/ld-linux-x86-64.so.2 --list /bin/ls
+    linux-vdso.so.1 (0x00007ffed5bd3000)
+    libselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x0000798605f0f000)
+    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000798605c00000)
+    libpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0 (0x0000798605e78000)
+   /lib64/ld-linux-x86-64.so.2 (0x0000798605f91000)
+```
+
+
+Why does `$ readelf -d "$(which ls)" | grep NEEDED` show only two link dependencies, while these last commands show four?
+
+Simple answer: some dependencies also have dependencies.
+
+To see the dependency tree, install:
+
+```terminal
+$ sudo apt install pax-utils
+```
+
+and run the tool with:
+
+```terminal
+$ lddtree /usr/bin/ls
+ls => /usr/bin/ls (interpreter => /lib64/ld-linux-x86-64.so.2)
+    libselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1
+        libpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0
+        ld-linux-x86-64.so.2 => /lib64/ld-linux-x86-64.so.2
+    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6
+```
+The marketplace for runtime loaders, encoded in the executable in `readelf -l ./app | grep interpreter`):
+- glibc ld-linux.so*
+- musl ld-musl-ARCH.so.1
+- OpenBSD ld.so
+
+## Execution
+
+```plain
+shell
+  └── execve()
+        └── kernel loads ELF executable
+              └── kernel sees PT_INTERP
+                    └── kernel starts ld.so
+                          └── ld.so loads shared libraries
+                                └── ld.so resolves symbols/relocations
+                                      └── ld.so jumps to program entry point
+```
+

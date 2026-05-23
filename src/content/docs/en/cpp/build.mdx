@@ -17,10 +17,9 @@ There is (as far as I know) no general agreement or standard between `build` and
 
 You can run the full build process with the following command:
 
-<Terminal
-    title="Build a simple cpp file"
-    content="g++ main.cpp -o main"
-/>
+```terminal title="Build a simple cpp file"
+g++ main.cpp -o main
+```
 
 ### Pre-processor
 
@@ -31,16 +30,14 @@ Source: [C/C++ preprocessor reference](https://learn.microsoft.com/en-us/cpp/pre
 </Definition>
 
 [Minimal example](https://github.com/harleylara/cpp-intro/blob/master/001-intro/main.cpp)
-<Terminal
-    title="Pre-process only"
-    content="g++ -E main.cpp > main.i"
-/>
+```terminal title="Pre-process only"
+g++ -E main.cpp > main.i
+```
 
 [Simple example](https://github.com/harleylara/cpp-intro/blob/master/001-intro/pre.cpp)
-<Terminal
-    title="Build simple macro example for logging"
-    content="g++ pre.cpp -DDEBUG=1 -o pre && ./pre"
-/>
+```terminal title="Build simple macro example for logging"
+g++ pre.cpp -DDEBUG=1 -o pre && ./pre
+```
 
 Use of macros in ROS: `rclcpp` debugging [RCLCPP_DEBUG](https://docs.ros2.org/latest/api/rclcpp/logging_8hpp.html#a44818c8a1fd292cd0e81759e956765d7).
 
@@ -48,36 +45,31 @@ More about pre-processor in [Preprocessor directives](https://cplusplus.com/doc/
 
 ### Compiler
 
-<Terminal
-    title="Compile only"
-    content="g++ -S main.i"
-/>
+```terminal title="Compile only"
+g++ -S main.i
+```
 
 ### Assembler
 
-<Terminal
-    title="Assembly only"
-    content="g++ -c main.s"
-/>
+```terminal title="Assembly only"
+g++ -c main.s
+```
 
 ### Linker
 
-<Terminal
-    title="Linking only"
-    content="g++ main.o -o main"
-/>
+```terminal title="Linking only"
+g++ main.o -o main"
+```
 
 Demo minimal library:
-<Terminal
-    title="Compile and assemble, but do not link. (not yet)"
-    content="g++ -c simplelib.cpp -o simplelib.o"
-/>
+```terminal title="Compile and assemble, but do not link. (not yet)"
+g++ -c simplelib.cpp -o simplelib.o
+```
 
 Compile your program and link the library:
-<Terminal
-    title="Compile the main program and link"
-    content="g++ link.cpp simplelib.o -o link && ./link"
-/>
+```terminal title="Compile the main program and link"
+g++ link.cpp simplelib.o -o link && ./link
+```
 
 This was a `static library` example.
 
@@ -91,22 +83,42 @@ A build system is a set of tools and practices used to automate the process of b
 
 [CMake Demo](https://github.com/harleylara/cpp-intro/blob/master/001-intro/CMakeLists.txt)
 
-<Terminal
-    title="Build with CMake"
-    content="mkdir build\
+```terminal title="Build_with_CMake"
+mkdir build
 cd build\
 cmake ..\
-make"
-/>
+make
+```
 
 Run executable
-<Terminal
-    title="Run demo linking"
-    content="./link"
-/>
+```terminal title="build linking"
+./link
+```
 
 
 ROS use [colcon](https://colcon.readthedocs.io/en/released/) (collective construction): A `CLI` tool to build projects (python or cpp). `colcon` uses [ament_cmake](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Documentation.html) which is a wrapper around `CMAKE`.
+
+## Picture
+
+```plain
+Source language:
+    C, C++, Rust, Zig, Fortran, Go, D, ...
+
+Compiler:
+    language-aware
+
+Object file:
+    mostly language-neutral ELF/COFF/Mach-O
+
+Build-time linker:
+    mostly language-neutral, but fed language-specific runtime libraries
+
+Executable:
+    ELF + ABI + runtime dependencies
+
+Runtime loader:
+    language-neutral, but ABI/libc/platform-specific
+```
 
 ## External Resources
 
