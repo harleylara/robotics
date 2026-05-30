@@ -1,8 +1,13 @@
-import { defineCollection, z } from 'astro:content';
-import { SITE } from '../consts';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';
+import { SITE } from './consts';
 
 const docs = defineCollection({
-    type: 'content',
+    loader: glob({
+        pattern: 'en/**/*.mdx',
+        base: './src/content/docs',
+    }),
     schema: z.object({
         title: z.string().default(SITE.title),
         description: z.string().default(SITE.description),
@@ -12,8 +17,7 @@ const docs = defineCollection({
         image: z.object({
             src: z.string(),
             alt: z.string(),
-        })
-        .optional(),
+        }).optional(),
         ogLocale: z.string().optional(),
     }),
 });

@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import tailwind from "@astrojs/tailwind";
 import vercel from '@astrojs/vercel';
 import mdx from "@astrojs/mdx";
+import { unified } from '@astrojs/markdown-remark';
 
 import AutoImport from 'astro-auto-import';
 import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
@@ -53,38 +54,39 @@ export default defineConfig({
   ],
   site: `https://robotics.harleylara.com`,
   markdown: {
-    // Applied to .md and .mdx files
-    remarkPlugins: [
-      remarkMath,
-      remarkGfm],
-    rehypePlugins: [
-      rehypeSlug,
-      [rehypeAutolinkHeadings, {
-        behavior: 'append'
-      }],
-      [rehypeMathML, {
-        macros: NOTATION,
-        wrap: "none",
-      }],
-      // rehypeMathLinks,
-      [rehypeExternalLinks, {
-        rel: ['nofollow', 'noopener', 'noreferrer'],
-        target: '_blank',
-        contentProperties: {
-          className: ['external-link'],
-        },
-        content: { type: 'text', value: '↗' }
-      }],
-      [rehypeCitation, {
-        bibliography: "references.bib",
-        path: "./src/content/docs/en/",
-        csl: "apa",
-        // lang: "https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-eu.xml",
-        linkCitations: true,
-        showTooltips: true,
-        tooltipAttribute: "data-tooltip"
-        // inlineClass: ["bib-reference"]
-      }],
-    ]
+    processor: unified({
+      remarkPlugins: [
+        remarkMath,
+        remarkGfm],
+      rehypePlugins: [
+        rehypeSlug,
+        [rehypeAutolinkHeadings, {
+          behavior: 'append'
+        }],
+        [rehypeMathML, {
+          macros: NOTATION,
+          wrap: "none",
+        }],
+        // rehypeMathLinks,
+        [rehypeExternalLinks, {
+          rel: ['nofollow', 'noopener', 'noreferrer'],
+          target: '_blank',
+          contentProperties: {
+            className: ['external-link'],
+          },
+          content: { type: 'text', value: '↗' }
+        }],
+        [rehypeCitation, {
+          bibliography: "references.bib",
+          path: "./src/content/docs/en/",
+          csl: "apa",
+          // lang: "https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-eu.xml",
+          linkCitations: true,
+          showTooltips: true,
+          tooltipAttribute: "data-tooltip"
+          // inlineClass: ["bib-reference"]
+        }],
+      ]
+    })
   }
 });

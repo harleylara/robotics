@@ -20,7 +20,7 @@ import P from '../components/Globals/P.astro'
 import Table from '../components/Globals/Table.astro'
 import Blockquote from '../components/Globals/Blockquote.astro'
 
-import { getEntry } from "astro:content";
+import { getEntry, render } from 'astro:content';
 // 1. Get the slug from the incoming server request
 const { slug } = Astro.params;
 
@@ -34,7 +34,7 @@ if (entry === undefined) {
   return Astro.redirect("/404");
 }
 // 4. (Optional) Render the entry to HTML in the template
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 ---
 
 <MainLayout headings={headings} {...entry.data}>
