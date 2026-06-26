@@ -3,19 +3,116 @@ title: ROS 2 Launch System
 description: The ROS 2 Launch system
 ---
 
+## Introduction
+
+You are using python to define a description of "actions", but do not confuse it with action server or clients
+
+## Frontents
+
+- Python
+- XML
+- YAML
+
 ## The Bare Minimum
 
-```python filename="logger.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/launch_basics/launch/minimal.launch.py"
+```python filename="bare.launch.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/launch_basics/launch/bare.launch.py"
 ```
 
 ## Launch "Actions"
 
-`ExecuteProcess`
+```python
+# List of all Launch Actions for Humble and Jazzy
+# from source: https://raw.githubusercontent.com/ros2/launch/humble/launch/launch/actions/__init__.py
+__all__ = [
+    'AppendEnvironmentVariable',
+    'DeclareLaunchArgument',
+    'EmitEvent',
+    'ExecuteLocal',
+    'ExecuteProcess',
+    'GroupAction',
+    'IncludeLaunchDescription',
+    'LogInfo',
+    'OpaqueCoroutine',
+    'OpaqueFunction',
+    'PopEnvironment',
+    'PopLaunchConfigurations',
+    'PushEnvironment',
+    'PushLaunchConfigurations',
+    'ResetEnvironment',
+    'ResetLaunchConfigurations',
+    'RegisterEventHandler',
+    'SetEnvironmentVariable',
+    'SetLaunchConfiguration',
+    'Shutdown',
+    'TimerAction',
+    'UnregisterEventHandler',
+    'UnsetEnvironmentVariable',
+    'UnsetLaunchConfiguration',
+]
+```
+
+```python filename="minimal.launch.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/launch_basics/launch/minimal.launch.py"
+```
+
+## ROS Launch Actions
+
+```python
+Node
+ComposableNodeContainer
+LoadComposableNodes
+LifecycleNode
+LifecycleTransition
+PushROSNamespace
+ROSTimer
+SetParameter
+SetParametersFromFile
+SetRemap
+SetROSLogDir
+SetUseSimTime
+
+```
+
+Reminder:
+```sh
+ros2 run <package> <executable> <arguments> --ros-args <ros_arguments> -r <remap from `remappings`> -p <param from `parameters`>
+```
+
+```python
+launch_ros.actions.Node(
+    package="<package>",
+    executable="<executable>"
+    exec_name="os_level_process_name"      # defaults to basename of executable
+    name="<node_name>"                     # -r (--remap) __node:=<node_name>
+    namespace="<your_namespace>",          # -r (--remap) __ns:=/<your_namespace> (the `/` is important)
+    arguments=[                            # executable level arguments (if your executable supports them)
+      "--config", "/tmp/my.cfg",
+      "--rate", "20"
+    ]
+    ros_arguments=[                        # literally mirror `--ros-args` in the CLI
+        "-r", "__ns:=/your_namespace",
+        "--log-level", "warn",
+        "--enclave", "/fully/qualified/path"
+    ],
+    parameters=[                           # these are node level parameters. Keep in mind that node parameters are typed
+      {"node_param": <typed_value>},       # -p (--param) node_parameter:=<typed_value>
+      "/path/with/node_parameter.yaml"     # you can pass path to a yaml file with node parameters
+      {"other_param": <typed_value>},      # this `other_param` override the one in yaml (if used after it)
+    ],
+    remappings=[                           # you can remap anything. Due to name-resolution process, you can:
+                                           # topics, services, actions, parameters, node name, namespace
+      ('/some_topic', '/some_other_name'), # the full path resolution is /<namespace>/<your_remapping>
+    ]
+)
+```
+
+##
+
 
 ## External Resources
 
 - [Why does the ROS2 Python launch files look like XML written in Python?](https://discourse.ros.org/t/why-does-the-ros2-python-launch-files-look-like-xml-written-in-python/23679)
 - [Launch Architecture](https://docs.ros.org/en/rolling/p/launch/architecture.html)
 - [ROS 2 Launch System - ROS 2 Design Document](https://design.ros2.org/articles/roslaunch.html)
+- [`launch` - Python API (rolling distribution)](https://docs.ros.org/en/rolling/p/launch/launch.actions.html)
 - [`launch` - Github repo](https://github.com/ros2/launch/)
 - [`launch_ros` - Github repo](https://github.com/ros2/launch_ros/)
