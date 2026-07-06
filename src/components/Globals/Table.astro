@@ -6,6 +6,8 @@ import BaseContainer from "./BaseContainer.astro";
 
 <style is:global>
 
+@reference "/src/styles/global.css";
+
 /* =========================================================
 
    GLOBAL: one consistent cap for ALL tables using this component
@@ -26,10 +28,12 @@ table[data-app-table] td { @apply p-2; }
 <style>
 /* Scoped component styles */
 
+@reference "/src/styles/global.css";
+
 .tv {
   --tv-inset: clamp(12px, 2vw, 24px);
   --tv-border: rgb(0 0 0 / 0.12);
-  --tv-grid: theme(colors.dark-100);
+  --tv-grid: var(--color-dark-100);
   position: relative;
 }
 

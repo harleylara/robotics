@@ -1,10 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import "tailwindcss";
 
-/* family of serif */
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+@theme {
+  --font-roboto: "Roboto", sans-serif;
+  --font-mono: "Roboto Mono", monospace;
+  --font-pt: "PT Serif", serif;
+  --font-cormorant: "Cormorant Garamond", serif;
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+  --color-primary-dark: #101010;
+  --color-dark-50: #181818;
+  --color-dark-100: #333333;
+  --color-dark-200: #494949;
+  --color-primary-white: #d1d5db;
+}
 
 .csl-entry {
   @apply my-4 text-gray-300;
@@ -14,9 +21,8 @@
   @apply relative cursor-pointer;
 }
 
-/* The tooltip element that appears on hover */
 [data-tooltip]::after {
-  @apply absolute invisible opacity-0 
+  @apply absolute invisible opacity-0
          bg-dark-100 text-white text-sm py-2 px-3
          w-max max-w-xs break-words text-left z-50
          left-1/2 transform -translate-x-1/2 bottom-full mb-2 border
@@ -24,25 +30,21 @@
   content: attr(data-tooltip);
 }
 
-/* Arrow for the tooltip */
 [data-tooltip]::before {
-
   @apply absolute invisible opacity-0
          w-0 h-0 z-50
          left-1/2 transform -translate-x-1/2 bottom-full
          border-solid border-8 border-transparent border-t-gray-800
          transition-opacity duration-200;
   content: '';
-
   margin-bottom: -6px;
 }
 
-/* Show tooltip and arrow on hover */
 [data-tooltip]:hover::after,
 [data-tooltip]:hover::before {
   @apply visible opacity-100;
 }
 
 math {
-  @apply mt-6; /* match spacing between paragraphs */
+  @apply mt-6;
 }

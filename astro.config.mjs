@@ -1,13 +1,15 @@
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
 import react from '@astrojs/react';
-import tailwind from "@astrojs/tailwind";
 import vercel from '@astrojs/vercel';
 import mdx from "@astrojs/mdx";
 import { unified } from '@astrojs/markdown-remark';
 
-import AutoImport from 'astro-auto-import';
-import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
+import tailwindcss from '@tailwindcss/vite';
+
+// import AutoImport from 'astro-auto-import';
+// import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
+import MDXCodeBlocks from 'astro-mdx-code-blocks';
 
 // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
 import rehypeSlug from 'rehype-slug';
@@ -22,32 +24,15 @@ import { NOTATION } from './src/consts';
 export default defineConfig({
   output: 'server',
   adapter: vercel(),
+  vite: {
+    plugins: [tailwindcss()],
+  },
   integrations: [
     preact({
       include: ['**/preact/*'],
     }),
     react({
       include: ['**/react/*']
-    }),
-    tailwind(),
-    // AutoImport expose components in the global scope
-    // IMPORTANT!!: Do not use Global Objects from Javascript
-    // E.g. A component called Math will overwrite
-    // the global Math object
-    AutoImport({
-      imports: [
-        mdxCodeBlockAutoImport('./src/components/Globals/CodeBlock.astro'),
-        './src/components/Globals/Equation.astro',
-        './src/components/Globals/Image.astro',
-        './src/components/Globals/Drawio.astro',
-        './src/components/Globals/Definition.astro',
-        './src/components/Globals/Important.astro',
-        './src/components/Globals/Terminal.astro',
-        './src/components/Globals/Think.astro',
-        './src/components/Globals/Shader.astro',
-        './src/components/Presentations/Presentation.astro',
-        './src/components/Presentations/Slide.astro',
-        './src/components/Presentations/OnlyOnSlide.astro']
     }),
     MDXCodeBlocks(),
     mdx()

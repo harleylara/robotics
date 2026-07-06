@@ -89,6 +89,7 @@ if (lang === "terminal" && code) {
                     <div class="ml-2 h-3 w-3 bg-dark-100 rounded-full"></div>
                 </div>
             </div>
+            <!-- hacky way to fix went there is not filename -->
             {hasFileName && hasRemoteURL ? (
                 <a href={remoteURL}><span class="filename text-dark-200">{filename}</span></a>
             ): hasFileName ? (
@@ -96,7 +97,6 @@ if (lang === "terminal" && code) {
             ): hasTitle ? (
                 <span class="filename text-dark-200 select-none">{displayTitle}</span>
             ) : (
-                <!-- hacky way to fix went there is not filename -->
                 <span class="filename text-dark-200 select-none invisible">
                     empty
                 </span>
@@ -119,7 +119,6 @@ if (lang === "terminal" && code) {
                         code={line.code || " "}
                         lang={line.isCommand ? displayLanguage : "plain"}
                         class="terminal-line-code bg-primary-dark"
-                        style="margin: 0;"
                     />
                 </div>
             ))}
@@ -130,7 +129,6 @@ if (lang === "terminal" && code) {
                 code={code}
                 lang={displayLanguage}
                 class="bg-primary-dark py-4 pr-4 w-full selection:bg-[#234879]"
-                style="margin: 0;"
             />
         </div>
     )}
