@@ -55,7 +55,7 @@ Guides:
 | DShot1200                                 |                                                                                                        | 13.4us          |             |                   |
 | DShot2400                                 |                                                                                                        |                 | no          | no                |
 | ProShot                                   |                                                                                                        |                 | no          | no                |
-| DroneCAN                                  |                                                                                                        |                 | yes         |                   |
+| DroneCAN                                  |                                                                                                        |                 | yes         | yes               |
 
 Who maintain the protocol spec ?
 
@@ -83,6 +83,21 @@ Pick an open-source firmware and build around it. why ? because building a firmw
 - STM32F051: the just enough for a ESC, common in the market and set as the de-facto standard because was the main MCU in BLHeli_32
 - STM32G071: modern alternative to F051
 
+For DroneCAN support:
+- STM32L431: Cortex-M4F at 80 MHz, up to 256 KB flash / 64 KB SRAM
+- STM32G431: Cortex-M4F at 170 MHz / 213 DMIPS, 128 KB flash / 32 KB SRAM split across SRAM and CCM SRAM, FDCAN, rich analog, 4 comparators, op-amps, dual ADCs, CORDIC/FM‌AC math accelerators
+
+Scoping the design intentions:
+1. single motor ESC: although I feel tended to do a 4-in-1, this is my first time designing a ESC, so i want to first build some confidence and get the core principels in place, after that it can be scalled up to 4-in-1.
+2. firmware: I want to get fimiliar with AM32 as ESC firmware.
+3. protocols exploration: DSHOT and DroneCAN for ESC.
+3. future vision: I want to explore making the ESC FOC capable, beacuse I would like to try to make a gimbal controller.
+
+The best-fit for my intentions: [`STM32G431CB`](https://www.st.com/en/microcontrollers-microprocessors/stm32g431cb.html) the 48-UFQFPN package.
+
+Electrical requeriments:
+- Operational voltage range: 2S-6S
+- Max. continuous current: 40A
 
 ### Specs and Block Diagram
 
@@ -101,13 +116,13 @@ Consideration to pick a MOSFET:
 1. Pick BVDSS comfortably above battery max
   - 2–4S: 30–40 V parts can work, but 40 V is safer.
   - 6S (25.2 V max): 40 V is common, 60 V is safer if your layout/wiring is rough.
-2. TBD
-3. Conduction loss: Rds(on) at high temperature
-
+2. Conduction loss: Rds(on) at high temperature
 
 Voltage spikes are the worst enemy and your Vds in the MOSFET need to handle them
 
 "you want enough Vds margin for spikes, but not so high that you waste power and heat in the ESC"
+
+My selection is the: `IAUCN04S7N004`
 
 
 ## Reference ESCs
@@ -119,7 +134,7 @@ Voltage spikes are the worst enemy and your Vds in the MOSFET need to handle the
 | [VOXL FPV Racing 4-in-1 ESC Datasheet](https://docs.modalai.com/voxl-fpv-esc-datasheet/)                                                                                                                                                                                                                                                                             | 2-6S          | 40A per channel           | STM32F051K86       |                                                                                                   | [MP6531](https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP6531A/)  |
 | [ARK 4IN1 ESC](https://arkelectron.com/product/ark-4in1-esc/)                                                                                                                                                                                                                                                                                                        | 3-8S          | 50A per channel           | STM32F051K86       | [IAUCN08S7N013](https://www.infineon.com/part/IAUCN08S7N013)                                      | [DRV8328ARUYR](https://www.ti.com/product/DRV8328/part-details/DRV8328ARUYR)                                                            |
 | [SpeedyBee BLS 35A Mini V2 20x20 4-in-1 ESC](https://www.speedybee.com/speedybee-f405-mini-bls-35a-20x20-stack/)                                                                                                                                                                                                                                                     | 3-6S          | 35A per channel           | EFM8BB21F16G-QFN20 | [TPN2R203NC](https://www.mouser.com/datasheet/2/408/TPN2R203NC_datasheet_en_20191030-1915945.pdf) | SA6288                                                                                                                                  |
-| [Discovery kit with STM32G431CB MCU](https://www.st.com/en/evaluation-tools/b-g431b-esc1.html), [UM2516 - User Manual](https://www.st.com/resource/en/user_manual/um2516-electronic-speed-controller-discovery-kit-for-drones-with-stm32g431cb-stmicroelectronics.pdf), [Schematic](https://www.st.com/resource/en/schematic_pack/mb1419-g431cbu6-c01_schematic.pdf) | 3?-6S         | ???                       | STM32G431CB        | [STL180N6F7](https://www.st.com/resource/en/datasheet/stl180n6f7.pdf)                             | [L6387](https://www.st.com/resource/en/datasheet/cd00002423.pdf)                                                                        |
+| [Discovery kit with STM32G431CB MCU](https://www.st.com/en/evaluation-tools/b-g431b-esc1.html), [UM2516 - User Manual](https://www.st.com/resource/en/user_manual/um2516-electronic-speed-controller-discovery-kit-for-drones-with-stm32g431cb-stmicroelectronics.pdf), [Schematic](https://www.st.com/resource/en/schematic_pack/mb1419-g431cbu6-c01_schematic.pdf) | 3S-6S (see table 5 in UM2516)         | 40A                       | STM32G431CB        | [STL180N6F7](https://www.st.com/resource/en/datasheet/stl180n6f7.pdf)                             | [L6387](https://www.st.com/resource/en/datasheet/cd00002423.pdf)                                                                        |
 
 
 ## External Reference Designs

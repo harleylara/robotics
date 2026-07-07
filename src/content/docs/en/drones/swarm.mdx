@@ -1,0 +1,54 @@
+---
+title: Drone Swarm (Pixhawk Ecosystem)
+---
+
+For a more general discussion see [Swarm](/en/swarm)
+
+## Exploration
+
+In a more "formal"/"rigorous" definition of a swarm, control is decentralized.
+
+But in practice, there are different levels of control:
+- Centralized control: There is a master (usually a ground control station) commanding the position and actions of each member of the swarm.
+- Hybrid control: There are one or a few manually controlled members of the swarm, and the rest “autonomously” react to these actions, in a similar fashion to [Follow the leader (game)](https://en.wikipedia.org/wiki/Follow_the_leader_(game)).
+- Decentralized control: **All** members of the swarm are self-contained control units that take individual actions.
+
+Take this as a reference, this is not meant to be a formal or academic definition of the "levels of control". The main purpose is to set the tone of the discussion topic and create a categorization to expand on in the following sections.
+
+[Swarm communication for PX4 / MAVLink - PX4 Discussion](https://discuss.px4.io/t/swarm-communication-for-px4-mavlink/7411/19)
+
+## Common
+
+Data Link, topology:
+- start
+- delta
+
+@junliCommunicationArchitecturesProtocols2013
+
+See [Data Links and Telemetry](/en/drones/data-links.mdx) for more details on hardware and working principles.
+
+## Centralized Control
+
+RTK-GPS at the core.
+
+- Drone shows
+  - [Skybrush](https://skybrush.io/) is a open-source drone show software suite.
+- [Swarm flight system with Pixhawk - PX4 Discussion](https://discuss.px4.io/t/new-version-of-swarm-flight-system-with-pixhawk/7127)
+  - See @moonEnergyEfficientSwarmingFlight2021 as example of reliance in RTK-GPS.
+
+## Hybrid Control
+
+- [Nemyx by Auterion](https://auterion.com/product/nemyx/). Although Auterion refers in the website Nemyx as "swarm autonomy", under our control levels it falls within hybrid control. As reference see [Auterion Achieves Global First in Combat Drone Swarms: Single Operator Strikes Three Targets Simultaneously in U.S. Live-Fire Swarm Test](https://auterion.com/auterion-global-first-drone-swarm-live-fire/)
+
+## Decentralized Control
+
+- @dietrichUnifiedDecentralizedSwarm2016
+
+
+MRS System:
+- [FlyFuture](https://fly4future.com/drones-for-distributed-swarm-and-formation-flight/) spin-off of MRS and CTU.
+- @bacaMRSUAVSystem2021
+- @petracekBioinspiredCompactSwarms2021
+
+
+[ZJU-Fast Lab](https://zju-fast-lab.github.io/)
