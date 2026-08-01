@@ -3,12 +3,11 @@ title: "ROS 2 Introduction"
 description: "What is ROS in a nutshell"
 ---
 
-<Presentation>
+Before we start, let’s address the elephant in the room, or, more precisely, the number in the title: **“ROS 2.”** If this is your first time hearing about ROS, or if you simply want to understand what it is all about, you are probably asking yourself: if the title says “ROS 2,” does that imply there is also a “ROS 1”? And yes, you are correct. However, to be precise, **there was a ROS 1**. It reached end of life (EOL) on May 31, 2025. See [Noetic Ninjemys: The Last Official ROS 1 Release](https://www.openrobotics.org/blog/2020/5/23/noetic-ninjemys-the-last-official-ros-1-release).
 
-<Slide>
+Without getting into too much detail, you can think of ROS 2 as the successor to ROS 1. Sadly, their application programming interfaces (APIs), or, in simpler terms, the libraries that allow you to program and interact with a ROS system, are not compatible with each other. Fortunately, the underlying concepts are. So, learning ROS 2 is essentially the same as learning ROS 1 from a conceptual perspective. You simply need to learn the ROS 2 APIs. Do not worry if you do not yet know what an API is. Throughout this series of notes, you will gradually discover the ROS 2 APIs and learn how to use them.
 
-Before we start, let's address the elephant in the room, or more precisely, the number in the title: "ROS 2" If this is your first time hearing about ROS, or if you want to understand what it's about, you're probably asking yourself: if the title is "ROS 2" that may imply there is a "ROS 1". And yes, you are correct but, to be precise, **there was a ROS 1**. It reached end-of-life (EOL) in May 31 2025, see [Noetic Ninjemys: The Last Official ROS 1 Release](https://www.openrobotics.org/blog/2020/5/23/noetic-ninjemys-the-last-official-ros-1-release).
-But without getting into too much detail, think of ROS 2 as the successor to ROS 1. Sadly, the application programming interfaces (APIs) or, in simpler terms, the libraries that let you program and interact with a ROS system are not compatible between ROS 1 and ROS 2. Fortunately, all the concepts are compatible. So, learning ROS 2 is essentially learning ROS 1 (conceptually); you just need to learn the APIs.
+If you’re a curious mind, at the end of this note we will discuss the architectural differences between ROS 1 and ROS 2. That will give you the big picture of those differences and what they imply.
 
 But if you are wondering:
 
@@ -16,49 +15,121 @@ But if you are wondering:
     Do I need to learn to ROS 1 to be able to learn ROS 2 (or vice versa), the answer is NO.
 </Important>
 
+![](https://us1.discourse-cdn.com/flex022/uploads/ros/original/3X/4/0/4027a5e4e73b1ad23adf880540c3b08b00d86411.jpeg)
+
 <div class="flex justify-center mt-4">
 <blockquote class="twitter-tweet" data-conversation="none" data-theme="dark"><p lang="en" dir="ltr">More than half of all ROS users use ROS 2 and of those ROS 2 users most of them use the latest LTS release. <a href="https://t.co/jejuyDCbMq">pic.twitter.com/jejuyDCbMq</a></p>&mdash; Robot Operating System (ROS) (@rosorg) <a href="https://twitter.com/rosorg/status/1762921729171620048?ref_src=twsrc%5Etfw">February 28, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-
-</Slide>
-
-If you’re a curious mind, at the end of this note we will discuss the architectural differences between ROS 1 and ROS 2. That will give you the big picture of those differences and what they imply.
 
 Harley: Insert some information about from now on the term "ROS" refers to the Ecosystem without distribution and ROS 1 and ROS 2.
 
 ## Why Do We Need ROS?
 
-<Slide>
 <Think>
-Imagine that it is around the year 2007, and that are many research laboratories in the area of robotics, each one of them with its own robots and each robot with its own particularities. How can you share code between researchers without reinventing the wheel (minimize code rewrite)?
+Imagine that it is around the year 2007. Many robotics research laboratories are building their own robots, and each robot has its own hardware, software, and particular way of doing things. How can researchers share their code without constantly reinventing the wheel and rewriting it for every new robot?
 </Think>
-</Slide>
 
-If you think this is a trivial task to the point of "just share the code", I honestly wouldn't blame you for thinking that, but the reality is that is not a trivial task.
+If you think this sounds like a trivial task, perhaps as simple as "just share the code", I honestly would not blame you. However, the reality is that sharing robotics software is not that simple.
 
-I like to start with a mental exercise using a "toy example".
+This section motivates the need for ROS, or at least for a system with similar goals, by exploring several “toy examples.” These examples are not intended to represent complete robotics systems. Instead, they are conceptual exercises designed to expose, in a simplified and concrete way, some of the recurring problems that appear when building robots and attempting to reuse software across different hardware platforms. By working through them, we can gradually identify the capabilities that such a system would need to provide.
 
-The LiDAR sensor can be as cheap as the [RPLidar A1](https://www.slamtec.ai/product/slamtec-rplidar-a1/) ~100 USD or expensive as the [Velodyne Puck](https://store.clearpathrobotics.com/products/puck) ~4,600 USD (there are more expensive LiDAR sensors), but apart from the price difference they have different communication interfaces. The RPLidar A1 uses an adapter from UART-to-USB and the Velodyne uses a Ethernet connection.
+Before continuing, there is one small note about terminology. The following examples intentionally introduce terms such as [PWM](https://en.wikipedia.org/wiki/Pulse-width_modulation), [CANopen](https://en.wikipedia.org/wiki/CANopen), [UART](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter), [Ethernet](https://en.wikipedia.org/wiki/Ethernet), and [LiDAR](https://en.wikipedia.org/wiki/Lidar). You may already know some of them, or you may not know any of them, and that is completely fine. Their precise definitions are not required to understand the motivation behind the examples. I include these terms for completeness and to keep the discussion concrete, using technologies found in real motors, sensors, and commercial robots.
 
-<Slide centered>
-To motivate the example let's think about a **2D LiDAR** and the following pipeline:
+Let us start with one of the most basic things a mobile robot must do: control its motors.
+
+Imagine that we have built a small robot whose motors are connected directly to a microcontroller through a motor driver. To control the speed of each motor, the microcontroller generates a pulse-width modulation (PWM) signal. In simplified terms, the software selects the direction of the motor and adjusts the percentage of time for which the electrical signal remains active. A larger percentage generally makes the motor rotate faster.
+
+Now imagine that we replace this small robot with a more sophisticated one that uses intelligent CANopen motor controllers. Instead of directly changing electrical signals, the software communicates with each controller through a CAN bus. It may need to configure an operating mode, enable the controller, convert the desired velocity into the units expected by the device, and then transmit a target velocity command. CANopen defines standardized profiles for controlling devices such as servo drives, frequency inverters, and stepper motors.
+
+In both cases, our intention is the same: make the left and right wheels rotate at the desired velocities. However, the code required to accomplish that intention is completely different.
+
+For the PWM-controlled robot, the software might need to perform operations such as these:
+
+```text
+set motor direction
+calculate PWM duty cycle
+write PWM signal
+```
+
+For the CANopen-controlled robot, it might instead need to perform operations such as these:
+
+```text
+enable motor controller
+select velocity mode
+convert velocity into controller units
+send target velocity
+```
+
+If the rest of our software directly depends on these hardware details, changing the motor controller would force us to rewrite much of the robot’s motion code. Even a simple behavior, such as driving forward, turning left, or stopping, could become tied to one particular piece of hardware.
+
+A better approach is to place the hardware-specific details behind a small, common interface:
+
+```text
+set_wheel_velocities(left, right)
+stop()
+```
+
+One implementation of this interface could translate the requested wheel velocities into PWM signals. Another implementation could translate the same request into CANopen commands. The rest of the program would not need to know which implementation is being used.
+
+This means that the code responsible for deciding how the robot should move can remain unchanged. Only the small part responsible for communicating with the motors must be replaced. Abstraction moves the hardware differences to the edges of the system, allowing the core behavior to be reused.
+
+This is not only a hypothetical problem. The same contrast can be found in real commercial robots. [Husarion’s ROSbot 3](https://store.husarion.com/products/rosbot-3), for example, uses four DC motors controlled by an onboard low-level controller. The controller regulates the motors through PWM, adjusting the duty cycle applied to each motor to produce the requested wheel velocities.
+
+[Robotnik’s RB-SUMMIT](https://robotnik.eu/products/mobile-robots/rb-summit/#rb-summit), formerly known as the Summit XL, uses CANopen motor controllers, while [Clearpath’s Warthog](https://clearpathrobotics.com/warthog-unmanned-ground-vehicle-robot/) uses CAN-controlled SEVCON motor controllers. In the Warthog, an onboard microcontroller acts as the interface between the computer and the motor drivers.
+
+All three robots can be asked to perform the same basic actions, such as moving forward, turning, or stopping. However, the low-level instructions required to produce those actions are different. A reusable motion system should therefore describe what the robot is expected to do without forcing the rest of the software to know whether that motion is ultimately produced through PWM, CANopen, or another CAN-based motor-control protocol.
+
+The motor example is intentionally simple, but it already exposes one of the central problems in robotics software: two robots may be capable of performing the same physical action while requiring completely different hardware-level instructions.
+
+Now let us extend the same idea from actuators to sensors.
+
+A LiDAR sensor can be relatively inexpensive, such as the [RPLIDAR A2](https://www.slamtec.com/en/lidar/a2), which may cost around [350 EUR](https://www.mybotshop.de/RPLIDAR-A2M12-360-Laser-Scanner-Range-12m_1), or considerably more expensive, such as the [Velodyne Alpha Prime (VLS-128)](https://web.archive.org/web/20260801194552/https://www.alibaba.com/product-detail/Alpha-Prime-Velodyne-VLS-128-high_1601117594423.html), which can cost several thousand euros (around 63k EUR). The price is not the only difference. These sensors also use different communication interfaces and produce their data in different formats.
+
+The RPLIDAR A2 uses a UART serial interface and is commonly connected to a computer through a UART-to-USB adapter. The Velodyne Puck communicates through a 100 Mbit/s Ethernet connection.
+
+Once again, the intention is the same: obtain measurements of the environment. The hardware-level details, however, are different. At this point, you can begin to appreciate a recurring theme in robotics: the same high-level objective can require very different low-level implementations depending on the hardware being used.
+
+This problem is not limited to motors and LiDAR sensors. It can appear at almost every layer of a robotic system, including cameras, manipulators, batteries, localization systems, navigation algorithms, and communication networks. In each case, the desired capability may remain the same while the interfaces, protocols, data formats, and hardware-specific instructions change.
+
+Suppose that we want to use either LiDAR sensor to detect nearby obstacles. If our obstacle-detection software reads the RPLIDAR’s raw serial data directly, it becomes dependent on the RPLIDAR communication protocol and data format. Replacing that sensor with a Velodyne Puck would then require the same software to read Ethernet packets, understand a different protocol, and interpret a different data representation.
+
+The obstacle-detection logic itself has not changed. It still needs measurements of the surrounding environment. What has changed is only the way those measurements are obtained and represented. If the hardware-specific details are mixed directly into the detection logic, changing the sensor forces us to modify software that should otherwise remain reusable.
+
+To make the idea more concrete, let us think about a **2D LiDAR** and the following pipeline:
 
 <Drawio file="ros-intro.drawio" page="0">
     A toy example.
 </Drawio>
-</Slide>
 
-</Presentation>
+The exact blocks in the diagram are less important than the separation between them. One part of the system understands the physical sensor and its communication protocol. The remaining parts work with a common representation of the measurements. If the sensor changes, only the sensor-specific part should need to change.
 
-The first pieces of software that would later become ROS were being developed at Stanford University by two master's students Eric Berger and Keenan Wyrobek in the [Personal Robotics Program](http://personalrobotics.stanford.edu/). The first steps in creating this unified system began with building the robot called [PR1](http://personalrobotics.stanford.edu/ICRA-2008-kaw-v17.pdf) as a prototyping hardware to start working on the software from, borrowing best practices from other macros and open source software such as switchyard from Morgan Quigley another PhD student who had been working on [STAIR](http://stair.stanford.edu/index.php) (Stanford Artificial Intelligence Robot) at the Stanford Artificial Intelligence Lab. Eric Berger and Keenan Wyrobek in search of funding to continue the development of PR1 met Scott Hassan founder of Willow Garage a technology incubator. Hassan shared Berger and Keenan's vision of creating a unified system for robotics and invited them to work at Willow Garage, making the [first ROS code commit](https://sourceforge.net/p/ros/code/1/log/) on November 7, 2007.
+The motor and LiDAR examples reveal the same recurring problem. Robotics researchers may want to reuse the same algorithms and behaviors, but those algorithms must operate on robots with different motors, sensors, communication protocols, operating systems, and software libraries. Without a shared structure, software that works on one robot often cannot be transferred directly to another. Before researchers can benefit from someone else’s work, they must first understand the original system, replace its hardware-specific components, adapt its interfaces and data formats, and verify that everything still behaves correctly.
 
-Willow Garage began developing the robot PR2 using ROS as runtime software, as successor of PR1. Soon after ROS was released (0.4 Mango Tango) followed by a paper showing the tool "Robot Visualization" (RVIZ) and the first article about ROS ([ROS: an open-source Robot Operating System](http://www.robotics.stanford.edu/~ang/papers/icraoss09-ROS.pdf)).
+At that point, “just share the code” is no longer a sufficient solution. What robotics needs is a common software foundation that separates reusable logic from the details of a particular robot, provides consistent ways for different parts of a system to communicate, and makes it easier to combine software developed by different people and institutions. Without such a foundation, every laboratory is forced to solve many of the same integration problems repeatedly, spending time rebuilding infrastructure instead of advancing the algorithms and capabilities that actually make the robot useful.
 
-In 2010 Willow Garage started the creation of Open Source Robotics Foundation (OSRF) and then in 2013 OSRF became the main maintainer of ROS as Willow Garage would be absorbed by its founders. Then [Clearpath Robotics](https://clearpathrobotics.com/) takes over the support responsibilities for PR2 in early 2014, as described in [PR2 Support transferred to Clearpath Robotics](https://www.ros.org/news/2014/01/pr2-support-transferred-to-clearpath-robotics.html). Since then OSRF has taken over the primary development of ROS, releasing a new version every year.
+This was the environment in which the first pieces of software that would later become ROS began to appear.
 
-A key later restructuring step happened in December 2022, see [Intrinsic Acquires OSRC and OSRC-SG](https://www.openrobotics.org/blog/2022/12/15/intrinsic-acquires-osrc-and-osrc-sg), when Open Robotics (Brian Gerkey) announced that [Intrinsic](https://www.intrinsic.ai/) was acquiring assets from the for-profit subsidiaries "Open Source Robotics Corporation" (OSRC) and OSRC-SG (Singapore), not OSRF itself. In that same post, Gerkey explains the organizational background: OSRF was created in 2012 as the nonprofit steward; OSRC was created in 2016 as a for-profit subsidiary for commercial engagements; and OSRC-SG was created two years later to expand Asia-Pacific involvement, with Gerkey noting that its creation led directly to the release of Open-RMF.
+## ROS Story So Far
 
-That 2022 transaction is explicitly connected to the next governance step in Open Robotics' March 18, 2024 [Announcing the Open Source Robotics Alliance](https://www.openrobotics.org/blog/2024/3/18/announcing-the-open-source-robotics-alliance-osra). Open Robotics states that the sale of OSRC was the first step in a broader restructuring vision, and that the launch of the [Open Source Robotics Alliance (OSRA)](https://osralliance.org/) was the next major step. Open Robotics describes OSRA as a new initiative from OSRF to improve long-term sustainability and health of its open-source robotics projects, using a mixed membership / meritocratic model and assigning OSRA responsibility for governance of ROS, Gazebo, Open-RMF, and supporting infrastructure, under OSRF board oversight via a TGC/PMC structure. [How it works - OSRA](https://osralliance.org/how-it-works/). On the same date (March 18, 2024), Intrinsic published its own statement supporting OSRA: [Supporting the Open Source Robotics Alliance (OSRA)](https://www.intrinsic.ai/blog/posts/supporting-the-open-source-robotics-alliance), saying it would join as one of the inaugural members and (for the first time) participate in governance via the Technical Governance Committee (TGC) and Project Management Committees (PMCs) under the chartered structure.
+> This section is by no means a complete or detailed history of ROS. Its main purpose is to provide enough historical context to understand how the current ROS ecosystem came to be, as well as the roles played by the principal organizations and other parties involved in its development, stewardship, and governance. Some events and details have therefore been intentionally omitted to keep the discussion focused on that context.
+
+Some of this early work was developed at Stanford University by graduate students Eric Berger and Keenan Wyrobek as part of the [Personal Robotics Program](http://personalrobotics.stanford.edu/). They built the robot known as [PR1](http://personalrobotics.stanford.edu/ICRA-2008-kaw-v17.pdf) as a hardware platform on which they could prototype and develop the software. Their work incorporated ideas and best practices from other robotics projects and open-source software, including Switchyard, developed by Morgan Quigley, who was also working on [STAIR](http://stair.stanford.edu/index.php), the Stanford Artificial Intelligence Robot.
+
+While searching for funding to continue the development of PR1, Berger and Wyrobek met Scott Hassan, the founder of Willow Garage, a technology incubator. Hassan shared their vision of creating a unified software system for robotics and invited them to continue their work at Willow Garage. The [first public ROS code commit](https://sourceforge.net/p/ros/code/1/log/) was made on November 7, 2007.
+
+Willow Garage later began developing the PR2 as the successor to PR1, using ROS as the robot’s runtime software system. Soon afterward, ROS 0.4, known as Mango Tango, was released to the wider robotics community. Early publications also introduced tools such as Robot Visualization (RViz), followed by the article [ROS: An Open-Source Robot Operating System](http://www.robotics.stanford.edu/~ang/papers/icraoss09-ROS.pdf).
+
+The Open Source Robotics Foundation (OSRF) was established in 2012 as a nonprofit organization responsible for supporting and stewarding open-source robotics software. As Willow Garage reduced its operations, OSRF assumed a central role in the continued development and stewardship of ROS and related projects. In January 2014, responsibility for supporting the PR2 platform was transferred to [Clearpath Robotics](https://clearpathrobotics.com/), as described in [PR2 Support Transferred to Clearpath Robotics](https://www.ros.org/news/2014/01/pr2-support-transferred-to-clearpath-robotics.html).
+
+A later restructuring took place in December 2022. In [Intrinsic Acquires OSRC and OSRC-SG](https://www.openrobotics.org/blog/2022/12/15/intrinsic-acquires-osrc-and-osrc-sg), Brian Gerkey explained that [Intrinsic](https://www.intrinsic.ai/) was acquiring assets from the for-profit subsidiaries Open Source Robotics Corporation (OSRC) and OSRC-SG in Singapore. Intrinsic did not acquire OSRF itself or the ROS project.
+
+The same announcement explains the organizational background. OSRF had been created in 2012 as the nonprofit steward of the community. OSRC was created in 2016 as a for-profit subsidiary through which Open Robotics could undertake commercial engagements. OSRC-SG was created two years later to expand participation in the Asia-Pacific region, and its creation contributed directly to the development and release of Open-RMF. OSRF remained an independent nonprofit responsible for stewardship of ROS, Gazebo, Open-RMF, and the surrounding community.
+
+That 2022 transaction was explicitly connected to the next major governance change in Open Robotics’ March 18, 2024 announcement, [Announcing the Open Source Robotics Alliance](https://www.openrobotics.org/blog/2024/3/18/announcing-the-open-source-robotics-alliance-osra). Open Robotics described the sale of OSRC as the first step in a broader restructuring plan and the creation of the [Open Source Robotics Alliance (OSRA)](https://osralliance.org/) as the next major step.
+
+OSRA was created as an initiative of OSRF to support the long-term stability and health of its open-source robotics projects. It uses a mixed membership and meritocratic participation model and is responsible for the governance of ROS, Gazebo, Open-RMF, and their supporting infrastructure. Its governance structure includes a Technical Governance Committee (TGC) and individual Project Management Committees (PMCs), with final oversight remaining with the OSRF Board of Directors. See [How It Works: OSRA](https://osralliance.org/how-it-works/).
+
+On the same date, Intrinsic published [Supporting the Open Source Robotics Alliance](https://www.intrinsic.ai/blog/posts/supporting-the-open-source-robotics-alliance), announcing that it would join OSRA as an inaugural member. Intrinsic also stated that, for the first time, it would participate formally in the governance of these projects through representatives serving on the TGC and PMCs.
 
 Here an official blog about [Why ROS](https://www.ros.org/blog/why-ros/).
 
@@ -100,7 +171,7 @@ It is an ecosystem of conventions and open-source libraries, drivers, and tools 
 
 This simplified definition lays the foundation for a broader understanding of what ROS is, and it is by no means a replacement for the more complete official definition. On the contrary, it is designed to complement it, but with less technical verbosity.
 
-## ROS Ecosystem Conceptually
+## ROS Ecosystem
 
 <Drawio file="ros-intro.drawio" page="1">
   ROS Ecosystem Conceptually.
@@ -108,52 +179,236 @@ This simplified definition lays the foundation for a broader understanding of wh
 
 ### Base (Host) Operating System
 
-### Middleware + Plumbing + Clients APIs
+At the foundation is the host operating system on which the ROS software runs, providing process management, networking, file-system access, hardware access, and the other system-level services required by the rest of the ecosystem. ROS officially uses the term **target platform** to refer to a supported combination of operating system and processor architecture, as defined in [REP 2000 - ROS 2 Releases and Target Platforms](https://www.ros.org/reps/rep-2000.html).
 
-The middleware layer of ROS serves as the backbone for client APIs (in multiple languages), allowing users to write code that interacts with a ROS system through a common communication infrastructure.
+Take **ROS 2 Jazzy Jalisco** as an example. If you do not yet know what “Jazzy Jalisco” means, do not worry. We will address ROS distributions, their naming convention, and their release cycle later in [ROS Distributions](/en/ros2/intro#ros-distributions). For now, you can simply think of Jazzy Jalisco as a particular ROS 2 release.
 
-Execution Models
-- Iterative execution
-- Event-oriented execution
+The official target platforms for ROS 2 Jazzy Jalisco are (table copied from REP 2000):
 
-Communication Paradigms
-- Publish/Subscribe (asynchronous)
-- Services (synchronous)
-- Actions (asynchronous)
+| Architecture | Ubuntu Noble (24.04) | Windows 10 (VS2019) | RHEL 9           | Ubuntu Jammy (22.04) | macOS      | Debian Bookworm (12) | OpenEmbedded / Yocto Project |
+| ------------ | -------------------- | ------------------- | ---------------- | -------------------- | ---------- | -------------------- | ---------------------------- |
+| amd64        | Tier 1 [d][a][s]     | Tier 1 [a][s]       | Tier 2 [d][a][s] | Tier 3 [s]           | Tier 3 [s] | Tier 3 [s]           | Tier 3 [s]                   |
+| arm64        | Tier 1 [d][a][s]     |                     |                  |                      |            | Tier 3 [s]           | Tier 3 [s]                   |
+| arm32        | Tier 3 [s]           |                     |                  |                      |            | Tier 3 [s]           | Tier 3 [s]                   |
+
+As you can see, not every target platform has the same level of support. ROS classifies platform support from **Tier 1** to **Tier 3**. These tiers do not indicate that one platform provides more ROS features than another. Instead, they describe how extensively each platform is built, tested, maintained, and supported.
+
+- **Tier 1** platforms receive the highest level of support. They are built and tested regularly, and problems affecting them receive the highest priority.
+- **Tier 2** platforms are also tested and supported, but less extensively than Tier 1 platforms. Issues are generally addressed on a best-effort basis.
+- **Tier 3** platforms are known or expected to work, but they are not continuously tested by the ROS development infrastructure. Their support depends mainly on the community.
+
+In general, the lower the tier number, the stronger the support commitment for that platform. The table may also indicate whether ROS is available through operating-system packages, downloadable archives, or by compiling it directly from source.
+
+It is also important not to interpret the table as a list of the only architectures on which ROS can run. Instead, it lists the platforms for which the ROS project provides an official level of support. **RISC-V**, for example, is an open instruction-set architecture used to design processors, in the same general category as architectures such as x86 and Arm. It is not listed as a target architecture for ROS 2 Jazzy Jalisco in REP 2000. This does not necessarily mean that ROS cannot run on a RISC-V system. In principle, ROS can be compiled from source for another architecture if the operating system, compiler, and required dependencies are available. In practice, however, this may require additional porting and troubleshooting, and it does not come with a Tier 1, Tier 2, or Tier 3 support commitment from the ROS project.
+
+You can find the complete definition of each support level in [Platform Support Tiers](https://docs.ros.org/en/jazzy/The-ROS2-Project/Platform-Support-Tiers.html).
+
+
+### Middleware as Plumbing
+
+With a host operating system in place, ROS relies on a middleware layer to provide the “plumbing” through which information moves and the different parts of a robotic system communicate. This is precisely one of the problems exposed by our toy examples. The obstacle-detection software should not need to understand whether the LiDAR data arrived through UART or Ethernet, just as the motion logic should not need to know whether the motors are controlled through PWM, CANopen, or another mechanism.
+
+The middleware is responsible for tasks such as discovering the different participants in the system, preparing data for transmission, moving that data between processes or computers, and controlling how it is delivered. ROS does not restrict this plumbing to a single middleware product. Instead, it defines a common ROS Middleware interface, usually abbreviated as RMW, that can be implemented using different middleware technologies.
+
+As with target platforms, middleware implementations also have different levels of support. For ROS 2 Jazzy Jalisco, [REP 2000](https://www.ros.org/reps/rep-2000.html) lists the following implementations:
+
+| Middleware library                                                 | Middleware provider    | Support level | Platforms                  | Architectures                    |
+| ------------------------------------------------------------------ | ---------------------- | ------------: | -------------------------- | -------------------------------- |
+| [`rmw_fastrtps_cpp`](https://github.com/ros2/rmw_fastrtps)*        | eProsima Fast DDS      |        Tier 1 | All platforms              | All architectures                |
+| [`rmw_cyclonedds_cpp`](https://github.com/ros2/rmw_cyclonedds)     | Eclipse Cyclone DDS    |        Tier 1 | All platforms              | All architectures                |
+| [`rmw_connextdds`](https://github.com/ros2/rmw_connextdds)         | RTI Connext DDS        |        Tier 1 | Ubuntu, Windows, and macOS | All architectures except `arm64` |
+| [`rmw_fastrtps_dynamic_cpp`](https://github.com/ros2/rmw_fastrtps) | eProsima Fast DDS      |        Tier 2 | All platforms              | All architectures                |
+| [`rmw_gurumdds_cpp`](https://github.com/ros2/rmw_gurumdds)         | GurumNetworks GurumDDS |        Tier 3 | Ubuntu and Windows         | All architectures except `arm32` |
+
+The names in the table may not mean much to you yet, and that is okay. What matters for now is the separation between the client APIs used by our programs and the middleware implementation responsible for carrying the information.
+
+This separation was one of the major architectural innovations introduced by ROS 2 compared with ROS 1. In ROS 1, communication was more directly tied to its own transport mechanisms, primarily TCPROS and UDPROS. ROS 2 introduced the RMW layer as a common interface between the client libraries and the underlying middleware. This allows ROS programs to use different communication technologies without depending directly on their APIs.
+
+During the early design of ROS 2, several possible approaches were studied and prototyped. One option was to improve the communication system inherited from ROS 1. Another was to construct a new middleware from separate technologies, such as:
+
+- [ZeroMQ](https://github.com/zeromq/libzmq), for transporting messages.
+- [Protocol Buffers](https://github.com/protocolbuffers/protobuf), for defining and serializing data.
+- [Avahi](https://github.com/avahi/avahi), an implementation of zeroconf that could be used for discovery.
+
+At the center of that architecture is the [`rmw`](https://github.com/ros2/rmw) package, which defines the interface that middleware implementations must provide. The [`rmw_implementation`](https://github.com/ros2/rmw_implementation) package is responsible for loading a particular implementation and forwarding the RMW calls to it.
+
+This architecture is not limited to the implementations officially listed by ROS. In principle, developers can add support for another communication technology by creating their own RMW implementation. As long as it implements the required interface, the rest of the ROS stack can interact with it in the same way that it interacts with Fast DDS, Cyclone DDS, Connext DDS, or Zenoh. The process and requirements are described in [Creating an RMW Implementation](https://docs.ros.org/en/jazzy/Tutorials/Advanced/Creating-An-RMW-Implementation.html).
+
+The RMW abstraction also allows a typical ROS application to change its middleware implementation without rewriting or recompiling the application, provided that the alternative implementation is already installed and runtime RMW selection was not disabled when the ROS libraries were built. The implementation is normally selected before starting a process through the `RMW_IMPLEMENTATION` environment variable.
+
+It is important to understand what “runtime selection” means here. The RMW implementation is selected when the process starts and initializes its ROS context. It cannot be replaced while that process is already running. To change it, the process must be stopped and started again with a different `RMW_IMPLEMENTATION` value. The ROS command-line daemon may also need to be stopped because it is itself a separate ROS process.
+
+In other words, an RMW implementation can be selected at process startup, but it cannot be hot-swapped inside an already running process.
+
+Different processes in the same robotic system can, in principle, be started with different RMW implementations. Whether those processes can communicate directly depends on the middleware technologies involved.
+
+DDS-based implementations, such as Fast DDS, Cyclone DDS, Connext DDS, and GurumDDS, implement common DDS and RTPS standards. Because of this, processes using different DDS-based RMW implementations can often communicate with one another. However, interoperability is not guaranteed for every combination of vendor, feature, configuration, message type, or Quality of Service policy. A system that mixes DDS implementations should therefore be tested as a complete configuration rather than assuming that every combination will behave identically.
+
+Communication between DDS-based and non-DDS implementations should not be assumed. For example, a process using `rmw_zenoh_cpp` does not automatically communicate with a process using a DDS-based RMW simply because both expose the same RMW interface. The interface allows the ROS libraries to use either middleware, but it does not make the middleware protocols compatible with each other. A bridge or another explicit interoperability mechanism may be required.
+
+For most systems, using the same RMW implementation across all processes is the simplest and most predictable configuration. A heterogeneous system is possible in some cases, but its interoperability must be verified.
+
+### Client APIs
+
+The middleware provides the communication “plumbing,” but with ROS we do not normally write our programs by interacting with that plumbing (middleware layer) directly. Instead, ROS provides **client APIs** that sit above the middleware and expose the concepts used to build a robotic system in a form that is more convenient for a particular programming language.
+
+The name *client API* can be slightly misleading at first. Here, “client” does not refer specifically to one program requesting something from another. It refers more generally to the programming interface through which our code uses the capabilities provided by ROS.
+
+ROS provides client libraries for several programming languages. The main ones that we will encounter are:
+
+- [`rclcpp`](https://github.com/ros2/rclcpp), the ROS client library for C++.
+- [`rclpy`](https://github.com/ros2/rclpy), the ROS client library for Python.
+- [`rclc`](https://github.com/ros2/rclc), the ROS client library for C.
+
+These libraries provide APIs that feel natural in their respective languages while exposing the same general ROS features. A C++ program and a Python program will not look the same in source code, but they can still participate in the same robotic system and communicate through the middleware layer.
+
+<Important>
+ROS is **not** a programming language.
+</Important>
+
+ROS is not a language in which programs are written. We do not “code in ROS” in the same way that we code in C++, Python, or C. Instead, we write programs in one of those languages and use a ROS client library to connect them to the rest of the system.
+
+One of the strengths of this architecture is that a robotic system can combine programs written in different languages. For example, we might use C++ for a component with strict performance requirements and Python for rapid prototyping or higher-level coordination. As long as both programs use compatible ROS interfaces, the middleware can carry information between them without requiring either program to be written in the same language.
+
+Although each client library has its own language-specific API, much of their common functionality is built on top of the [`rcl`](https://github.com/ros2/rcl) library. The `rcl` library, implemented in C, provides a common foundation for language-specific client libraries and communicates with the middleware through the [`rmw`](https://github.com/ros2/rmw) interface.
+
+The client APIs do more than provide access to communication. They also give our programs ways to organize their execution and react to what is happening in the rest of the system.
+
+Conceptually, we can think about two common execution models:
+
+- **Iterative execution**, in which a program repeatedly performs work inside a loop. For example, it may read the latest available information, calculate a motor command, and repeat that sequence at a defined frequency.
+- **Event-oriented execution**, in which a program performs work when something happens, such as the arrival of new sensor data, the expiration of a timer, or the reception of a request.
+
+These two models are not mutually exclusive. A robotic program may execute a control algorithm iteratively while also reacting to incoming information or requests through functions that are called when those events occur.
+
+ROS client libraries provide the mechanisms needed to support both styles. They allow a program to perform repeated work, wait for events, and execute user-defined functions when communication or timing events require attention. The exact mechanisms used to schedule and execute that work will be introduced later.
+
+The client APIs also expose several ways for programs to exchange information. At a high level, ROS provides three principal communication paradigms:
+
+- **Publish/subscribe**, for asynchronous data distribution. A program publishes information without addressing it to one specific receiver, and any interested programs can subscribe to receive it. This model is useful for continuous information such as sensor measurements or robot status.
+- **Services**, for request-and-response interactions. One program sends a request, and another returns a response. This model is useful for relatively short operations in which a specific answer or confirmation is expected.
+- **Actions**, for operations that may take longer to complete. An action can provide progress feedback, return a final result, and allow the requested operation to be cancelled.
+
+These descriptions are intentionally simplified. Publish/subscribe, services, and actions introduce several ROS-specific concepts that will be covered in full extend in their own separate notes. For now, the important point is that they represent different communication needs: distributing information, requesting a short operation, and managing a longer-running operation.
+
+Together, the client APIs and middleware connect the code that we write to the rest of the robotic system. The client APIs provide the programming-language interface and the execution mechanisms, while the middleware provides the underlying communication infrastructure. This separation allows programs written in different languages, and potentially using different middleware implementations, to participate in the same system without requiring every developer to implement the communication plumbing from scratch.
 
 ### Conventions
 
-ROS also provides conventions that improve interoperability and collaboration, such as:
-- Reference frames
-- Message definitions for interoperability
-- Code and package organization conventions
+The middleware and client APIs give our programs the mechanisms they need to exchange information. However, being able to send information from one program to another does not guarantee that the receiving program will know how to interpret or use it.
+
+Let us return to the LiDAR example. Imagine that every LiDAR implementation defines its own way of describing a measurement. One might represent each measurement using an angle and a distance, while another might use Cartesian coordinates such as (x), (y), and (z). One implementation might express distances in meters, another in millimeters, and another might include additional information such as intensity or acquisition time.
+
+Even the meaning of the measurements could be ambiguous. From which point on the robot were they taken? In which direction is an angle of zero measured? Does a positive angle rotate clockwise or counterclockwise? At what time was the measurement captured?
+
+All these implementations could successfully transmit their data through the middleware, but that alone would not make them interchangeable. An obstacle-detection program written for one representation would not necessarily understand the others. Replacing the LiDAR could therefore require modifying the detection software or writing a custom conversion layer, even though its actual purpose has not changed: it still needs measurements of the surrounding environment.
+
+The problem becomes larger when software is shared. If every LiDAR manufacturer, robotics company, or research laboratory defines its own representation, developers must repeatedly translate between formats before they can reuse visualization, mapping, localization, or obstacle-detection software.
+
+This is where conventions become important. Instead of allowing every implementation to describe the same kind of information in a completely different way, ROS provides commonly agreed definitions and rules for how that information should be represented and interpreted. A LiDAR-specific implementation can convert the device’s native data into a standard representation, and the rest of the system can work with that representation without depending on the particular sensor that produced it.
+
+Communication alone is therefore not enough to guarantee that independently developed software can work together. The different parts of a robotic system must also agree on how information is represented, organized, named, and interpreted.
+
+ROS provides conventions that improve interoperability and collaboration, including:
+
+- Coordinate and reference-frame conventions.
+- Standard message definitions for commonly used information.
+- Code and package organization conventions.
+- Naming and configuration conventions.
+
+These conventions are another form of abstraction. A program should not need to understand the internal implementation of every sensor or piece of software from which it receives information. Instead, both sides can rely on an agreed representation and meaning.
+
+This becomes especially important when combining software developed by different people, research groups, or companies. Without shared conventions, each integration may require custom translations, renamed interfaces, unit conversions, and assumptions about how the information should be interpreted. With them, independently developed components have a much better chance of working together without requiring extensive project-specific modifications.
+
+The exact conventions and their corresponding ROS-specific concepts will be introduced later in separate notes. For now, the important point is that the middleware provides a way to carry information, the client APIs provide a way for our programs to exchange it, and conventions give that information a common structure and meaning.
 
 ### Tools
 
-ROS includes a rich set of tools for development and debugging, including:
-- Logging and plotting
-- Communication graph visualization
-- Diagnostics
-- Visualization
-- Simulation
+The conventions described in the previous section do more than help independently developed programs communicate. They also make it possible to build general-purpose tools that can inspect, record, visualize, and debug a robotic system without being designed for one particular robot.
+
+Let us return once more to the LiDAR example. If every LiDAR implementation described its measurements differently, a visualization tool would need a separate implementation for every sensor. One version might understand the RPLIDAR format, another the Velodyne format, and another the format used by a different manufacturer.
+
+ROS includes a broad set of tools that support the development, inspection, debugging, testing, and operation of robotic systems. These tools can be used for tasks such as:
+
+- Logging information produced by running programs.
+- Recording data from a robotic system and replaying it later.
+- Plotting numerical values over time.
+- Inspecting and visualizing the communication graph.
+- Monitoring the state and diagnostics of the system.
+- Visualizing robots, sensor measurements, maps, and planned trajectories.
+- Simulating robots and their environments.
+
+These tools have a direct effect on the quality of the development process. Instead of treating a robot as a collection of opaque programs, developers can observe how its different parts communicate, inspect the information being exchanged, and identify where unexpected behavior begins.
+
+For example, if a robot fails to avoid an obstacle, the problem may come from several different places. The LiDAR may not be producing measurements, the measurements may be represented incorrectly, the obstacle-detection program may not be receiving them, or the motion command may not be reaching the controller. Tools allow each part of that path to be inspected separately.
+
+Recording and replaying information is particularly useful. A sensor experiment may be performed once on the real robot, recorded, and then replayed many times while developing or testing an algorithm. This reduces the need to reproduce the exact physical experiment every time the software changes and makes failures easier to study.
+
+Simulation extends this idea by allowing parts, or sometimes all, of the robotic system to be exercised without the physical robot. This can make development safer, faster, and more reproducible, especially during the early stages of an implementation.
+
+These tools are important because robotics software is rarely developed as a single program. It is usually a distributed system composed of many interacting components, sometimes running in different processes or even on different computers. Without ways to observe those interactions, understanding why the complete system behaves in a particular way would be considerably more difficult.
+
+The middleware makes the interactions possible, the client APIs allow us to program them, and the conventions give the exchanged information a shared meaning. Together, these layers make it possible to create reusable tools that improve how robotic systems are developed, tested, understood, and maintained.
 
 ### Capabilities
 
-On top of its core infrastructure, the ROS ecosystem enables higher-level robotics capabilities such as:
-- Control
-- Perception
-- Navigation
-- Manipulation
-- Planning System
-- And more
+Everything described up to this point forms the technical foundation of a robotic system. The host operating system runs the software, the middleware and client APIs allow its different parts to communicate, conventions give the exchanged information a shared meaning, and tools make the complete system observable and easier to develop. All of that is essential, but it is still only the bare-bone infrastructure. By itself, it does not make a robot useful. To bring value, a robot must perform higher-level tasks. It may need to identify objects, estimate where it is, build a map, plan a route, move safely through an environment, manipulate objects, or coordinate its actions with other robots and systems.
+
+This is where ROS shines.
+
+Because the underlying communication mechanisms, conventions, and development tools are already available, larger projects can focus on solving these higher-level robotics problems. Instead of every developer implementing the complete software stack from the ground up, the ROS ecosystem provides reusable projects for areas such as:
+
+- **Hardware integration and control**, using projects such as [`ros2_control`](https://control.ros.org/jazzy/), which provides a common framework for connecting controllers to robot hardware.
+- **Perception**, using projects such as [`image_pipeline`](https://docs.ros.org/en/jazzy/p/image_pipeline/), which processes raw camera images into forms that can be used by vision algorithms. Perception can also include processing point clouds, audio, radar, and information from many other types of sensors.
+- **State estimation and sensor fusion**, using projects such as [`robot_localization`](https://index.ros.org/r/robot_localization/), which can combine information from multiple sensors to estimate the state and motion of a robot.
+- **Localization and mapping**, using projects such as [`SLAM Toolbox`](https://docs.ros.org/en/jazzy/p/slam_toolbox/), which can be used to build maps and estimate a robot’s position within them.
+- **Navigation**, using [`Nav2`](https://docs.nav2.org/), which provides software for planning and executing the movement of mobile and surface robots through an environment.
+- **Manipulation and motion planning**, using [`MoveIt 2`](https://moveit.picknik.ai/), which provides tools for planning and executing the movement of robotic arms and other articulated mechanisms.
+- **Task planning**, using projects such as [`PlanSys2`](https://plansys2.github.io/), which can generate and execute plans composed of multiple actions. For manipulation-specific tasks, [`MoveIt Task Constructor`](https://moveit.picknik.ai/main/doc/concepts/moveit_task_constructor/moveit_task_constructor.html) can be used to divide complex operations into a sequence of interdependent stages.
+- **Multi-robot coordination and fleet management**, using projects such as [`Open-RMF`](https://openrmf.readthedocs.io/), which supports task allocation, traffic coordination, resource scheduling, and integration between robot fleets and building infrastructure.
+
+This is not an exhaustive list. The ROS ecosystem also includes projects for calibration, teleoperation, machine-learning integration, autonomous vehicles, aerial robots, marine robots, safety monitoring, industrial automation, and many other areas.
+
+These projects are not necessarily part of the ROS core itself. Many are developed and maintained independently by different open-source communities, research groups, and companies. What connects them is that they build on the common infrastructure and conventions provided by the ecosystem.
+
+This shared foundation allows several projects to be combined into a larger robotic system. For example, a mobile robot might use sensor drivers to obtain information about its environment, perception software to interpret it, localization software to estimate its position, Nav2 to plan a route, and `ros2_control` to send commands to its motors.
+
+That does not mean that these projects can always be connected without configuration or integration work. Robots still have different physical characteristics, sensors, operating environments, and requirements. However, developers are no longer forced to begin by designing every communication mechanism, data representation, visualization tool, and common robotics algorithm themselves.
+
+Instead, they can spend more of their time solving the real-world problem for which the robot is being built, whether that means transporting materials in a warehouse, inspecting infrastructure, assisting in a hospital, working in a field, or supporting robotics research.
+
+This ability to reuse existing work and focus on the application, rather than repeatedly rebuilding the underlying infrastructure, is one of the main reasons researchers, companies, and independent developers gravitate toward ROS.
 
 ### Community
 
-ROS is also a large and active community that includes:
-- Schools and Universities
-- Company. See this amazing collection of companies using ros, [ROS Robotics Companies](https://github.com/vmayoral/ros-robotics-companies) by Víctor Mayoral Vilches.
-- Research Institute
-- Hobbies
+Finally, none of the infrastructure, conventions, tools, or higher-level projects described so far would have the same value without the people who develop, use, and maintain them.
+
+ROS is supported by a large international community that includes:
+- Schools and universities.
+- Research institutes.
+- Commercial companies.
+- Independent developers and hobbyists.
+- Open-source organizations and project maintainers.
+
+People are what drive the ROS ecosystem. They create new software, maintain existing packages, report and fix problems, review contributions, write documentation, answer questions, organize events, teach courses, publish research, and test new releases.
+
+This participation is also what makes ROS increasingly useful. When someone publishes a driver, algorithm, tool, or complete robotics project, others can use it, test it in different environments, identify limitations, and improve it. Those improvements can then benefit the next person who encounters the same problem.
+
+The result is a reinforcing cycle. More people using ROS create more demand for compatible software and hardware. More available software makes ROS useful for a wider range of applications, which attracts more researchers, companies, students, and independent developers to the ecosystem.
+
+Commercial participation is an important part of this cycle. Companies do not only use ROS to build products and services. They also employ maintainers, fund development, contribute source code, report problems found in real deployments, and help test the software under conditions that may be difficult to reproduce in a research laboratory.
+
+An official ROS [Brand Guidelines](https://www.ros.org/imgs/ROSBrandGuide.pdf) document stated that more than 260 companies used ROS, including multiple Fortune 500 companies and government agencies. This figure should be understood as a historical indication of the ecosystem’s reach rather than as a current or complete census. More recently, contributors involved in testing ROS 2 Jazzy also noted that participants from large corporations, including Fortune 500 companies, were contributing to release testing.
+
+Determining exactly how many organizations use ROS is difficult. Companies may use it internally without announcing it, use only some parts of the ecosystem, or provide ROS-compatible interfaces without building their complete products around it. The meaning of “using ROS” can therefore vary considerably between organizations.
+
+Participation also extends into government and space robotics. NASA has invested in [Space ROS](https://space.ros.org/), an open-source framework derived from ROS 2 and adapted toward the requirements of flight-quality and safety-critical robotic systems. Its goal is to preserve compatibility with the ROS 2 APIs so that software from the broader ecosystem can be reused in space applications with fewer modifications. NASA has also documented the use of ROS 2 and Gazebo during the development and simulation of software for the VIPER lunar rover. See [Space ROS technical paper](https://ntrs.nasa.gov/citations/20220017761), and [VIPER ROS 2 presentation](https://ntrs.nasa.gov/citations/20210018027). These examples do not mean that standard ROS 2 is automatically suitable for spaceflight, but they show how the ecosystem can be extended and adapted for demanding applications beyond conventional research and commercial robotics.
+
+The community is therefore not something separate from the technical ecosystem. It is what gives that ecosystem its reach and long-term value. The infrastructure makes software reuse technically possible, the conventions and tools make collaboration practical, and the people involved produce, share, review, fund, teach, and maintain the software that makes the entire system useful.
+
+In the end, ROS became popular not only because of its technical design, but because enough people and organizations chose to build around it and contribute their work back to a shared ecosystem.
+
+For a public collection of companies known to use ROS or related tools for development, products, or services, see [ROS Robotics Companies](https://github.com/vmayoral/ros-robotics-companies), maintained by Víctor Mayoral Vilches. When the list was publicly announced in 2022, it already contained 348 companies, and it has continued receiving community contributions since then.
 
 ## ROS Versions
 
@@ -165,7 +420,15 @@ The truth is, there are many technical details about the differences that are no
 
 Is correctly spelled with a space: `ROS 2` or `ROS 1`, check the [Trademark Rules And Guidelines 2022](https://www.ros.org/imgs/TrademarkRulesAndGuidelines2022.pdf) section "ROS in text".
 
-## ROS Distributions 
+## Architecture ROS 2
+
+Putting all together.
+
+<Drawio file="ros-intro.drawio" page="4">
+    Architecture ROS 1 vs. ROS 2.
+</Drawio>
+
+## ROS Distributions
 
 <Definition term="ROS distribution, or just ROS distro">
     A ROS distribution is a **versioned** set of ROS **packages**.
@@ -190,69 +453,53 @@ Full list of ROS distributions:
 
 ## ROS Variants
 
-Each ROS distribution is distributed in predefined installation **variants**, each designed for a different level of functionality. These variants range from minimal core components to more complete development setups.
+Each ROS distribution is made available through predefined installation **variants**, each intended as a convenient starting point for a different level of functionality. A variant is essentially a named collection of packages, ranging from the minimal components required to run ROS to more complete development environments that include visualization, perception, and simulation tools.
 
-The list of [ros2-variants](https://github.com/ros2/variants/tree/humble):
-- `desktop`
-- `desktop_full`
-- `perception`
-- `ros_base`
+For [Jazzy Jalisco, supported from May 2024 to May 2029](https://www.ros.org/reps/rep-2001.html#jazzy-jalisco-may-2024-may-2029), the standard variants and their package associations are defined in REP 2001 and in the Jazzy branch of the [`ros2/variants`](https://github.com/ros2/variants/tree/jazzy) repository.
+
+The available variants are:
 - `ros_core`
+- `ros_base`
+- `desktop`
+- `perception`
 - `simulation`
+- `desktop_full`
 
-Example how to install a ros2-variants. But in reallity you need to do more things as describe in the official documentation, e.g. [Ubuntu (deb packages)](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
+These variants build on one another. For example, `ros_base` extends `ros_core`, while `desktop_full` extends `desktop` and adds the perception and simulation variants. Installing a variant therefore installs its associated packages together with their required dependencies.
+
+For example, once the ROS package repository and the required system configuration are already in place, the Jazzy `desktop` variant can be installed on Ubuntu with:
+
 ```plain
-sudo apt install ros-humble-desktop
+sudo apt install ros-jazzy-desktop
 ```
 
-the format is:
+The general package-name format is:
+
 ```plain
-sudo apt install ros-<distro>-<variant>
+sudo apt install ros-<distribution>-<variant>
 ```
 
-In practice, these variants provide convenient starting points depending on whether you need a lightweight runtime, a general development environment, or additional tools for perception and simulation. Thus, the concept of a variant is best understood in relation to a ROS distribution, as illustrated in the following diagram.
+When a variant name contains an underscore, the corresponding Debian package uses a hyphen instead. For example, the `desktop_full` variant is installed as:
+
+```plain
+sudo apt install ros-jazzy-desktop-full
+```
+
+The installation command shown here represents only the final package-installation step. In practice, additional preparation is required, such as configuring the system locale, enabling the required Ubuntu repositories, and adding the ROS package repository. The complete procedure is described in the official [Ubuntu installation documentation](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html). ROS 2 Jazzy Debian packages officially target Ubuntu Noble 24.04.
+
+In practice, variants provide convenient starting points depending on whether we need a lightweight runtime, a general development environment, or additional software for areas such as perception and simulation. The concept of a variant is therefore best understood in relation to a particular ROS distribution, as illustrated in the following diagram.
 
 <Drawio file="ros-intro.drawio" page="3">
 </Drawio>
 
-## ROS Programming Languages
-
-<Important>
-    Nope, ROS is NOT a programming language.
-</Important>
-
-ROS is a ecosystem, not a language itself. You do not "code in ROS" the way you code in Python or C++, instead you write programs using ROS client-libraries and tools for visualization, simulation or debugging.
-
-One of ROS's strengths is that it can intermix programming languages within the same robotic system. This means you can write programs in different languages and still have them communicate through ROS's middleware layer. In practice, ROS provides official support for the main languages used in robotics development, including:
-- C
-- C++
-- Python
-
-This flexibility allows developers to choose the most suitable language for each part of the system, for example, using C++ for performance-critical components and Python for rapid prototyping or higher-level orchestration.
-
-## Architecture ROS 2
-
-<Drawio file="ros-intro.drawio" page="4">
-    Architecture ROS 1 vs. ROS 2.
-</Drawio>
-
-Source code for ROS 2 base-stack:
-- Officially supported client libraries:
-  - [ROS Client Library for C++](https://github.com/ros2/rclcpp)
-  - [ROS Client Library for Python](https://github.com/ros2/rclpy)
-- [ROS client library (rcl)](https://github.com/ros2/rcl)
-- [ROS middleware (rmw)](https://github.com/ros2/rmw) rmw is designed with the mindset of being agnostic, so it supports multiple transports:
-  - DDS vendors:
-    - [Fast DDS by eProsima](https://github.com/ros2/rmw_fastrtps)
-    - [Eclipse Cyclone DDS](https://github.com/ros2/rmw_cyclonedds)
-    - [Connext DDS by RTI](https://github.com/ros2/rmw_connextdds)
-    - [GurumDDS by GurumNetworks](https://github.com/ros2/rmw_gurumdds)
-  - RTPS vendors::
-    - [Fast RTPS by eProsima](https://github.com/ros2/rmw_fastrtps)
-  - Zenoh vendors:
-    - [Zenoh by Eclipse zenoh and Zetta Scale](https://github.com/ros2/rmw_zenoh)
 
 ## Do We Really Need ROS?
+
+TBA.
+
+Harley: Not necessarily, depends on the intentions. List like:
+- [openpilot](https://github.com/commaai/openpilot)
+- [iceoryx2](https://iceoryx.io/)
 
 ## ROS Resources
 
