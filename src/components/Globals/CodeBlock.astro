@@ -7,7 +7,7 @@ const {
     filename,
     remoteURL,
     title: rawTitle,
-    prompt = "user@host",
+    prompt = "user@host:",
     ...restProps
 } = Astro.props;
 
@@ -66,13 +66,38 @@ let displayLanguage = hasLang ? lang : "plain";
 const terminalLines = (lang === "terminal" && code) ? code.replace(/\n$/, '').split('\n') : [];
 
 const terminalRows = terminalLines.map((line) => {
-    const isCommand = line.startsWith('$ ');
-
+  // Existing syntax: use the component's prompt.
+  if (line.startsWith('$ ')) {
     return {
-        isCommand,
-        code: isCommand ? line.slice(2) : line,
+      isCommand: true,
+      directory: undefined,
+      code: line.slice(2),
     };
+  }
+
+  // New syntax: append a manually supplied directory to the prompt.
+  const directoryCommand = line.match(/^(.+?) \$ (.*)$/);
+
+  if (directoryCommand) {
+    return {
+      isCommand: true,
+      directory: directoryCommand[1],
+      code: directoryCommand[2],
+    };
+  }
+
+  return {
+    isCommand: false,
+    directory: undefined,
+    code: line,
+  };
 });
+
+const formatTerminalPrompt = (directory) => {
+  const prefix = [prompt, directory].filter(Boolean).join('');
+
+  return prefix ? `${prefix} $` : '$';
+};
 
 if (lang === "terminal" && code) {
     displayLanguage = "bash";
@@ -111,7 +136,7 @@ if (lang === "terminal" && code) {
                 <div class="terminal-line">
                     {line.isCommand && (
                         <span class="terminal-prompt select-none text-dark-200">
-                            {prompt ? `${prompt} $` : "$"}
+                          {formatTerminalPrompt(line.directory)}
                         </span>
                     )}
 
