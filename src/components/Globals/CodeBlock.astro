@@ -66,16 +66,18 @@ let displayLanguage = hasLang ? lang : "plain";
 const terminalLines = (lang === "terminal" && code) ? code.replace(/\n$/, '').split('\n') : [];
 
 const terminalRows = terminalLines.map((line) => {
-  // Existing syntax: use the component's prompt.
+  // Existing syntax:
+  // "$ command" means use the default directory "~".
   if (line.startsWith('$ ')) {
     return {
       isCommand: true,
-      directory: undefined,
+      directory: '~',
       code: line.slice(2),
     };
   }
 
-  // New syntax: append a manually supplied directory to the prompt.
+  // New syntax:
+  // "~/demo_ws $ command" provides the directory for this line.
   const directoryCommand = line.match(/^(.+?) \$ (.*)$/);
 
   if (directoryCommand) {
@@ -92,12 +94,6 @@ const terminalRows = terminalLines.map((line) => {
     code: line,
   };
 });
-
-const formatTerminalPrompt = (directory) => {
-  const prefix = [prompt, directory].filter(Boolean).join('');
-
-  return prefix ? `${prefix} $` : '$';
-};
 
 if (lang === "terminal" && code) {
     displayLanguage = "bash";
@@ -136,7 +132,7 @@ if (lang === "terminal" && code) {
                 <div class="terminal-line">
                     {line.isCommand && (
                         <span class="terminal-prompt select-none text-dark-200">
-                          {formatTerminalPrompt(line.directory)}
+                          {[prompt, line.directory].filter(Boolean).join('')} $
                         </span>
                     )}
 
