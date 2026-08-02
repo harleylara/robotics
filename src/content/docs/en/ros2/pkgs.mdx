@@ -11,14 +11,16 @@ A ROS package is an organizational unit for your code, configuration files and a
 Source: [Own definition inspired by Creating a package - ROS docs](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html)
 </Definition>
 
-- Packages contains:
-    - Executables
-    - Libraries
-    - Message definitions
-    - Config files and more
-- Meta-Packages (ROS 1 concept): a package containing other packages
-    - [Metapackages ROS 1](http://wiki.ros.org/Metapackages)
-    - In ROS 2 there is no **explicit** type of package know as "meta-package"
+A package may contain:
+- Executables.
+- Libraries.
+- Message, service, and action definitions.
+- Launch files.
+- Configuration files.
+- Robot models and other resources.
+- Tests and documentation.
+
+A package does not need to contain all of these. Its contents depend on the functionality it provides. It is also important not to confuse a **package** with a source-code repository. A repository may contain a single ROS package, but it can also contain several related packages.
 
 <Think>
 Why do we need a so called 'ROS Package'?
@@ -26,130 +28,628 @@ Why do we need a so called 'ROS Package'?
 
 ROS Packages allow you to make your code shareable within other systems that also use ROS, so it is reasonable to think of a ROS package as an analogue to for example a *python package* (like [numpy](https://numpy.org/)).
 
-ROS 2 support the following packages types:
-- [`ament_python`](https://docs.ros.org/en/humble/How-To-Guides/Developing-a-ROS-2-Package.html): This package type is design to contain python code. ROS follows a [standard Python package](https://packaging.python.org/en/latest/) structure defined by the [Python Packaging Authority](https://www.pypa.io/en/latest/). Such packaging functionality is provided by `colcon`, which internally uses [setuptools](https://setuptools.pypa.io/en/latest/index.html).
-- [`ament_cmake`](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Documentation.html): This package type is design to contain C++ code. ROS uses [CMake](https://cmake.org/) with a set of **custom cmake macros** to handle C++ packaging. For those curious check out [ament_cmake github](https://github.com/ament/ament_cmake/tree/rolling)
-- [`ament_cmake_python`](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Python-Documentation.html)
+ROS packages make it possible to organize, build, install, and share code in a consistent way. Because of this, it is reasonable to think of a ROS package as being somewhat analogous to a Python package, such as [NumPy](https://numpy.org/) or [Matplotlib](https://matplotlib.org/). The analogy is not exact, but the general purpose is similar. A package groups a piece of software together with the metadata, dependencies, and resources needed by other people and tools to use it.
 
-Regardless of the type of package, all of them must contain a file called `package.xml` which is a **Package Manifest File** with meta-data about the package. The latest (version 3) format specification is under [REP 149](https://ros.org/reps/rep-0149.html)
-- Common tags:
-    - `<buildtool_depend>`: Needed to build itself. (Typically ament_cmake)
-    - `<build_depend>`: Needed to build this package.
-    - `<exec_depend>`: Needed to run code in this package.
-    - `<depend>`: Needed to build, export, and execution dependency.
-- Uncommon tags:
-    - `<build_export_depend>`: Needed to build against this package.
-    - `<test_depend>`: Only additional dependencies for unit tests.
-    - `<doc_depend>`: Needed to generate documentation.
+This organization becomes particularly important when sharing software between projects. In the toy examples from the introduction, the goal was to reuse the same motion or obstacle-detection logic across robots with different motors and sensors. Separating the reusable logic from the hardware-specific details made that possible conceptually, but we still need a practical way to distribute the software together with everything required to build and use it.
 
-## ROS `cli` Tool for Packages
+Instead of copying individual source files and then manually determining which libraries, configuration files, interface definitions, and other resources they require, we can group them into a package. The complete package can then be shared with another project, while its manifest describes the dependencies and metadata needed by the ROS build and dependency-management tools.
 
-ROS offers a command line interface (CLI), which has functions for interacting with packages, for example:
-- `ros2 pkg create`: to create the minimal template structure of a given package type (default `ament_cmake`).
-- `ros2 pkg list`: list all the "available" packages. Note that you need to source the corresponding workspace to make the package available for ROS.
+ROS 2 relies heavily on this division of software into packages. Tools such as `colcon` discover packages in a workspace, examine the relationships between them, determine the required build order, and invoke the appropriate build system for each one. Packaging therefore turns the idea of code reuse from the toy examples into something that can be managed, built, installed, and shared in practice. As we continue through this note, we will explore `colcon` in more detail and see how it manages packages and workspaces throughout this process.
 
-### CMake-based package
+## Metapackages
 
-```bash filename="ament_cmake_package_structure"
-my_package
-├── include/my_package/
-├── src/
-├── CMakeLists.txt
-└── package.xml
+You may also encounter the term **metapackage**, especially in ROS 1 documentation. A metapackage does not normally contain executable code. Instead, it groups several related packages by declaring them as dependencies. ROS 1 defined a special metapackage structure through the Catkin build system. **ROS 2 does not define a separate package type for metapackages**. They can still exist, but they are regular packages whose main purpose is to declare runtime dependencies on a group of related packages. For the original ROS 1 concept, see [Metapackages](http://wiki.ros.org/Metapackages).
+
+## Creating a Package
+
+We will create a package named `my_package` and use it to explore the concepts introduced in this note.
+
+Before using the ROS CLI, source the base ROS installation:
+
+```terminal title="Configure_the_shell_for_ROS_2_Jazzy"
+$ source /opt/ros/jazzy/setup.bash
 ```
 
-`CMakeLists.txt`: standard CMake rules to build the package. Most relevant parts:
-- `add_executable(myNode src/myNode.cpp)`: Builds program `myNode` from `myNode.cpp`.
-- `ament_target_dependencies(myNode rclcpp std_msgs)`: Links node `myNode` to dependency headers and libraries.
-- `install(TARGETS myNode DESTINATION lib/${PROJECT_NAME})`: Copies nodes/libraries to workspace’s “install” directory.
+Create the package inside the `src` directory of the workspace:
 
-### Python-based package
+```terminal title="Create my_package"
+$ cd ~/ros2_ws/src
+~/ros2_ws/src $ ros2 pkg create \
+  --build-type ament_python \
+  --license Apache-2.0 \
+  --dependencies rclpy std_msgs \
+  my_package
+```
 
-```bash filename="ament_python_package_structure"
+For now, the most relevant parts of this command are:
+- `my_package`: The name of the package.
+- `--build-type ament_python`: Selects how the package will be built and installed.
+- `--license Apache-2.0`: Adds the selected license to the package manifest.
+- `--dependencies rclpy std_msgs`: Adds the listed dependencies to `package.xml`.
+
+The command creates the basic package structure and the files required by the selected build type. At this point, the package exists only in the workspace's source space. It has not yet been built or installed:
+
+```text
+ros2_ws/
+└── src/
+    └── my_package/
+```
+
+We will continue modifying, building, and inspecting this package as we progress through the note.
+
+## What Makes a ROS 2 Package a Package?
+
+At the bare minimum, a ROS 2 package is a directory containing a file named `package.xml`. This file identifies the directory as a package and provides the metadata that ROS tools need to process it.
+
+However, having only a `package.xml` file does not necessarily make the package useful or buildable. A functional package also needs the source code, configuration files, interfaces, or other resources that provide its functionality, together with the instructions needed to build and install those contents.
+
+Every ROS package must contain a `package.xml` file, known as the **package manifest**. This file is responsible to provide information such as:
+- The package name.
+- Its version.
+- A description.
+- One or more maintainers.
+- One or more licenses.
+- Its dependencies.
+- Its build type.
+
+A basic manifest may look like this:
+
+```xml filename="package.xml"
+<?xml version="1.0"?>
+<package format="3">
+  <name>my_package</name>
+  <version>0.0.0</version>
+  <description>Example ROS 2 package</description>
+
+  <maintainer email="user@example.com">Your Name</maintainer>
+  <license>Apache-2.0</license>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
+```
+
+The dependency information in `package.xml` is used by tools such as `colcon`, `rosdep`, and the ROS build farm.
+
+Some of the most common dependency tags are:
+- `<buildtool_depend>`: A tool needed to build the package, such as `ament_cmake`.
+- `<build_depend>`: A dependency needed while building the package.
+- `<exec_depend>`: A dependency needed when running the package.
+- `<depend>`: A dependency needed while building the package, building another package against it, and running it.
+
+Some more specialized tags are:
+- `<build_export_depend>`: A dependency needed by another package that builds against an interface exported by this package.
+- `<buildtool_export_depend>`: A build tool exported for use by downstream packages.
+- `<test_depend>`: A dependency needed only for building or running tests.
+- `<doc_depend>`: A dependency needed to generate documentation.
+
+<Important>
+Keep in mind that these dependencies are not inferred automatically from the source code. The package author is responsible for declaring them correctly. If a dependency is missing from `package.xml`, tools such as `rosdep` cannot know that the package requires it.
+</Important>
+
+## Package Build Types
+
+The `--build-type ament_python` argument deserves some attention. The build type is a fundamental part of a ROS package because it determines how the package must be processed. It tells `colcon` which build-system extension should handle the package and which files contain its build and installation instructions.
+
+The two main build types recommended for ROS 2 packages are:
+- `ament_python`: An `ament_python` package is installed using Python packaging tools such as `setuptools`.
+- `ament_cmake`: An `ament_cmake` package is configured, built, and installed using CMake and the extensions provided by Ament. You may also encounter `ament_cmake_python`, which is an extension used when an `ament_cmake` package also needs to install Python modules. It is not an independent build type.
+
+`colcon` does not replace these underlying tools. Instead, it discovers the packages in the workspace, identifies their build types, determines the required build order, and invokes the appropriate build system for each one. This means that the same workspace can contain Python packages, CMake-based packages, and other supported package types. Each package is handled according to its own build-type declaration.
+
+**For the curious mind:** Ament is an evolution of the Catkin build system used in ROS 1. The word *ament* is a synonym for *catkin*, the flower cluster found on trees such as willows. For more background on its design, see [The build system `ament_cmake` and the meta-build tool `ament_tools`](https://design.ros2.org/articles/ament.html). The naming also reflects ROS's early history at Willow Garage, whose name was likely inspired by its location on Willow Road in Menlo Park, California, combined with a nod to the Silicon Valley tradition of technology companies starting in garages. This creates an interesting chain of associations; Willow Garage, willow trees, catkins, and their synonym, *aments*.
+
+## Python Build Type
+
+[`ament_python`](https://docs.ros.org/en/jazzy/How-To-Guides/Developing-a-ROS-2-Package.html) is intended for packages written entirely, or almost entirely, in Python. These packages follow the conventional [Python package](https://packaging.python.org/en/latest/) structure defined by the [Python Packaging Authority](https://www.pypa.io/en/latest/). Packaging and installation are handled through [setuptools](https://setuptools.pypa.io/en/latest/), while `colcon` coordinates the package as part of the larger workspace.
+
+An `ament_python` package normally uses:
+- `package.xml` to describe the ROS package and declare its dependencies.
+- `setup.py` to define how Python modules, resources, and executable entry points are installed.
+- `setup.cfg` to configure the installation location of executable scripts.
+- A resource marker to register the installed package in the Ament resource index.
+- A Python module directory containing the source code.
+
+The package we created earlier uses this build type.
+
+Its initial structure should look similar to this:
+
+```text
 my_package/
-├── resource/my_package
 ├── my_package/
+│   └── __init__.py
+├── resource/
+│   └── my_package
 ├── setup.cfg
 ├── setup.py
 └── package.xml
 ```
 
-`setup.py`: python package definition. Most relevant parts:
-- `data_files`
-- `entry_points`
+We will inspect the purpose of these files in as we move through the series of notes.
 
-Let's create a `ament_python` into the `src` folder inside the workspace:
+## CMake Built Type
 
-<Terminal
-    title="create a ament_python package"
-    content="cd ~/ros2_ws/src/\
-    ros2 pkg create my_package --build-type ament_python --dependencies rclpy std_msgs"
-/>
+[`ament_cmake`](https://docs.ros.org/en/jazzy/How-To-Guides/Ament-CMake-Documentation.html) is intended for CMake-based packages and is commonly used for C and C++ code. It extends [CMake](https://cmake.org/) with additional macros and functions for common ROS packaging tasks, such as:
+- Finding package dependencies.
+- Building executables and libraries.
+- Installing files and resources.
+- Exporting libraries and include directories.
+- Registering the package and its resources.
+
+An `ament_cmake` package normally uses:
+- `package.xml` to describe the package and declare its dependencies.
+- `CMakeLists.txt` to define how the package is configured, built, and installed.
+- A `src/` directory for implementation files.
+- An `include/<package_name>/` directory when the package provides C or C++ headers.
+
+A typical structure looks similar to this:
+
+```text
+my_package/
+├── include/
+│   └── my_package/
+├── src/
+├── CMakeLists.txt
+└── package.xml
+```
+
+The directory structure may vary depending on what the package contains. For example, a package containing only configuration files or interface definitions may not need conventional `src/` and `include/` directories.
+
+For those who are curious, the source code is available in the [`ament_cmake` repository](https://github.com/ament/ament_cmake).
+
+## CMake and Python
+
+[`ament_cmake_python`](https://docs.ros.org/en/jazzy/How-To-Guides/Ament-CMake-Python-Documentation.html) is an extension used inside an `ament_cmake` package when that package also needs to install Python modules.
+
+It provides CMake functions such as:
+- `ament_python_install_package()`
+- `ament_python_install_module()`
+
+This is useful when a single package contains both CMake-based components and Python code.
+
+Because `ament_cmake_python` is an extension of `ament_cmake`, the package still declares its build type as:
+
+```xml
+<export>
+  <build_type>ament_cmake</build_type>
+</export>
+```
+
+For a package containing only Python code, `ament_python` is normally the simpler option.
+
+## Building a Package
+
+We have already created an `ament_python` package named `my_package` inside the workspace:
+
+```text
+ros2_ws/
+└── src/
+    └── my_package/
+```
+
+At this moment, `my_package` exists only in the workspace’s **source space**. Its source code, manifest, and packaging instructions are present, and a build tool such as `colcon` can discover and process them. However, ROS does not normally run packages directly from the `src` directory.
 
 <Important>
-    Don't forget to build and source the workspace after adding packages to it.
+Take a moment and let that sink in: **ROS does not normally run packages directly from the `src` directory.**
 </Important>
 
-## Install Existing Packages
+This is one of the most common points of confusion I have seen from personal experience teaching ROS. Newcomers often modify a file under `src`, run a ROS command, and then wonder why the behavior has not changed, or why the package cannot be found at all.
+
+ROS tools operate on the **installed representation** of a package. Executables, Python modules, manifests, resource markers, and other required files must first be placed in the workspace's installation space. The build operation is what connects the package under `src` with the `build`, `install`, and `log` directories introduced in the workspace note.
+
+The missing step is usually not in the source code itself, but in the relationship between the source space and the installed package. ROS tools normally discover and run the package through the workspace’s installation space. Depending on the type of change and how the workspace was built, the package may need to be built again, and the current shell may need to be configured by sourcing the workspace.
+
+Later, we will see that `--symlink-install` can make this workflow more convenient, especially for Python packages, but it does not remove the distinction between the source package and its installed representation.
+
+Let's build our `my_package`, open a new terminal and source only the base ROS 2 Jazzy installation:
+
+```terminal title="Source_the_ROS_underlay"
+$ source /opt/ros/jazzy/setup.bash
+```
+
+Then move to the root of the workspace and build `my_package`:
+
+```terminal title="Build_my_package"
+$ cd ~/ros2_ws
+~/ros2_ws $ colcon build \
+  --symlink-install \
+  --packages-select my_package
+```
+
+`colcon` discovers the package under `src`, reads its metadata to determine how it should be handled, and invokes the build process associated with `ament_python`. The build then creates or updates the workspace’s `build`, `install`, and `log` directories.
+
+## Wait, Are We Compiling Python?
+
+<Think>
+At this point, you may be asking yourself: why are we "building" a Python package? Is Python not supposed to be an interpreted language?
+</Think>
+
+Yes, Python is generally interpreted. In this case, **building** does not mean translating the Python source code into a native machine-code executable, as it commonly does for C or C++. Here, the word *build* refers to the broader process of preparing and installing the package in the structure expected by ROS. For an `ament_python` package, this includes processing its Python packaging configuration and installing elements such as:
+- The Python module.
+- The package metadata.
+- The `package.xml` manifest.
+- The Ament resource-index marker.
+- Any declared executable entry points.
+- Configuration, launch, or other resource files included by the package.
+
+Because we used `--symlink-install`, Python source files can be symbolically linked into the installation space instead of being copied. This is useful during development because many changes to the Python source become available through the installed package without requiring the files to be copied again. Python still interprets the code when the program runs.
+
+In other words, **build** does not always mean **compile**. Compilation may be part of a build, but a build can also involve configuration, validation, code generation, installation, resource registration, and environment preparation.
+
+
+## Can ROS Find the Package Yet?
+
+The build completed successfully, so let us immediately search for the package :
+
+```terminal title="Search_my_package_in_the_workspace"
+$ ros2 pkg prefix my_package
+```
+
+You can run this command from the workspace root, from inside `src`, from inside my_package, or from any other directory on the computer. The directory from which you run it does not change the result. This is because `ros2 pkg` does not search the current directory for source packages. It searches the installation prefixes configured in the current shell environment.
+
+Because we intentionally sourced only `/opt/ros/jazzy/setup.bash` in this terminal, the expected result is similar to:
+
+```plain
+Package not found
+```
+
+<Think>
+Why can `colcon` build the package, but `ros2 pkg` cannot find it?
+</Think>
+
+`colcon` was explicitly pointed at the workspace and searched its source space for packages. The `ros2 pkg` command follows a different mechanism. It searches the installation prefixes currently configured in the shell environment.
+
+The build installed `my_package` and created its package marker in the Ament resource index under the workspace's `install` directory. We can confirm that the marker exists even though the package is not yet discoverable through `ros2 pkg`, let use the bash utility `find`:
+
+```terminal title="Find the installed Ament package marker"
+$ find ~/ros2_ws/install \
+  -path '*/share/ament_index/resource_index/packages/my_package' \
+  -print
+```
+
+The command should return a path similar to:
+
+```plain
+/home/user/ros2_ws/install/my_package/share/ament_index/resource_index/packages/my_package
+```
+
+The exact path may vary depending on how the workspace was built, but the important point is that the package has already been installed and registered in an Ament resource index. The problem is not that the index entry is missing. The problem is that the current shell does not yet search the workspace’s installation prefix.
+
+## What Sourcing is Doing
+
+Now source the workspace:
+
+```terminal title="Configure_the_shell_for_the_workspace"
+$ source ~/ros2_ws/install/setup.bash
+```
+
+The `source` command executes the generated setup script inside the **current shell**. This distinction matters. If the script were executed as a separate process, its environment changes would disappear when that process ended.
+
+The setup script processes the environment hooks generated by the installed packages and extends the current shell's search paths. Depending on the packages installed in the workspace, variables such as the following may be updated:
+* `AMENT_PREFIX_PATH`
+* `PATH`
+* `PYTHONPATH`
+* `CMAKE_PREFIX_PATH`
+* Library search paths
+
+The most relevant one for package discovery is `AMENT_PREFIX_PATH`. It contains an ordered list of installation prefixes whose Ament resource indexes should be searched. We can inspect it with:
+
+```terminal title="Inspect_the_configured_Ament_prefixes"
+$ echo "$AMENT_PREFIX_PATH" | tr ':' '\n'
+```
+
+After sourcing the workspace, the output should include its installation prefix, together with the Jazzy installation under `/opt/ros/jazzy`.
+
+Sourcing does **not** create or update the Ament resource index. The package marker was installed during the build. Sourcing only updates the current shell so that ROS tools know which installation prefixes and existing resource indexes they should search.
+
+Let us try the package lookup again:
+
+```terminal title="Search_for_my_package_again"
+$ ros2 pkg prefix my_package
+```
+
+This time, the command should return an installation path inside `~/ros2_ws/install`. 
+
+<Drawio file="ros-pkgs.drawio">
+</Drawio>
+
+
+<Important>
+The build operation installs and registers the package. Sourcing does not modify the package or rebuild its index. It configures the current shell to search the installation prefix where that package and its index entries already exist.
+</Important>
+
+One small qualification is worth mentioning. With `--symlink-install`, parts of the installed package may point back to files in the source space. ROS tools still discover and use the package through its installation prefix, even when some installed files are symbolic links to the original source files.
+
+## ROS CLI Tools for Packages
+
+Now that `my_package` is built, installed, and discoverable in the current shell, we can inspect it using the ROS command-line interface.
+
+The `ros2 pkg` command provides several package-related operations:
+- `ros2 pkg create`: Creates the initial source structure for a package.
+- `ros2 pkg list`: Lists packages discoverable through the current environment.
+- `ros2 pkg prefix <package>`: Shows the installation prefix from which a package was discovered.
+- `ros2 pkg executables <package>`: Lists the executables registered by a package.
+- `ros2 pkg xml <package>`: Displays the installed package manifest.
+
+For example, we can confirm that `my_package` appears in the package list:
+
+```terminal title="Check_whether_my_package_is_discoverable"
+$ ros2 pkg list | grep '^my_package$'
+```
+
+We can inspect its installed manifest:
+
+```terminal title="Inspect_the_installed_package_manifest"
+$ ros2 pkg xml my_package
+```
+
+We can also ask which executables it provides:
+
+```terminal title="List_the_package_executables"
+$ ros2 pkg executables my_package
+```
+
+At this point, the last command may produce no output. Creating and building a package does not automatically give it an executable. An executable must first be implemented and registered through the package’s installation configuration. We will get to that when we start writing our first node in the upcoming note, [Nodes](/en/ros2/nodes).
+
+The distinction introduced earlier still applies: `colcon` discovers source packages so that it can build them, while `ros2 pkg` discovers installed packages through the prefixes and Ament resource indexes configured in the current shell.
+
+## Installing Existing Packages
+
+Creating every package ourselves would defeat much of the purpose of having a reusable robotics ecosystem. In many cases, the functionality we need already exists, either as a released package or as source code maintained in a public repository.
+
+There are two common ways to obtain an existing ROS package. We can install a prebuilt binary package, or we can download its source code and build it inside a workspace. The first option is normally simpler. The second gives us more control, but it also places more responsibility on us.
+
+Before installing anything, a useful place to search is the [ROS Index](https://index.ros.org/). The ROS Index is a searchable catalog of ROS software, including packages, source-code repositories, documentation, and system dependencies. It does not directly store or install the packages. Instead, it helps us discover what exists, where its source code is located, and for which ROS distributions it has been indexed or released.
+
+Package availability depends on the ROS distribution. A package available for one distribution is not necessarily available for another, and the version may also differ between distributions. When inspecting a package in the ROS Index, always make sure that the page includes the distribution you are using, which in this note is Jazzy.
+
+For example, search the ROS Index for [`teleop_twist_keyboard`](https://index.ros.org/p/teleop_twist_keyboard/). Its package page provides information such as its description, maintainers, source repository, available versions, dependencies, and the ROS distributions for which information is available.
+
+The package allows keyboard input to be converted into motion commands. We do not need to understand those commands yet. For now, we will simply use it as an example of how to discover and install an existing package.
 
 ### Debian Packages
 
-- Easy to install
-- Usually stable
-- Recommended
+On Ubuntu, released ROS packages are commonly distributed as Debian packages and installed using `apt`.
 
-Structure: `sudo apt-get install ros-<DISTRO>-<PACKAGE-NAME>`
+This is normally the preferred option when a compatible package is available for our ROS distribution and target platform, and we do not need to modify its source code. The package has already been built, while `apt` takes care of downloading it from the configured package repositories and installing its declared Debian dependencies.
 
-For example, to install the package called `teleop_twist_keyboard` using debian packages:
+The ROS Index helps us discover the ROS package, but `apt` installs its corresponding Debian package.
+
+The general command format is:
+
+```plain
+$ sudo apt install ros-<distribution>-<package-name>
+```
+
+In our example, the ROS package is named `teleop_twist_keyboard`, therefore its Debian package for Jazzy is named `ros-jazzy-teleop-twist-keyboard`.
+
+We can install it with:
+
+```terminal 
+$ sudo apt update
+$ sudo apt install ros-jazzy-teleop-twist-keyboard
+```
 
 <Important>
-    When installing ros packages using debian packages replace '_' with '-' in the name of the package.
+When converting a ROS package name into its Debian package name, replace underscores with hyphens. For example, `teleop_twist_keyboard` becomes `teleop-twist-keyboard`.
 </Important>
 
-<Terminal
-    title="install packages from debian packages"
-    content="sudo apt-get install ros-humble-teleop-twist-keyboard"
-/>
+The package name also includes the ROS distribution. This is important because packages are built and released independently for each distribution:
 
-To remove a package use:
+```text
+ROS package:     teleop_twist_keyboard
+ROS distribution: jazzy
+Debian package:  ros-jazzy-teleop-twist-keyboard
+```
 
-<Terminal
-    title="remove a package (but not dependencies)"
-    content="sudo apt-get remove ros-<DISTRO>-<PACKAGE-NAME>"
-/>
+Finding a package in the ROS Index does not, by itself, guarantee that a prebuilt Debian package exists for every distribution or platform. The package must have been released and successfully built for the combination we are using. If `apt` reports that the package cannot be located, check that the package is available for the selected ROS distribution, that the ROS package repository is configured correctly, and that the local package lists have been updated.
+
+Packages installed through `apt` for Jazzy are normally placed under the `/opt/ros/jazzy` installation prefix. If that prefix is already configured in the current shell, we can verify where the package was discovered:
+
+```terminal title="Locate_package"
+$ ros2 pkg prefix teleop_twist_keyboard
+```
+
+We can also inspect the executables provided by the package, in this case, the package provides an executable with the same name:
+
+```terminal title="List_the_installed_executables"
+$ ros2 pkg executables teleop_twist_keyboard
+
+teleop_twist_keyboard teleop_twist_keyboard
+```
+
+To remove the corresponding Debian package:
+
+```terminal title="Remove teleop_twist_keyboard"
+$ sudo apt remove ros-jazzy-teleop-twist-keyboard
+```
+
+This removes the selected Debian package, but it does not necessarily remove every dependency that was installed alongside it.
+
+Installing a released Debian package is usually the most predictable option. However, sometimes the package we need has not been released for our ROS distribution, we need a newer version, or we want to modify the implementation. In those cases, the ROS Index can still help us locate the source repository, but we need to download and build the package ourselves.
 
 ### Packages from Source
 
-1. Git clone the repository (watch out the git branch) of the package into your `src` folder into the workspace.
+Installing a package from source gives us access to its implementation and allows us to select a particular branch, modify the code, or use a version that has not yet been released as a Debian package.
 
-```plain
-cd ~/ros2_ws/src
-git clone https://github.com/harleylara/ros2-intro.git
+The process normally begins by cloning the source-code repository into the workspace’s `src` directory:
+
+```terminal title="Clone_a_repository_into_the_workspace"
+$ cd ~/ros2_ws/src
+~/ros2_ws/src $ git clone \
+  --branch <branch-compatible-with-jazzy> \
+  <repository-url>
 ```
 
-2. Install dependencies if need it either manually (painful way), or using [`rosdep`](https://docs.ros.org/en/independent/api/rosdep/html/). Keep in mind that `rosdep` is not magic, it cannot guess the dependencies of your package or third party packages, `rosdep` will check inside the `package.xml` of the package for the defined dependencies, so be organized and don't forget to add your dependencies inside the package manifest.
+Pay attention to the branch or tag. Do not assume that the repository’s default branch is compatible with Jazzy. A project may use a branch named `jazzy`, a general development branch, a release tag, or another naming convention entirely. Ideally, the project documentation should identify which versions support each ROS distribution.
 
-```plain
-sudo apt update && rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
+It is also important to remember that a repository and a ROS package are not necessarily the same thing. A repository may contain one package, several related packages, or source code that is not organized as a ROS package at all.
+
+After cloning the repository, return to the workspace root and inspect which source packages `colcon` can discover:
+
+```terminal title="List_source_packages_discovered_by_colcon"
+$ cd ~/ros2_ws
+~/ros2_ws $ colcon list
 ```
 
-3. Build the workspace using `colcon`.
+Before building, install the dependencies declared by those packages:
 
-```plain
-cd ~/ros2_ws/
-colcon build --symlink-install
+```terminal title="Install_declared_dependencies"
+~/ros2_ws $ rosdep install \
+  --from-paths src \
+  --ignore-src \
+  --rosdistro $ROS_DISTRO \
+  -r -y
 ```
 
-4. Source the workspace to make the package available.
-```plain
-source install/local_setup.bash
+We will examine `rosdep` and this command in more detail in the next section.
+
+Once the dependencies are available, build the workspace:
+
+```terminal title="Build_packages_from_source"
+$ colcon build --symlink-install
 ```
 
-## Installing Dependencies
+When we only want to build one package and the packages on which it depends inside the same workspace, we can use:
 
-Managing dependencies:
+```terminal title="Build_a_package_and_its_workspace_dependencies"
+~/ros2_ws $ colcon build \
+  --symlink-install \
+  --packages-up-to <package-name>
+```
 
-<Terminal
-    title="install dependencies with rosdep"
-    content="rosdep install -i --from-path src --rosdistro humble -y"
-/>
+After the build completes, source the workspace so that the current shell searches its installation prefix:
+
+```terminal
+$ source ~/ros2_ws/install/setup.bash
+```
+
+Finally, verify where the package was discovered:
+
+```terminal
+$ ros2 pkg prefix <package-name>
+```
+
+In theory, installing from source appears to be a simple sequence: clone the repository, install the dependencies, build the workspace, and source it. In practice, it can be considerably more difficult.
+
+The documentation may be incomplete or outdated. The correct branch may not be clearly identified. A required dependency may not have been released as a Debian package and may also need to be cloned into the workspace. The repository may contain several packages with different requirements, or its `package.xml` files may not declare every dependency correctly.
+
+Some projects also require steps that cannot be represented as normal package dependencies, such as downloading datasets, installing firmware, configuring hardware permissions, setting environment variables, or manually installing third-party software. Even when every dependency is present, the source code may still be incompatible with the versions provided by Jazzy.
+
+This is why installing from source should not be reduced to “clone the repository and run `colcon build`.” The quality of the package metadata and documentation has a direct effect on how reusable the software actually is.
+
+## Managing Package Dependencies
+
+Dependencies are a fundamental part of package reuse.
+
+A package may build correctly on the author’s computer simply because all the required libraries and ROS packages are already installed there. That does not mean that another developer will have the same environment. For the package to be reproducible, its direct dependencies must be declared correctly in `package.xml`.
+
+Several tools participate in this process, but they have different responsibilities. `colcon` discovers packages, determines their build order, and invokes the corresponding build systems. CMake or `setuptools` then builds and installs the package according to its build type. `rosdep`, on the other hand, resolves the dependency names declared in `package.xml` into packages that can be installed on the current operating system.
+
+`colcon` does not normally download missing system dependencies for us. Similarly, `rosdep` does not build the workspace and cannot discover dependencies by reading the source code. Both tools depend on accurate package metadata.
+
+### Introducing `rosdep`
+
+[`rosdep`](https://docs.ros.org/en/independent/api/rosdep/html/) is a dependency-resolution tool. It reads dependency keys from `package.xml` files and maps them to packages or installation mechanisms appropriate for the current operating system.
+
+For example, the same dependency key may resolve to a Debian package on Ubuntu and to a differently named package on another operating system. This allows a package manifest to describe what it needs without hard-coding an Ubuntu-specific package name.
+
+Before using `rosdep` for the first time on a machine, its sources may need to be initialized:
+
+```terminal title="Initialize_rosdep"
+$ sudo rosdep init
+```
+
+This is normally a one-time system operation. If `rosdep` reports that it has already been initialized, there is no need to repeat it.
+
+The local dependency rules can then be updated as the current user:
+
+```terminal title="Update_rosdep_rules"
+$ rosdep update
+```
+
+Do not run `rosdep update` with `sudo`. The downloaded rules and cache belong to the current user’s ROS configuration.
+
+To install the dependencies declared by the packages under the workspace’s `src` directory, run:
+
+```terminal title="Install_workspace_dependencies_with_rosdep"
+$ cd ~/ros2_ws
+~/ros2_ws $ rosdep install \
+  --from-paths src \
+  --ignore-src \
+  --rosdistro $ROS_DISTRO \
+  -r -y
+```
+
+Here, `--from-paths src` tells `rosdep` where it should search for package manifests. `--ignore-src` prevents it from trying to install a dependency when the corresponding package is already present in the source workspace. The `--rosdistro` option selects the ROS distribution whose rules should be used, `-r` allows the command to continue processing other dependencies after an error, and `-y` automatically accepts package-manager confirmation prompts.
+
+We can also check the dependencies without installing anything:
+
+```terminal title="Check_workspace_dependencies"
+~/ros2_ws $ rosdep check \
+  --from-paths src \
+  --ignore-src \
+  --rosdistro $ROS_DISTRO
+```
+
+### What `rosdep` Can and Cannot Do
+
+It is useful to understand the boundary of what `rosdep` actually does.
+
+`rosdep` can search package manifests, resolve known dependency keys for the current operating system, install the corresponding system packages, and ignore dependencies already provided by packages in the source workspace.
+
+However, it cannot inspect our source code and discover an undeclared dependency. It cannot clone a missing repository, select the correct Git branch, fix an incomplete `package.xml`, or guarantee that the installed version of a dependency is compatible with the source code.
+
+It also cannot perform project-specific steps that were never declared or documented, such as installing firmware, downloading datasets, configuring devices, or modifying the operating system.
+
+<Important>
+`rosdep` is not magic. It can only process the dependency information declared by the package author and the resolution rules available for the current platform.
+</Important>
+
+If a required dependency is missing from `package.xml`, `rosdep` will not know that it exists. If the dependency is declared but no resolution rule exists for the operating system, `rosdep` will report that it cannot resolve the key.
+
+### Common Dependency Mistakes
+
+One common mistake is relying on a **transitive dependency**.
+
+Suppose that `my_package` directly uses a library provided by package `A`, but it declares only package `B`, which happens to depend on `A`. The code may build because package `B` brings `A` into the environment. However, if `B` later removes that dependency, `my_package` may stop building even though its own source code has not changed.
+
+The rule is simple: declare every dependency that your package uses directly. Do not rely on another package to introduce it accidentally.
+
+Another common mistake is placing the Debian package name inside `package.xml`. For example, this is incorrect:
+
+```xml
+<exec_depend>ros-jazzy-teleop-twist-keyboard</exec_depend>
+```
+
+The package manifest should use the ROS package name or portable dependency key:
+
+```xml
+<exec_depend>teleop_twist_keyboard</exec_depend>
+```
+
+The `ros-jazzy-` prefix belongs to the Debian package name used with `apt`. It should not be embedded into a portable ROS package manifest.
+
+It is also common to forget runtime dependencies because the package builds successfully, or to omit test dependencies because the required testing tools are already installed on the development machine. Another source of problems is updating `CMakeLists.txt` or `setup.py` without making the corresponding change in `package.xml`.
+
+Using `-r` can also hide problems if we do not inspect the final output. The command continues after an unresolved dependency, but that does not mean the workspace is ready to build.
+
+Finally, a successful `rosdep install` does not prove that the source code is compatible with Jazzy. It only shows that the declared dependency keys could be resolved and installed.
+
+### Good Practices
+
+Keep `package.xml` synchronized with the actual code. When a new library, runtime component, testing framework, or tool is introduced, update the package manifest as part of the same change.
+
+Use dependency tags according to when the dependency is needed. A dependency used only during the build should be declared differently from one required only at runtime or during testing. Use `<depend>` when the dependency is genuinely required during the build, by downstream packages, and at runtime, rather than simply using it as a default for everything.
+
+Run `rosdep` after cloning or updating repositories, since a newer version of a package may introduce additional dependencies.
+
+Whenever possible, test the package in a clean environment. A container, continuous-integration job, or fresh workspace can expose dependencies that were available accidentally on the developer’s computer.
+
+Anything that cannot be represented through `rosdep` should be documented clearly. This includes required repository branches, datasets, firmware versions, environment variables, manual configuration, source-only dependencies, and known platform limitations.
+
+In general, prefer released Debian packages when they satisfy the requirements of the project. Build from source when there is a concrete reason to do so, and keep in mind that choosing the source installation also means accepting more responsibility for compatibility, dependencies, and maintenance.
