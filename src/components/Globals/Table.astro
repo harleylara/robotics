@@ -76,6 +76,16 @@ table[data-app-table] td { @apply p-2; }
   border: 1px solid var(--tv-grid);
 }
 
+/*
+ * Collapsed mode:
+ * - Compact tables fill the available parent width.
+ * - Large tables keep their intrinsic max-content width and scroll.
+ */
+.tv[data-expanded="false"] :global(table[data-app-table]) {
+  min-width: 100%;
+}
+
+
 /* ✅ 1px GRID: draw only right/bottom borders per cell (prevents 2px lines) */
 .tv :global(table[data-app-table] th),
 .tv :global(table[data-app-table] td) {
@@ -106,18 +116,18 @@ table[data-app-table] td { @apply p-2; }
   box-shadow: inset 0 -1px 0 var(--tv-grid);
 }
 
-/* ✅ IMPORTANT CHANGE:
-   Removed the collapsed-mode "width: 100%" rule so the auto col widths are honored.
-   (No collapsed override needed anymore.) */
-
-/* ✅ Expanded mode: table stays shrink-to-fit */
+/*
+ * Expanded mode:
+ * - Compact tables fill the full-view panel.
+ * - Large tables remain wider than the panel and scroll horizontally.
+ */
 .tv[data-expanded="true"] :global(table[data-app-table]) {
   width: max-content;
-  min-width: max-content;
+  min-width: 100%;
   display: inline-table;
 }
 
-/* ✅ Expanded mode: fixed panel that hugs table width */
+/* Expanded mode: fixed full-view panel */
 .tv[data-expanded="true"] {
   position: fixed;
   top: var(--tv-inset);
@@ -131,15 +141,14 @@ table[data-app-table] td { @apply p-2; }
   display: flex;
   flex-direction: column;
 
+  box-sizing: border-box;
+  width: calc(100vw - (2 * var(--tv-inset)));
+  max-width: calc(100vw - (2 * var(--tv-inset)));
+
   @apply bg-dark-50;
   border: 1px solid var(--tv-border);
   box-shadow: 0 12px 40px rgb(0 0 0 / 0.18);
   padding: 12px;
-
-
-  /* panel hugs content, but clamps to viewport */
-  width: max-content;
-  max-width: calc(100vw - (2 * var(--tv-inset)));
 
   overflow: hidden;
 }
