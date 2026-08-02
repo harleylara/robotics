@@ -3,155 +3,473 @@ title: "ROS Nodes"
 description: "Creating nodes"
 ---
 
-## Names in ROS 2
-
-Names can be:
-- absolute path (begins with `/`): `/global/name`
-- relative path: `relative/name`
-- privately (begins with `~`): `~private/name`
-- namespace: namespace prefix to apply to entities associated with the node (node name, topics, etc). `/namespace/name`, this is very useful to group nodes and topics by *"groups”* in this case the *“group”* is the prefix namespace.
-
-<Drawio file="ros.drawio" page="1">
-    Names in ROS.
-</Drawio>
-
-External resources:
-- [ROS 1 Names](http://wiki.ros.org/Names)
-- [ROS 2 Topic and Service name mapping to DDS](https://design.ros2.org/articles/topic_and_service_names.html)
-- [ROS conventions](http://wiki.ros.org/ROS/Patterns/Conventions)
-
 ## Motivation
+
+In the introduction, we used a toy problem to explore how reusable robotics software can be separated from hardware-specific details. Instead of writing one large program that reads every sensor, makes every decision, and controls every actuator, we divided the problem into smaller logical responsibilities.
+
+ROS nodes give us a practical way to organize a robotic system around those responsibilities.
 
 <Drawio file="ros.drawio" page="0">
     A toy example.
 </Drawio>
 
-## What is a Node
+For example, one part of the system may obtain sensor measurements, another may process those measurements, and another may control the robot's motion. Each part can be developed and tested independently while still participating in the complete system.
 
-<Definition term="ROS Node">
+This does not mean that every function or class should become its own node. That would simply replace one kind of complexity with another. The goal is to identify useful logical boundaries.
+
+<Important>
+Ideally, each node should perform one logical function.
+</Important>
+
+## What Is a Node?
+
+<Definition term="ROS 2 node">
 A node is a process that performs computation, and uses a client library to communicate with other nodes. Nodes are combined together into a graph and communicate with one another using streaming topics, RPC services, and the Parameter Server.
 
 Source: [Combined definition from ROS official docs.](https://wiki.ros.org/Nodes)
 </Definition>
 
-Sources: [About Nodes - ROS2 Docs](https://docs.ros.org/en/humble/Concepts/Basic/About-Nodes.html#nodes), [Nodes - ROS Wiki](https://wiki.ros.org/Nodes).
+The **ROS graph** is the collection of nodes and communication interfaces currently discovered in a running ROS system. As nodes start, create interfaces, and stop, the graph changes with them.
 
-Benefits of nodes:
-- Fault tolerance: as crashes are isolated to individual nodes (remember that nodes are individual processes).
-- Reduce code complexity: is reduced in comparison to monolithic systems.
-- Expose a minimal API: Implementation details are also well hidden for other nodes.
-- Language agnostic
-- Modularity
-- Code reuse
+A node can perform calculations, maintain internal state, interact with hardware, and create communication interfaces. Depending on its purpose, it may publish or receive information, provide or request operations, expose configurable parameters, or execute work periodically.
 
-Nodes can communicate with other nodes within:
-- the same process
-- in a different process
-- on a different machine.
+Nodes can communicate when they are:
+- In the same process.
+- In different processes on the same computer.
+- On different computers connected through a network.
+
+There is an important distinction here:
 
 <Important>
-    Ideally each node should do one logical thing.
+A node is not necessarily a process.
 </Important>
 
+A process may contain a single node, which is common when running executables with `ros2 run`, but ROS 2 also supports **composition**, where several nodes run inside the same process. Composition is a more advanced topic that we will cover later in [Advanced Subjects on Nodes](/en/ros2/nodes-advanced), so for now, to keep the mental model simple, we will assume that each node runs in its own process.
 
-Namespace: prefix to apply to entities associated with the node (node name, topics, etc).
+Fault isolation, however, depends on how those nodes are deployed. If two nodes run in separate processes, a crash in one process does not necessarily terminate the other. If several nodes are composed inside the same process, a process-level failure may affect all of them.
+
+Dividing a system into nodes improves modularity, reduces the responsibilities placed on each component, hides implementation details, and makes code easier to reuse. Nodes written in different programming languages can also communicate through the common [ROS midleware layer](/en/ros2/intro#middleware-as-plumbing) as discussed in the introduction note..
+
+## Names in ROS 2
+
+ROS 2 uses names to identify nodes and organize them within the ROS graph. A node also provides the context in which other names associated with it are resolved. For now, we only need to understand the naming rules themselves. Later, we will see where these additional names are used.
+
+| Name type | Example        | How it is interpreted                                            |
+| --------- | -------------- | ---------------------------------------------------------------- |
+| Relative  | `sensor/data`  | Resolved relative to the node's namespace.                       |
+| Absolute  | `/sensor/data` | Already fully qualified and independent of the node's namespace. |
+| Private   | `~/status`     | Resolved relative to the node's fully qualified name.            |
+
+
+<Definition term="ROS 2 namespace">
+A **namespace** is a prefix used to organize related names. It is particularly useful when several robots, subsystems, or repeated instances of the same software need to coexist without producing name collisions.
+</Definition>
+
+Suppose that a node named lidar_driver is placed inside the namespace /robot_1. ROS combines the namespace and the node name to produce the fully qualified node name /robot_1/lidar_driver.
+
+Other names associated with the node are resolved according to how they are written. The relative name scan is resolved within the node’s namespace and therefore becomes /robot_1/scan. The absolute name /map already begins at the root of the naming hierarchy, so it remains unchanged. The private name ~/diagnostics is resolved relative to the node’s fully qualified name, producing /robot_1/lidar_driver/diagnostics.
+
+This example also shows that the node name and namespace are separate concepts. The node itself is named lidar_driver, while /robot_1 provides the prefix used to organize it within the ROS graph. Relative names are resolved within that namespace, whereas private names are placed under the fully qualified name of the individual node.
+
+
+
+
+Names can also be remapped when a node starts, allowing the same executable to run under different names or namespaces without changing its source code. We will leave that possibility aside for now and continue building the concepts incrementally. Remapping and other forms of runtime configuration are covered later in the dedicated note on [Arguments, ROS Arguments and Node Parameters](/en/ros2/parameters).
 
 ## Creating a Bare Minimum Node
 
-A bare minimum node.
+In the previous note, we created an `ament_python` package named `my_package`. We will continue using that package here.
+
+Create a file named `bare.py` inside the Python module directory:
+
+```text
+ros2_ws/
+└── src/
+    └── my_package/
+        ├── my_package/
+        │   ├── __init__.py
+        │   └── bare.py      <---- here
+        ├── resource/
+        │   └── my_package
+        ├── package.xml
+        ├── setup.cfg
+        └── setup.py
+```
+
+A bare minimum node:
 
 ```python filename="bare.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/bare.py"
 ```
 
-Remember that packages of type `ament_python` are structured like a standard python packages using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html). So, to make your node usable as a `console script` add an `entry_points` kwarg inside the `setup()` function within the `setup.py` file of your package. Check [Setuptools - Entry Points](https://setuptools.pypa.io/en/latest/userguide/entry_point.html) for more details.
+This is a valid ROS 2 node, not a particularly useful one yet, but it provides the bare skeleton of the core components that every ROS 2 node needs.
+
+## Registering the Node as an Executable
+
+At this point, you may be eager to run your first ROS 2 node. Before we do that, however, the node must first be registered as an executable so that ROS tools such as `ros2 run` can find it. We will introduce that command in just a moment.
+
+Having a Python file inside the package is not enough. The package must also install an **executable entry point** that tells the system which Python function should be called when the node is launched.
+
+Packages of type `ament_python` use Python packaging through [`setuptools`](https://setuptools.pypa.io/en/latest/). Open the package's `setup.py` file:
+
+```text
+ros2_ws/
+└── src/
+    └── my_package/
+        ├── my_package/
+        │   ├── __init__.py
+        │   └── bare.py      <---- your new node
+        ├── resource/
+        │   └── my_package
+        ├── package.xml
+        ├── setup.cfg
+        └── setup.py         <---- open this file
+```
+
+Add the following entry under `console_scripts`:
 
 ```python filename="setup.py"
-...
-
 entry_points={
-    'console_scripts': [
-        'bare = python_basics.bare:main',
+    "console_scripts": [
+        "bare = my_package.bare:main",
     ],
 },
-
-...
 ```
 
 <Drawio file="ros-nodes.drawio" page="0">
     Node entry points structure description.
 </Drawio>
 
+
+Remember that packages of type `ament_python` are structured like a standard python packages using [`setuptools`](https://setuptools.pypa.io/en/latest/index.html). So, to make your node usable as a `console script` add an `entry_points` kwarg inside the `setup()` function within the `setup.py` file of your package. For a deeper explanation, see [Setuptools: Entry Points](https://setuptools.pypa.io/en/latest/userguide/entry_point.html). Entry points are a standard Python packaging mechanism, not something specific to ROS. ROS simply uses that mechanism to expose Python functions as executables that tools such as `ros2 run` can discover and invoke.
+
+
 ```plain
-ENTRY_POINT_NAME = PACKAGE_NAME.MODULE_NAME:ENTRY_POINT
+EXECUTABLE_NAME = PACKAGE_NAME.MODULE_NAME:ENTRY_POINT
 ```
 
-## Running Nodes
+At this point, we have five different names that happen to be related, but they are not the same thing, from the above example:
 
-You can run ROS nodes using the ROS `cli` with the following format:
-```plain
-ros2 run <package_name> <node_entry_point_name>
+| Name              | Value        | Purpose                                                          |
+|-------------------|--------------|------------------------------------------------------------------|
+| `EXECUTABLE_NAME` | `bare`       | Specifies the executable name passed to ros2 run.                |
+| `PACKAGE_NAME`    | `my_package` | Specifies the ROS 2 package that contains the executable.        |
+| `MODULE_NAME`     | `bare.py`    | Identifies the Python module containing the node implementation. |
+| `ENTRY_POINT`     | `main()`     | Is the callable function invoked when the executable starts.     |
+| Node name         | `bare_node`  | The name of running node within the ROS graph.                   |
+
+These names do not need to match. A single package may provide several executables, and one executable may create one or multiple nodes.
+
+## Building the Node
+
+In the previous note, we paused to ask: [Wait, are we compiling Python?](/en/ros2/pkgs#wait-are-we-compiling-python). At that point, we answered the question at a high level. Now that we have written a node and registered it as an executable, we can look more closely at what the build operation actually does for an `ament_python` package.
+
+Return to the root of the workspace and build `my_package`:
+
+```terminal title="Build_my_package"
+$ cd ~/ros2_ws
+~/ros2_ws $ colcon build \
+  --symlink-install \
+  --packages-select my_package
 ```
 
-In this case:
-```plain
-ros2 run python_basics bare
+You may still be wondering: *“Wait, my node is written in Python. Why do I need to build the workspace if Python is interpreted and does not require compilation?”*
+
+For an `ament_python` package, `colcon` invokes the Python packaging instructions defined in `setup.py` and `setup.cfg`. The Python source code is not normally translated into a native machine-code executable. Instead, the package is installed into the workspace’s installation space, together with its metadata, resources, and console-script entry points.
+
+In our case, the following entry in `setup.py`:
+
+```python
+"bare = my_package.bare:main"
 ```
 
-erros?... here's a list of common mistakes you may be making:
-- `ros2 command not found` (assuming you have ROS correctly installed using debian packages) Have you already source the underlying workspace? `source /opt/ros/humble/setup.bash`
-- `Package 'python_basics' not found` (assuming you have the package in the `src` folder in your workspace)
-    - remember that every time you have new code files that you want to execute you must **build** the workspace, have you already done it? in the root directory of your workspace `colcon build --symlink-install`
-    - have you already activated the overlaying workspace (your worksapce)? `source ~/ros2_ws/install/local_setup.bash`
+instructs the Python packaging system to create an executable named `bare`. That executable acts as a small wrapper that imports the `my_package.bare` module and calls its `main()` function.
 
-clearly not all possible error cases can be covered, so it is advisable to read the error message and try to understand it (I know, sometimes, just sometimes, error messages are not very useful).
+The Python file alone is therefore not enough. The build processes the package’s installation instructions and creates the executable that `ros2 run` will later search for.
 
-In case you haven't wondered yet. You: *"Wait!?, my node is python, why do I need to build my workspace if python is interpreted and does not require compilation.?"*. Let me tell you that is an excellent question, `colcon build` does not only compile code, it has the potential to do many more things that we will not mention here (but you can see [colcon docs](https://colcon.readthedocs.io/en/released/)), in the case of `ament_python` packages colcon does not compile the code, but instead copies it from your package to the `lib` directory inside the `install` folder of the workspace. However this copy alone is not enough, you must source the workspace in a way that lets ROS know that there are new files in the install folder.
+### Why Are We Using `--symlink-install`?
 
-The `--symlink-install` directive tells colcon not to perform a hard-copy (default behavior) but to perform a symlink of the files, this option is extremely useful when you are developing with python as it allows you to make changes to your file and because it is just a symbolic link the changes are automatically reflected from the file perspective in the `install` folder, which means that if you use `--symlink-install` you don't have to do `colcon build` for every time you change the file (example `bare.py`), but you have to redo `colcon build --symlink-install` **once** every time there is a new file, this is for the purpose of creating the symlink of the new file. e.g. a new node called `new.py` and then you can just keep changing the file since the symlink already exist.
+Without `--symlink-install`, installable files are copied from the source package into the workspace’s `install` directory. This is intentional default behavior and reflects the standard way Python packages are installed: the installation space contains a separate copy of the package rather than directly referencing the source files.
 
-The symlink concept is not exclusive for nodes, but also applies to any type of shared resource such as launch files, configurations, urdfs etc. ~Just keep in mind that currently (January 2024) there are no mechanisms to create symlinks for the resources specified in the `setup.py` section `data_files` of your `ament_python`~. Since [`colcon-core`](https://github.com/colcon/colcon-core) version [`0.16.0`](https://github.com/colcon/colcon-core/milestone/66?closed=1) [`PR #592`](https://github.com/colcon/colcon-core/pull/592), you can symlink files declared in the `data_files` section of your `setup.py` in packages of type `ament_python`.
+<Important>
+As a result, modifying a Python file in the source directory does not update the installed copy. The package must be rebuilt before those changes become available in the installed workspace.
+</Important>
 
-Update Oct. 2025: [--symlink-install breaks for setuptools >= 80.0.0 #696](https://github.com/colcon/colcon-core/issues/696) and [Declare incompatibility with setuptools >= 80 #699](https://github.com/colcon/colcon-core/pull/699). For a quick-fix use:
+The `--symlink-install` option improves developer ergonomics by changing this workflow. Instead of copying supported files, `colcon` creates symbolic links, or uses the equivalent editable install mechanism for Python packages from the installation space back to the original files in the source space. Changes to Python source files can therefore be tested immediately without repeatedly rebuilding the package and copying the modified files into the `install` directory.
+
+This benefit primarily applies to interpreted Python code. C++ source code **must still be compiled** and linked after it is modified, so `--symlink-install` does not eliminate the need to rebuild C++ packages.
+
+<Important>
+When using `--symlink-install`, editing the code inside an existing Python module normally does not require another build. But changing `setup.py`, `setup.cfg`, `package.xml`, executable entry points, or the package’s installation instructions does.
+</Important>
+
+Adding a new Python file does not always require another build. If the new module is placed inside an already linked Python package and is imported by existing code, Python can usually see it immediately. However, if that new file represents another node that should be launched with `ros2 run`, it must be added to `console_scripts`, and that change requires another build.
+
+The same idea is not limited to Python node files. ROS packages commonly install shared resources that we would explore such as, launch files, configuration files, URDF models through the `data_files` section of `setup.py`. Since `colcon-core` 0.16.0, files listed under `data_files` can also be symlinked when using `--symlink-install`. The links are created for the individual files rather than for the complete resource directory.
+
+This means that modifying an existing launch file, configuration file, or URDF that has already been installed as a symlink normally does not require another build. Adding a completely new resource file still requires a build so that `setup.py` can discover it and `colcon` can create its corresponding link.
+
+<details>
+  <summary>About setuptools compatibility</summary>
+
+In 2025, `setuptools` 80 began removing behavior on which `colcon` relied to provide editable Python installations. This caused `colcon build --symlink-install` to fail with affected versions, and `colcon-core` temporarily declared itself incompatible with `setuptools` 80 and newer.
+
+The situation changed again in 2026. Starting with the changes included in `colcon-core` 0.21.0, when the installed `setuptools` version is too recent to support the older symlink mechanism, `colcon` falls back to a normal full installation instead of failing the entire build. In that situation, the command may succeed, but the Python package is copied rather than linked, so source-code changes may require another build.
+
+Older `colcon-core` installations may still encounter the original failure. For that reason, a command such as:
 
 ```plain
 pip install --upgrade "setuptools<78"
 ```
 
+should not be presented as a universal solution. Changing Python packages installed by the operating system can create additional conflicts. First inspect the installed `colcon-core` and `setuptools` versions, read the complete error, and prefer updating through the package-management method used to install ROS.
+</details>
+
+### Configuring the Shell
+
+After the build completes, source the workspace in the current terminal:
+
+```terminal title="Configure_the_shell_for_the_workspace"
+$ source ~/ros2_ws/install/setup.bash
+```
+
+The build has already installed the package and created the `bare` executable. Sourcing does not copy the files, create the symbolic links, or register the executable. It configures the current shell to search the workspace’s installation prefix, where the package and executable can now be found.
+
+We are finally ready to run our first ROS 2 node.
+
+## Running the Node
+
+The general format for running an installed ROS executable is:
+
+```plain
+ros2 run <package_name> <executable_name>
+```
+
+Run the node with:
+
+```terminal title="Run_the_bare_node"
+$ ros2 run my_package bare
+```
+
+The command appears to do nothing because our node does not print anything or perform any visible work. However, it is running and participating in the ROS graph.
+
+Leave it running and open a second terminal. Source the workspace again in that terminal:
+
+```terminal
+$ source ~/ros2_ws/install/setup.bash
+```
+
+Now inspect the running nodes, the output should include:
+
+```terminal title="List_running_nodes"
+$ ros2 node list
+/bare_node
+```
+
+We can ask ROS for more information about it, the output shows the interfaces currently associated with the node. Some interfaces may be created automatically by the client library, even though we have not added our own publishers, subscriptions, services, or actions yet.
+
+```terminal title="Inspect_the_bare_node"
+$ ros2 node info /bare_node
+```
+
+Return to the first terminal and press `Ctrl+C` to stop the node.
+
+## Common Errors
+
+### Command not found
+
+`ros2: command not found`. Assuming ROS 2 was installed through the official Debian packages, this usually means that the base ROS installation has not been sourced in the current shell:
+
+```terminal
+$ source /opt/ros/jazzy/setup.bash
+```
+
+### Package not found
+
+`Package 'my_package' not found`. First, remember that the directory from which you run `ros2 run` does not determine whether the package can be found. You can run the command from the workspace root, from inside `src`, or from another directory entirely.
+
+Package discovery depends on the installation prefixes configured in the shell environment.
+
+Check that the package was built:
+
+```terminal
+$ cd ~/ros2_ws
+~/ros2_ws $ colcon build --symlink-install --packages-select my_package
+```
+
+Then source the workspace in the same terminal from which you intend to run the node:
+
+```terminal
+$ source ~/ros2_ws/install/setup.bash
+```
+
+You can verify package discovery with:
+
+
+```terminal
+$ ros2 pkg prefix my_package
+```
+
+### No executable found
+
+If ROS finds the package but not the executable, inspect the executables currently registered by the installed package:
+
+```terminal
+$ ros2 pkg executables my_package
+```
+
+Confirm that the entry point exists in `setup.py`:
+
+```python
+entry_points={
+    "console_scripts": [
+        "bare = my_package.bare:main",
+    ],
+},
+```
+
+Changes to `entry_points` require the package to be built again. Also verify that the Python module and function names match the entry point exactly. In this example, the file must be named `bare.py`, and it must provide a function named `main`.
+
+Clearly, we cannot cover every possible error here. Read the complete error message and try to determine which layer failed: package discovery, executable registration, Python import, or the node itself.
+
+I know, sometimes, just sometimes, error messages are not particularly helpful.
+
 ## Coding a Minimum Logger
 
-coding a logger (`logger.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/logger.py)
+coding a logger (`logger.py`) in the package `my_package`
+
+```text
+ros2_ws/
+└── src/
+    └── my_package/
+        ├── my_package/
+        │   ├── __init__.py
+        │   ├── bare.py
+        │   └── logger.py     <---- your new node
+        ├── resource/
+        │   └── my_package
+        ├── package.xml
+        ├── setup.cfg
+        └── setup.py
+```
 
 ```python filename="logger.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/logger.py"
 ```
 
-Don't forget to add the entry point in the `setup.py`: `logger = python_basics.logger:main`
+Don't forget to add the entry point in the `setup.py`:
+
+```python filename="setup.py"
+entry_points={
+    "console_scripts": [
+        "bare = my_package.bare:main",
+        "logger = my_package.logger:main",
+    ],
+},
+```
+
+Because we changed the entry points, build the package again:
+
+```terminal
+$ cd ~/ros2_ws
+~/ros2_ws $ colcon build --symlink-install --packages-select my_package
+```
+
+The workspace prefix is already configured in the current shell if it was sourced earlier. However, sourcing again after a build that changes installed executables is a safe and clear step:
+
+```terminal
+$ source ~/ros2_ws/install/setup.bash
+```
+
+Run the logger node:
+
+```terminal
+$ ros2 run my_package logger
+[INFO] [1785708777.669707336] [logger_node]: hello 0
+[INFO] [1785708779.665868471] [logger_node]: hello 1
+[INFO] [1785708781.666092548] [logger_node]: hello 2
+```
 
 ## Using Classes (Recommended)
 
-coding a logger using classes (`class.py`) in the package `python_basics`, code [here](https://github.com/harleylara/ros2-intro/blob/master/python_basics/python_basics/class.py)
+A node can be created directly inside `main()`, as we did in the previous examples. However, as a node gains internal state, timers, communication interfaces, and callback functions, organizing it as a class becomes considerably easier.
+
+Create a file named `class.py`:
+
+```text
+ros2_ws/
+└── src/
+    └── my_package/
+        ├── my_package/
+        │   ├── __init__.py
+        │   ├── bare.py
+        │   ├── logger.py
+        │   └── class.py     <---- your new node
+        ├── resource/
+        │   └── my_package
+        ├── package.xml
+        ├── setup.cfg
+        └── setup.py
+```
 
 ```python filename="class.py" remoteURL="https://raw.githubusercontent.com/harleylara/ros2-intro/master/python_basics/python_basics/class.py"
 ```
 
-Don't forget to add the entry point in the `setup.py`: `class = python_basics.class:main`
+Register the executable:
 
-## Entities
+```python filename="setup.py"
+entry_points={
+    "console_scripts": [
+        "bare = my_package.bare:main",
+        "logger = my_package.logger:main",
+        "class = my_package.class:main",
+    ],
+},
+```
 
-The real power of nodes in ROS lies in their ability to contain various **ROS entities**:
-- Publisher: this entity allows a node to publish information.
-- Subscriber: allows a node to subscribe information.
-- Services
-  - service client: allows a node to **request** a service (from a service server).
-  - service server: allows a node to **response** to a request.
-- Actions
-  - action client: allows a node to **request** an ACTION service.
-  - action server: allows a node to **response** to an ACTION request.
-- Configurable parameters (run-time)
+Then build and run it:
 
-A ROS node can be composed of none, one or several ROS entities, each with their respective interfaces. We will discuss each ros entity and their respective interfaces later in this serie of notes.
+```terminal
+$ cd ~/ros2_ws
+~/ros2_ws $ colcon build --symlink-install --packages-select my_package
+~/ros2_ws $ source install/setup.bash
+~/ros2_ws $ ros2 run my_package class
+[INFO] [1785709189.542711868] [my_node]: Hello 0
+[INFO] [1785709190.035334928] [my_node]: Hello 1
+[INFO] [1785709190.535741718] [my_node]: Hello 2
+[INFO] [1785709191.035662038] [my_node]: Hello 3
+```
+
+This structure gives us a natural place to store the node’s interfaces, state, and callback functions. For that reason, the class-based approach will be used for most of the upcoming examples.
+
+## Nodes and ROS Entities
+
+A bare node demonstrates how a participant enters the ROS graph, but the real value of a node comes from the interfaces and behavior that it contains.
+
+A node may create several kinds of ROS entities:
+
+| Entity         | Purpose                                               |
+|----------------|-------------------------------------------------------|
+| Publisher      | Sends messages through a topic                        |
+| Subscription   | Receives messages from a topic                        |
+| Service client | Sends a request to a service                          |
+| Service server | Receives a request and returns a response             |
+| Action client  | Sends and manages a longer-running goal               |
+| Action server  | Executes a goal and may provide feedback and a result |
+| Timer          | Requests work at a particular time or interval        |
+| Parameter      | Stores a configurable value associated with the node  |
+
+A node may contain none, one, or several of these. It may also create multiple entities of the same type.
+
+The terms in this table are intentionally introduced only at a high level. Publishers, subscriptions, services, actions, timers, parameters, callbacks, and executors will each be explored properly in later notes.
+
+One ROS 1 distinction is worth mentioning. ROS 2 does not use the same centralized **Parameter Server** model described in older ROS 1 node definitions. In ROS 2, parameters are associated with individual nodes.
+
+For now, the important point is that a node provides the logical container in which computation, state, and ROS interfaces come together.
 
 ## External References
 
 - [Managed nodes - ROS 2 Design](https://design.ros2.org/articles/node_lifecycle.html)
 - [ROS2 from the Ground Up: Part 5- Concurrency, Executors and Callback Groups](https://medium.com/@nullbyte.in/ros2-from-the-ground-up-part-5-concurrency-executors-and-callback-groups-c45900973fd2)
 - [ROS2 from the Ground Up: Part 4- Building Robust Robotics Systems with ROS2 Composition](https://medium.com/@nullbyte.in/ros2-from-the-ground-up-part-4-building-robust-robotics-systems-with-ros2-composition-209ed023d8e5)
+- [Topic and Service Name Mapping to DDS](https://design.ros2.org/articles/topic_and_service_names.html)
+- [Remapping Names](https://design.ros2.org/articles/static_remapping.html)
+- [Passing ROS Arguments to Nodes](https://docs.ros.org/en/jazzy/How-To-Guides/Node-arguments.html)
