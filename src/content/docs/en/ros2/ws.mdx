@@ -9,14 +9,14 @@ description: "Create and manage a ROS workspaces"
 The concept of a **workspace** is independent of the ROS version. In other words, it doesn’t matter whether you’re using ROS 1 or ROS 2, both rely on the workspace concept.
 
 <Definition term="ROS workspace">
-A workspace is a directory containing **ROS packages**.
+A workspace is a *directory* containing **ROS packages**.
 
-Source: [Creating a workspace | Official documentation](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html)
+Source: [Creating a workspace | Official documentation](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html)
 </Definition>
 
-The key word in this definition is **directory**. A ROS workspace **is simply a folder** in your file system that contains **ROS packages**.
+The key word in this definition is **directory**. A ROS workspace is, at its core, **simply a folder** in your file system that contains **ROS packages**.
 
-But you may be wondering: what is a ROS package? That is a fair question. For now, think of a package as a self-contained unit that groups code, configuration files, and other resources. We will dive into the concept of ROS packages later in the note about [ROS Packages](en/ros2/pkgs).
+But you may be wondering: what is a ROS package? That is a fair question. For now, think of a package as a self-contained unit that groups code, configuration files, and other resources related to a particular piece of functionality. We will explore the concept of packages properly later in the note about [ROS Packages](/en/ros2/pkgs).
 
 ### Underlay
 
@@ -26,13 +26,19 @@ It contains the necessary dependencies of all the packages required by the 'over
 Source: [Configuring environment | Official documentation](https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html)
 </Definition>
 
-I know what you may be think, we are defining this unknown thing called "underlay" with another undefined term "overlay".
+I know what you may be thinking: we are defining this unknown thing called an "underlay" while mentioning another undefined term, "overlay".
+
+Let us take it one step at a time. In a typical ROS 2 setup, the main ROS installation acts as the underlay. For ROS 2 Jazzy Jalisco installed through Ubuntu packages, that installation is usually located at:
+
+```terminal
+$ ls /opt/ros/jazzy/
+```
+
+This installation contains the ROS packages and tools that our own workspace may depend on.
 
 <Drawio file="ros.drawio" page="2">
     Underlay workspace.
 </Drawio>
-
-Let's explore our underlay workspace: `/opt/ros/humble/`
 
 <Important>
     Keep in mind that an underlay does not necessarily have to be the main ROS 2 installation.
@@ -46,7 +52,9 @@ Extends the underlay. (You will normally work here).
 Source: [Configuring environment | Official documentation](https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html)
 </Definition>
 
-Note, that for some reason unknown to me, the terms "underlay" and "overlay" are not frequently used in the ROS community. The vast majority of people when they refer to workspace it is usually the overlay workspace.
+The overlay is normally the workspace in which you develop your own packages. It can use everything provided by the underlay while adding packages of its own. For example, the ROS 2 Jazzy installation under `/opt/ros/jazzy/` may act as the underlay, while a workspace (e.g. `~/my_ws`) under your home directory acts as the overlay.
+
+Although the terms *underlay* and *overlay* are not frequently used in everyday ROS conversations, people usually mean the overlay workspace when they refer simply to a *workspace*, since that is where active development normally takes place.
 
 <Drawio file="ros.drawio" page="3">
     Overlay workspace.
@@ -54,93 +62,123 @@ Note, that for some reason unknown to me, the terms "underlay" and "overlay" are
 
 ## Create a Workspace
 
-Create a overlay workspace is simple as creating a directory using the `mkdir` `bash` command. Just keep in mind that this directory MUST contain a `src` folder inside. Inside the `src` folder your packages will live.
+Creating an overlay workspace is almost as simple as creating a directory with the Bash command `mkdir`. By convention, a ROS 2 workspace contains a directory named `src`, which is where the source code for its packages lives.
 
-<Terminal
-    title="create a workspace"
-    content="mkdir -p ~/ros2_ws/src \
-    cd ~/ros2_ws"
-/>
+**Follow along**: Open a terminal and run the following commands to create your workspace and move into it:
 
-## Building a Workspace
-
-The build tool in ROS 2 is called `colcon` (collective construction). colcon is an iteration on the ROS build tools `catkin_make`, `catkin_make_isolated`, `catkin_tools` and `ament_tools`. 
-
-`colcon` compile, test and install packages for you. `colcon` internally uses **build systems** depending on the type of package to compile or test, [CMake](https://cmake.org/) for C++ packages and [setuptools](https://setuptools.pypa.io/en/latest/index.html) for python.
-
-Open a new terminal and try to run the following commands:
-
-<Terminal
-    title="build workspace"
-    content="cd ~/ros2_ws \
-    colcon build --symlink-install"
-/>
-
-```bash title="build-workspace"
-user@hostname:~ $ cd ~/ros2_ws
-user@hostname:~ $ colcon build --symlink-install
+```terminal
+$ mkdir -p ~/ros2_ws/src
+$ cd ~/ros2_ws
 ```
 
-Failure? Why? hint: the `ament_cmake` is a ROS package that is currently not available.
+The `-p` option tells `mkdir` to create any missing parent directories. It also prevents an error if the directory already exists.
 
-The option `--symlink-install` creates a symlink to their original locations instead of copying.
-
-This will create a three folders:
+At this point, the workspace looks like this:
 
 ```plain
 ros2_ws/
-├── build
-├── install
-├── log
-└── src
+└── src/
 ```
-- `build`
-- `install`
-- `log`
+
+There are no packages inside it yet, but the basic workspace structure is already in place.
+
+## Building a Workspace
+
+The build tool normally used in ROS 2 is called [`colcon`](https://colcon.readthedocs.io/), short for *collective construction*. `colcon` is an evolution of previous ROS build tools, including `catkin_make`, `catkin_make_isolated`, `catkin_tools`, and `ament_tools`.
+
+In simple terms, `colcon` builds, tests, and installs the packages inside a workspace. Internally, it uses the appropriate **build system** depending on the type of package. C++ packages commonly use [`ament_cmake`](https://docs.ros.org/en/jazzy/How-To-Guides/Ament-CMake-Documentation.html), which is based on [CMake](https://cmake.org/), while Python packages commonly use `ament_python`, which is based on [setuptools](https://setuptools.pypa.io/en/latest/). We will explore `colcon`, build systems, and package types in more detail later in the note about [ROS Packages](/en/ros2/pkgs). For now, let us build our workspace.
+
+If you are following along, open a new terminal and run:
+
+```terminal
+$ cd ~/ros2_ws
+~/ros2_ws $ colcon build --symlink-install
+```
 
 <Important>
-    You should always run the build command from the ROOT of the workspace.
+Always run `colcon build` from the **root of the workspace**, not from inside the `src` directory.
 </Important>
 
-External resources:
-- [A universal build tool](https://design.ros3.org/articles/build_tool.html)
+The `--symlink-install` option tells `colcon` to create symbolic links to certain files in their original locations instead of copying them into the installation directory. This is useful during development because some changes can be reflected without rebuilding or copying the files again.
 
-## Source a Workspace (Activate it)
+After running the build command, the workspace will contain the following directories:
 
-**Workspace activation (source)** is accumulative.
+```plain
+ros2_ws/
+├── build/    # intermediate files generated while building each package.
+├── install/  # installed results of the build, including executables, libraries, resources, and environment setup files.
+├── log/      # logs generated by `colcon`, which are particularly useful when investigating build failures.
+└── src/      # contains the source code for the packages in the workspace.
+```
 
-Don't forget to source your underlay in EVERY terminal you open.
-
-We do this to update our local package index (the packages intalled in our machine or robot).
-
-<Terminal
-    title="source underlay"
-    content="source /opt/ros/humble/setup.bash"
-/>
-
-<Terminal
-    title="source overlay"
-    content="source install/local_setup.bash"
-/>
-
-External reference on sourcing [here](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#source-the-overlay)
-
-What is the diference on `setup.bash` in the underlay an `local_setup.bash` in the overlay?
-
-- `setup.bash` in the underlay under `/opt/ros/<DISTO>/setup.bash` enables all the packages in the underlay.
-- `local_setup.bash` in the overlay under (usually) `~/<YOUR WORKSPACE>/install/local_setup.bash` enables the ONLY the current workspace.
-- `setup.bash` in the overlay under `~/<YOUR WORKSPACE>/install/setup.bash` enables the current workspace as well as the underlay it was created in.
+For more information about the motivation behind `colcon`, see [A universal build tool](https://design.ros2.org/articles/build_tool.html).
 
 <Important>
-    You may need to re-source the workspace after adding new packages.
+Each terminal starts with its own environment. Opening a new terminal means that neither the ROS installation nor our workspace is automatically available there.
 </Important>
+
+## Sourcing a Workspace
+
+After building the workspace, notice that `colcon` created an `install/` directory. Among the files placed there are setup scripts that allow the workspace to be used from a terminal.
+
+Building and sourcing are therefore two separate steps:
+1. **Building** creates and installs the results of the packages in the workspace.
+2. **Sourcing** makes those installed results available to the current terminal.
+
+Our workspace is currently empty, so the previous build may have completed without needing anything from ROS 2. Once we add packages, however, the relationship between the underlay and the overlay becomes important.
+
+Remember that `~/ros2_ws` is our overlay and the ROS 2 installation under `/opt/ros/jazzy/` is its underlay. Packages in the overlay may depend on packages and build systems provided by that underlay. For this reason, we normally source the underlay before building the overlay:
+
+```terminal title="Source_the_underlay"
+$ source /opt/ros/jazzy/setup.bash
+$ cd ~/ros2_ws
+~/ros2_ws $ colcon build --symlink-install
+```
+
+After the build finishes, we source the overlay to make its packages available in the current terminal:
+
+```terminal title="Source_the_overlay"
+~/ros2_ws $ source install/local_setup.bash
+```
+
+Sourcing workspaces is cumulative, and the order matters: first the underlay, then the overlay.
+
+```terminal
+$ source /opt/ros/jazzy/setup.bash
+$ source ~/ros2_ws/install/local_setup.bash
+```
+
+Alternatively, the overlay provides a `setup.bash` file that also includes the underlay chain associated with it:
+
+```terminal
+$ source ~/ros2_ws/install/setup.bash
+```
+
+For now, you can think of sourcing as the step that makes a ROS installation or workspace available to the current terminal. Each new terminal starts with its own environment, so the required setup files must be sourced again.
+
+<Important>
+A good practice is to build the overlay in a terminal where only the underlay has been sourced. After building, source the overlay before trying to use its packages.
+</Important>
+
+The exact effect of sourcing, the differences between the generated setup files, and how ROS discovers installed packages will make more sense once we introduce packages. We will revisit all of this in more detail in [ROS Packages](/en/ros2/pkgs).
+
+See [Source the overlay](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#source-the-overlay) in the official documentation.
 
 ## Sourcing Tips
 
-If you want to automate the process of sourcing the underlaying workspace you can use the power of bash in linux:
+Manually sourcing the ROS 2 underlay every time you open a new terminal can become repetitive. As a developer convenience, you can ask Bash to run the sourcing command automatically whenever a new terminal starts.
 
-<Terminal
-    title=""
-    content="echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc"
-/>
+Adding this command to `~/.bashrc` is not required by ROS. It is simply a Bash configuration that automatically sources the ROS environment and saves you from typing the command each time you open a terminal.
+```terminal
+$ echo 'source /opt/ros/jazzy/setup.bash' >> ~/.bashrc
+```
 
+The `~/.bashrc` file contains commands that Bash executes when opening a new interactive terminal. After adding the line, every new Bash terminal will automatically source the ROS 2 Jazzy underlay.
+
+To apply the change to the terminal that is already open, run:
+
+```terminal
+$ source ~/.bashrc
+```
+
+Automatic sourcing is convenient when you normally work with one ROS distribution. However, if you use multiple ROS distributions or switch between different workspace chains, it can make the active environment less obvious. In those cases, sourcing the required setup files manually may be clearer and less error-prone.
