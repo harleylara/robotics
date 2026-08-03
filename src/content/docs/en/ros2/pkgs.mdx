@@ -54,11 +54,7 @@ Create the package inside the `src` directory of the workspace:
 
 ```terminal title="Create my_package"
 $ cd ~/ros2_ws/src
-~/ros2_ws/src $ ros2 pkg create \
-  --build-type ament_python \
-  --license Apache-2.0 \
-  --dependencies rclpy std_msgs \
-  my_package
+~/ros2_ws/src $ ros2 pkg create --build-type ament_python my_package
 ```
 
 For now, the most relevant parts of this command are:
