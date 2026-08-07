@@ -10,7 +10,7 @@ Under the hood, a ROS 2 action is built from three services (`send_goal`, `cance
 
 ```plain title="NavigateToPose.action"
 # Goal. Access this part by using <YourActionType>.Goal
-geometry_msgs/PoseStamped pose
+geometry_msgs/PoseStamped target_pose
 ---
 # Result. Access this part by using <YourActionType>.Result
 bool success
@@ -21,7 +21,7 @@ float32 distance_remaining
 
 ## Minimal Toy Action Server
 
-```
+```python
 import math
 import time
 
@@ -53,8 +53,8 @@ class NavigateServer(Node):
         # Read target from client's goal
         # -----------------------------------------
 
-        target_x = goal_handle.request.pose.pose.position.x
-        target_y = goal_handle.request.pose.pose.position.y
+        target_x = goal_handle.request.target_pose.pose.position.x
+        target_y = goal_handle.request.target_pose.pose.position.y
 
         self.get_logger().info(
             f'Going to ({target_x:.1f}, {target_y:.1f})'
@@ -183,7 +183,7 @@ rclpy.action.server.ActionServer(
 
 ## Minimal Toy Action Client
 
-```
+```python
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
