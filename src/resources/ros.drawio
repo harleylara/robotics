@@ -539,7 +539,7 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-17" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="msg type: &lt;b&gt;my_pkg/custom1.msg&lt;/b&gt;" vertex="1">
-          <mxGeometry height="30" width="190" x="540" y="240" as="geometry" />
+          <mxGeometry height="30" width="190" x="570" y="240" as="geometry" />
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-25" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;fontFamily=Lucida Console;spacing=17;" value="&lt;div&gt;# this is a comment&lt;/div&gt;int32 my_int&lt;br&gt;string MY_CONS_STR=&quot;LiDAR&quot;&lt;br&gt;string my_robot_name &quot;John Bot&quot;" vertex="1">
           <mxGeometry height="95" width="270" x="490" y="270" as="geometry" />
