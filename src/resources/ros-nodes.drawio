@@ -1,4 +1,4 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.2.9 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.2.9">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.2.9 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.2.9" pages="2">
   <diagram name="entry" id="-fmLWesuxfHuVlHm4Eb1">
     <mxGraphModel dx="475" dy="308" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -66,6 +66,107 @@
             <mxPoint x="595" y="362" as="sourcePoint" />
             <mxPoint x="625" y="362" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="o1m8zuG0kqsaEiYGfkKP" name="entities">
+    <mxGraphModel dx="1003" dy="725" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-23" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="200" width="220" x="520" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-24" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=16;" value="Node B" vertex="1">
+          <mxGeometry height="30" width="60" x="600" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="200" width="220" x="120" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-13" edge="1" parent="1" source="AJdlTN_tbo2eAySBYY8w-7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="AJdlTN_tbo2eAySBYY8w-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Publisher" vertex="1">
+          <mxGeometry height="20" width="80" x="240" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Subscription" vertex="1">
+          <mxGeometry height="20" width="90" x="540" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-15" edge="1" parent="1" source="AJdlTN_tbo2eAySBYY8w-9" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="AJdlTN_tbo2eAySBYY8w-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Service Client" vertex="1">
+          <mxGeometry height="20" width="80" x="240" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Service Server" vertex="1">
+          <mxGeometry height="20" width="90" x="540" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-25" edge="1" parent="1" source="AJdlTN_tbo2eAySBYY8w-11" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="AJdlTN_tbo2eAySBYY8w-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Action Server" vertex="1">
+          <mxGeometry height="20" width="80" x="240" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Action Client" vertex="1">
+          <mxGeometry height="20" width="80" x="540" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Timer" vertex="1">
+          <mxGeometry height="20" width="80" x="140" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="Parameter" vertex="1">
+          <mxGeometry height="20" width="80" x="140" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-18" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="Parameter" vertex="1">
+          <mxGeometry height="20" width="80" x="140" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-22" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=16;" value="Node A" vertex="1">
+          <mxGeometry height="30" width="60" x="200" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-26" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Interface: &lt;/span&gt;Topic" vertex="1">
+          <mxGeometry height="20" width="100" x="380" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-27" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Data type: &lt;/span&gt;Message" vertex="1">
+          <mxGeometry height="20" width="120" x="370" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-28" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Interface: &lt;/span&gt;Service" vertex="1">
+          <mxGeometry height="20" width="100" x="380" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-29" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Data type: &lt;/span&gt;Service" vertex="1">
+          <mxGeometry height="20" width="120" x="370" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-30" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Interface: &lt;/span&gt;Action" vertex="1">
+          <mxGeometry height="20" width="100" x="380" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-31" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Data type: &lt;/span&gt;Action" vertex="1">
+          <mxGeometry height="20" width="120" x="370" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-32" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="Parameter" vertex="1">
+          <mxGeometry height="20" width="80" x="140" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-33" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="Parameter" vertex="1">
+          <mxGeometry height="20" width="80" x="140" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-36" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="Parameter" vertex="1">
+          <mxGeometry height="20" width="80" x="640" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-37" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="Parameter" vertex="1">
+          <mxGeometry height="20" width="80" x="640" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-39" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=2" value="Nodes are composable: a single node may contain any combination of publishers, subscriptions, service clients, service servers, action clients, action servers, timers, parameters, and other supported entities. The exact set of entities depends on the role and behavior of the node." vertex="1">
+          <mxGeometry height="70" width="400" x="230" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-40" edge="1" parent="1" source="AJdlTN_tbo2eAySBYY8w-41" style="curved=1;endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;dashed=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="86" y="195" />
+            </Array>
+            <mxPoint x="56" y="165" as="sourcePoint" />
+            <mxPoint x="140" y="187" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AJdlTN_tbo2eAySBYY8w-41" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="A node is internally compose of entities" vertex="1">
+          <mxGeometry height="60" width="70" x="20" y="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
