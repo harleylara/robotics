@@ -534,27 +534,27 @@
     </mxGraphModel>
   </diagram>
   <diagram id="YUsjDW8Jm7C6OUPAw_Wv" name="message-basic">
-    <mxGraphModel dx="478" dy="346" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="609" dy="441" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-17" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="msg type: &lt;b&gt;my_pkg/custom1.msg&lt;/b&gt;" vertex="1">
           <mxGeometry height="30" width="190" x="540" y="240" as="geometry" />
         </mxCell>
-        <mxCell id="nvsdWwnMc4sa8-ZOwwJH-25" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;fontFamily=Lucida Console;spacing=17;" value="&lt;div&gt;# this is a comment&lt;/div&gt;int32 my_int&lt;br&gt;string CONS_STR=&quot;LiDAR&quot;&lt;br&gt;string robot_name &quot;John Bot&quot;" vertex="1">
-          <mxGeometry height="95" width="240" x="490" y="270" as="geometry" />
+        <mxCell id="nvsdWwnMc4sa8-ZOwwJH-25" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;fontFamily=Lucida Console;spacing=17;" value="&lt;div&gt;# this is a comment&lt;/div&gt;int32 my_int&lt;br&gt;string MY_CONS_STR=&quot;LiDAR&quot;&lt;br&gt;string my_robot_name &quot;John Bot&quot;" vertex="1">
+          <mxGeometry height="95" width="270" x="490" y="270" as="geometry" />
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-9" parent="1" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;rotation=-180;" value="" vertex="1">
           <mxGeometry height="10" width="41.5" x="508.5" y="348" as="geometry" />
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-10" parent="1" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;rotation=-180;" value="" vertex="1">
-          <mxGeometry height="10" width="71" x="559" y="348" as="geometry" />
+          <mxGeometry height="10" width="90" x="559" y="348" as="geometry" />
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-12" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="field type" vertex="1">
           <mxGeometry height="30" width="47" x="505.75" y="383" as="geometry" />
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-13" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="field name" vertex="1">
-          <mxGeometry height="30" width="48" x="570.5" y="383" as="geometry" />
+          <mxGeometry height="30" width="48" x="580" y="383" as="geometry" />
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-15" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
@@ -564,20 +564,20 @@
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-16" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;exitX=0.431;exitY=0.028;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
-            <mxPoint x="594.4599999999998" y="383.84000000000003" as="sourcePoint" />
-            <mxPoint x="594.54" y="358" as="targetPoint" />
+            <mxPoint x="603.9599999999998" y="383.84000000000003" as="sourcePoint" />
+            <mxPoint x="604.04" y="358" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-21" parent="1" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;rotation=-180;" value="" vertex="1">
-          <mxGeometry height="10" width="67" x="640" y="348" as="geometry" />
+          <mxGeometry height="10" width="67" x="663" y="348" as="geometry" />
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-22" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="default value" vertex="1">
-          <mxGeometry height="30" width="60" x="643.5" y="383" as="geometry" />
+          <mxGeometry height="30" width="60" x="666.5" y="383" as="geometry" />
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-23" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;exitX=0.431;exitY=0.028;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
-            <mxPoint x="673.4599999999998" y="383.84000000000003" as="sourcePoint" />
-            <mxPoint x="673.54" y="358" as="targetPoint" />
+            <mxPoint x="696.4599999999998" y="383.84000000000003" as="sourcePoint" />
+            <mxPoint x="696.54" y="358" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="nvsdWwnMc4sa8-ZOwwJH-26" edge="1" parent="1" source="nvsdWwnMc4sa8-ZOwwJH-27" style="endArrow=classic;html=1;rounded=0;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" value="">
