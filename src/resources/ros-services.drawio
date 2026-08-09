@@ -47,7 +47,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="cwYleCi-Kba5W_RizCjj" name="service">
-    <mxGraphModel dx="942" dy="681" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+    <mxGraphModel dx="863" dy="624" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -136,6 +136,30 @@
         </mxCell>
         <mxCell id="KI651KSFxMLOmiDc7Hly-53" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Node: /controller" vertex="1">
           <mxGeometry height="30" width="140" x="30" y="175" as="geometry" />
+        </mxCell>
+        <mxCell id="KI651KSFxMLOmiDc7Hly-55" edge="1" parent="1" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;" target="KI651KSFxMLOmiDc7Hly-52" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="270" />
+            </Array>
+            <mxPoint x="80" y="280" as="sourcePoint" />
+            <mxPoint x="120" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KI651KSFxMLOmiDc7Hly-56" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Entity inside the node" vertex="1">
+          <mxGeometry height="30" width="60" x="20" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="KI651KSFxMLOmiDc7Hly-58" edge="1" parent="1" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;" target="KI651KSFxMLOmiDc7Hly-48" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="752.5" y="260" />
+            </Array>
+            <mxPoint x="792.5" y="270" as="sourcePoint" />
+            <mxPoint x="747.5" y="215" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KI651KSFxMLOmiDc7Hly-59" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Entity inside the node" vertex="1">
+          <mxGeometry height="30" width="60" x="793" y="255" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
