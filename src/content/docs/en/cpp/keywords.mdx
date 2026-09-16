@@ -1,0 +1,36 @@
+---
+title: Chameleons Keywords
+description: Context-Dependent Keywords in C++
+---
+
+
+This note start inpered on the cool talk [Back to Basics: Master the static, inline, const, and constexpr C++ Keywords - Andreas Fertig (Youtube)](https://www.youtube.com/watch?v=hLakx0KYiR0)
+
+## `static`
+
+<Drawio file="cpp-keywords.drawio" page="1">
+</Drawio>
+
+- `static` function (related to free functions)
+- `static` variable (related to free functions)
+- `static` data-members (related to classes)
+- `static` member-function (related to classes)
+
+## `inline`
+
+- `inline` function
+- `inline` `static` data-members
+- `inline` member-function
+
+## `const`
+
+"cv-qualifier" const and volatile qualifier.
+
+```cpp
+char              robert{};
+const char        amy{};    // top-level qualifier
+char*             bill{};
+const char*       alfred{}; // pointing to constant memory
+char* const       linda{};  // top-level qualifier
+const char* const melissa{} // pointing to constant memory + top-level qualifier
+```

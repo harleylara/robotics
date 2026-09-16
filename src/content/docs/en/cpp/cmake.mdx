@@ -3,24 +3,138 @@ title: CMake
 description: Some things I wish I had understood earlier about CMake
 ---
 
-The key concept on CMake is: `target`
+## Why CMake?
 
+The Problem that CMake is Trying to Address
+
+## History
+
+In some of my notes, I like to point to resources that provide historical context for the motivation behind certain things. In this case, see @hoffman2011cmake as a chapter in [The Architecture of Open Source Applications Volume 1](https://aosabook.org/en/).
+
+Also check the [History of CMake - cmake.org](https://cmake.org/history/)
+
+People where scripting Makefiles in UNIX the build process in a platform-specific way.
+
+## Key Terms and Concepts
+
+The key concept on CMake is: `target`.
 
 > A CMake-based buildsystem is organized as a set of high-level logical targets. Each target corresponds to an executable or library, or is a custom target containing custom commands. Dependencies between the targets are expressed in the buildsystem to determine the build order and the rules for regeneration in response to change.
 >
 > [CMake Docs - cmake-buildsystem(7) Introduction](https://cmake.org/cmake/help/v4.2/manual/cmake-buildsystem.7.html#introduction)
 
-It kickoff stating what cmake is, and mention the core concept of `targets`. I was suprising for search the whole the CMake documentation and not be able to find what CMake Defined as a target (to the best of my knowled at the time of writing Nov. 2025), it mention the type of targets but what is a target itself ?
+It kicks off by stating what CMake is and introducing the core concept of targets. I was surprised that, after searching through the entire CMake documentation, **I could not find where CMake defines what a target is** (to the best of my knowledge at the time of writing this paragraph, Nov. 2025). The documentation mentions the types of targets, but what is a target itself?
 
-We can say that: A target is a named node in CMake’s build graph that carries properties (sources, compile options/defs, link libs, usage requirements) and dependency edges.
+We can say that: A target is a **named node in CMake’s build graph** that carries properties (sources, compile options/defs, link libs, usage requirements) and dependency edges.
 
-> Targets names created with `add_executable()`, `add_library()`, or `add_custom_target()` are logical build target names. Logical target names must be globally unique.
+> Targets names created with the **commands** `add_executable()`, `add_library()`, or `add_custom_target()` are **logical build target** names. Logical target **names must be globally unique**.
+
+The first concept to address is the "logical build target". As mentioned before, a logical build target is a named node in CMake's build graph, and its name must be globally unique within a project. It is important to understand that the "logical target name" **does not** necessarily correspond to the name of the output artifact produced by that target. We will explore this distinction in more detail in the following section [Logical Targets](#logical-targets).
+
+The second thing that I want to point out is the terminology. In most programming language, something like `add_executable()` would be called a function. In CMake terminology, however, it is called a **command invocation**, as defined in the [official of documentation](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html?#command-invocations). Rather than presenting CMake as language in the same way the official [CMake Language](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html) documentation does, I want to introduce it incrementally, through discovery. As we move through this note we will encounter new commands as they become relevant. For consistency I will refer to them as **commands** (refering to the long wording **command-invocation**), even though it may feel more natural to call them functions.
+
+
+## Logical Targets
+
+In CMake the "logical target" is the broad conceptual model
+
+```plain
+── Logical target concept
+    ├─ Buildsystem target
+    │  ├─ Binary target
+    │  │  ├─ Executable target
+    │  │  └─ Library target
+    │  │     ├─ Static library
+    │  │     ├─ Shared library
+    │  │     ├─ Module library
+    │  │     └─ Object library
+    │  ├─ Custom target / utility target
+    │  └─ Interface library with generated buildsystem presence
+    └─ Pseudo target
+       ├─ Imported target
+       ├─ Alias target
+       └─ Interface library without generated buildsystem presence
+```
+
+
+| Target type         | Created with command                   | Purpose                                                                                                                                  |
+| ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `EXECUTABLE`        | `add_executable(name ...)`     | Builds an executable program. ([cmake.org][1])                                                                                           |
+| `STATIC_LIBRARY`    | `add_library(name STATIC ...)` | Builds a static archive, for example `.a` or `.lib`. ([cmake.org][2])                                                                    |
+| `SHARED_LIBRARY`    | `add_library(name SHARED ...)` | Builds a shared/dynamic library, for example `.so`, `.dll`, or `.dylib`. ([cmake.org][2])                                                |
+| `MODULE_LIBRARY`    | `add_library(name MODULE ...)` | Builds a plugin-style library loaded at runtime, not normally linked by other targets. ([cmake.org][2])                                  |
+| `OBJECT_LIBRARY`    | `add_library(name OBJECT ...)` | Compiles sources to object files without archiving or linking them. ([cmake.org][2])                                                     |
+| `INTERFACE_LIBRARY` | `add_library(name INTERFACE)`  | Carries usage requirements such as include dirs, compile definitions, link options, etc.; usually produces no artifact. ([cmake.org][2]) |
+| Custom target       | `add_custom_target(name ...)`  | Runs custom build commands; has no output file and is always considered out of date. ([cmake.org][3])                                    |
+
+[1]: https://cmake.org/cmake/help/latest/command/add_executable.html "add_executable — CMake 4.3.3 Documentation"
+[2]: https://cmake.org/cmake/help/latest/command/add_library.html "add_library — CMake 4.3.3 Documentation"
+[3]: https://cmake.org/cmake/help/latest/command/add_custom_target.html "add_custom_target — CMake 4.3.3 Documentation"
+
+For more programming oritented-minded people is worth mention the nice analogy of target done by [Manuel Binna](https://gist.github.com/mbinna) in his excellent gist [Effective Modern CMake](https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1).
+
+```plain
+Imagine targets as **objects**.
+
+Calling the member functions modifies the member variables of the object.
+
+Analogy to constructors:
+- `add_executable(named_target_here)`
+- `add_library(named_target_here)`
+- `add_custom_target(named_target_here)`
+
+Analogy to member variables:
+- target properties (too many to list here)
+
+Analogy to member functions:
+- `target_compile_definitions(named_target_here <OPTIONS>)`
+- `target_compile_features()`
+- `target_compile_options()`
+- `target_include_directories()`
+- `target_link_libraries()`
+- `target_sources()`
+- `get_target_property()`
+- `set_target_property()`
+```
+
+
+## The Project Definition
+
+```cmake filename="CMakeLists.txt" remoteURL="https://raw.githubusercontent.com/harleylara/cmake-intro/refs/heads/main/001-hello/CMakeLists.txt"
+```
+
+How to select the best `cmake_minimun_required()`? I'll recommend to check the section [Selecting a minimum in 2025](https://cliutils.gitlab.io/modern-cmake/dodonot/#selecting-a-minimum-in-2025) in the book [Modern CMake by Henry Schreiner](https://cliutils.gitlab.io/modern-cmake/).
+
 
 ## The command `add_*`
 
 In the conceptual model of cmake as a graph (in practice is simular with some extra structures), a target is a **node** in the graph and the command `add_executable()` for example is a way to **add** a note (type executable hence binary target)
 
+## Variables and Properties
+
+| Use case                                  | Prefer                                                 |
+| ----------------------------------------- | ------------------------------------------------------ |
+| Internal variable                         | `set()`                                                |
+| String/list/path value                    | `set()`                                                |
+| Boolean user-facing build toggle          | `option()`                                             |
+| Cache variable with non-boolean type      | `set(... CACHE ...)`                                   |
+| Force override of an existing cache value | `set(... CACHE ... FORCE)`, but avoid unless necessary |
+
+all [CMAKE variables](https://cmake.org/cmake/help/latest/manual/cmake-variables.7.html)
+
+```cmake
+set_property(TARGET TargetName
+             PROPERTY CXX_STANDARD 11)
+
+set_target_properties(TargetName PROPERTIES
+                      CXX_STANDARD 11)
+```
+
+and [cmake-properties(7)](https://cmake.org/cmake/help/latest/manual/cmake-properties.7.html)
+
 ## External Resources
 
 - [CMake Tutorial](https://cmake.org/cmake/help/latest/guide/tutorial/index.html)
-- [An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/README.html)
+- [An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/)
+
+## References
