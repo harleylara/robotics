@@ -1,39 +1,92 @@
 ---
 import type { MarkdownHeading } from 'astro';
-import BaseContainer from '../Globals/BaseContainer.astro';
-import Toc from  '../PageContent/Toc.astro'
+import Toc from '../PageContent/Toc.astro';
 import CitationInteractions from '../Globals/CitationInteractions.astro';
+import Hr from '../Globals/Hr.astro'
 
 type Props = {
   title: string;
   headings: MarkdownHeading[];
-  description: string,
+  description: string;
   githubEditUrl: string;
   toc?: boolean;
 };
 
-const { title, headings, description, githubEditUrl, toc } = Astro.props;
+const {
+  title,
+  headings,
+  description,
+  githubEditUrl,
+  toc
+} = Astro.props;
 ---
 
-<article id="article" class="content mx-6 max-w-[700px] min-w-0">
+<article
+  id="article"
+  class="content mx-6 max-w-[700px] min-w-0"
+>
   <section class="main-section">
-    <div class="my-10 border-l-2 border-white">
-      <div class="w-fit px-2 py-1">
-        <h1 class="text-5xl font-bold font-outfit">{title}</h1>
-      </div>
-      <p class="text-xl text-dark font-thin pt-2 pl-2 font-outfit">{description}</p>
-      <span class="bg-red-500 h-px w-2"></span>
-    </div>
+
+    <header
+      class="
+        mt-10 mb-16
+        font-roboto
+      "
+    >
+      <h1
+        class="
+          m-0
+          max-w-[10ch]
+          text-[clamp(3rem,15vw,4.75rem)]
+          sm:max-w-[10.5ch]
+          sm:text-[clamp(3.25rem,8vw,5.35rem)]
+          font-normal
+          leading-[0.96]
+          sm:leading-[0.94]
+          tracking-[-0.043em]
+          sm:tracking-[-0.046em]
+          text-balance
+        "
+      >
+        {title}
+      </h1>
+
+      <p
+        class="
+          mt-4
+          sm:mt-[1.4rem]
+          mb-2
+          max-w-[28rem]
+          sm:max-w-[34rem]
+          text-[0.92rem]
+          sm:text-[clamp(0.9rem,1.4vw,0.98rem)]
+          font-light
+          leading-[1.6]
+          sm:leading-[1.58]
+          tracking-[-0.003em]
+          text-pretty
+        "
+      >
+        {description}
+      </p>
+
+      <Hr/>
+    </header>
 
     {toc && (
-      <div class="flex items-center justify-center w-full py-2">
-        <p2 className="heading">Content Outline</p2>
-      </div>
-      <hr class="h-px border-0 bg-gradient-to-r from-transparent via-dark-100 to-transparent" />
-      <Toc></Toc>
+      <>
+        <div class="flex w-full items-center justify-center py-2">
+          <p class="heading">
+            Content Outline
+          </p>
+        </div>
+
+        <Toc />
+      </>
     )}
 
     <slot />
   </section>
+
   <CitationInteractions />
 </article>
