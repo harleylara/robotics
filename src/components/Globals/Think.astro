@@ -1,14 +1,43 @@
----
-const { content } = Astro.props;
+<aside
+  class="
+  relative
+  mt-6
+  border-l border-primary-blue
+  pb-6
 
-let html: string =  ""
+  before:absolute
+  before:left-0
+  before:top-0
+  before:h-px
+  before:w-16
+  before:bg-primary-blue
 
-if (Astro.slots.has("default")) {
-  html = await Astro.slots.render("default")
-}
----
+  after:absolute
+  after:bottom-0
+  after:left-0
+  after:h-px
+  after:w-full
+  after:bg-gradient-to-r
+  after:from-primary-blue
+  after:from-50%
+  after:to-transparent
+  "
+>
+  <header class="px-6 pt-4">
+    <span
+      class="
+      font-mono
+      text-[10px]
+      font-medium
+      uppercase
+      tracking-[0.2em]
+      "
+    >
+      Think for a moment:
+    </span>
+  </header>
 
-<aside class="bg-dark-49 text-primary-white dark:text-white pl-4 py-2 mt-6 border-l-8 border-l-blue-900 text-justify">
-    <p class="font-bold">Just think for a moment:</p>
-    <p class="mt-2" set:html={html}></p>
+  <div class="px-6">
+    <slot />
+  </div>
 </aside>

@@ -11,6 +11,9 @@
   --color-dark-100: #333333;
   --color-dark-200: #494949;
   --color-primary-white: #d1d5db;
+  --color-primary-green: var(--color-green-900);
+  --color-primary-red: var(--color-red-900);
+  --color-primary-blue: var(--color-blue-900);
 }
 
 .csl-entry {
@@ -23,19 +26,19 @@
 
 [data-tooltip]::after {
   @apply absolute invisible opacity-0
-         bg-dark-100 text-white text-sm py-2 px-3
-         w-max max-w-xs break-words text-left z-50
-         left-1/2 transform -translate-x-1/2 bottom-full mb-2 border
-         shadow-lg transition-opacity duration-200;
+  bg-dark-100 text-white text-sm py-2 px-3
+  w-max max-w-xs break-words text-left z-50
+  left-1/2 transform -translate-x-1/2 bottom-full mb-2 border
+  shadow-lg transition-opacity duration-200;
   content: attr(data-tooltip);
 }
 
 [data-tooltip]::before {
   @apply absolute invisible opacity-0
-         w-0 h-0 z-50
-         left-1/2 transform -translate-x-1/2 bottom-full
-         border-solid border-8 border-transparent border-t-gray-800
-         transition-opacity duration-200;
+  w-0 h-0 z-50
+  left-1/2 transform -translate-x-1/2 bottom-full
+  border-solid border-8 border-transparent border-t-gray-800
+  transition-opacity duration-200;
   content: '';
   margin-bottom: -6px;
 }
@@ -47,4 +50,5 @@
 
 math {
   @apply mt-6;
+  font-size: 1.1em;
 }

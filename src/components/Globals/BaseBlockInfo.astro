@@ -1,0 +1,76 @@
+---
+export interface Props {
+  label: string;
+  tone: "green" | "red";
+}
+
+const { label, tone } = Astro.props;
+
+const tones = {
+  green: {
+    border: "border-primary-green",
+    background: "bg-primary-green/20",
+    divider: "bg-primary-green",
+    gradient: "after:from-primary-green",
+  },
+  red: {
+    border: "border-primary-red",
+    background: "bg-primary-red/20",
+    divider: "bg-primary-red",
+    gradient: "after:from-primary-red",
+  },
+};
+
+const style = tones[tone];
+const hasHeading = Astro.slots.has("heading");
+---
+
+<aside
+  class:list={[
+    "relative mt-6 border-l pb-6",
+    "after:absolute after:bottom-0 after:left-0",
+    "after:h-px after:w-full",
+    "after:bg-gradient-to-r after:from-50% after:to-transparent",
+    style.border,
+    style.gradient,
+  ]}
+>
+  <div
+    class:list={[
+      "relative inline-flex items-center gap-3",
+      "border-y border-r",
+      "px-4 py-2.5",
+      style.border,
+      style.background,
+    ]}
+  >
+    <span
+      class="
+        font-mono
+        text-[10px]
+        font-medium
+        uppercase
+        tracking-[0.2em]
+      "
+    >
+      {label}
+    </span>
+
+    {
+      hasHeading && (
+        <>
+          <span
+            aria-hidden="true"
+            class:list={["h-3 w-px", style.divider]}
+          />
+
+          <slot name="heading" />
+        </>
+      )
+    }
+  </div>
+
+  <div class="px-6">
+    <slot />
+  </div>
+</aside>

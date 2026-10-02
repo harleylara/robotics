@@ -1,18 +1,7 @@
 ---
-let html: string =  ""
-
-if (Astro.slots.has("default")) {
-  html = await Astro.slots.render("default")
-}
-
-
+import BaseBlockInfo from "./BaseBlockInfo.astro";
 ---
 
-<div class="mt-6 border-l-8 border-l-red-900 pl-4 py-2">
-    <p class="font-bold">Important:</p>
-    <div class="bg-primary-dark italic" set:html={html}>
-    </div>
-</div>
-
-
-
+<BaseBlockInfo label="Important" tone="red">
+  <slot />
+</BaseBlockInfo>
