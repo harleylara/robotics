@@ -1,0 +1,78 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.2.9 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.2.9" pages="2">
+  <diagram name="Page-1" id="cp0X7IsTHHXlO53lEwqf">
+    <mxGraphModel dx="751" dy="541" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NrFxHoyUm5q6mI4nXjuW-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Open Standard" vertex="1">
+          <mxGeometry height="40" width="250" x="80" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="NrFxHoyUm5q6mI4nXjuW-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Open Hardware" vertex="1">
+          <mxGeometry height="40" width="120" x="80" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="NrFxHoyUm5q6mI4nXjuW-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Closed Hardware" vertex="1">
+          <mxGeometry height="40" width="120" x="210" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="NrFxHoyUm5q6mI4nXjuW-4" edge="1" parent="1" style="curved=1;endArrow=classic;html=1;rounded=0;dashed=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="130" />
+            </Array>
+            <mxPoint x="390" y="150" as="sourcePoint" />
+            <mxPoint x="340" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NrFxHoyUm5q6mI4nXjuW-5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="It could be fully or partially compliant with the open standard." vertex="1">
+          <mxGeometry height="60" width="110" x="370" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="NrFxHoyUm5q6mI4nXjuW-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Open Software&lt;div&gt;(Autopilot)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="250" x="80" y="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="6y4FGAkow6nD5xDXTujf" name="drone-tech-stack">
+    <mxGraphModel dx="531" dy="5063" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Flight controller hardware" vertex="1">
+          <mxGeometry height="40" width="160" x="40" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Connectors and buses" vertex="1">
+          <mxGeometry height="20" width="160" x="40" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Autopilot firmware" vertex="1">
+          <mxGeometry height="40" width="160" x="40" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Communication" vertex="1">
+          <mxGeometry height="40" width="160" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Ground Control" vertex="1">
+          <mxGeometry height="40" width="160" x="40" y="-30" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;" value="&quot;Smart&quot; Autonomy Stack" vertex="1">
+          <mxGeometry height="40" width="160" x="40" y="-80" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-7" parent="1" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;rotation=90;" value="" vertex="1">
+          <mxGeometry height="10" width="60" x="184.75" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Standardization" vertex="1">
+          <mxGeometry height="30" width="80" x="230" y="135" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-9" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Standardization" vertex="1">
+          <mxGeometry height="30" width="80" x="230" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-10" parent="1" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;rotation=90;" value="" vertex="1">
+          <mxGeometry height="10" width="39.5" x="195" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-11" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Standardization?" vertex="1">
+          <mxGeometry height="30" width="90" x="230" y="-75" as="geometry" />
+        </mxCell>
+        <mxCell id="nZmrrHJlIVLZ7TQ8_rVp-12" parent="1" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;rotation=90;" value="" vertex="1">
+          <mxGeometry height="10" width="39.5" x="195" y="-65" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
